@@ -9,6 +9,7 @@ use yii\web\IdentityInterface;
 use app\modules\ModUsuarios\models\Utils;
 use kartik\password\StrengthValidator;
 use yii\web\UploadedFile;
+use app\models\AuthItem;
 
 /**
  * This is the model class for table "ent_usuarios".
@@ -193,14 +194,14 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 		return [ 
 				'id_usuario' => 'Id Usuario',
 				'txt_token' => 'Txt Token',
-				'txt_username' => 'Txt Username',
-				'txt_apellido_paterno' => 'Txt Apellido Paterno',
-				'txt_apellido_materno' => 'Txt Apellido Materno',
+				'txt_username' => 'Nombre',
+				'txt_apellido_paterno' => 'Apellido paterno',
+				'txt_apellido_materno' => 'Apellido materno',
 				'txt_auth_key' => 'Txt Auth Key',
 				'txt_password_hash' => 'Txt Password Hash',
 				'txt_password_reset_token' => 'Txt Password Reset Token',
-				'txt_email' => 'Txt Email',
-				'fch_creacion' => 'Fch Creacion',
+				'txt_email' => 'Correo electrónico',
+				'fch_creacion' => 'Fecha creación',
 				'fch_actualizacion' => 'Fch Actualizacion',
 				'id_status' => 'Id Status' 
 		];
@@ -536,4 +537,54 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 			return $usuarioFacebook;
 		}
 	}
+
+	public static function getUsuarioLogueado(){
+		$usuario = Yii::$app->user->identity;
+
+		if(!$usuario){
+			$usuario = new EntUsuarios();
+		}
+
+		return $usuario;
+	}
+
+	/**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAuthAssignments()
+    {
+        return $this->hasMany(AuthAssignment::className(), ['user_id' => 'id_usuario']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getItemNames()
+    {
+        return $this->hasMany(AuthItem::className(), ['name' => 'item_name'])->viaTable('auth_assignment', ['user_id' => 'id_usuario']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getModUsuariosEntSesiones()
+    {
+        return $this->hasMany(ModUsuariosEntSesiones::className(), ['id_usuario' => 'id_usuario']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTxtAuthItem()
+    {
+        return $this->hasOne(AuthItem::className(), ['name' => 'txt_auth_item']);
+	}
+	
+	public static function getIdentity(){
+		return Yii::$app->user->identity;
+	}
+
+	public static function label(){
+        return (new EntUsuarios)->attributeLabels();
+    }
 }

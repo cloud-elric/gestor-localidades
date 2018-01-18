@@ -5,7 +5,8 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\EntUsuarios;
+use app\modules\ModUsuarios\models\EntUsuarios;
+
 
 /**
  * UsuariosSearch represents the model behind the search form about `app\models\EntUsuarios`.
@@ -47,6 +48,15 @@ class UsuariosSearch extends EntUsuarios
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 1,
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'txt_username' => \SORT_ASC,
+                    'txt_apellido_paterno' => \SORT_ASC,
+                ]
+            ],
         ]);
 
         $this->load($params);
@@ -65,7 +75,7 @@ class UsuariosSearch extends EntUsuarios
             'id_status' => $this->id_status,
         ]);
 
-        $query->andFilterWhere(['like', 'txt_auth_item', $this->txt_auth_item])
+        $query->andFilterWhere(['in','txt_auth_item'=> $this->txt_auth_item])
             ->andFilterWhere(['like', 'txt_token', $this->txt_token])
             ->andFilterWhere(['like', 'txt_imagen', $this->txt_imagen])
             ->andFilterWhere(['like', 'txt_username', $this->txt_username])

@@ -69,7 +69,7 @@ class EntUsuariosSearch extends EntUsuarios
             'id_status' => $this->id_status,
         ]);
 
-        $query->andFilterWhere(['like', 'txt_token', $this->txt_token])
+        $query->andFilterWhere(['in', 'txt_auth_item', $this->txt_auth_item])
             ->andFilterWhere(['like', 'txt_imagen', $this->txt_imagen])
             ->andFilterWhere(['like', 'txt_username', $this->txt_username])
             ->andFilterWhere(['like', 'txt_apellido_paterno', $this->txt_apellido_paterno])
