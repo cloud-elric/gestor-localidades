@@ -79,6 +79,7 @@ $this->registerJsFile(
             'sorter'=>[
               'class'=>LinkSorterExtends::className(),
               'attributes'=>[
+                'id_usuario',
                 'txt_username',
                 'txt_apellido_paterno',
                 'txt_apellido_materno',

@@ -63,6 +63,13 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 						'message'=>'Las contraseñas deben coincidir'
 				],
 				[ 
+					'repeatPassword',
+					'compare',
+					'compareAttribute' => 'password',
+					'on' => 'updateModel',
+					'message'=>'Las contraseñas deben coincidir'
+				],
+				[ 
 						'txt_email',
 						'trim' 
 				],

@@ -1,5 +1,6 @@
 <?php
 use app\models\Calendario;
+use yii\helpers\Html;
 ?>
 <div class="media">
     <div class="pr-20">
@@ -10,7 +11,7 @@ use app\models\Calendario;
     </div>
     <div class="media-body">
         <h5 class="mt-0 mb-5">
-            <?=$model->nombreCompleto?>
+            <?= Html::a($model->nombreCompleto, ['usuarios/update/'.$model->id_usuario])?>
             <small><?=$model->txtAuthItem->description?></small>
         </h5>
         <p>
