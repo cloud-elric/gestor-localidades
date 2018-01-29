@@ -20,7 +20,8 @@ class AppAssetClassicTopBarBlank extends AssetBundle
     public $css = [
         'plugins/ladda/ladda.css',
         'templates/classic/topbar/assets/examples/css/pages/login-v3.css',
-        'css/site/login.css'
+        'css/site/login.css',
+        'css/site-extend.css'
     ];
     public $js = [
         'plugins/ladda/spin.js',

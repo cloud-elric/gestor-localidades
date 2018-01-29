@@ -11,8 +11,8 @@ use yii\helpers\Url;
           <li class="site-menu-category">General</li>
           <li class="dropdown site-menu-item has-sub">
             <a data-toggle="dropdown" href="javascript:void(0)" data-dropdown-toggle="false">
-              <i class="site-menu-icon wb-stats-bars" aria-hidden="true"></i>
-              <span class="site-menu-title">Reportes</span>
+              <i class="site-menu-icon pe-users" aria-hidden="true"></i>
+              <span class="site-menu-title">Usuarios</span>
               <span class="site-menu-arrow"></span>
             </a>
             <div class="dropdown-menu">
@@ -21,23 +21,13 @@ use yii\helpers\Url;
                   <div>
                     <ul class="site-menu-sub site-menu-normal-list">
                       <li class="site-menu-item">
-                        <a class="animsition-link" href="<?=Url::base()?>">
-                          <span class="site-menu-title">Niveles</span>
+                        <a class="animsition-link" href="<?=Url::base()?>/usuarios">
+                          <span class="site-menu-title">Listado de usuarios</span>
                         </a>
                       </li>
                       <li class="site-menu-item">
                         <a class="animsition-link" href="<?=Url::base()?>/admin/resultados-por-empleados">
-                          <span class="site-menu-title">Individuales</span>
-                        </a>
-                      </li>
-                      <li class="site-menu-item">
-                        <a class="animsition-link" href="<?=Url::base()?>/admin/resultados-por-competencias">
-                          <span class="site-menu-title">Empresa</span>
-                        </a>
-                      </li>
-                      <li class="site-menu-item">
-                        <a class="animsition-link" href="<?=Url::base()?>/admin/resultados-por-area">
-                          <span class="site-menu-title">Área</span>
+                          <span class="site-menu-title">Agregar usuario</span>
                         </a>
                       </li>
                     </ul>

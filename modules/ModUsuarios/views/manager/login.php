@@ -25,6 +25,7 @@ $this->params['classBody'] = "page-login-v3 layout-full";
 			'id' => 'form-ajax',
 			'enableAjaxValidation' => true,
 			'enableClientValidation'=>true,
+			'errorCssClass'=>"has-danger",
 			'fieldConfig' => [
 				"template" => "{input}{label}{error}",
 				"options" => [
@@ -32,7 +33,7 @@ $this->params['classBody'] = "page-login-v3 layout-full";
 					"data-plugin" => "formMaterial"
 				],
 				"labelOptions" => [
-					"class" => "floating-label"
+					"class" => "form-control-label floating-label"
 				]
 			]
 		]); 

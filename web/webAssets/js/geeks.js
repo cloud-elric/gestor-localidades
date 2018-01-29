@@ -18,7 +18,7 @@ $(document).ready(function () {
 
 
     //   // Cargador en todos los botones con la clase ladda
-    $(".ladda-button").on("click", function (e) {
+    $("#form-ajax .ladda-button").on("click", function (e) {
         var l = Ladda.create(this);
         l.start();
         $('#form-ajax').submit();

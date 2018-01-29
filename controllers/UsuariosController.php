@@ -9,12 +9,14 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\modules\ModUsuarios\models\Utils;
+use app\models\AuthItem;
 
 /**
  * UsuariosController implements the CRUD actions for EntUsuarios model.
  */
 class UsuariosController extends Controller
 {
+
     /**
      * @inheritdoc
      */
@@ -36,12 +38,21 @@ class UsuariosController extends Controller
      */
     public function actionIndex()
     {
+        $usuario = EntUsuarios::getIdentity();
+
+        $auth = Yii::$app->authManager;
+
+        $hijos = $auth->getChildRoles($usuario->txt_auth_item);
+        ksort($hijos);
+        $roles = AuthItem::find()->where(['in', 'name', array_keys($hijos)])->orderBy("name")->all();
+
         $searchModel = new UsuariosSearch();
+        $searchModel->txt_auth_item = array_keys($hijos);
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $dataProvider
         ]);
     }
 
@@ -64,33 +75,59 @@ class UsuariosController extends Controller
      */
     public function actionCreate()
     {
-        $model = new EntUsuarios();
+        $usuario = EntUsuarios::getIdentity();//exit;
 
-        if ($model->load(Yii::$app->request->post())){
-            
-            $user = $model->signup();
-            if($user){
-				
-				if (Yii::$app->params ['modUsuarios'] ['mandarCorreoActivacion']) {
-					
-					$activacion = new EntUsuariosActivacion ();
-					$activacion->saveUsuarioActivacion ( $user->id_usuario );
-					
-					// Enviar correo de activación
-					$utils = new Utils ();
-					// Parametros para el email
-					$parametrosEmail ['url'] = Yii::$app->urlManager->createAbsoluteUrl ( [ 
-							'activar-cuenta/' . $activacion->txt_token 
-					] );
-                    $parametrosEmail ['user'] = $user->getNombreCompleto ();
-                }
-                return $this->redirect(['view', 'id' => $user->id_usuario]);
-            }
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        $auth = Yii::$app->authManager;
+
+        $hijos = $auth->getChildRoles($usuario->txt_auth_item);
+        ksort($hijos);
+        $roles = AuthItem::find()->where(['in', 'name', array_keys($hijos)])->orderBy("name")->all();
+
+        $model = new EntUsuarios([
+            'scenario' => 'registerInput'
+        ]);
+
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
         }
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            if ($user = $model->signup()) {
+
+                if (Yii::$app->params['modUsuarios']['mandarCorreoActivacion']){
+
+                    $activacion = new EntUsuariosActivacion();
+                    $activacion->saveUsuarioActivacion($user->id_usuario);
+                
+                    // Enviar correo de activación
+                    $utils = new Utils();
+                    // Parametros para el email
+                    $parametrosEmail['url'] = Yii::$app->urlManager->createAbsoluteUrl([
+                        'activar-cuenta/' . $activacion->txt_token
+                    ]);
+                    $parametrosEmail['user'] = $user->getNombreCompleto();
+                
+                    // Envio de correo electronico
+                    $utils->sendEmailActivacion($user->txt_email, $parametrosEmail);
+                    $this->redirect([
+                        'login'
+                    ]);
+                } else {
+
+                    //if (Yii::$app->getUser()->login($user)) {
+                        return $this->redirect(['usuarios/index']);
+                    //}
+                }
+            }
+        
+        // return $this->redirect(['view', 'id' => $model->id_usuario]);
+        }
+        return $this->render('create', [
+            'model' => $model,
+            'roles'=>$roles
+        ]);
     }
 
     /**
@@ -101,13 +138,32 @@ class UsuariosController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $usuario = EntUsuarios::getIdentity();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_usuario]);
-        } else {
+        $auth = Yii::$app->authManager;
+
+        $hijos = $auth->getChildRoles($usuario->txt_auth_item);
+        ksort($hijos);
+        $roles = AuthItem::find()->where(['in', 'name', array_keys($hijos)])->orderBy("name")->all();
+
+        $model = $this->findModel($id);
+        
+        //var_dump($_POST["EntUsuarios"]['password']);exit;
+
+        if ($model->load(Yii::$app->request->post())){
+            if(isset($_POST["EntUsuarios"]['password'])){
+                $model->setPassword($_POST["EntUsuarios"]['password']);
+                $model->generateAuthKey();
+            }
+            if($model->save()){
+                
+                return $this->redirect(['view', 'id' => $model->id_usuario]);
+            }
+        }else{
+            $model->scenario = 'updateModel';
             return $this->render('update', [
                 'model' => $model,
+                'roles'=>$roles
             ]);
         }
     }
