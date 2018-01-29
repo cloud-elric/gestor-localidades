@@ -26,7 +26,7 @@ use yii\helpers\Url;
                         </a>
                       </li>
                       <li class="site-menu-item">
-                        <a class="animsition-link" href="<?=Url::base()?>/admin/resultados-por-empleados">
+                        <a class="animsition-link" href="<?=Url::base()?>/usuarios/create">
                           <span class="site-menu-title">Agregar usuario</span>
                         </a>
                       </li>

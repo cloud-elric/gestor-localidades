@@ -451,7 +451,15 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 			$user->id_status = self::STATUS_ACTIVED;
 		}
 		
-		return $user->save () ? $user : null;
+		if($user->save()){
+			$usuario =$user;
+         	$auth = \Yii::$app->authManager;
+         	$authorRole = $auth->getRole($this->txt_auth_item);
+			$auth->assign($authorRole, $usuario->getId());
+			return $user;
+		}else{
+			return null;
+		}
 	}
 
 

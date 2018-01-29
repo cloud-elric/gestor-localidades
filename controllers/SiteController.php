@@ -31,7 +31,7 @@ class SiteController extends Controller
                      [
                         'allow' => true,
                         'actions' => ['index'],
-                        'roles' => ['super-admin'],
+                        'roles' => ['usuario-normal'],
                     ],
                    
                  ],
