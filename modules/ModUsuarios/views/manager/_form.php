@@ -8,6 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+
     <?php $form = ActiveForm::begin([
 						'id' => 'form-ajax',
 						//'options' => ['class' => 'form-horizontal'],
