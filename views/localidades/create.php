@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\EntUsuarios */
+/* @var $model app\models\EntLocalidades */
 
-$this->title = 'Create Ent Usuarios';
-$this->params['breadcrumbs'][] = ['label' => 'Ent Usuarios', 'url' => ['index']];
+$this->title = 'Crear Localidades';
+$this->params['breadcrumbs'][] = ['label' => 'Localidades', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="ent-usuarios-create">
+<div class="ent-localidades-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
