@@ -4,7 +4,9 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\models\CatEstados;
 use app\modules\ModUsuarios\models\EntUsuarios;
-use app\models\Utils;
+use app\modules\ModUsuarios\models\Utils;
+use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\EntLocalidades */
@@ -38,13 +40,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $estado->txt_nombre;
                 }
             ],
-            [
+            /*[
                 'label' => 'Usuario',
                 'value' => function($data){
                     $user = EntUsuarios::find()->where(['id_usuario'=>$data->id_usuario])->one();
                     return $user->txt_username;
                 }
-            ],
+            ],*/
             'txt_nombre',
             'txt_arrendador',
             'txt_beneficiario',
@@ -84,7 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 }
             ],
-            [
+            /*[
                 'label' => 'Archivada',
                 'value' => function($data){
                     if($data->b_archivada == 0){
@@ -93,8 +95,55 @@ $this->params['breadcrumbs'][] = $this->title;
                         return "Si";
                     }
                 }
-            ],
+            ]*/
         ],
     ]) ?>
+</div>
+<?php if($userRel){ ?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3>Clientes asignados</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Apellido paterno</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($userRel as $user){ 
+                                $usuario = EntUsuarios::find()->where(['id_usuario'=>$user->id_usuario])->one();    
+                            ?>
+                                <tr>
+                                    <td><?= $usuario->txt_username ?></td>
+                                    <td><?= $usuario->txt_apellido_paterno ?></td>
+                                </tr>
+                            <?php }?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
 
+<div class="ent-localidades-form">
+    <?php $form = ActiveForm::begin([
+        'action' => ['localidades/asignar-usuarios'],
+        'options' => ['method' => 'post']
+    ]); ?>
+
+    <?= $form->field($relUserLoc, 'id_usuario')->dropDownList(ArrayHelper::map(EntUsuarios::find()->where(['txt_auth_item'=>'cliente'])->andWhere(['not in', 'id_usuario', $idUsersRel])->orderBy('txt_username')->asArray()->all(), 'id_usuario', 'txt_username'),['prompt' => 'Seleccionar usuario']) ?>
+
+    <?= $form->field($relUserLoc, 'id_localidad')->hiddenInput(['value' => $model->id_localidad])->label(false) ?>
+
+    <div class="form-group">
+        <?= Html::submitButton('Asignar', ['class' => 'btn btn-success']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
 </div>

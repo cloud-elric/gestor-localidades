@@ -96,7 +96,7 @@ class UsuariosController extends Controller
 
             if ($user = $model->signup()) {
 
-                if (Yii::$app->params['modUsuarios']['mandarCorreoActivacion']){
+                /*if (Yii::$app->params['modUsuarios']['mandarCorreoActivacion']){
 
                     $activacion = new EntUsuariosActivacion();
                     $activacion->saveUsuarioActivacion($user->id_usuario);
@@ -119,15 +119,16 @@ class UsuariosController extends Controller
                     //if (Yii::$app->getUser()->login($user)) {
                         return $this->redirect(['usuarios/index']);
                     //}
-                }
+                }*/
             }
         
         // return $this->redirect(['view', 'id' => $model->id_usuario]);
         }
-        return $this->render('create', [
+        return $this->redirect(['index']);
+        /*return $this->render('create', [
             'model' => $model,
             'roles'=>$roles
-        ]);
+        ]);*/
     }
 
     /**
