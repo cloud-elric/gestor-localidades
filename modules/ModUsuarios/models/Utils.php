@@ -5,6 +5,16 @@ namespace app\modules\ModUsuarios\models;
 use Yii;
 
 class Utils {
+
+	public static function changeFormatDate($string) {
+		$date = date_create ( $string );
+		return date_format ( $date, "d-m-Y" );
+    }
+    
+    public static function changeFormatDateInput($string) {
+		$date = date_create ( $string );
+		return date_format ( $date, "Y-m-d H:i:s" );
+    }
 	
 	/**
 	 * Obtenemos la fecha actual para almacenarla
@@ -49,6 +59,12 @@ class Utils {
 		
 		// Envia el correo electronico
 		return $this->sendEmail ( '@app/modules/ModUsuarios/email/activarCuenta', '@app/modules/ModUsuarios/email/layouts/text', Yii::$app->params ['modUsuarios'] ['email'] ['emailActivacion'],$email, Yii::$app->params ['modUsuarios'] ['email'] ['subjectActivacion'], $parametrosEmail );
+	}
+
+	public function sendEmailAsignacion($email,$parametrosEmail) {
+		
+		// Envia el correo electronico
+		return $this->sendEmail ( '@app/modules/ModUsuarios/email/asignacion', '@app/modules/ModUsuarios/email/layouts/text', Yii::$app->params ['modUsuarios'] ['email'] ['emailActivacion'],$email, Yii::$app->params ['modUsuarios'] ['email'] ['subjectActivacion'], $parametrosEmail );
 	}
 	
 	/**

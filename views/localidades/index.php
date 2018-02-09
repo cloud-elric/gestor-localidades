@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use app\models\CatEstados;
+use app\models\WrkUsuariosLocalidades;
+use app\modules\ModUsuarios\models\EntUsuarios;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\EntLocalidadesSearch */
@@ -37,9 +39,27 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             //'id_usuario',
             //'txt_token',
-            'txt_nombre',
+            [
+                'attribute' => 'txt_nombre',
+                'format' => 'raw',
+                'value' => function($data){
+                    return Html::a($data->txt_nombre, [
+                        'localidades/view', 'id' => $data->id_localidad
+                    ]);
+                }
+            ],
             'txt_arrendador',
-            'txt_beneficiario',
+            [
+                'attribute' => 'Usuarios',
+                'format' => 'raw',
+                'value' => function($data){
+                    $relLocalidades = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$data->id_localidad])->all();
+                    return count($relLocalidades);
+                    /*foreach($relLocalidades as $relLocalidad){
+                        $user = EntUsuarios::find()->where(['id_usuario'=>$data->id_usuario])-one();
+                    }*/
+                }
+            ],
             //'txt_calle',
             //'txt_colonia',
             //'txt_municipio',
