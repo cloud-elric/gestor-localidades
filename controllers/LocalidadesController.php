@@ -162,8 +162,10 @@ class LocalidadesController extends Controller
 					// Envio de correo electronico
                     $utils->sendEmailAsignacion( $user->txt_email,$parametrosEmail );
                     
-                    return $this->redirect(['view', 'id'=>$relUserLoc->id_localidad]);					
-				}
+                    				
+                }
+                
+                return $this->redirect(['view', 'id'=>$relUserLoc->id_localidad]);	
             }
         }
     }

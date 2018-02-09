@@ -96,39 +96,17 @@ class UsuariosController extends Controller
 
             if ($user = $model->signup()) {
 
-                /*if (Yii::$app->params['modUsuarios']['mandarCorreoActivacion']){
+                return $this->redirect(['usuarios/index']);
 
-                    $activacion = new EntUsuariosActivacion();
-                    $activacion->saveUsuarioActivacion($user->id_usuario);
-                
-                    // Enviar correo de activación
-                    $utils = new Utils();
-                    // Parametros para el email
-                    $parametrosEmail['url'] = Yii::$app->urlManager->createAbsoluteUrl([
-                        'activar-cuenta/' . $activacion->txt_token
-                    ]);
-                    $parametrosEmail['user'] = $user->getNombreCompleto();
-                
-                    // Envio de correo electronico
-                    $utils->sendEmailActivacion($user->txt_email, $parametrosEmail);
-                    $this->redirect([
-                        'login'
-                    ]);
-                } else {
-
-                    //if (Yii::$app->getUser()->login($user)) {
-                        return $this->redirect(['usuarios/index']);
-                    //}
-                }*/
             }
         
         // return $this->redirect(['view', 'id' => $model->id_usuario]);
         }
-        return $this->redirect(['index']);
-        /*return $this->render('create', [
+        //return $this->redirect(['index']);
+        return $this->render('create', [
             'model' => $model,
             'roles'=>$roles
-        ]);*/
+        ]);
     }
 
     /**
