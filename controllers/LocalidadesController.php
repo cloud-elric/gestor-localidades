@@ -79,11 +79,15 @@ class LocalidadesController extends Controller
         if ($model->load(Yii::$app->request->post())){
             $model->id_usuario = Yii::$app->user->identity->id_usuario; 
             $model->txt_token = Utils::generateToken('tok');
+
             $model->fch_vencimiento_contratro = Utils::changeFormatDateInput($model->fch_vencimiento_contratro);
             $model->fch_asignacion = Utils::changeFormatDateInput($model->fch_asignacion);
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->id_localidad]);
             }
+
+            
+
         }
 
         return $this->render('create', [

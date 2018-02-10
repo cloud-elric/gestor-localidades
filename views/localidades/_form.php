@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use app\models\CatEstados;
 use app\modules\ModUsuarios\models\EntUsuarios;
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\EntLocalidades */
@@ -43,15 +44,27 @@ use app\modules\ModUsuarios\models\EntUsuarios;
 
     <?= $form->field($model, 'num_incremento_autorizado')->textInput() ?>
 
-    <?= $form->field($model, 'fch_vencimiento_contratro')->textInput() ?>
+    <?= $form->field($model, 'fch_vencimiento_contratro')->widget(DatePicker::classname(), [
+        //'options' => ['placeholder' => 'Enter birth date ...'],
+        'type' => DatePicker::TYPE_INPUT,
+        'pluginOptions' => [
+            'autoclose'=>true,
+            'format' => 'mm-dd-yyyy'
+        ]
+    ]);?>
 
     <?php // $form->field($model, 'fch_creacion')->textInput() ?>
 
-    <?= $form->field($model, 'fch_asignacion')->textInput() ?>
+    <?= $form->field($model, 'fch_asignacion')->widget(DatePicker::classname(), [
+        //'options' => ['placeholder' => 'Enter birth date ...'],
+        'type' => DatePicker::TYPE_INPUT,
+        'pluginOptions' => [
+            'autoclose'=>true,
+            'format' => 'mm-dd-yyyy'
+        ]
+    ]);?>
 
-    <?= $form->field($model, 'b_problemas_acceso')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'b_archivada')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'b_problemas_acceso')->dropDownList(['1'=>'Sí', '0'=>"No"]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
