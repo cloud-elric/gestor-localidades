@@ -10,7 +10,7 @@ use yii\helpers\ArrayHelper;
 <div class="row">
     <div class="col-md-4">
         <div class="brand text-center">
-            <a class="avatar avatar-lg js-img-avatar">
+            <a class="avatar avatar-lg js-img-avatar user-file">
                 <img class="js-image-preview" src="<?= Url::base() . "/webAssets/images/site/user.png" ?>">
             </a>
         </div>

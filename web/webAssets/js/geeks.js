@@ -1,6 +1,11 @@
 // animisition: http://git.blivesta.com/animsition/
 // ladda: http://msurguy.github.io/ladda-bootstrap/
 
+// LOGIN
+// .animation-shake
+// Esta anima para que el login cuando sea un usuario incorrecto, se tiene que agregar a
+// panel login - (en el archivo login : línea 16)
+
 $(document).ready(function () {
     // Animación entre pantallas
     // $(".animsition").animsition({
