@@ -3,10 +3,10 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 use yii\helpers\Html;
-use app\assets\AppAsset;
+use app\assets\AppAssetClassicTopBarBlank;
 use yii\helpers\Url;
 
-AppAsset::register($this);
+AppAssetClassicTopBarBlank::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -14,23 +14,21 @@ AppAsset::register($this);
 <!-- Etiqueta head -->
 <?=$this->render("//components/head")?>
 <body class="animsition <?=isset($this->params['classBody'])?$this->params['classBody']:''?>">
+
   <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
   <?php $this->beginBody();?>
-
-  <div class="ryg-body-mask"></div>
   
-  <?=$this->render("//components/classic/topbar/nav-bar")?>
 
-  <?=$this->render("//components/classic/topbar/menu")?>
-
-  <?=$this->render("//components/classic/topbar/body", ['content'=>$content])?>
-
-  <?=$this->render("//components/classic/topbar/footer")?>
+  <div class="page vertical-align text-center" data-animsition-in="fade-in" data-animsition-out="fade-out">
+    <div class="page-content vertical-align-middle animation-slide-top animation-duration-1">
+      <?=$content?>
+      <?=$this->render("//components/classic/topbar/footerBlank")?>
+    </div>
+  </div>  
 
   <?php $this->endBody();?>
- 
 
   <script>
   (function(document, window, $) {

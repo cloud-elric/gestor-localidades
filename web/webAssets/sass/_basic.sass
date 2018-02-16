@@ -1,0 +1,164 @@
+/*!
+	-----------------------------------------------------------------------------
+
+	2.0 - Basicos
+			#
+			# Login
+			# Footer
+			# Usuarios
+
+	-----------------------------------------------------------------------------
+	*/
+
+/*  A
+	======================================= */
+a
+	color: $link-primary
+	&:active,
+	&:focus,
+	&:hover
+		color: $link-primary-active
+
+/*  Btn
+	======================================= */
+/* primary */
+.btn-primary
+	border-color: $btn-primary
+    background-color: $btn-primary
+	&:active,
+	&:focus,
+	&:hover
+		border-color: $btn-primary-active
+		background-color: $btn-primary-active
+
+/* succes */
+.btn-success
+	border-color: $success
+	background-color: $success
+	&:active,
+	&:focus,
+	&:hover
+		border-color: $success-active
+		background-color: $success-active
+
+/* danger */
+.btn-danger
+	border-color: $error
+    background-color: $error
+	&:active,
+	&:focus,
+	&:hover
+		border-color: $error-active
+		background-color: $error-active
+
+/*  Label
+	======================================= */
+/* Normal */
+.page-login-v3
+	form
+		.form-material
+			label
+				color: #a3afb7
+/* Active */
+.form-material
+	.form-control.focus~.floating-label,
+	.form-control:focus~.floating-label
+		color: $color-primary
+
+/* Error */
+.form-material.form-group.has-danger
+	.form-control.focus~.floating-label,
+	.form-control:focus~.floating-label,
+	.form-control:not(.empty)~.floating-label
+		color: $error
+
+/* Succes */
+.form-material.form-group.has-success
+	.form-control.focus~.floating-label,
+	.form-control:focus~.floating-label,
+	.form-control:not(.empty)~.floating-label
+		color: $color-primary
+
+/*  Input
+	======================================= */
+.form-material
+	.form-control,
+	.form-control.focus,
+	.form-control:focus
+		background-image: -webkit-gradient(linear,left top,left bottom,from($color-primary),to($color-primary)),-webkit-gradient(linear,left top,left bottom,from($color-gray),to($color-gray))
+		background-image: -webkit-linear-gradient($color-primary,$color-primary),-webkit-linear-gradient($color-gray,$color-gray)
+		background-image: -o-linear-gradient($color-primary,$color-primary),-o-linear-gradient($color-gray,$color-gray)
+		background-image: linear-gradient($color-primary,$color-primary),linear-gradient($color-gray,$color-gray)
+
+/*  Login
+	======================================= */
+/* Imagen de fondo */
+.page-login-v3
+	&:before
+		background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+)
+		background-image: -webkit-gradient(linear, left top, left bottom, from($bg-primary), to(#3583ca))
+		background-image: -webkit-linear-gradient(top, $bg-primary 0%, #3583ca 100%)
+		background-image: -o-linear-gradient(top, $bg-primary 0%, #3583ca 100%)
+		background-image: url('https://drscdn.500px.org/photo/230473379/q%3D80_m%3D2000/v2?webp=true&sig=8098ec687c2dacf53ba17515209dca4cf6ee1ad91d7e0aae23a217db2089824c')
+
+/* Login */
+.login
+	background-color: red
+	.brand
+		.brand-img
+			height: 100px
+			margin-bottom: 20px
+	
+	form
+		.form-group
+			.help-block.help-block-error
+				color: $error
+				font-size: .9rem
+				text-align: left
+
+/*  Header
+	======================================= */
+.navbar-inverse
+	background-color: $bg-primary
+	.navbar-collapse,
+	.navbar-form
+		border-color: $border-color
+
+/*  Footer
+	======================================= */
+.site-footer
+	.site-footer-legal
+		img
+			height: 30px
+	
+	.site-footer-right
+		img
+			height: 30px
+
+.page-copyright
+	.social
+		a
+			img
+				height: 30px
+
+/*  Usuarios
+	======================================= */
+/* Crear */
+.usuarios-create
+	.user-file
+		cursor: pointer
+		display: block
+		height: 200px
+		margin: 0 auto
+		max-width: 80%
+		width: 200px
+
+/* Actualizar */
+.usuarios-actualizar
+	.user-file
+		cursor: pointer
+		display: block
+		height: 200px
+		margin: 0 auto
+		max-width: 80%
+		width: 200px

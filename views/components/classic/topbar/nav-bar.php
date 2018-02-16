@@ -3,7 +3,7 @@ use yii\helpers\Url;
 use app\modules\ModUsuarios\models\EntUsuarios;
 
 ?>
-<nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega navbar-inverse"
+<nav class="site-navbar ryg-header navbar navbar-default navbar-fixed-top navbar-mega navbar-inverse"
 role="navigation">
   <div class="navbar-header">
     <button type="button" class="navbar-toggler hamburger hamburger-close navbar-toggler-left hided"
@@ -16,9 +16,9 @@ role="navigation">
       <i class="icon wb-more-horizontal" aria-hidden="true"></i>
     </button>
     <a class="navbar-brand navbar-brand-center" href="<?=Url::base()?>">
-      <img class="navbar-brand-logo navbar-brand-logo-normal" src="<?=Url::base()?>/webAssets/images/logo.png"
+      <img class="navbar-brand-logo navbar-brand-logo-normal" src="<?=Url::base()?>/webAssets/images/logo-ryg.png"
       title="Remark">
-      <img class="navbar-brand-logo navbar-brand-logo-special" src="<?=Url::base()?>/webAssets/images/logo.png"
+      <img class="navbar-brand-logo navbar-brand-logo-special" src="<?=Url::base()?>/webAssets/images/logo-ryg.png"
       title="Remark">
       
     </a>
@@ -45,6 +45,7 @@ role="navigation">
         <li class="nav-item dropdown">
           <a class="nav-link navbar-avatar" data-toggle="dropdown" href="#" aria-expanded="false"
           data-animation="scale-up" role="button">
+            <span class="user-name">Juan Perez</span>
             <span class="avatar avatar-online">
               <img src="<?=EntUsuarios::getUsuarioLogueado()->imageProfile?>" alt="...">
               <i></i>

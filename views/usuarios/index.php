@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = [
 
 $this->params['headerActions'] = '<a class="btn btn-success" href="'.Url::base().'/usuarios/create"><i class="icon wb-plus"></i> Agregar usuario</a>';
 
-$this->params['classBody'] = "site-navbar-small page-user";
+$this->params['classBody'] = "site-navbar-small page-user ryg-body";
 
 $this->registerCssFile(
   '@web/webAssets/templates/classic/topbar/assets/examples/css/pages/user.css',
@@ -43,13 +43,13 @@ $this->registerJsFile(
 <!-- Panel -->
 <div class="panel">
   <div class="panel-body">
-    <form class="page-search-form" role="search">
+    <!-- <form class="page-search-form" role="search">
       <div class="input-search input-search-dark">
         <i class="input-search-icon wb-search" aria-hidden="true"></i>
         <input type="text" class="form-control" id="inputSearch" name="search" placeholder="Search Users">
         <button type="button" class="input-search-close icon wb-close" aria-label="Close"></button>
       </div>
-    </form>
+    </form> -->
       
         <?php
         $sort = "txt_username";

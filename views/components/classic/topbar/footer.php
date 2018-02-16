@@ -9,20 +9,19 @@ date('Y')?> <a href="https://2geeksonemonkey.com/">2 Geeks one Monkey</a></div>
     </div>
 </footer> -->
 
-<footer class="site-footer">
-  <div class="site-footer-legal">
+<footer class="site-footer ryg-footer">
+  <!-- <div class="site-footer-legal">
       <a href="https://2geeksonemonkey.com/">
         <img class="footer-logo" src="<?=Url::base()?>/webAssets/images/logo.png"></div>
       </a>
       
-  </div>
+  </div> -->
   
   <div class="site-footer-right">
     
       <a href="https://2geeksonemonkey.com/">
-        2 Geeks one Monkey
+        <img src="<?=Url::base()?>/webAssets/images/2gom.png" alt="">
       </a>
-      <img class="footer-logo" src="<?=Url::base()?>/webAssets/images/monkey-logo.png">
   </div>
     
 </footer> 
