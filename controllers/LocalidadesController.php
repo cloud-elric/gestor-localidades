@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use app\modules\ModUsuarios\models\EntUsuarios;
 use app\models\WrkUsuariosLocalidades;
 use app\modules\ModUsuarios\models\Utils;
+use yii\web\Response;
 
 /**
  * LocalidadesController implements the CRUD actions for EntLocalidades model.
@@ -43,7 +44,7 @@ class LocalidadesController extends Controller
 
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $dataProvider
         ]);
     }
 
@@ -146,7 +147,43 @@ class LocalidadesController extends Controller
     }
 
     public function actionAsignarUsuarios(){
-        if(isset($_POST['WrkUsuariosLocalidades']['id_usuario']) && isset($_POST['WrkUsuariosLocalidades']['id_localidad']) ){
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        if(isset($_POST['idL']) && isset($_POST['idU']) ){
+            $relacion = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$_POST['idL']])->one();
+            if($relacion)
+                $relacion->delete();
+
+            $relUserLoc = new WrkUsuariosLocalidades();
+            $relUserLoc->id_usuario = $_POST['idU'];
+            $relUserLoc->id_localidad = $_POST['idL'];
+
+            if($relUserLoc->save()){
+
+                /*if (Yii::$app->params ['modUsuarios'] ['mandarCorreoActivacion']) {
+                    $user = EntUsuarios::findIdentity($relUserLoc->id_usuario);
+                    $localidad = EntLocalidades::findOne($relUserLoc->id_localidad);
+
+					// Enviar correo
+					$utils = new Utils ();
+					// Parametros para el email
+					$parametrosEmail ['localidad'] = $localidad->txt_nombre;
+					$parametrosEmail ['user'] = $user->getNombreCompleto ();
+					
+					// Envio de correo electronico
+                    $utils->sendEmailAsignacion( $user->txt_email,$parametrosEmail );
+                    
+                    				
+                }*/
+                
+                //return $this->redirect(['view', 'id'=>$relUserLoc->id_localidad]);
+                return ['status'=>'success'];	
+            }
+
+            return ['status'=>'error'];	            
+        }
+        return ['status'=>'error'];
+        /*if(isset($_POST['WrkUsuariosLocalidades']['id_usuario']) && isset($_POST['WrkUsuariosLocalidades']['id_localidad']) ){
             $relUserLoc = new WrkUsuariosLocalidades();
             $relUserLoc->id_usuario = $_POST['WrkUsuariosLocalidades']['id_usuario'];
             $relUserLoc->id_localidad = $_POST['WrkUsuariosLocalidades']['id_localidad'];
@@ -171,6 +208,6 @@ class LocalidadesController extends Controller
                 
                 return $this->redirect(['view', 'id'=>$relUserLoc->id_localidad]);	
             }
-        }
+        }*/
     }
 }
