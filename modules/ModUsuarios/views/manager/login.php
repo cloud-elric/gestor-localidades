@@ -13,12 +13,10 @@ $this->params['classBody'] = "page-login-v3 layout-full";
 
 ?>
 
+
+
 <div class="panel">
 	<div class="panel-body">
-		<div class="brand">
-			<img class="brand-img mb-40" src="<?=Url::base()?>/webAssets/images/logo.png" alt="...">
-		</div>
-
 
 		<?php 
 		$form = ActiveForm::begin([
@@ -44,15 +42,15 @@ $this->params['classBody'] = "page-login-v3 layout-full";
 		<?= $form->field($model, 'password')->passwordInput(["class"=>"form-control"])?>
 
 		<div class="form-group clearfix">
-			<a class="float-right" href="forgot-password.html">¿Olvidaste tu contraseña?</a>
+			<a class="float-right login-link-gray" href="forgot-password.html">¿Olvidaste tu contraseña?</a>
 		</div>
 
-		<?= Html::submitButton('<span class="ladda-label">Ingresar</span>', ["data-style"=>"zoom-in", 'class' => 'btn btn-primary btn-block btn-lg mt-40 ladda-button', 'name' => 'login-button'])
+		<?= Html::submitButton('<span class="ladda-label">Ingresar al sistema</span>', ["data-style"=>"zoom-in", 'class' => 'btn btn-primary btn-block btn-lg btn-login ladda-button', 'name' => 'login-button'])
 		?>
 
 		<?php ActiveForm::end(); ?>
 
 
-		<p class="soporteTxt">¿Necesitas ayuda? escribe a: <a class="no-redirect" href="mailto:soporte@2gom.com.mx?Subject=Solicitud%de%Soporte">soporte@2gom.com.mx</a></p>
+		<p class="soporteTxt">¿Necesitas ayuda? escribe a: <a class="no-redirect login-link-white" href="mailto:ayuda@ryg.com.mx?Subject=Solicitud%de%Soporte">ayuda@ryg.com.mx</a></p>
 	</div>
 </div>
