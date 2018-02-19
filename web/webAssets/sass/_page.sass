@@ -1,0 +1,109 @@
+/*!
+	-----------------------------------------------------------------------------
+
+	2.0 - Usuarios
+			# Body
+			# Header
+			# Page
+			# Footer
+
+	-----------------------------------------------------------------------------
+	*/
+
+
+/*  Body
+	======================================= */
+.ryg-body
+	background-color: $ryg-primary
+	background-attachment: fixed
+	background-image: url('../images/login-screen.jpg')
+	background-position: 50%
+	background-repeat: no-repeat
+	background-size: cover
+	position: relative
+	z-index: 1
+	.ryg-body-mask
+		background-color: rgba($black,.78)
+		bottom: 0
+		height: 100%
+		left: 0
+		position: fixed
+		right: 0
+		top: 0
+		width: 100%
+
+
+/*  Header
+	======================================= */
+.ryg-header
+	background-color: $ryg-primary
+	border-color: $ryg-primary
+	.navbar-header
+		.navbar-brand
+			.navbar-brand-logo
+				height: 19px
+	
+	.navbar-container
+		.nav
+			.nav-item
+				.nav-link
+					.user-name
+						display: inline-block
+						color: $ryg-accent
+						padding-right: 8px
+
+.site-menubar.site-menubar-light,
+.ryg-menubar
+	background-color: $ryg-second
+	.site-menu
+		li
+			a
+				color: $ryg-green
+
+
+/*  Page
+	======================================= */
+.ryg-page
+	background-color: transparent
+
+
+/*  Footer
+	======================================= */
+.ryg-footer
+	align-items: center
+	background-color: rgba($ryg-primary, .5)
+	border: 1px solid transparent
+	bottom: 0
+	display: flex
+	height: auto
+	justify-content: flex-end
+	left: 0
+	padding: 8px 24px
+	position: fixed
+	right: 0
+	width: 100%
+	z-index: 2
+	&:after
+		display: none
+	+respond-to(tl)
+		flex-direction: column
+		justify-content: center
+	+respond-to(tp)
+		flex-direction: column
+		justify-content: center
+	+respond-to(sl)
+		flex-direction: column
+		justify-content: center
+	+respond-to(sp)
+		flex-direction: column
+		justify-content: center
+	.login-footer-copyright
+		p
+			color: #AAB1AB
+			font-size: .9rem
+			margin-bottom: 0
+	.login-footer-author
+		img
+			display: flex
+			height: 26px
+	

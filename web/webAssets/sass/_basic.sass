@@ -59,11 +59,20 @@ a
 		.form-material
 			label
 				color: #a3afb7
+
+.form-material
+	.form-control:-webkit-autofill~.floating-label
+		top: -1.3rem
+
+	.form-control~.floating-label
+		padding: 0 10px
+
 /* Active */
 .form-material
 	.form-control.focus~.floating-label,
 	.form-control:focus~.floating-label
 		color: $color-primary
+		top: -1.3rem
 
 /* Error */
 .form-material.form-group.has-danger
@@ -71,6 +80,7 @@ a
 	.form-control:focus~.floating-label,
 	.form-control:not(.empty)~.floating-label
 		color: $error
+		top: -1.3rem
 
 /* Succes */
 .form-material.form-group.has-success
@@ -78,6 +88,7 @@ a
 	.form-control:focus~.floating-label,
 	.form-control:not(.empty)~.floating-label
 		color: $color-primary
+		top: -1.3rem
 
 /*  Input
 	======================================= */
@@ -89,7 +100,7 @@ a
 		background-image: -webkit-linear-gradient($color-primary,$color-primary),-webkit-linear-gradient($color-gray,$color-gray)
 		background-image: -o-linear-gradient($color-primary,$color-primary),-o-linear-gradient($color-gray,$color-gray)
 		background-image: linear-gradient($color-primary,$color-primary),linear-gradient($color-gray,$color-gray)
-
+		
 /*  Login
 	======================================= */
 /* Imagen de fondo */
@@ -103,7 +114,7 @@ a
 
 /* Login */
 .login
-	background-color: red
+	
 	.brand
 		.brand-img
 			height: 100px
@@ -115,6 +126,11 @@ a
 				color: $error
 				font-size: .9rem
 				text-align: left
+
+.form-material
+	.form-control
+		padding: 0 10px
+			
 
 /*  Header
 	======================================= */

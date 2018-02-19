@@ -279,7 +279,7 @@ a[x-apple-data-detectors=true] {
                     <div class="">
 	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
 	<div style="line-height:200%;color:#555555;font-family:'Verdanaf', Georgia, Times, 'Times New Roman', serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
-		<div style="font-size:16px;line-height:24px;font-family:'Verdana', Georgia, Times, 'Times New Roman', serif;color:#555555;text-align:left;"><p style="margin: 0;font-size: 16px;line-height: 28px;text-align: left"><span style="font-size: 24px; font-weight: bold; color: #2B3736; line-height: 48px;">Hola Alfredo</span></p></div>	
+		<div style="font-size:16px;line-height:24px;font-family:'Verdana', Georgia, Times, 'Times New Roman', serif;color:#555555;text-align:left;"><p style="margin: 0;font-size: 16px;line-height: 28px;text-align: left"><span style="font-size: 18px; font-weight: bold; color: #2B3736; line-height: 48px;">Te han asignado a una localidad</span></p></div>	
 	</div>
 	<!--[if mso]></td></tr></table><![endif]-->
 </div>
@@ -289,26 +289,9 @@ a[x-apple-data-detectors=true] {
 	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
 	<div style="line-height:200%;color:#555555;font-family:'Verdanaf', Georgia, Times, 'Times New Roman', serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
         <div style="line-height:24px;font-size:12px;color:#555555;font-family:'Verdanaf', Georgia, Times, 'Times New Roman', serif;text-align:left;">
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">Este correo es para notificarte que <strong style="font-family: Verdana; font-size: 14px; font-style: italic; font-weight: bold;">has sido agregado</strong> a un grupo de trabajo dentro de la plataforma “Regalado y galindo - Gestor de localidades”, para poder <strong style="font-family: Verdana; font-size: 14px; font-style: italic; font-weight: bold;">acceder</strong> al sistema da click en la siguiente liga:</span></p>
+            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">Hola Alfredo:</span></p>
+            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">Este correo es para notificarte que: <strong style="font-family: Verdana; font-size: 14px; font-weight: bold;">Luis García te ha asignado</strong> a un grupo de trabajo para la gestión de la localidad - <strong style="font-family: Verdana; font-size: 14px; font-weight: bold;">Alamos</strong> - la cual puedes consultar dando click en el siguiente enlace.</span></p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
-            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">
-              <a href="http://dev.2geeksonemonkey.com/ryg/gestor-localidades/web/login/" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: left;color: #2B3736; width: auto; font-family: 'Verdanaf', Georgia, Times, 'Times New Roman', serif; mso-border-alt: none; font-weight: 300; color: #3C86E9; font-size: 14px; line-height: 16px;">
-                <span style="font-size:12px;line-height:24px;"><span style="font-size: 14px; line-height: 32px;" data-mce-style="font-size: 14px; line-height: 32px; color: #2B3736;">http://dev.2geeksonemonkey.com/ryg/gestor-localidades/web/login/</span></span>
-              </a>
-            </p>
-            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
-
-            <p style="margin: 0;font-size: 16px;line-height: 28px;text-align: left"><span style="font-size: 16px; font-weight: bold; color: #2B3736; line-height: 30px; text-align: left;">Importante</span></p>
-
-            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">para acceder al sistema conserva este correo, es necesario ingreses tu usuario y contraseña mismos que te compartimos a continuación</span></p>
-            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: left"><span style="font-size: 16px; line-height: 32px;">Usuario:</span></p><p style="margin: 0;font-size: 12px;line-height: 24px;text-align: left"></p>
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: left"><span style="color: #3C86E9; font-size: 14px; line-height: 16px;">correo@dominio.com.mx</span></p><p style="margin: 0;font-size: 12px;line-height: 24px;text-align: left"></p>
-            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: left"><span style="font-size: 16px; line-height: 32px;">Contraseña:</span></p><p style="margin: 0;font-size: 12px;line-height: 24px;text-align: left"></p>
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: left"><span style="color: #3C86E9; font-size: 14px; line-height: 16px;">165nvda62</span></p><p style="margin: 0;font-size: 12px;line-height: 24px;text-align: left"></p>
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: left">&#160;<br></p>
         </div>	
 	</div>
 	<!--[if mso]></td></tr></table><![endif]-->
@@ -347,7 +330,7 @@ a[x-apple-data-detectors=true] {
 	<div style="color:#555555;line-height:120%;font-family:'Verdanaf', Georgia, Times, 'Times New Roman', serif; padding-right: 20px; padding-left: 20px; padding-top: 40px; padding-bottom: 20px;">	
 		<div style="font-size:12px;line-height:14px;color:#555555;font-family:'Verdanaf', Georgia, Times, 'Times New Roman', serif;text-align: center;">
 
-            <p style="margin: 0;font-size: 14px;line-height: 24px;text-align: justify;">Este correo electrónico fue generado de manera automática por el sistema y no es necesario contestes a el, si necesitas asistencia o soporte favor de escribirme a: <a href="mailto:ayuda@ryg.com.mx?Subject=Ayuda%20Web" target="_blank" style="display: inline-block;text-decoration: none;-webkit-text-size-adjust: none;text-align: left;color: #2B3736; width: auto; font-family: 'Verdanaf', Georgia, Times, 'Times New Roman', serif; mso-border-alt: none; font-weight: 300; color: #3C86E9; font-size: 14px; line-height: 16px;"><span style="font-size: 14px; line-height: 20px;" data-mce-style="font-size: 14px; line-height: 20px; color: #2B3736;">ayuda@ryg.com.mx</span></a></p>
+            <p style="margin: 0;font-size: 14px;line-height: 24px;text-align: justify;">Este correo electrónico fue generado de manera automática por el sistema y no es necesario contestes a el, si necesitas asistencia o soporte favor de escribirme a: <a href="mailto:ayuda@ryg.com.mx?Subject=Ayuda%20Web" target="_blank" style="display: inline-block;text-decoration: none;-webkit-text-size-adjust: none;text-align: left; width: auto; font-family: 'Verdanaf', Georgia, Times, 'Times New Roman', serif; mso-border-alt: none; font-weight: 300; color: #3C86E9; font-size: 14px; line-height: 16px;"><span style="font-size: 14px; line-height: 20px;" data-mce-style="font-size: 14px; line-height: 20px;">ayuda@ryg.com.mx</span></a></p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br><br></p>
             <p style="margin: 0;font-size: 14px;line-height: 17px;text-align: center;">&copy; Regalado y Galindo Abogados 2018 </p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br><br></p>

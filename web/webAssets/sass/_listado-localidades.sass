@@ -1,0 +1,149 @@
+/*!
+	-----------------------------------------------------------------------------
+
+	2.0 - Usuarios
+			# Listado
+			#
+
+	-----------------------------------------------------------------------------
+	*/
+
+
+/*  Page Listado
+	======================================= */
+.ryg-page
+	
+	.page-header
+		position: relative
+		z-index: 3
+
+	.page-content
+		position: relative
+		z-index: 3
+		.panel
+			background-color: rgba($ryg-second,.45)
+			.panel-body
+				padding: 0
+				.list-group-item
+					background-color: transparent
+
+				// .page-header
+				.panel-search
+					align-content: center
+					display: flex
+					justify-content: flex-start
+					padding: 20px
+					width: 100%
+					.panel-search-title
+						color: $ryg-aqua
+						font-size: 1rem
+						font-weight: $light
+						line-height: 2.4
+						margin: 0
+						min-width: 152px
+					.panel-search-int
+						display: flex
+						.panel-search-form
+							align-content: center
+							display: flex
+							justify-content: flex-start
+							margin-bottom: 0
+							.panel-search-form-input,
+							.panel-search-form-select
+								background-color: $ryg-second
+								border: none
+								color: $ryg-aqua
+								font-size: 1rem
+								font-weight: $light
+								margin-left: 20px
+								+placeholder
+									color: rgba($ryg-aqua,.6)
+									font-size: 1rem
+									font-weight: $light
+								&:focus
+									outline: none
+
+							.panel-search-form-select
+								+border-radius(30px)
+								padding: 6px 20px
+							.panel-search-form-input
+								+border-radius(3px)
+								padding: 6px 16px
+								width: 13%
+					
+						.btn-add
+							background-color: $ryg-accent
+							border-color: $ryg-accent
+							color: $ryg-second
+
+				.panel-listado
+					// background-color: #ddd
+					
+					.panel-listado-head,
+					.panel-listado-row
+						align-items: center
+						display: flex
+						flex-wrap: wrap
+						.panel-listado-col
+							display: flex
+							font-size: 1rem
+							&.w-x
+								width: 5%
+							&.w-s
+								width: 10%
+							&.w-m
+								width: 17%
+
+					.panel-listado-head
+						padding: 8px 0
+						.panel-listado-col
+							color: $ryg-gray
+							font-size: 1.03rem
+							font-weight: $medium
+
+					.panel-listado-row
+						border-top: 1px solid $ryg-gray
+						padding: 16px 0
+						&:last-child
+							border-bottom: 1px solid $ryg-gray
+						&:hover
+							background-color: rgba($ryg-second, .8)
+						.panel-listado-col
+							color: $ryg-aqua
+							font-weight: $light
+							.panel-listado-iden,
+							.panel-listado-img,
+							.panel-listado-acction
+								display: block
+								+border-radius(50%)
+							.panel-listado-iden
+								background-color: $ryg-accent
+								height: 12px
+								margin: 0 auto
+								width: 12px
+								&.x2
+									height: 24px
+									width: 24px
+							.panel-listado-img
+								background-color: $ryg-pink
+								height: 32px
+								margin-right: .8rem
+								width: 32px
+								&:last-child
+									margin-right: 0
+							.panel-listado-acction
+								align-items: center
+								display: flex
+								height: 24px
+								justify-content: center
+								margin-right: .8rem
+								width: 24px
+								&:last-child
+									margin-right: 0
+								i
+									color: $ryg-primary
+									font-size: .85rem
+								&.acction-edit
+									background-color: $ryg-aqua
+								&.acction-delte
+									background-color: $ryg-accent
