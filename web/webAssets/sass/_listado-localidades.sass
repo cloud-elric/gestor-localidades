@@ -3,7 +3,7 @@
 
 	2.0 - Usuarios
 			# Listado
-			#
+			# Crear
 
 	-----------------------------------------------------------------------------
 	*/
@@ -147,3 +147,31 @@
 									background-color: $ryg-aqua
 								&.acction-delte
 									background-color: $ryg-accent
+
+
+/*  Page Crear
+	======================================= */
+.ent-localidades-create
+	.ent-localidades-form
+		padding: 40px 0 60px
+		form
+			.form-group
+				.control-label
+					padding-left: 1rem
+				.form-control
+					&:active,
+					&:focus,
+					&:hover
+						border-color: #e4eaec
+						box-shadow: none
+						outline: none
+				.help-block
+					color: $error
+					font-size: .85rem
+					margin-top: .3rem
+					padding-left: 1rem
+			.btn-form-save
+				background-color: $ryg-accent
+				border-color: $ryg-accent
+				color: $ryg-second
+				width: 100%

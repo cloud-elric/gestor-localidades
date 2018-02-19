@@ -3305,7 +3305,7 @@ a {
     bottom: 0;
     height: 100%;
     left: 0;
-    position: absolute;
+    position: fixed;
     right: 0;
     top: 0;
     width: 100%; }
@@ -3332,7 +3332,9 @@ a {
 /*  Page
 	@mixin ====================================== */
 .ryg-page {
-  background-color: transparent; }
+  background-color: transparent;
+  position: relative;
+  z-index: 2; }
 
 /*  Footer
 	@mixin ====================================== */
@@ -3355,7 +3357,7 @@ a {
   position: fixed;
   right: 0;
   width: 100%;
-  z-index: 2; }
+  z-index: 3; }
   .ryg-footer:after {
     display: none; }
   @media (min-width: 601px) and (max-width: 800px) {
@@ -3441,7 +3443,7 @@ a {
 
 	2.0 - Usuarios
 			# Listado
-			#
+			# Crear
 
 	-----------------------------------------------------------------------------
 	*/
@@ -3617,6 +3619,28 @@ a {
               background-color: #B3E6E2; }
             .ryg-page .page-content .panel .panel-body .panel-listado .panel-listado-row .panel-listado-col .panel-listado-acction.acction-delte {
               background-color: #E5E264; }
+
+/*  Page Crear
+	@mixin ====================================== */
+.ent-localidades-create .ent-localidades-form {
+  padding: 40px 0 60px; }
+  .ent-localidades-create .ent-localidades-form form .form-group .control-label {
+    padding-left: 1rem; }
+  .ent-localidades-create .ent-localidades-form form .form-group .form-control:active, .ent-localidades-create .ent-localidades-form form .form-group .form-control:focus, .ent-localidades-create .ent-localidades-form form .form-group .form-control:hover {
+    border-color: #e4eaec;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    outline: none; }
+  .ent-localidades-create .ent-localidades-form form .form-group .help-block {
+    color: #f96868;
+    font-size: .85rem;
+    margin-top: .3rem;
+    padding-left: 1rem; }
+  .ent-localidades-create .ent-localidades-form form .btn-form-save {
+    background-color: #E5E264;
+    border-color: #E5E264;
+    color: #2B3736;
+    width: 100%; }
 
 /*!
 	-----------------------------------------------------------------------------
