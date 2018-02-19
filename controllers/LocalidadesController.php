@@ -12,6 +12,9 @@ use app\modules\ModUsuarios\models\EntUsuarios;
 use app\models\WrkUsuariosLocalidades;
 use app\modules\ModUsuarios\models\Utils;
 use yii\web\Response;
+use app\models\WrkTareas;
+use app\models\TareasSearch;
+use app\models\WrkUsuariosTareas;
 
 /**
  * LocalidadesController implements the CRUD actions for EntLocalidades model.
@@ -56,15 +59,22 @@ class LocalidadesController extends Controller
      */
     public function actionView($id)
     {
-        $relUserLoc = new WrkUsuariosLocalidades();
+        $searchModel = new TareasSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        //$relUserLoc = new WrkUsuariosLocalidades();
         $userRel = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$id])->all();
-        $idUsersRel = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$id])->select('id_usuario')->all();
+        //$idUsersRel = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$id])->select('id_usuario')->all();
+
+        $tareas = WrkTareas::find()->where(['id_localidad'=>$id])->all();
 
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'relUserLoc' => $relUserLoc,
             'userRel' => $userRel,
-            'idUsersRel' => $idUsersRel
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'tareas' => $tareas
+            //'relUserLoc' => $relUserLoc,
+            //'idUsersRel' => $idUsersRel
         ]);
     }
 
@@ -84,7 +94,12 @@ class LocalidadesController extends Controller
             $model->fch_vencimiento_contratro = Utils::changeFormatDateInput($model->fch_vencimiento_contratro);
             $model->fch_asignacion = Utils::changeFormatDateInput($model->fch_asignacion);
             if($model->save()){
-                return $this->redirect(['view', 'id' => $model->id_localidad]);
+                $relUserLoc = new WrkUsuariosLocalidades();
+                $relUserLoc->id_usuario = $model->id_usuario;
+                $relUserLoc->id_localidad = $model->id_localidad;
+                if($relUserLoc->save()){
+                    return $this->redirect(['view', 'id' => $model->id_localidad]);
+                }
             }
 
             
@@ -152,7 +167,7 @@ class LocalidadesController extends Controller
         if(isset($_POST['idL']) && isset($_POST['idU']) ){
             $relacion = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$_POST['idL']])->one();
             if($relacion)
-                $relacion->delete();
+                //$relacion->delete();
 
             $relUserLoc = new WrkUsuariosLocalidades();
             $relUserLoc->id_usuario = $_POST['idU'];
@@ -209,5 +224,44 @@ class LocalidadesController extends Controller
                 return $this->redirect(['view', 'id'=>$relUserLoc->id_localidad]);	
             }
         }*/
+    }
+
+    public function actionAsignarUsuariosTareas(){
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        if(isset($_POST['idT']) && isset($_POST['idU']) ){
+            $relacion = WrkUsuariosTareas::find()->where(['id_tarea'=>$_POST['idT']])->one();
+            if($relacion)
+                $relacion->delete();
+
+            $relUserLoc = new WrkUsuariosTareas();
+            $relUserLoc->id_usuario = $_POST['idU'];
+            $relUserLoc->id_tarea = $_POST['idT'];
+
+            if($relUserLoc->save()){
+
+                /*if (Yii::$app->params ['modUsuarios'] ['mandarCorreoActivacion']) {
+                    $user = EntUsuarios::findIdentity($relUserLoc->id_usuario);
+                    $localidad = EntLocalidades::findOne($relUserLoc->id_localidad);
+
+					// Enviar correo
+					$utils = new Utils ();
+					// Parametros para el email
+					$parametrosEmail ['localidad'] = $localidad->txt_nombre;
+					$parametrosEmail ['user'] = $user->getNombreCompleto ();
+					
+					// Envio de correo electronico
+                    $utils->sendEmailAsignacion( $user->txt_email,$parametrosEmail );
+                    
+                    				
+                }*/
+                
+                //return $this->redirect(['view', 'id'=>$relUserLoc->id_localidad]);
+                return ['status'=>'success'];	
+            }
+
+            return ['status'=>'error'];	            
+        }
+        return ['status'=>'error'];
     }
 }

@@ -66,7 +66,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'Asignar cliente',
                 'format' => 'raw',                
                 'value' => function($data){
-                    return Html::activeDropDownList($data, 'id_usuario', ArrayHelper::map(EntUsuarios::find()->where(['txt_auth_item'=>'cliente'])->orderBy('txt_username')->asArray()->all(), 'id_usuario', 'txt_username'),['id' => "localidad-".$data->id_localidad, 'class' => 'select select-'.$data->id_localidad, 'data-idLoc' => $data->id_localidad, 'prompt' => 'Seleccionar cliente']);
+                    return Html::activeDropDownList($data, 'id_usuario', ArrayHelper::map(EntUsuarios::find()
+                        ->where(['!=', 'txt_auth_item', 'super-admin'])
+                        /*->andWhere(['txt_auth_item'=>'usuario-cliente'])
+                        ->where(['id_usuario'=>$data->id_usuario])*/
+                        ->andWhere(['id_status'=>2])
+                        ->orderBy('txt_username')
+                        ->asArray()
+                        ->all(), 'id_usuario', 'txt_username'),['id' => "localidad-".$data->id_localidad, 'class' => 'select select-'.$data->id_localidad, 'data-idLoc' => $data->id_localidad, 'prompt' => 'Seleccionar cliente']);
                     /*foreach($relLocalidades as $relLocalidad){
                         $user = EntUsuarios::find()->where(['id_usuario'=>$data->id_usuario])-one();
                     }*/
