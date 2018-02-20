@@ -42,12 +42,23 @@ class LocalidadesController extends Controller
      */
     public function actionIndex()
     {
+        $idUser = Yii::$app->user->identity->id_usuario;
+        
         $searchModel = new EntLocalidadesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $searchModelTarea = new TareasSearch();
+        $dataProviderTarea = $searchModelTarea->search(Yii::$app->request->queryParams);
+
+        $wrkUserTareas = WrkUsuariosTareas::find()->where(['id_usuario'=>$idUser])->select('id_tarea')->asArray()->all();        
+        $tareas = WrkTareas::find()->where(['in', 'id_tarea', $wrkUserTareas])->all();
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider
+            'dataProvider' => $dataProvider,
+            'searchModelTarea' => $searchModelTarea,
+            'dataProviderTarea' => $dataProviderTarea,
+            'tareas' => $tareas
         ]);
     }
 
@@ -61,6 +72,7 @@ class LocalidadesController extends Controller
     {
         $searchModel = new TareasSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
         //$relUserLoc = new WrkUsuariosLocalidades();
         $userRel = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$id])->all();
         //$idUsersRel = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$id])->select('id_usuario')->all();

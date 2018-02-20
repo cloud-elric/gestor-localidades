@@ -8,6 +8,8 @@ use app\models\TareasSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Dropbox;
+use yii\web\UploadedFile;
 
 /**
  * TareasController implements the CRUD actions for WrkTareas model.
@@ -67,8 +69,20 @@ class TareasController extends Controller
         $idUser = Yii::$app->user->identity->id_usuario;
         $model = new WrkTareas();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['localidades/view', 'id' => $idLoc]);
+        if ($model->load(Yii::$app->request->post())){
+
+            $fileDropbox = UploadedFile::getInstance($model, 'file');
+
+            $dropbox = Dropbox::subirArchivo($fileDropbox);
+            $decodeDropbox = json_decode(trim($dropbox), TRUE);
+            //echo $dropbox;exit;
+            
+            $model->txt_nombre = $decodeDropbox['name'];         
+            $model->txt_path = $decodeDropbox['path_display'];            
+            
+            if($model->save()) {
+                return $this->redirect(['localidades/view', 'id' => $idLoc]);
+            }
         }
 
         return $this->render('create', [
@@ -126,5 +140,14 @@ class TareasController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionDescargar($id){
+        $tarea = WrkTareas::find()->where(['id_tarea'=>$id])->one();
+
+        $dropbox = Dropbox::descargarArchivo($tarea->txt_path);
+        $decodeDropbox = json_decode(trim($dropbox), TRUE);
+
+        return $this->redirect($decodeDropbox['link']);
     }
 }

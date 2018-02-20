@@ -28,6 +28,7 @@ use app\modules\ModUsuarios\models\EntUsuarios;
  */
 class WrkTareas extends \yii\db\ActiveRecord
 {
+    public $file;
     /**
      * @inheritdoc
      */
@@ -50,6 +51,7 @@ class WrkTareas extends \yii\db\ActiveRecord
             [['id_localidad'], 'exist', 'skipOnError' => true, 'targetClass' => EntLocalidades::className(), 'targetAttribute' => ['id_localidad' => 'id_localidad']],
             [['id_usuario'], 'exist', 'skipOnError' => true, 'targetClass' => EntUsuarios::className(), 'targetAttribute' => ['id_usuario' => 'id_usuario']],
             [['id_tarea_padre'], 'exist', 'skipOnError' => true, 'targetClass' => WrkTareas::className(), 'targetAttribute' => ['id_tarea_padre' => 'id_tarea']],
+            //[['file'], 'file', 'skipOnEmpty' => false, 'extensions' => 'doc, docx, pdf, csv, xlsx']
         ];
     }
 

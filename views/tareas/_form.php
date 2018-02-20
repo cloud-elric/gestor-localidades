@@ -18,7 +18,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_localidad')->hiddenInput(['value' => $idLoc])->label(false) ?>
 
-    <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'txt_nombre')->hiddenInput(['value' => 'archivo'])->label(false) ?>
+
+    <?= $form->field($model, 'file')->fileInput() ?>
 
     <?= $form->field($model, 'txt_descripcion')->textarea(['rows' => 6]) ?>
 
