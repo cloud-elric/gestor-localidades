@@ -110,7 +110,7 @@ class WrkTareas extends \yii\db\ActiveRecord
      */
     public function getUsuario()
     {
-        return $this->hasOne(ModUsuariosEntUsuarios::className(), ['id_usuario' => 'id_usuario']);
+        return $this->hasOne(EntUsuarios::className(), ['id_usuario' => 'id_usuario']);
     }
 
     /**

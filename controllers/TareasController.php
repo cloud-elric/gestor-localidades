@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Dropbox;
 use yii\web\UploadedFile;
+use app\models\EntLocalidades;
 
 /**
  * TareasController implements the CRUD actions for WrkTareas model.
@@ -71,7 +72,7 @@ class TareasController extends Controller
 
         if ($model->load(Yii::$app->request->post())){
 
-            $fileDropbox = UploadedFile::getInstance($model, 'file');
+            /*$fileDropbox = UploadedFile::getInstance($model, 'file');
 
             $dropbox = Dropbox::subirArchivo($fileDropbox);
             $decodeDropbox = json_decode(trim($dropbox), TRUE);
@@ -79,8 +80,11 @@ class TareasController extends Controller
             
             $model->txt_nombre = $decodeDropbox['name'];         
             $model->txt_path = $decodeDropbox['path_display'];            
-            
-            if($model->save()) {
+            */
+
+
+            if($model->save()){
+                
                 return $this->redirect(['localidades/view', 'id' => $idLoc]);
             }
         }
@@ -101,9 +105,20 @@ class TareasController extends Controller
      */
     public function actionUpdate($id)
     {
+        var_dump($_POST);exit;
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()){
+
+            $fileDropbox = UploadedFile::getInstance($model, 'file');
+
+            $dropbox = Dropbox::subirArchivo($fileDropbox);
+            $decodeDropbox = json_decode(trim($dropbox), TRUE);
+            //echo $dropbox;exit;
+            
+            $model->txt_nombre = $decodeDropbox['name'];         
+            $model->txt_path = $decodeDropbox['path_display'];
+
             return $this->redirect(['view', 'id' => $model->id_tarea]);
         }
 

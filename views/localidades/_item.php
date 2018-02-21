@@ -10,19 +10,22 @@ use yii\widgets\ActiveForm;
 
 <div class="wrk-tareas-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'action' => ['tareas/update', 'id'=>$model->id_tarea],
+        'method' => 'POST'
+    ]); ?>
 
-    <?= $form->field($model, 'id_usuario')->hiddenInput(['value' => $idUser])->label(false) ?>
+    <?= $form->field($model, 'id_usuario')->hiddenInput()->label(false) ?>
 
     <?= $form->field($model, 'id_tarea_padre')->hiddenInput()->label(false) ?>
 
-    <?= $form->field($model, 'id_localidad')->hiddenInput(['value' => $idLoc])->label(false) ?>
+    <?= $form->field($model, 'id_localidad')->hiddenInput()->label(false) ?>
 
     <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true]) ?>
 
-    <?php // $form->field($model, 'file')->fileInput() ?>
+    <?= $form->field($model, 'file')->fileInput() ?>
 
-    <?= $form->field($model, 'txt_descripcion')->textarea(['rows' => 6]) ?>
+    <?php // $form->field($model, 'txt_descripcion')->textarea(['rows' => 6]) ?>
 
     <?php // $form->field($model, 'fch_creacion')->textInput() ?>
 

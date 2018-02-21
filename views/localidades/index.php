@@ -7,6 +7,7 @@ use app\models\WrkUsuariosLocalidades;
 use app\modules\ModUsuarios\models\EntUsuarios;
 use yii\helpers\ArrayHelper;
 use yii\web\View;
+use yii\widgets\ListView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\EntLocalidadesSearch */
@@ -106,47 +107,9 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <?php if($tareas){ ?>
                 <div class="panel-body">
-                <?= GridView::widget([
+                <?= ListView::widget([
                     'dataProvider' => $dataProviderTarea,
-                    'filterModel' => $searchModelTarea,
-                    'columns' => [
-                        ['class' => 'yii\grid\SerialColumn'],
-            
-                        //'id_tarea',
-                        //'id_usuario',
-                        //'id_tarea_padre',
-                        //'id_localidad',
-                        [
-                            'attribute' => 'txt_nombre',
-                            'format' => 'raw',
-                            'value' => function($dataTarea){
-                                return Html::a($dataTarea->txt_nombre, [
-                                    'tareas/descargar', 'id' => $dataTarea->id_tarea
-                                ]);
-                            }
-                        ],
-                        //'txt_nombre',
-                        'txt_descripcion:ntext',
-                        /*[
-                            'attribute' => 'Asignar usuario',
-                            'format' => 'raw',                
-                            'value' => function($data){
-                                return Html::activeDropDownList($data, 'id_usuario', ArrayHelper::map(EntUsuarios::find()
-                                ->where(['!=', 'txt_auth_item', 'super-admin'])
-                                ->orderBy('txt_username')
-                                ->asArray()
-                                ->all(), 'id_usuario', 'txt_username'),['id' => "tarea-".$data->id_tarea, 'class' => 'select-tarea select-tarea-'.$data->id_tarea, 'data-idTar' => $data->id_tarea, 'prompt' => 'Seleccionar usuario']);
-                                /*foreach($relLocalidades as $relLocalidad){
-                                    $user = EntUsuarios::find()->where(['id_usuario'=>$data->id_usuario])-one();
-                                }*/
-                        /*    }
-                        ],*/
-                        //'fch_creacion',
-                        //'fch_due_date',
-                        //'b_completa',
-            
-                        ['class' => 'yii\grid\ActionColumn'],
-                    ],
+                    'itemView' => '_item',
                 ]); ?>
                 </div>
             <?php }else{ ?>
