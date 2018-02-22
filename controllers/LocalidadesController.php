@@ -11,6 +11,11 @@ use yii\filters\VerbFilter;
 use app\modules\ModUsuarios\models\EntUsuarios;
 use app\models\WrkUsuariosLocalidades;
 use app\modules\ModUsuarios\models\Utils;
+use yii\web\Response;
+use app\models\WrkTareas;
+use app\models\TareasSearch;
+use app\models\WrkUsuariosTareas;
+use app\models\Dropbox;
 
 /**
  * LocalidadesController implements the CRUD actions for EntLocalidades model.
@@ -36,14 +41,29 @@ class LocalidadesController extends Controller
      * Lists all EntLocalidades models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($token = null)
     {
+        if($token){
+            $user = EntUsuarios::find()->where(['txt_token'=>$token])->one();
+            Yii::$app->getUser()->login($user);
+        }
+        $idUser = Yii::$app->user->identity->id_usuario;
+        
         $searchModel = new EntLocalidadesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $searchModelTarea = new TareasSearch();
+        $dataProviderTarea = $searchModelTarea->search(Yii::$app->request->queryParams);
+
+        $wrkUserTareas = WrkUsuariosTareas::find()->where(['id_usuario'=>$idUser])->select('id_tarea')->asArray()->all();        
+        $tareas = WrkTareas::find()->where(['in', 'id_tarea', $wrkUserTareas])->all();
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'searchModelTarea' => $searchModelTarea,
+            'dataProviderTarea' => $dataProviderTarea,
+            'tareas' => $tareas
         ]);
     }
 
@@ -55,15 +75,23 @@ class LocalidadesController extends Controller
      */
     public function actionView($id)
     {
-        $relUserLoc = new WrkUsuariosLocalidades();
+        $searchModel = new TareasSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        //$relUserLoc = new WrkUsuariosLocalidades();
         $userRel = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$id])->all();
-        $idUsersRel = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$id])->select('id_usuario')->all();
+        //$idUsersRel = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$id])->select('id_usuario')->all();
+
+        $tareas = WrkTareas::find()->where(['id_localidad'=>$id])->all();
 
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'relUserLoc' => $relUserLoc,
             'userRel' => $userRel,
-            'idUsersRel' => $idUsersRel
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'tareas' => $tareas
+            //'relUserLoc' => $relUserLoc,
+            //'idUsersRel' => $idUsersRel
         ]);
     }
 
@@ -77,17 +105,26 @@ class LocalidadesController extends Controller
         $model = new EntLocalidades();
 
         if ($model->load(Yii::$app->request->post())){
+           
             $model->id_usuario = Yii::$app->user->identity->id_usuario; 
             $model->txt_token = Utils::generateToken('tok');
 
             $model->fch_vencimiento_contratro = Utils::changeFormatDateInput($model->fch_vencimiento_contratro);
             $model->fch_asignacion = Utils::changeFormatDateInput($model->fch_asignacion);
-            if($model->save()){
-                return $this->redirect(['view', 'id' => $model->id_localidad]);
-            }
-
             
+            $dropbox = Dropbox::crearFolder("raul/".$_POST["EntLocalidades"]["txt_nombre"]);
+            $decodeDropbox = json_decode(trim($dropbox), TRUE);
 
+            if($decodeDropbox['metadata']){
+                if($model->save()){
+                    $relUserLoc = new WrkUsuariosLocalidades();
+                    $relUserLoc->id_usuario = $model->id_usuario;
+                    $relUserLoc->id_localidad = $model->id_localidad;
+                    if($relUserLoc->save()){
+                        return $this->redirect(['view', 'id' => $model->id_localidad]);
+                    }
+                }
+            }
         }
 
         return $this->render('create', [
@@ -146,7 +183,43 @@ class LocalidadesController extends Controller
     }
 
     public function actionAsignarUsuarios(){
-        if(isset($_POST['WrkUsuariosLocalidades']['id_usuario']) && isset($_POST['WrkUsuariosLocalidades']['id_localidad']) ){
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        if(isset($_POST['idL']) && isset($_POST['idU']) ){
+            $relacion = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$_POST['idL']])->one();
+            if($relacion)
+                //$relacion->delete();
+
+            $relUserLoc = new WrkUsuariosLocalidades();
+            $relUserLoc->id_usuario = $_POST['idU'];
+            $relUserLoc->id_localidad = $_POST['idL'];
+
+            if($relUserLoc->save()){
+
+                /*if (Yii::$app->params ['modUsuarios'] ['mandarCorreoActivacion']) {
+                    $user = EntUsuarios::findIdentity($relUserLoc->id_usuario);
+                    $localidad = EntLocalidades::findOne($relUserLoc->id_localidad);
+
+					// Enviar correo
+					$utils = new Utils ();
+					// Parametros para el email
+					$parametrosEmail ['localidad'] = $localidad->txt_nombre;
+					$parametrosEmail ['user'] = $user->getNombreCompleto ();
+					
+					// Envio de correo electronico
+                    $utils->sendEmailAsignacion( $user->txt_email,$parametrosEmail );
+                    
+                    				
+                }*/
+                
+                //return $this->redirect(['view', 'id'=>$relUserLoc->id_localidad]);
+                return ['status'=>'success'];	
+            }
+
+            return ['status'=>'error'];	            
+        }
+        return ['status'=>'error'];
+        /*if(isset($_POST['WrkUsuariosLocalidades']['id_usuario']) && isset($_POST['WrkUsuariosLocalidades']['id_localidad']) ){
             $relUserLoc = new WrkUsuariosLocalidades();
             $relUserLoc->id_usuario = $_POST['WrkUsuariosLocalidades']['id_usuario'];
             $relUserLoc->id_localidad = $_POST['WrkUsuariosLocalidades']['id_localidad'];
@@ -171,6 +244,53 @@ class LocalidadesController extends Controller
                 
                 return $this->redirect(['view', 'id'=>$relUserLoc->id_localidad]);	
             }
+        }*/
+    }
+
+    public function actionAsignarUsuariosTareas(){
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        if(isset($_POST['idT']) && isset($_POST['idU']) ){
+            $relacion = WrkUsuariosTareas::find()->where(['id_tarea'=>$_POST['idT']])->one();
+            if($relacion)
+                $relacion->delete();
+
+            $relUserLoc = new WrkUsuariosTareas();
+            $relUserLoc->id_usuario = $_POST['idU'];
+            $relUserLoc->id_tarea = $_POST['idT'];
+
+            if($relUserLoc->save()){
+
+                if (Yii::$app->params ['modUsuarios'] ['mandarCorreoActivacion']) {
+                    $user = EntUsuarios::findIdentity($_POST['idU']);
+                    $tarea = WrkTareas::find()->where(['id_tarea'=>$_POST['idT']])->one();
+                    $loc = $tarea->localidad;
+                    $abogado = $tarea->usuario;
+                    //$tarea = WrkTareas::findOne($model->id_localidad);
+
+					// Enviar correo
+					$utils = new Utils ();
+					// Parametros para el email
+					$parametrosEmail ['tarea'] = $tarea->txt_nombre;
+					$parametrosEmail ['loc'] = $loc->txt_nombre;
+					$parametrosEmail ['user'] = $user->getNombreCompleto();
+					$parametrosEmail ['abogado'] = $abogado->getNombreCompleto();
+					$parametrosEmail ['url'] = Yii::$app->urlManager->createAbsoluteUrl([ 
+                        'localidades/index/?token=' . $user->txt_token
+                    ]);
+					
+					// Envio de correo electronico
+                    $utils->sendEmailAsignacionTarea( $user->txt_email,$parametrosEmail );
+                    
+                    //return $this->redirect(['view', 'id'=>$relUserLoc->id_localidad]);
+                    return ['status'=>'success'];					
+                }
+
+                return ['status'=>'error mandar correo'];	            
+            }
+
+            return ['status'=>'error guardar relacion'];
         }
+        return ['status'=>'error post data'];
     }
 }
