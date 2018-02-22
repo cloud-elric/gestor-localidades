@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <!-- Panel -->
-<div class="panel">
+<div class="panel panel-localidades">
     <div class="panel-body">
 
         <div class="panel-search">
@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="panel-listado-col w-m">13 - Ago -2018</div>
                 <div class="panel-listado-col w-m">Carpet contractors</div>
                 <div class="panel-listado-col w-m"><img class="panel-listado-img" src="<?=EntUsuarios::getUsuarioLogueado()->imageProfile?>" alt=""></div>
-                <div class="panel-listado-col w-s"><a class="panel-listado-acction" href=""><i class="icon wb-plus"></i></a><a class="panel-listado-acction" href=""><i class="icon wb-plus"></i></a></div>
+                <div class="panel-listado-col w-s"><a class="panel-listado-acction acction-edit" href=""><i class="icon wb-plus"></i></a><a class="panel-listado-acction acction-delete" href=""><i class="icon wb-plus"></i></a></div>
             </div>
 
             <div class="panel-listado-row">
@@ -62,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="panel-listado-col w-m">13 - Ago -2018</div>
                 <div class="panel-listado-col w-m">Carpet contractors</div>
                 <div class="panel-listado-col w-m"><img class="panel-listado-img" src="<?=EntUsuarios::getUsuarioLogueado()->imageProfile?>" alt=""></div>
-                <div class="panel-listado-col w-s"><a class="panel-listado-acction" href=""><i class="icon wb-plus"></i></a><a class="panel-listado-acction" href=""><i class="icon wb-plus"></i></a></div>
+                <div class="panel-listado-col w-s"><a class="panel-listado-acction acction-edit" href=""><i class="icon wb-plus"></i></a><a class="panel-listado-acction acction-delete" href=""><i class="icon wb-plus"></i></a></div>
             </div>
 
             <div class="panel-listado-row">
@@ -72,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="panel-listado-col w-m">13 - Ago -2018</div>
                 <div class="panel-listado-col w-m">Carpet contractors</div>
                 <div class="panel-listado-col w-m"><img class="panel-listado-img" src="<?=EntUsuarios::getUsuarioLogueado()->imageProfile?>" alt=""></div>
-                <div class="panel-listado-col w-s"><a class="panel-listado-acction" href=""><i class="icon wb-plus"></i></a><a class="panel-listado-acction" href=""><i class="icon wb-plus"></i></a></div>
+                <div class="panel-listado-col w-s"><a class="panel-listado-acction acction-edit" href=""><i class="icon wb-plus"></i></a><a class="panel-listado-acction acction-delete" href=""><i class="icon wb-plus"></i></a></div>
             </div>
 
         </div>

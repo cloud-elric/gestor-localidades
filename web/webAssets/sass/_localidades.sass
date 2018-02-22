@@ -20,7 +20,7 @@
 	.page-content
 		position: relative
 		z-index: 3
-		.panel
+		.panel-localidades
 			background-color: rgba($ryg-second,.45)
 			.panel-body
 				padding: 0
@@ -145,7 +145,7 @@
 									font-size: .85rem
 								&.acction-edit
 									background-color: $ryg-aqua
-								&.acction-delte
+								&.acction-delete
 									background-color: $ryg-accent
 
 
@@ -158,13 +158,24 @@
 			.form-group
 				.control-label
 					padding-left: 1rem
+				
+				input[type="email"],
+				input[type="password"],
+				input[type="text"],
+				select,
+				textarea,
 				.form-control
+					background-color: $ryg-second
+					border-color: $ryg-second
+					font-weight: $light
 					&:active,
 					&:focus,
 					&:hover
-						border-color: #e4eaec
+						border-color: $ryg-second
 						box-shadow: none
 						outline: none
+				textarea
+					resize: none
 				.help-block
 					color: $error
 					font-size: .85rem
