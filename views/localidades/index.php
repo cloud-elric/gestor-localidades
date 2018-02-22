@@ -52,17 +52,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'txt_arrendador',
-            /*[
-                'attribute' => 'Usuarios',
-                'format' => 'raw',
-                'value' => function($data){
-                    $relLocalidades = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$data->id_localidad])->all();
-                    return count($relLocalidades);
-                    /*foreach($relLocalidades as $relLocalidad){
-                        $user = EntUsuarios::find()->where(['id_usuario'=>$data->id_usuario])-one();
-                    }*/
-            /*    }
-            ],*/
             [
                 'attribute' => 'Asignar cliente',
                 'format' => 'raw',                
@@ -75,9 +64,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         ->orderBy('txt_username')
                         ->asArray()
                         ->all(), 'id_usuario', 'txt_username'),['id' => "localidad-".$data->id_localidad, 'class' => 'select select-'.$data->id_localidad, 'data-idLoc' => $data->id_localidad, 'prompt' => 'Seleccionar cliente']);
-                    /*foreach($relLocalidades as $relLocalidad){
-                        $user = EntUsuarios::find()->where(['id_usuario'=>$data->id_usuario])-one();
-                    }*/
                 }
             ],
             //'txt_calle',

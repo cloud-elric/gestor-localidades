@@ -105,21 +105,25 @@ class TareasController extends Controller
      */
     public function actionUpdate($id)
     {
-        var_dump($_POST);exit;
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()){
+        if ($model->load(Yii::$app->request->post())){
+
+            $localidad = EntLocalidades::find()->where(['id_localidad'=>$_POST["WrkTareas"]["id_localidad"]])->one();
 
             $fileDropbox = UploadedFile::getInstance($model, 'file');
 
-            $dropbox = Dropbox::subirArchivo($fileDropbox);
+            $dropbox = Dropbox::subirArchivo($localidad->txt_nombre, $fileDropbox);
             $decodeDropbox = json_decode(trim($dropbox), TRUE);
             //echo $dropbox;exit;
             
             $model->txt_nombre = $decodeDropbox['name'];         
             $model->txt_path = $decodeDropbox['path_display'];
 
-            return $this->redirect(['view', 'id' => $model->id_tarea]);
+            if($model->save()){
+
+                return $this->redirect(['view', 'id' => $model->id_tarea]);
+            }
         }
 
         return $this->render('update', [

@@ -31,7 +31,7 @@ class Dropbox{
             self::AUTHORIZATION
         );
         $fields = array(
-            "path" => "/".$path,
+            "path" => "/raul/".$path,
             "recursive" => false,
             "include_media_info" => false,
             "include_deleted" => false,
@@ -79,10 +79,10 @@ class Dropbox{
         return $result;
     } 
 
-    public static function subirArchivo($path){
+    public static function subirArchivo($folder, $path){
         $url = 'https://content.dropboxapi.com/2/files/upload';
         $args = array(
-            'path' => '/raul/'.$path->name,
+            'path' => '/raul/' . $folder . '/' . $path->name,
             'mode' => 'add'
         );
         $args = json_encode($args);

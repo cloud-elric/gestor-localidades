@@ -2,10 +2,21 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\Dropbox;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\WrkTareas */
 /* @var $form yii\widgets\ActiveForm */
+
+$localidad = $model->localidad;
+$dropbox = Dropbox::listarFolder($localidad->txt_nombre);
+$decodeDropbox = json_decode(trim($dropbox), TRUE);
+$existeArchivo = false;
+foreach($decodeDropbox['entries'] as $retorno){
+    if($retorno['name'] == $model->txt_nombre){
+        $existeArchivo = true;
+    } 
+}
 ?>
 
 <div class="wrk-tareas-form">
@@ -21,7 +32,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_localidad')->hiddenInput()->label(false) ?>
 
-    <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true, 'disabled'=>true]) ?>
 
     <?= $form->field($model, 'file')->fileInput() ?>
 
@@ -38,5 +49,11 @@ use yii\widgets\ActiveForm;
     </div>
 
     <?php ActiveForm::end(); ?>
+
+    <?php if($existeArchivo){?>
+        <?= Html::a('Descargar', [
+            'tareas/descargar', 'id' => $model->id_tarea
+        ]);?>
+    <?php } ?>
 
 </div>
