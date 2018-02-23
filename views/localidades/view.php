@@ -9,6 +9,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\grid\GridView;
 use yii\web\View;
+use app\models\EntEstatus;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\EntLocalidades */
@@ -58,7 +59,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'txt_colonia',
             'txt_municipio',
             'txt_cp',
-            'txt_estatus:ntext',
+            //'txt_estatus:ntext',
+            [
+                'label' => 'Estatus',
+                'format' => 'raw',
+                'value' => function($data){
+                    $estatus = EntEstatus::find()->where(['id_localidad'=>$data->id_localidad])->orderBy('fch_creacion')->all();
+                    $arr = "";
+                    foreach ($estatus as $est){
+                        $arr .= $est->txt_estatus . "<br/>";
+                    }
+                    return $arr;
+                }
+            ],
             'txt_antecedentes:ntext',
             'num_renta_actual',
             'num_incremento_autorizado',

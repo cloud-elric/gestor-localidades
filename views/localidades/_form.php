@@ -36,7 +36,33 @@ use kartik\date\DatePicker;
 
     <?= $form->field($model, 'txt_cp')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'txt_estatus')->textarea(['rows' => 6]) ?>
+    <?php // $form->field($model, 'txt_estatus')->textarea(['rows' => 6]) ?>
+
+    <?php if($historial){ ?>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3>Historial de estatus</h3>
+                    </div>
+                    <?php if($historial){ ?>
+                        <div class="panel-body">
+                            <?php foreach($historial as $his){ ?>
+                                <p><?= $his->txt_estatus ?></p>
+                            <?php } ?>
+                        </div>
+                    <?php }else{ ?>
+                        <div class="panel-body">
+                            <p>No hay historial de estatus</p>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+
+
+    <?= $form->field($estatus, 'txt_estatus')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'txt_antecedentes')->textarea(['rows' => 6]) ?>
 

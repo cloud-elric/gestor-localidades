@@ -16,6 +16,7 @@ use app\models\WrkTareas;
 use app\models\TareasSearch;
 use app\models\WrkUsuariosTareas;
 use app\models\Dropbox;
+use app\models\EntEstatus;
 
 /**
  * LocalidadesController implements the CRUD actions for EntLocalidades model.
@@ -103,9 +104,11 @@ class LocalidadesController extends Controller
     public function actionCreate()
     {
         $model = new EntLocalidades();
+        $estatus = new EntEstatus();
+        $historial = null;
 
-        if ($model->load(Yii::$app->request->post())){
-           
+        if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())){
+            //var_dump($_POST);exit;
             $model->id_usuario = Yii::$app->user->identity->id_usuario; 
             $model->txt_token = Utils::generateToken('tok');
 
@@ -117,11 +120,14 @@ class LocalidadesController extends Controller
 
             if($decodeDropbox['metadata']){
                 if($model->save()){
-                    $relUserLoc = new WrkUsuariosLocalidades();
-                    $relUserLoc->id_usuario = $model->id_usuario;
-                    $relUserLoc->id_localidad = $model->id_localidad;
-                    if($relUserLoc->save()){
-                        return $this->redirect(['view', 'id' => $model->id_localidad]);
+                    $estatus->id_localidad = $model->id_localidad;
+                    if($estatus->save()){     
+                        $relUserLoc = new WrkUsuariosLocalidades();
+                        $relUserLoc->id_usuario = $model->id_usuario;
+                        $relUserLoc->id_localidad = $model->id_localidad;
+                        if($relUserLoc->save()){
+                            return $this->redirect(['view', 'id' => $model->id_localidad]);
+                        }
                     }
                 }
             }
@@ -129,6 +135,8 @@ class LocalidadesController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'estatus' => $estatus,
+            'historial' => $historial
         ]);
     }
 
@@ -142,13 +150,20 @@ class LocalidadesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $estatus = new EntEstatus();
+        $historial = EntEstatus::find()->where(['id_localidad'=>$id])->all();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_localidad]);
+        if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())) {
+            $estatus->id_localidad = $model->id_localidad;
+            if($model->save() && $estatus->save()){
+                return $this->redirect(['view', 'id' => $model->id_localidad]);
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
+            'estatus' => $estatus,
+            'historial' => $historial
         ]);
     }
 
