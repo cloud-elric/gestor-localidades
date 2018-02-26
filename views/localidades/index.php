@@ -6,6 +6,9 @@ use app\models\CatEstados;
 use app\models\WrkUsuariosLocalidades;
 use app\modules\ModUsuarios\models\EntUsuarios;
 use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
+use yii\web\View;
+use yii\widgets\ListView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\EntLocalidadesSearch */
@@ -84,6 +87,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
+    <?php if(Yii::$app->user->identity->txt_auth_item == "abogado"){ ?>
+        <p>
+            <?= Html::a('Crear Localidades', ['create'], ['class' => 'btn btn-success']) ?>
+        </p>
+    <?php } ?>
+
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -112,14 +122,17 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'txt_arrendador',
             [
-                'attribute' => 'Usuarios',
-                'format' => 'raw',
+                'attribute' => 'Asignar cliente',
+                'format' => 'raw',                
                 'value' => function($data){
-                    $relLocalidades = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$data->id_localidad])->all();
-                    return count($relLocalidades);
-                    /*foreach($relLocalidades as $relLocalidad){
-                        $user = EntUsuarios::find()->where(['id_usuario'=>$data->id_usuario])-one();
-                    }*/
+                    return Html::activeDropDownList($data, 'id_usuario', ArrayHelper::map(EntUsuarios::find()
+                        ->where(['!=', 'txt_auth_item', 'super-admin'])
+                        /*->andWhere(['txt_auth_item'=>'usuario-cliente'])
+                        ->where(['id_usuario'=>$data->id_usuario])*/
+                        ->andWhere(['id_status'=>2])
+                        ->orderBy('txt_username')
+                        ->asArray()
+                        ->all(), 'id_usuario', 'txt_username'),['id' => "localidad-".$data->id_localidad, 'class' => 'select select-'.$data->id_localidad, 'data-idLoc' => $data->id_localidad, 'prompt' => 'Seleccionar cliente']);
                 }
             ],
             //'txt_calle',
@@ -140,3 +153,52 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 </div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3>Tareas asignadas</h3>
+            </div>
+            <?php if($tareas){ ?>
+                <div class="panel-body">
+                <?= ListView::widget([
+                    'dataProvider' => $dataProviderTarea,
+                    'itemView' => '_item',
+                ]); ?>
+                </div>
+            <?php }else{ ?>
+                <div class="panel-body">
+                    <p>No hay tareas asignadas</p>
+                </div>
+            <?php } ?>
+        </div>
+    </div>
+</div>
+
+<?php
+$this->registerJs("
+
+$(document).ready(function(){
+    var basePath = 'http://localhost/gestor-localidades/web/';
+    $('.select').on('change', function(){
+        //console.log('cambio select');
+        var idLoc = $(this).data('idloc');
+        var idUser = $(this).val();
+        $.ajax({
+            url: basePath+'localidades/asignar-usuarios',
+            data: {idL: idLoc, idU: idUser},
+            dataType: 'json',
+            type: 'POST',
+            success: function(resp){
+                if(resp.status == 'success'){
+                    console.log('Asignacion correcta');
+                }
+            }
+        });
+    });
+});
+
+", View::POS_END );
+
+?>

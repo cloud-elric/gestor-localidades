@@ -83,6 +83,33 @@ use kartik\date\DatePicker;
 
     <?php // $form->field($model, 'txt_token')->textInput(['maxlength' => true]) ?>
 
+
+
+    <?php if($historial){ ?>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3>Historial de estatus</h3>
+                    </div>
+                    <?php if($historial){ ?>
+                        <div class="panel-body">
+                            <?php foreach($historial as $his){ ?>
+                                <p><?= $his->txt_estatus ?></p>
+                            <?php } ?>
+                        </div>
+                    <?php }else{ ?>
+                        <div class="panel-body">
+                            <p>No hay historial de estatus</p>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+
+
+   
     <?php ActiveForm::end(); ?>
 
 </div>

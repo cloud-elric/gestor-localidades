@@ -279,7 +279,9 @@ a[x-apple-data-detectors=true] {
                     <div class="">
 	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
 	<div style="line-height:200%;color:#555555;font-family:'Verdanaf', Georgia, Times, 'Times New Roman', serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
-		<div style="font-size:16px;line-height:24px;font-family:'Verdana', Georgia, Times, 'Times New Roman', serif;color:#555555;text-align:left;"><p style="margin: 0;font-size: 16px;line-height: 28px;text-align: left"><span style="font-size: 18px; font-weight: bold; color: #2B3736; line-height: 48px;">Te han asignado a una localidad</span></p></div>	
+
+		<div style="font-size:16px;line-height:24px;font-family:'Verdana', Georgia, Times, 'Times New Roman', serif;color:#555555;text-align:left;"><p style="margin: 0;font-size: 16px;line-height: 28px;text-align: left"><span style="font-size: 18px; font-weight: bold; color: #2B3736; line-height: 48px;">Te han asignado a una tarea</span></p></div>	
+
 	</div>
 	<!--[if mso]></td></tr></table><![endif]-->
 </div>
@@ -289,8 +291,10 @@ a[x-apple-data-detectors=true] {
 	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
 	<div style="line-height:200%;color:#555555;font-family:'Verdanaf', Georgia, Times, 'Times New Roman', serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
         <div style="line-height:24px;font-size:12px;color:#555555;font-family:'Verdanaf', Georgia, Times, 'Times New Roman', serif;text-align:left;">
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">Hola Alfredo:</span></p>
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">Este correo es para notificarte que: <strong style="font-family: Verdana; font-size: 14px; font-weight: bold;">Luis García te ha asignado</strong> a un grupo de trabajo para la gestión de la localidad - <strong style="font-family: Verdana; font-size: 14px; font-weight: bold;">Alamos</strong> - la cual puedes consultar dando click en el siguiente enlace.</span></p>
+
+            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">Hola <?= $user ?>:</span></p>
+            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">Este correo es para notificarte que: <strong style="font-family: Verdana; font-size: 14px; font-weight: bold;"><?= $abogado ?> te ha asignado</strong> a un grupo de trabajo para la gestión de la localidad - <strong style="font-family: Verdana; font-size: 14px; font-weight: bold;"><?= $loc ?></strong> - la cual puedes consultar dando click en el siguiente enlace.</span></p>
+
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
         </div>	
 	</div>

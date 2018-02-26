@@ -63,13 +63,18 @@ class EntLocalidadesSearch extends EntLocalidades
         if($user->txt_auth_item == ConstantesWeb::ABOGADO){
             // grid filtering conditions
             $query->andFilterWhere([
-                'id_usuario' => $user->id_usuario
-            ]);
+                'id_usuario' => $user->id_usuario,
+                'id_localidad' => $this->id_localidad
+                ]);
+        }
+        if($user->txt_auth_item == ConstantesWeb::CLIENTE){
+            $loc = WrkUsuariosLocalidades::find()->select('id_localidad')->where(['id_usuario'=>$user->id_usuario])->asArray();//var_dump($loc);exit;
+            // grid filtering conditions
+            $query->andFilterWhere(['in', 'id_localidad', $loc]);
         }
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id_localidad' => $this->id_localidad,
             'id_estado' => $this->id_estado,
             'num_renta_actual' => $this->num_renta_actual,
             'num_incremento_autorizado' => $this->num_incremento_autorizado,
