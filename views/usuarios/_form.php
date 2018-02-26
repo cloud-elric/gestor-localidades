@@ -36,7 +36,23 @@ use yii\helpers\ArrayHelper;
                                 'allowClear' => true
                             ],
                         ])->label(false);
-                    ?>
+                    ?> 
+                </div>
+                <?php if($usuario->txt_auth_item == "abogado"){ ?>
+                    <div id="select_clientes" class="col-md-6" style="display:none">
+                        <?= $form->field($model, 'usuarioPadre')
+                            ->widget(Select2::classname(), [
+                                'data' => ArrayHelper::map($usuariosClientes, 'id_usuario', 'txt_username'),
+                                'language' => 'es',
+                                'options' => ['placeholder' => 'Seleccionar grupo de trabajo'],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])->label(false);
+                        ?> 
+                    </div>
+                <?php } ?>  
+                <div class="col-md-6">
                     <?= $form->field($model, 'txt_username')->textInput(['maxlength' => true, 'placeholder' => 'Nombre'])->label(false) ?>
                     <?= $form->field($model, 'txt_apellido_paterno')->textInput(['maxlength' => true, 'placeholder' => 'Apellido paterno'])->label(false) ?>
                     <?= $form->field($model, 'txt_email')->textInput(['maxlength' => true, 'placeholder' => 'Email'])->label(false) ?>

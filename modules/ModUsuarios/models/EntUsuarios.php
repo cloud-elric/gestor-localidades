@@ -42,7 +42,7 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 	public $password;
 	public $repeatPassword;
 	public $image;
-	
+	public $usuarioPadre;
 	/**
 	 * @inheritdoc
 	 */
@@ -55,6 +55,15 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 	 */
 	public function rules() {
 		return [ 
+				[
+					['usuarioPadre'], 'required', 'message'=>'Campo requerido',
+					'when' => function ($model) {
+						return $model->txt_auth_item == 'usuario-cliente';
+					}, 'whenClient' => "function (attribute, value) {
+						
+						return $('#entusuarios-txt_auth_item').val()=='usuario-cliente';
+					}"
+				],
 				[ 
 						'password',
 						'compare',
