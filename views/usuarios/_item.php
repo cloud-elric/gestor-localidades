@@ -2,6 +2,31 @@
 use app\models\Calendario;
 use yii\helpers\Html;
 ?>
+
+        <div class="panel-listado-col w-m"><img class="panel-listado-img" src="<?=$model->imageProfile?>" alt=""> 
+            <span><?=$model->nombreCompleto?></span>
+        </div>
+        <div class="panel-listado-col w-m"><?=$model->txtAuthItem->description?></div>
+        
+        <div class="panel-listado-col w-m"> <?=Calendario::getDateComplete($model->fch_creacion)?></div>
+        <div class="panel-listado-col w-m">
+          <div class="btn-group" data-toggle="buttons" role="group">
+            <label class="btn btn-outline btn-active active">
+              <input type="radio" name="options" autocomplete="off" value="male" checked />
+              Activo
+            </label>
+            <label class="btn btn-outline btn-inactive ">
+              <input type="radio" name="options" autocomplete="off" value="female" />
+              Inactivo
+            </label>
+          </div>
+        </div>
+        <div class="panel-listado-col w-x"><button type="button" class="btn btn-outline btn-success btn-sm"><i class="icon wb-plus"></i></button></div>
+
+
+
+<!--
+
 <div class="media">
     <div class="pr-20">
         <div class="avatar avatar-online">
@@ -29,4 +54,4 @@ use yii\helpers\Html;
     <div class="pl-20 align-self-center">
         <button type="button" class="btn btn-outline btn-success btn-sm">Follow</button>
     </div>
-</div>
+</div>-->

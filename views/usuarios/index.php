@@ -40,6 +40,26 @@ $this->registerJsFile(
 
 ?>
 
+<?php
+      $sort = "txt_username";
+      if(isset($_GET['sort'])){
+        $sort = substr($_GET['sort'], 0,1);
+        if($sort=="-"){
+          $sort = substr($_GET['sort'], 1);
+        }else{
+          $sort = $_GET['sort'];
+        }
+      }
+      #exit;
+      $atributoActivado = EntUsuarios::label()[$sort];
+      $sorter ='<div class="dropdown">
+                  Ordenar por: <a class="dropdown-toggle inline-block" data-toggle="dropdown"
+                  href="#" aria-expanded="false">'.$atributoActivado.'</a>
+                  {sorter}
+                </div>';
+
+      ?>   
+
 <!-- Panel -->
 <div class="panel panel-usuarios">
   <div class="panel-body">
@@ -51,7 +71,7 @@ $this->registerJsFile(
             <input type="text" class="panel-search-form-input" placeholder="Buscar por nombre o correo">
           <input type="text" class="panel-search-form-select" placeholder="Tipo">
           </form>
-          <a class="btn btn-success btn-add" href="'.Url::base().'/usuarios/create"><i class="icon wb-plus"></i> Agregar usuario</a>
+          <a class="btn btn-success btn-add" href="<?=Url::base()?>'/usuarios/create"><i class="icon wb-plus"></i> Agregar usuario</a>
       </div>
         
     </div>
@@ -60,11 +80,56 @@ $this->registerJsFile(
       <div class="panel-listado-head">
           <div class="panel-listado-col w-m">Nombre</div>
           <div class="panel-listado-col w-m">Tipo de usuario</div>
-          <div class="panel-listado-col w-l">Cliente</div>
-          <div class="panel-listado-col w-m">Último acceso</div>
+          <div class="panel-listado-col w-m">Fecha de creación</div>
           <div class="panel-listado-col w-m">Estatus</div>
           <div class="panel-listado-col w-x">Editar</div>
       </div>
+
+      <?php
+      echo ListView::widget([
+          'dataProvider' => $dataProvider,
+          'itemView' => '_item',
+          'itemOptions'=>[
+            'tag'=>"div",
+            'class'=>"panel-listado-row"
+          ],
+          'layout'=>$sorter.'<ul class="list-group">{items}</ul>{pager}{summary}',
+          'sorter'=>[
+            'class'=>LinkSorterExtends::className(),
+            'attributes'=>[
+              'id_usuario',
+              'txt_username',
+              'txt_apellido_paterno',
+              'txt_apellido_materno',
+              'txt_email',
+              'fch_creacion'
+            ],
+            'options'=>[
+              'class'=>"dropdown-menu animation-scale-up animation-top-right animation-duration-250",
+              'role'=>"menu"
+            ],
+            'linkOptions'=>[
+              "class"=>"dropdown-item"
+            ]
+          ],
+          'pager' => [
+            'item'=>".panel-listado-row",
+            'class' => ScrollPager::className(),
+            'triggerText'=>'Cargar más datos',
+            'noneLeftText'=>'No hay datos por cargar',
+            'triggerOffset'=>999999999999999999999999999999999999999,
+            'negativeMargin'=>100,
+            'enabledExtensions' => [
+                ScrollPager::EXTENSION_TRIGGER,
+                ScrollPager::EXTENSION_SPINNER,
+                ScrollPager::EXTENSION_NONE_LEFT,
+                ScrollPager::EXTENSION_PAGING,
+            ],
+            // ScrollPager::EXTENSION_SPINNER,
+            // ScrollPager::EXTENSION_PAGING,
+        ]
+          
+      ]);?>
 
       <div class="panel-listado-row">
         <div class="panel-listado-col w-m"><img class="panel-listado-img" src="<?=EntUsuarios::getUsuarioLogueado()->imageProfile?>" alt=""> <span>Paulina Rivas</span></div>
@@ -140,67 +205,8 @@ $this->registerJsFile(
     
     </div>
      
-      <?php
-      $sort = "txt_username";
-      if(isset($_GET['sort'])){
-        $sort = substr($_GET['sort'], 0,1);
-        if($sort=="-"){
-          $sort = substr($_GET['sort'], 1);
-        }else{
-          $sort = $_GET['sort'];
-        }
-      }
-      #exit;
-      $atributoActivado = EntUsuarios::label()[$sort];
-      $sorter ='<div class="dropdown">
-                  Ordenar por: <a class="dropdown-toggle inline-block" data-toggle="dropdown"
-                  href="#" aria-expanded="false">'.$atributoActivado.'</a>
-                  {sorter}
-                </div>';
-      echo ListView::widget([
-          'dataProvider' => $dataProvider,
-          'itemView' => '_item',
-          'itemOptions'=>[
-            'tag'=>"li",
-            'class'=>"list-group-item"
-          ],
-          'layout'=>$sorter.'<ul class="list-group">{items}</ul>{pager}{summary}',
-          'sorter'=>[
-            'class'=>LinkSorterExtends::className(),
-            'attributes'=>[
-              'id_usuario',
-              'txt_username',
-              'txt_apellido_paterno',
-              'txt_apellido_materno',
-              'txt_email',
-              'fch_creacion'
-            ],
-            'options'=>[
-              'class'=>"dropdown-menu animation-scale-up animation-top-right animation-duration-250",
-              'role'=>"menu"
-            ],
-            'linkOptions'=>[
-              "class"=>"dropdown-item"
-            ]
-          ],
-          'pager' => [
-            'item'=>".list-group-item",
-            'class' => ScrollPager::className(),
-            'triggerText'=>'Cargar más datos',
-            'noneLeftText'=>'No hay datos por cargar',
-            'triggerOffset'=>999999999999999999999999999999999999999,
-            'negativeMargin'=>100,
-            'enabledExtensions' => [
-                ScrollPager::EXTENSION_TRIGGER,
-                ScrollPager::EXTENSION_SPINNER,
-                ScrollPager::EXTENSION_NONE_LEFT,
-                ScrollPager::EXTENSION_PAGING,
-            ],
-            // ScrollPager::EXTENSION_SPINNER,
-            // ScrollPager::EXTENSION_PAGING,
-        ]
-          
-      ]);?>
+             
+      
     
   </div>
 </div>
