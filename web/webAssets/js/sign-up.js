@@ -18,6 +18,16 @@ $(document).ready(function () {
         colocarImagen(file);
 
     });
+
+    $('#entusuarios-txt_auth_item').on('change',function(e){
+        if($(this).val() == 'usuario-cliente'){
+            //console.log('Usuario colaborador');
+            $("#select_clientes").css('display', 'block');
+        }else{
+            $("#select_clientes").css('display', 'none');            
+            //console.log('No');            
+        }
+    });
 });
 
 function validarTipoImagen(jsfile) {

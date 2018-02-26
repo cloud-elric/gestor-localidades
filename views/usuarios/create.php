@@ -34,8 +34,10 @@ $this->params['breadcrumbs'][] = [
 <div class="panel">
     <div class="panel-body">
         <?= $this->render('_form', [
+            'usuario' => $usuario,
             'model' => $model,
-            'roles'=>$roles
+            'roles'=>$roles,
+            'usuariosClientes' => $usuariosClientes            
         ]) ?>
     </div>
 </div>
