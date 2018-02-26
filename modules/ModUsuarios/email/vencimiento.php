@@ -279,9 +279,7 @@ a[x-apple-data-detectors=true] {
                     <div class="">
 	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
 	<div style="line-height:200%;color:#555555;font-family:'Verdanaf', Georgia, Times, 'Times New Roman', serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
-
-		<div style="font-size:16px;line-height:24px;font-family:'Verdana', Georgia, Times, 'Times New Roman', serif;color:#555555;text-align:left;"><p style="margin: 0;font-size: 16px;line-height: 28px;text-align: left"><span style="font-size: 18px; font-weight: bold; color: #2B3736; line-height: 48px;">Te han asignado a una tarea</span></p></div>	
-
+		<div style="font-size:16px;line-height:24px;font-family:'Verdana', Georgia, Times, 'Times New Roman', serif;color:#555555;text-align:left;"><p style="margin: 0;font-size: 16px;line-height: 28px;text-align: left"><span style="font-size: 18px; font-weight: bold; color: #2B3736; line-height: 48px;">Vencimiento de entregable</span></p></div>	
 	</div>
 	<!--[if mso]></td></tr></table><![endif]-->
 </div>
@@ -291,10 +289,13 @@ a[x-apple-data-detectors=true] {
 	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
 	<div style="line-height:200%;color:#555555;font-family:'Verdanaf', Georgia, Times, 'Times New Roman', serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
         <div style="line-height:24px;font-size:12px;color:#555555;font-family:'Verdanaf', Georgia, Times, 'Times New Roman', serif;text-align:left;">
-
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">Hola <?= $user ?>:</span></p>
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">Este correo es para notificarte que: <strong style="font-family: Verdana; font-size: 14px; font-weight: bold;"><?= $abogado ?> te ha asignado</strong> a un grupo de trabajo para la gestión de la localidad - <strong style="font-family: Verdana; font-size: 14px; font-weight: bold;"><?= $loc ?></strong> - la cual puedes consultar dando click en el siguiente enlace.</span></p>
-
+            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">Hola Alfredo:</span></p>
+            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
+            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">Este correo es para recordarte que es importante nos ayudes con la responsabilidad de:</span></p>
+            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
+            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;"><strong style="font-family: Verdana; font-size: 14px; font-weight: bold;">Cargar el documento constancia de amparo</strong></span></p>
+            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
+            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">Si ya tienes el documento lo peudes cargar haciendo click en el siguiente enlace:</span></p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
         </div>	
 	</div>
@@ -306,7 +307,7 @@ a[x-apple-data-detectors=true] {
 <div align="center" class="button-container center " style="padding-right: 10px; padding-left: 10px; padding-top:25px; padding-bottom:30px;">
   <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top:25px; padding-bottom:30px;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="<?=$url?>" style="height:35pt; v-text-anchor:middle; width:196pt;" arcsize="13%" strokecolor="#E33032" fillcolor="#E33032"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:'Verdanaf', Georgia, Times, 'Times New Roman', serif; font-size:16px;"><![endif]-->
     <a href="<?=$url?>" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #2B3736; background-color: #B3E6E2; border-radius: 6px; -webkit-border-radius: 6px; -moz-border-radius: 6px; max-width: 262px; width: 222px;width: auto; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent; padding-top: 10px; padding-right: 20px; padding-bottom: 10px; padding-left: 20px; font-family: 'Verdanaf', Georgia, Times, 'Times New Roman', serif;mso-border-alt: none; font-weight: 300;">
-      <span style="font-size:12px;line-height:24px;"><span style="font-size: 14px; line-height: 32px;" data-mce-style="font-size: 14px; line-height: 32px; color: #2B3736;">Ingreso automático al portal</span></span>
+      <span style="font-size:12px;line-height:24px;"><span style="font-size: 14px; line-height: 32px;" data-mce-style="font-size: 14px; line-height: 32px; color: #2B3736;">Ver localidad asignada</span></span>
     </a>
   <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
 </div>

@@ -5,6 +5,7 @@ use yii\grid\GridView;
 use app\models\CatEstados;
 use app\models\WrkUsuariosLocalidades;
 use app\modules\ModUsuarios\models\EntUsuarios;
+use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use yii\web\View;
 use yii\widgets\ListView;
@@ -16,14 +17,82 @@ use yii\widgets\ListView;
 $this->title = 'Localidades';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<!-- Panel -->
+<div class="panel panel-localidades">
+    <div class="panel-body">
+
+        <div class="panel-search">
+            <h3 class="panel-search-title">Listado de localidades</h3>
+            <div class="panel-search-int">
+                <form class="panel-search-form">
+                <input type="text" class="panel-search-form-select" placeholder="Buscar por nombre">
+                <input type="text" class="panel-search-form-input ml-35" placeholder="Cliente">
+                <input type="text" class="panel-search-form-input" placeholder="Estado">
+                <input type="text" class="panel-search-form-input" placeholder="Status">
+                <input type="text" class="panel-search-form-input" placeholder="Tipo">
+                </form>
+                <?= Html::a('<i class="icon wb-plus"></i> Crear Localidades', ['create'], ['class' => 'btn btn-success btn-add']) ?>
+            </div>
+            
+        </div>
+            
+        <div class="panel-listado">
+            <div class="panel-listado-head">
+                <div class="panel-listado-col w-x"></div>
+                <div class="panel-listado-col w-m">Nombre</div>
+                <div class="panel-listado-col w-m">Última actualización</div>
+                <div class="panel-listado-col w-m">Fecha de asignación</div>
+                <div class="panel-listado-col w-m">Arrendedor</div>
+                <div class="panel-listado-col w-m">Responsables</div>
+                <div class="panel-listado-col w-s">Acciones</div>
+            </div>
+
+            <div class="panel-listado-row">
+                <div class="panel-listado-col w-x"><span class="panel-listado-iden"></span></div>
+                <div class="panel-listado-col w-m">Central Camionera</div>
+                <div class="panel-listado-col w-m">Hoy</div>
+                <div class="panel-listado-col w-m">13 - Ago -2018</div>
+                <div class="panel-listado-col w-m">Carpet contractors</div>
+                <div class="panel-listado-col w-m"><img class="panel-listado-img" src="<?=EntUsuarios::getUsuarioLogueado()->imageProfile?>" alt=""></div>
+                <div class="panel-listado-col w-s"><a class="panel-listado-acction acction-edit" href=""><i class="icon wb-plus"></i></a><a class="panel-listado-acction acction-delete" href=""><i class="icon wb-plus"></i></a></div>
+            </div>
+
+            <div class="panel-listado-row">
+                <div class="panel-listado-col w-x"><span class="panel-listado-iden"></span></div>
+                <div class="panel-listado-col w-m">Central Camionera</div>
+                <div class="panel-listado-col w-m">Hoy</div>
+                <div class="panel-listado-col w-m">13 - Ago -2018</div>
+                <div class="panel-listado-col w-m">Carpet contractors</div>
+                <div class="panel-listado-col w-m"><img class="panel-listado-img" src="<?=EntUsuarios::getUsuarioLogueado()->imageProfile?>" alt=""></div>
+                <div class="panel-listado-col w-s"><a class="panel-listado-acction acction-edit" href=""><i class="icon wb-plus"></i></a><a class="panel-listado-acction acction-delete" href=""><i class="icon wb-plus"></i></a></div>
+            </div>
+
+            <div class="panel-listado-row">
+                <div class="panel-listado-col w-x"><span class="panel-listado-iden x2"></span></div>
+                <div class="panel-listado-col w-m">Central Camionera</div>
+                <div class="panel-listado-col w-m">Hoy</div>
+                <div class="panel-listado-col w-m">13 - Ago -2018</div>
+                <div class="panel-listado-col w-m">Carpet contractors</div>
+                <div class="panel-listado-col w-m"><img class="panel-listado-img" src="<?=EntUsuarios::getUsuarioLogueado()->imageProfile?>" alt=""></div>
+                <div class="panel-listado-col w-s"><a class="panel-listado-acction acction-edit" href=""><i class="icon wb-plus"></i></a><a class="panel-listado-acction acction-delete" href=""><i class="icon wb-plus"></i></a></div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
 <div class="ent-localidades-index">
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
     <?php if(Yii::$app->user->identity->txt_auth_item == "abogado"){ ?>
         <p>
             <?= Html::a('Crear Localidades', ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php } ?>
+
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
