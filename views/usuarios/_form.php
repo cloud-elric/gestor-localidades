@@ -64,10 +64,10 @@ use yii\helpers\ArrayHelper;
                         <input type="text" class="form-control form-input-usuario" disabled placeholder="usuario">
                     </div>
                     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true, 'placeholder' => 'Contraseña'])->label(false) ?>
-                    <!-- <?= $form->field($model, 'repeatPassword')->passwordInput(['maxlength' => true, 'placeholder' => 'Repetir contraseña'])->label(false) ?> -->
+                    <?= $form->field($model, 'repeatPassword')->passwordInput(['maxlength' => true, 'placeholder' => 'Repetir contraseña'])->label(false) ?>
                     <div class="form-group">
                         <span class="form-pass-info"><i class="icon wb-help" aria-hidden="true"></i></span>
-                        <input type="password" class="form-control" placeholder="repetir contraseña">
+                        <!--<input type="password" class="form-control" placeholder="repetir contraseña">-->
                     </div>
                     <?= Html::submitButton('<span class="ladda-label"><i class="icon wb-plus"></i> Guardar usuario</span>', ['class' => "btn btn-success ladda-button btn-usuarios-add", "data-style" => "zoom-in", "id" => "btn-guardar-usuario"]) ?>
                 </div>    
