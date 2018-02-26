@@ -27,7 +27,7 @@ use kartik\date\DatePicker;
             
             <?= $form->field($model, 'txt_antecedentes')->textarea(['rows' => 6]) ?>
 
-            <?= $form->field($model, 'txt_estatus')->textarea(['rows' => 6]) ?>
+            <?= $form->field($estatus, 'txt_estatus')->textarea(['rows' => 6]) ?>
 
         </div>
         
