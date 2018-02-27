@@ -308,4 +308,27 @@ class LocalidadesController extends Controller
         }
         return ['status'=>'error post data'];
     }
+
+    public function actionNotificaciones(){
+        $hoy = date("Y-m-d 00:00:00");
+        $tareas = WrkTareas::find()->where(['id_usuario'=>4])->andWhere(['>', 'fch_due_date', $hoy])->orderBy('fch_due_date')->all();
+
+        // Enviar correo
+        $utils = new Utils ();
+        // Parametros para el email
+        $parametrosEmail ['tarea'] = "envio de correo correcto";
+        $parametrosEmail ['loc'] = "envio de correo correcto1";
+        $parametrosEmail ['user'] = "envio de correo correcto2";
+        $parametrosEmail ['abogado'] = "envio de correo correcto3";
+        $parametrosEmail ['url'] = Yii::$app->urlManager->createAbsoluteUrl([ 
+            'localidades/index/'
+        ]);
+        
+        // Envio de correo electronico
+        $utils->sendEmailAsignacionTarea( "raul@2gom.com.mx", $parametrosEmail );
+
+        /*foreach($tareas as $tarea){
+            echo $tarea->txt_nombre . "<br/>";
+        }*/exit;
+    }
 }
