@@ -128,4 +128,9 @@ class WrkTareas extends \yii\db\ActiveRecord
     {
         return $this->hasMany(WrkTareas::className(), ['id_tarea_padre' => 'id_tarea']);
     }
+
+    public function getUsuarios()
+    {
+        return $this->hasMany(WrkUsuariosTareas::className(), ['id_tarea' => 'id_tarea']);
+    }
 }
