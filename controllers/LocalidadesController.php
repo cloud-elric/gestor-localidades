@@ -311,24 +311,42 @@ class LocalidadesController extends Controller
 
     public function actionNotificaciones(){
         $hoy = date("Y-m-d 00:00:00");
-        $tareas = WrkTareas::find()->where(['id_usuario'=>4])->andWhere(['>', 'fch_due_date', $hoy])->orderBy('fch_due_date')->all();
-
-        // Enviar correo
-        $utils = new Utils ();
-        // Parametros para el email
-        $parametrosEmail ['tarea'] = "envio de correo correcto";
-        $parametrosEmail ['loc'] = "envio de correo correcto1";
-        $parametrosEmail ['user'] = "envio de correo correcto2";
-        $parametrosEmail ['abogado'] = "envio de correo correcto3";
-        $parametrosEmail ['url'] = Yii::$app->urlManager->createAbsoluteUrl([ 
-            'localidades/index/'
-        ]);
+        $tareas = WrkTareas::find()->where(['>', 'fch_due_date', $hoy])->orderBy('fch_due_date')->all();//var_dump($tareas);exit;
+        $arr = [];
         
-        // Envio de correo electronico
-        $utils->sendEmailAsignacionTarea( "raul@2gom.com.mx", $parametrosEmail );
+        foreach($tareas as $tarea){
+            $tareaUser = $tarea->usuarios;//WrkUsuariosTareas::find()->where(['id_tarea'=>$tarea->id_tarea])->one();
+            //$user = EntUsuarios::find()->where(['id_usuario'=>$tareaUser->id_usuario])->one();
 
-        /*foreach($tareas as $tarea){
-            echo $tarea->txt_nombre . "<br/>";
-        }*/exit;
+            //$arr[$user->id_usuario]['correo'] = $user->txt_email;
+            //$arr[$user->id_usuario][$tarea->id_tarea] = $tarea;
+            foreach($tareaUser as $user){
+                $arr[$user->id_usuario]['tareas'][] = $tarea;
+                if(!isset($arr[$user->id_usuario]['correo'])){
+                    $arr[$user->id_usuario]['correo'] = $user->idUsuario->txt_email;
+                }
+                if(!isset($arr[$user->id_usuario]['nombre'])){
+                    $arr[$user->id_usuario]['nombre'] = $user->idUsuario->nombreCompleto;
+                }
+            }            
+        }
+
+        foreach($arr as $tar){
+            // Enviar correo
+            $utils = new Utils ();
+            $parametrosEmail = [];
+            $parametrosEmail ['tareas'] = null;
+            // Parametros para el email
+            foreach($tar['tareas'] as $t){
+                $parametrosEmail ['tareas'] .= $t->txt_nombre . "<br/><br/>";
+            } 
+            $parametrosEmail ['user'] = $tar['nombre'];
+            
+            
+            // Envio de correo electronico
+            $utils->sendEmailNotificacionesTareas( $tar['correo'], $parametrosEmail );
+        }
+
+        exit;
     }
 }
