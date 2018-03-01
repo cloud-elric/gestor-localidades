@@ -58,13 +58,22 @@ class LocalidadesController extends Controller
 
         $wrkUserTareas = WrkUsuariosTareas::find()->where(['id_usuario'=>$idUser])->select('id_tarea')->asArray()->all();        
         $tareas = WrkTareas::find()->where(['in', 'id_tarea', $wrkUserTareas])->all();
+
+        $model = new EntLocalidades();
+        $flag = false;
+        $estatus = new EntEstatus();
+        $historial = null;
         
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'searchModelTarea' => $searchModelTarea,
             'dataProviderTarea' => $dataProviderTarea,
-            'tareas' => $tareas
+            'tareas' => $tareas,
+            'model' => $model,
+            'estatus' => $estatus,
+            'historial' => $historial,
+            'flag' => $flag
         ]);
     }
 
@@ -132,10 +141,12 @@ class LocalidadesController extends Controller
                 }
             }
         }
-
+        $flag = true;
+        
         return $this->render('create', [
             'model' => $model,
             'estatus' => $estatus,
+            'flag' => $flag,        
             'historial' => $historial
         ]);
     }
@@ -159,10 +170,12 @@ class LocalidadesController extends Controller
                 return $this->redirect(['view', 'id' => $model->id_localidad]);
             }
         }
+        $flag = true;
 
         return $this->render('update', [
             'model' => $model,
             'estatus' => $estatus,
+            'flag' => $flag,
             'historial' => $historial
         ]);
     }
@@ -202,9 +215,9 @@ class LocalidadesController extends Controller
 
         if(isset($_POST['idL']) && isset($_POST['idU']) ){
             $relacion = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$_POST['idL']])->one();
-            if($relacion)
+            if($relacion){
                 //$relacion->delete();
-
+            }
             $relUserLoc = new WrkUsuariosLocalidades();
             $relUserLoc->id_usuario = $_POST['idU'];
             $relUserLoc->id_localidad = $_POST['idL'];

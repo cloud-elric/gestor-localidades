@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use app\models\CatEstados;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\EntLocalidadesSearch */
@@ -12,20 +14,26 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
+        "class" => "panel-search-form",
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id_localidad') ?>
+    <?php // $form->field($model, 'id_localidad')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'id_estado') ?>
+    <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true, "class"=>"panel-search-form-select", "placeholder"=>"Buscar por nombre"]) ?>    
 
-    <?= $form->field($model, 'id_usuario') ?>
+    <?= $form->field($model, 'id_estado')->dropDownList(ArrayHelper::map(CatEstados::find()->orderBy('txt_nombre')->asArray()->all(), 'id_estado', 'txt_nombre'),['prompt' => 'Seleccionar estado']) ?>
 
-    <?= $form->field($model, 'txt_token') ?>
+    <?php // $form->field($model, 'id_usuario')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'txt_nombre') ?>
+    <?php // $form->field($model, 'txt_token')->textInput(['maxlength' => true]) ?>
 
-    <?php // echo $form->field($model, 'txt_arrendador') ?>
+
+
+
+
+
+    <?= $form->field($model, 'txt_arrendador')->textInput(['maxlength' => true, "class"=>"panel-search-form-input ml-35", "placeholder"=>"Cliente"]) ?>
 
     <?php // echo $form->field($model, 'txt_beneficiario') ?>
 
@@ -37,7 +45,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'txt_cp') ?>
 
-    <?php // echo $form->field($model, 'txt_estatus') ?>
+    <?php // echo $form->field($model, 'txt_estatus')->textInput(['maxlength' => true]) ?>
 
     <?php // echo $form->field($model, 'txt_antecedentes') ?>
 
