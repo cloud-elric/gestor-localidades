@@ -81,19 +81,20 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+
 <?php } ?>
 
 <?php
+
 $this->registerJs("
 
 $(document).ready(function(){
-    var basePath = 'http://localhost/gestor-localidades/web/';
     $('.select').on('change', function(){
         console.log('cambio select--'+$(this).data('idloc')+'--'+$(this).val());
         var idLoc = $(this).data('idloc');
         var idUser = $(this).val();
         $.ajax({
-            url: basePath+'localidades/asignar-usuarios',
+            url: '".Yii::$app->urlManager->createAbsoluteUrl(['localidades/asignar-usuarios-tareas'])."',
             data: {idL: idLoc, idU: idUser},
             dataType: 'json',
             type: 'POST',

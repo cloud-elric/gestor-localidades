@@ -52,8 +52,9 @@ foreach($decodeDropbox['entries'] as $retorno){
 
     <?php if($existeArchivo){?>
         <?= Html::a('Descargar', [
-            'tareas/descargar', 'id' => $model->id_tarea
-        ]);?>
+            'tareas/descargar', 'id' => $model->id_tarea,
+
+        ], ['target' => '_blank']);?>
     <?php } ?>
 
 </div>

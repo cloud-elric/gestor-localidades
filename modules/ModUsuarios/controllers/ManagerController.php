@@ -208,7 +208,7 @@ class ManagerController extends Controller {
 
 		if ($model->load ( Yii::$app->request->post () ) && $model->login ()) {
 			
-			return $this->redirect(['/usuarios']);
+			return $this->redirect(['/localidades']);
 			//return $this->goBack ();
 		}
 		return $this->render ( 'login', [ 

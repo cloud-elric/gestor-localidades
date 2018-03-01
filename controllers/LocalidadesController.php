@@ -55,10 +55,7 @@ class LocalidadesController extends Controller
 
         $searchModelTarea = new TareasSearch();
         $dataProviderTarea = $searchModelTarea->search(Yii::$app->request->queryParams);
-
-        $wrkUserTareas = WrkUsuariosTareas::find()->where(['id_usuario'=>$idUser])->select('id_tarea')->asArray()->all();        
-        $tareas = WrkTareas::find()->where(['in', 'id_tarea', $wrkUserTareas])->all();
-
+        $tareas=true;
         $model = new EntLocalidades();
         $flag = false;
         $estatus = new EntEstatus();

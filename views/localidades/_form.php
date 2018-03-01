@@ -33,19 +33,6 @@ use kartik\date\DatePicker;
         </div>
         
         <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-4">
-                
-                <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true]) ?>
-                
-                <?= $form->field($model, 'txt_arrendador')->textInput(['maxlength' => true]) ?>
-                
-                <?= $form->field($model, 'txt_beneficiario')->textInput(['maxlength' => true]) ?>
-                
-                <?= $form->field($model, 'txt_antecedentes')->textarea(['rows' => 6]) ?>
-
-                <?= $form->field($estatus, 'txt_estatus')->textarea(['rows' => 6]) ?>
-
-            </div>
             
             <div class="col-sm-12 col-md-6 col-lg-4">
                 
