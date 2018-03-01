@@ -41,6 +41,8 @@ class TareasSearch extends WrkTareas
      */
     public function search($params)
     {
+        $user = Yii::$app->user->identity;
+        $idUser = $user->id_usuario;
         $query = WrkTareas::find();
 
         // add conditions that should always apply here
@@ -50,6 +52,7 @@ class TareasSearch extends WrkTareas
         ]);
 
         $this->load($params);
+        $wrkUserTareas = WrkUsuariosTareas::find()->where(['id_usuario'=>$idUser])->select('id_tarea')->asArray()->all(); 
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
@@ -58,8 +61,8 @@ class TareasSearch extends WrkTareas
         }
 
         // grid filtering conditions
-        $query->andFilterWhere([
-            'id_tarea' => $this->id_tarea,
+            $query->andFilterWhere(['in', 'id_tarea', $wrkUserTareas]);
+            $query->andFilterWhere([
             'id_usuario' => $this->id_usuario,
             'id_tarea_padre' => $this->id_tarea_padre,
             'id_localidad' => $this->id_localidad,

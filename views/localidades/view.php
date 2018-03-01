@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
 
     <p>
-        <?php if(Yii::$app->user->identity->txt_auth_item == "abogado"){ ?>
+        <?php //if(Yii::$app->user->identity->txt_auth_item == "abogado"){ ?>
             <?= Html::a('Actualizar', ['update', 'id' => $model->id_localidad], ['class' => 'btn btn-primary']) ?>
             <?= Html::a('Eliminar', ['delete', 'id' => $model->id_localidad], [
                 'class' => 'btn btn-danger',
@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'method' => 'post',
                 ],
             ]) ?>
-        <?php } ?>
+        <?php //} ?>
     </p>
 
     <?= DetailView::widget([
@@ -181,6 +181,19 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ]);
                                 }
                             ],
+                            [
+                                'attribute' => 'ver archivo',
+                                'format' => 'raw',
+                                'value' => function($data){
+                                    if($data->txt_path){
+                                        return Html::a('Descargar', [
+                                            'tareas/descargar', 'id' => $data->id_tarea,
+                                        ]);
+                                    }else{
+                                        return "<p>No se a subido archivo</p>";
+                                    }
+                                }
+                            ],
                             //'txt_nombre',
                             'txt_descripcion:ntext',
                             [
@@ -222,13 +235,12 @@ $this->params['breadcrumbs'][] = $this->title;
 $this->registerJs("
 
 $(document).ready(function(){
-    var basePath = 'http://localhost/gestor-localidades/web/';
     $('.select-tarea').on('change', function(){
         //console.log('cambio select');
         var idTar = $(this).data('idtar');
         var idUser = $(this).val();
         $.ajax({
-            url: basePath+'localidades/asignar-usuarios-tareas',
+            url: '".Yii::$app->urlManager->createAbsoluteUrl(['localidades/asignar-usuarios'])."',
             data: {idT: idTar, idU: idUser},
             dataType: 'json',
             type: 'POST',

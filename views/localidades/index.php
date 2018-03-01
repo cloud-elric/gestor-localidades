@@ -59,17 +59,39 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 
-<?php
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3>Tareas asignadas</h3>
+            </div>
+            <?php if($tareas){ ?>
+                <div class="panel-body">
+                <?= ListView::widget([
+                    'dataProvider' => $dataProviderTarea,
+                    'itemView' => '_item',
+                ]); ?>
+                </div>
+            <?php }else{ ?>
+                <div class="panel-body">
+                    <p>No hay tareas asignadas</p>
+                </div>
+            <?php } ?>
+        </div>
+    </div>
+</div>
+
+<?php  
+
 $this->registerJs("
 
 $(document).ready(function(){
-    var basePath = 'http://localhost/gestor-localidades/web/';
     $('.select').on('change', function(){
         console.log('cambio select--'+$(this).data('idloc')+'--'+$(this).val());
         var idLoc = $(this).data('idloc');
         var idUser = $(this).val();
         $.ajax({
-            url: basePath+'localidades/asignar-usuarios',
+            url: '".Yii::$app->urlManager->createAbsoluteUrl(['localidades/asignar-usuarios-tareas'])."',
             data: {idL: idLoc, idU: idUser},
             dataType: 'json',
             type: 'POST',
