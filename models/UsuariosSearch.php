@@ -49,7 +49,7 @@ class UsuariosSearch extends EntUsuarios
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 1,
+                'pageSize' => 30,
             ],
             'sort' => [
                 'defaultOrder' => [

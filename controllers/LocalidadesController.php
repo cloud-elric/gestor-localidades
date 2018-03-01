@@ -83,7 +83,7 @@ class LocalidadesController extends Controller
     public function actionView($id)
     {
         $searchModel = new TareasSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $id);
 
         //$relUserLoc = new WrkUsuariosLocalidades();
         $userRel = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$id])->all();

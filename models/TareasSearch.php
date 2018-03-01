@@ -39,7 +39,7 @@ class TareasSearch extends WrkTareas
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $id=null)
     {
         $user = Yii::$app->user->identity;
         $idUser = $user->id_usuario;
@@ -52,7 +52,12 @@ class TareasSearch extends WrkTareas
         ]);
 
         $this->load($params);
-        $wrkUserTareas = WrkUsuariosTareas::find()->where(['id_usuario'=>$idUser])->select('id_tarea')->asArray()->all(); 
+        if($user->txt_auth_item==="abogado"){
+            $query->andFilterWhere(['id_localidad'=>$id]);
+        }else{
+            $wrkUserTareas = WrkUsuariosTareas::find()->where(['id_usuario'=>$idUser])->select('id_tarea')->asArray()->all(); 
+            $query->andFilterWhere(['in', 'id_tarea', $wrkUserTareas]);
+        } 
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
@@ -61,7 +66,7 @@ class TareasSearch extends WrkTareas
         }
 
         // grid filtering conditions
-            $query->andFilterWhere(['in', 'id_tarea', $wrkUserTareas]);
+           
             $query->andFilterWhere([
             'id_usuario' => $this->id_usuario,
             'id_tarea_padre' => $this->id_tarea_padre,
