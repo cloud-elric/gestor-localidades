@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\modules\ModUsuarios\models\EntUsuarios;
 
 /**
  * This is the model class for table "wrk_usuarios_tareas".
@@ -41,5 +42,15 @@ class WrkUsuariosTareas extends \yii\db\ActiveRecord
             'id_usuario' => 'Id Usuario',
             'id_tarea' => 'Id Tarea',
         ];
+    }
+
+    public function getIdUsuario()
+    {
+        return $this->hasOne(EntUsuarios::className(), ['id_usuario' => 'id_usuario']);
+    }
+
+    public function getTarea()
+    {
+        return $this->hasOne(WrkTareas::className(), ['id_tarea' => 'id_tarea']);
     }
 }

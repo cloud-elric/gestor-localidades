@@ -321,4 +321,45 @@ class LocalidadesController extends Controller
         }
         return ['status'=>'error post data'];
     }
+
+    public function actionNotificaciones(){
+        $hoy = date("Y-m-d 00:00:00");
+        $tareas = WrkTareas::find()->where(['>', 'fch_due_date', $hoy])->orderBy('fch_due_date')->all();//var_dump($tareas);exit;
+        $arr = [];
+        
+        foreach($tareas as $tarea){
+            $tareaUser = $tarea->usuarios;//WrkUsuariosTareas::find()->where(['id_tarea'=>$tarea->id_tarea])->one();
+            //$user = EntUsuarios::find()->where(['id_usuario'=>$tareaUser->id_usuario])->one();
+
+            //$arr[$user->id_usuario]['correo'] = $user->txt_email;
+            //$arr[$user->id_usuario][$tarea->id_tarea] = $tarea;
+            foreach($tareaUser as $user){
+                $arr[$user->id_usuario]['tareas'][] = $tarea;
+                if(!isset($arr[$user->id_usuario]['correo'])){
+                    $arr[$user->id_usuario]['correo'] = $user->idUsuario->txt_email;
+                }
+                if(!isset($arr[$user->id_usuario]['nombre'])){
+                    $arr[$user->id_usuario]['nombre'] = $user->idUsuario->nombreCompleto;
+                }
+            }            
+        }
+
+        foreach($arr as $tar){
+            // Enviar correo
+            $utils = new Utils ();
+            $parametrosEmail = [];
+            $parametrosEmail ['tareas'] = null;
+            // Parametros para el email
+            foreach($tar['tareas'] as $t){
+                $parametrosEmail ['tareas'] .= $t->txt_nombre . "<br/><br/>";
+            } 
+            $parametrosEmail ['user'] = $tar['nombre'];
+            
+            
+            // Envio de correo electronico
+            $utils->sendEmailNotificacionesTareas( $tar['correo'], $parametrosEmail );
+        }
+
+        exit;
+    }
 }

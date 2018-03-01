@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\modules\ModUsuarios\models\Utils;
 use app\models\AuthItem;
+use app\models\WrkUsuarioUsuarios;
 
 /**
  * UsuariosController implements the CRUD actions for EntUsuarios model.
@@ -86,26 +87,41 @@ class UsuariosController extends Controller
         $model = new EntUsuarios([
             'scenario' => 'registerInput'
         ]);
+        $usuariosClientes = EntUsuarios::find()->where(['txt_auth_item'=>'cliente'])->all();
 
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
 
-        if ($model->load(Yii::$app->request->post())) {
-
+        if ($model->load(Yii::$app->request->post())){
+            $grupo = $model->usuarioPadre;
             if ($user = $model->signup()) {
+                $relUsuarios = new WrkUsuarioUsuarios();
+                if($usuario->txt_auth_item == "abogado"){
+                    $relUsuarios->id_usuario_padre = $grupo;
+                    $relUsuarios->id_usuario_hijo = $user->id_usuario;
+                }else{
+                    $relUsuarios->id_usuario_padre = $usuario->id_usuario;
+                    $relUsuarios->id_usuario_hijo = $user->id_usuario;
+                }
+                if($relUsuarios->save()){
 
-                return $this->redirect(['usuarios/index']);
-
+                    return $this->redirect(['usuarios/index']);
+                }
+            }else{
+                print_r($user);
+                echo "No guardo modelo";exit;
             }
         
         // return $this->redirect(['view', 'id' => $model->id_usuario]);
         }
         //return $this->redirect(['index']);
         return $this->render('create', [
+            'usuario' => $usuario,
             'model' => $model,
-            'roles'=>$roles
+            'roles'=>$roles,
+            'usuariosClientes' => $usuariosClientes
         ]);
     }
 
