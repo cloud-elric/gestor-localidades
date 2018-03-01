@@ -31,11 +31,13 @@ $this->params['breadcrumbs'][] = [
   //   ['depends' => [\yii\web\JqueryAsset::className()]]
   // );
 ?>
-<div class="panel usuarios-create">
+<div class="panel panel-usuarios-create">
     <div class="panel-body">
         <?= $this->render('_form', [
+            'usuario' => $usuario,
             'model' => $model,
-            'roles'=>$roles
+            'roles'=>$roles,
+            'usuariosClientes' => $usuariosClientes            
         ]) ?>
     </div>
 </div>

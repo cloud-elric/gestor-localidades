@@ -4,7 +4,7 @@ use yii\helpers\Url;
 use app\models\ConstantesWeb;
 
 ?>
-<div class="site-menubar site-menubar-light">
+<div class="site-menubar ryg-menubar site-menubar-light">
   <div class="site-menubar-body">
     <div>
       <div>
