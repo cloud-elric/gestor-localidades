@@ -94,7 +94,7 @@ $(document).ready(function(){
         var idLoc = $(this).data('idloc');
         var idUser = $(this).val();
         $.ajax({
-            url: '".Yii::$app->urlManager->createAbsoluteUrl(['localidades/asignar-usuarios-tareas'])."',
+            url: '".Yii::$app->urlManager->createAbsoluteUrl(['localidades/asignar-usuarios'])."',
             data: {idL: idLoc, idU: idUser},
             dataType: 'json',
             type: 'POST',
