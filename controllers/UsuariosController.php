@@ -99,7 +99,7 @@ class UsuariosController extends Controller
             if ($user = $model->signup()) {
                 $relUsuarios = new WrkUsuarioUsuarios();
                 if($usuario->txt_auth_item == "abogado"){
-                    $relUsuarios->id_usuario_padre = $grupo;
+                    $relUsuarios->id_usuario_padre = $grupo->id_usuario;
                     $relUsuarios->id_usuario_hijo = $user->id_usuario;
                 }else{
                     $relUsuarios->id_usuario_padre = $usuario->id_usuario;
