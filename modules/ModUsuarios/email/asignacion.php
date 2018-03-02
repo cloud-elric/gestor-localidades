@@ -235,7 +235,7 @@ a[x-apple-data-detectors=true] {
                   
                     <div align="center" class="img-container center  autowidth  fullwidth " style="padding-right: 0px;  padding-left: 0px;">
 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr style="line-height:0px;line-height:0px;"><td style="padding-right: 0px; padding-left: 0px;" align="center"><![endif]-->
-  <img class="center  autowidth  fullwidth" align="center" border="0" src="logo-ryg.png" alt="Abogados RYG" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: 0;height: auto;float: none;width: 160px;max-width: 100%" width="160">
+  <img class="center  autowidth  fullwidth" align="center" border="0" src="http://dev.2geeksonemonkey.com/ryg/gestor-localidades/web/webAssets/images/logo-ryg.png" alt="Abogados RYG" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: 0;height: auto;float: none;width: 160px;max-width: 100%" width="160">
 <!--[if mso]></td></tr></table><![endif]-->
 </div>
 
@@ -292,23 +292,15 @@ a[x-apple-data-detectors=true] {
             <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">Este correo es para notificarte que <strong style="font-family: Verdana; font-size: 14px; font-style: italic; font-weight: bold;">has sido agregado</strong> a un grupo de trabajo dentro de la plataforma “Regalado y galindo - Gestor de localidades”, para poder <strong style="font-family: Verdana; font-size: 14px; font-style: italic; font-weight: bold;">acceder</strong> al sistema da click en la siguiente liga:</span></p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">
-              <a href="http://dev.2geeksonemonkey.com/ryg/gestor-localidades/web/login/" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: left;color: #2B3736; width: auto; font-family: 'Verdanaf', Georgia, Times, 'Times New Roman', serif; mso-border-alt: none; font-weight: 300; color: #3C86E9; font-size: 14px; line-height: 16px;">
-                <span style="font-size:12px;line-height:24px;"><span style="font-size: 14px; line-height: 32px;" data-mce-style="font-size: 14px; line-height: 32px; color: #2B3736;"><?= $url ?></span></span>
+
+              <a href="<?=$url?>" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: left;color: #2B3736; width: auto; font-family: 'Verdanaf', Georgia, Times, 'Times New Roman', serif; mso-border-alt: none; font-weight: 300; color: #3C86E9; font-size: 14px; line-height: 16px;">
+                <span style="font-size:12px;line-height:24px;"><span style="font-size: 14px; line-height: 32px;" data-mce-style="font-size: 14px; line-height: 32px; color: #2B3736;"><?=$url?></span></span>
+
               </a>
             </p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
 
-            <p style="margin: 0;font-size: 16px;line-height: 28px;text-align: left"><span style="font-size: 16px; font-weight: bold; color: #2B3736; line-height: 30px; text-align: left;">Importante</span></p>
-
-            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">para acceder al sistema conserva este correo, es necesario ingreses tu usuario y contraseña mismos que te compartimos a continuación</span></p>
-            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: left"><span style="font-size: 16px; line-height: 32px;">Usuario:</span></p><p style="margin: 0;font-size: 12px;line-height: 24px;text-align: left"></p>
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: left"><span style="color: #3C86E9; font-size: 14px; line-height: 16px;">correo@dominio.com.mx</span></p><p style="margin: 0;font-size: 12px;line-height: 24px;text-align: left"></p>
-            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: left"><span style="font-size: 16px; line-height: 32px;">Contraseña:</span></p><p style="margin: 0;font-size: 12px;line-height: 24px;text-align: left"></p>
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: left"><span style="color: #3C86E9; font-size: 14px; line-height: 16px;">165nvda62</span></p><p style="margin: 0;font-size: 12px;line-height: 24px;text-align: left"></p>
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: left">&#160;<br></p>
+           
         </div>	
 	</div>
 	<!--[if mso]></td></tr></table><![endif]-->
@@ -351,7 +343,7 @@ a[x-apple-data-detectors=true] {
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br><br></p>
             <p style="margin: 0;font-size: 14px;line-height: 17px;text-align: center;">&copy; Regalado y Galindo Abogados 2018 </p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br><br></p>
-            <p style="margin: 0;font-size: 14px;line-height: 17px;text-align: center;"><img class="center  autowidth  fullwidth" align="center" border="0" src="2gom-black.png" alt="2GOM" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: 0;height: auto;float: none;margin: 0 auto; width: 108px;max-width: 100%" width="108"></p>
+            <p style="margin: 0;font-size: 14px;line-height: 17px;text-align: center;"><img class="center  autowidth  fullwidth" align="center" border="0" src="http://dev.2geeksonemonkey.com/ryg/gestor-localidades/web/webAssets/images/2gom-black.png" alt="2GOM" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: 0;height: auto;float: none;margin: 0 auto; width: 108px;max-width: 100%" width="108"></p>
         </div>	
 	</div>
 	<!--[if mso]></td></tr></table><![endif]-->

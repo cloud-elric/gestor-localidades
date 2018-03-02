@@ -469,7 +469,7 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 			$auth->assign($authorRole, $usuario->getId());
 			return $user;
 		}else{
-			//print_r($user->errors);exit;
+			
 			return null;
 		}
 	}

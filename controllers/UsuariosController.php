@@ -112,6 +112,8 @@ class UsuariosController extends Controller
                 if($relUsuarios->save()){
 
                     return $this->redirect(['usuarios/index']);
+                }else{
+                    return $this->redirect(['usuarios/index']);
                 }
             }else{
                 //print_r($user->errors);exit;

@@ -236,7 +236,7 @@ class LocalidadesController extends Controller
 					// Parametros para el email
 					$parametrosEmail ['localidad'] = $localidad->txt_nombre;
                     $parametrosEmail ['user'] = $user->getNombreCompleto ();
-                    $parametrosEmail ['url'] = Yii::$app->urlManager->createAbsoluteUrl([ 
+                    $parametrosEmail ['url'] = Yii::$app->urlManager->createAbsoluteUrl([
                         'localidades/index/?token=' . $user->txt_token
                     ]);
 					
