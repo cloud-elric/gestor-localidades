@@ -221,7 +221,7 @@ class LocalidadesController extends Controller
 
             if($relUserLoc->save()){
 
-                /*if (Yii::$app->params ['modUsuarios'] ['mandarCorreoActivacion']) {
+                if (Yii::$app->params ['modUsuarios'] ['mandarCorreoActivacion']) {
                     $user = EntUsuarios::findIdentity($relUserLoc->id_usuario);
                     $localidad = EntLocalidades::findOne($relUserLoc->id_localidad);
 
@@ -229,13 +229,16 @@ class LocalidadesController extends Controller
 					$utils = new Utils ();
 					// Parametros para el email
 					$parametrosEmail ['localidad'] = $localidad->txt_nombre;
-					$parametrosEmail ['user'] = $user->getNombreCompleto ();
+                    $parametrosEmail ['user'] = $user->getNombreCompleto ();
+                    $parametrosEmail ["url"] = Yii::$app->urlManager->createAbsoluteUrl([ 
+                        'localidades/index/?token=' . $user->txt_token
+                    ]);
 					
 					// Envio de correo electronico
                     $utils->sendEmailAsignacion( $user->txt_email,$parametrosEmail );
                     
                     				
-                }*/
+                }
                 
                 //return $this->redirect(['view', 'id'=>$relUserLoc->id_localidad]);
                 return ['status'=>'success'];	
