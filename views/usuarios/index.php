@@ -71,7 +71,7 @@ $this->registerJsFile(
             <input type="text" class="panel-search-form-input" placeholder="Buscar por nombre o correo">
           <input type="text" class="panel-search-form-select" placeholder="Tipo">
           </form>
-          <a class="btn btn-success btn-add" href="<?=Url::base()?>'/usuarios/create"><i class="icon wb-plus"></i> Agregar usuario</a>
+          <a class="btn btn-success btn-add" href="<?=Url::base()?>/usuarios/create"><i class="icon wb-plus"></i> Agregar usuario</a>
       </div>
         
     </div>
