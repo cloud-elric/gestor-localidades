@@ -99,7 +99,7 @@ class UsuariosController extends Controller
             if ($user = $model->signup()) {
                 $relUsuarios = new WrkUsuarioUsuarios();
                 if($usuario->txt_auth_item == "abogado"){
-                    $relUsuarios->id_usuario_padre = $grupo->id_usuario;
+                    $relUsuarios->id_usuario_padre = $grupo;
                     $relUsuarios->id_usuario_hijo = $user->id_usuario;
                 }else{
                     $relUsuarios->id_usuario_padre = $usuario->id_usuario;
@@ -108,10 +108,9 @@ class UsuariosController extends Controller
                 if($relUsuarios->save()){
 
                     return $this->redirect(['usuarios/index']);
+                }else{
+                    return $this->redirect(['usuarios/index']);
                 }
-            }else{
-                print_r($user);
-                echo "No guardo modelo";exit;
             }
         
         // return $this->redirect(['view', 'id' => $model->id_usuario]);

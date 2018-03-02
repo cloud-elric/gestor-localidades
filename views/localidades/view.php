@@ -240,7 +240,7 @@ $(document).ready(function(){
         var idTar = $(this).data('idtar');
         var idUser = $(this).val();
         $.ajax({
-            url: '".Yii::$app->urlManager->createAbsoluteUrl(['localidades/asignar-usuarios'])."',
+            url: '".Yii::$app->urlManager->createAbsoluteUrl(['localidades/asignar-usuarios-tareas'])."',
             data: {idT: idTar, idU: idUser},
             dataType: 'json',
             type: 'POST',
