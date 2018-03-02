@@ -10,6 +10,8 @@ use yii\helpers\ArrayHelper;
 use yii\grid\GridView;
 use yii\web\View;
 use app\models\EntEstatus;
+use yii\widgets\ListView;
+use app\models\ConstantesWeb;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\EntLocalidades */
@@ -153,7 +155,32 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 
-<?php if(Yii::$app->user->identity->txt_auth_item == "abogado"){ ?>
+<?php if(Yii::$app->user->identity->txt_auth_item != ConstantesWeb::ABOGADO){?>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3>Tareas asignadas</h3>
+            </div>
+            <?php if($tareas){ ?>
+                <div class="panel-body">
+                <?= ListView::widget([
+                    'dataProvider' => $dataProviderTarea,
+                    'itemView' => '_item',
+                ]); ?>
+                </div>
+            <?php }else{ ?>
+                <div class="panel-body">
+                    <p>No hay tareas asignadas</p>
+                </div>
+            <?php } ?>
+        </div>
+    </div>
+</div>
+
+<?php } ?>
+
+<?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-info">
@@ -201,7 +228,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'format' => 'raw',                
                                 'value' => function($data){
                                     return Html::activeDropDownList($data, 'id_usuario', ArrayHelper::map(EntUsuarios::find()
-                                    ->where(['!=', 'txt_auth_item', 'super-admin'])
+                                    ->where(['!=', 'txt_auth_item', ConstantesWeb::SUPER_ADMIN])
+                                    ->andWhere(['!=', 'txt_auth_item', ConstantesWeb::ABOGADO])
                                     ->orderBy('txt_username')
                                     ->asArray()
                                     ->all(), 'id_usuario', 'txt_username'),['id' => "tarea-".$data->id_tarea, 'class' => 'select-tarea select-tarea-'.$data->id_tarea, 'data-idTar' => $data->id_tarea, 'prompt' => 'Seleccionar usuario']);
@@ -240,7 +268,7 @@ $(document).ready(function(){
         var idTar = $(this).data('idtar');
         var idUser = $(this).val();
         $.ajax({
-            url: '".Yii::$app->urlManager->createAbsoluteUrl(['localidades/asignar-usuarios'])."',
+            url: '".Yii::$app->urlManager->createAbsoluteUrl(['localidades/asignar-usuarios-tareas'])."',
             data: {idT: idTar, idU: idUser},
             dataType: 'json',
             type: 'POST',
@@ -250,6 +278,10 @@ $(document).ready(function(){
                 }
             }
         });
+    });
+
+    $('#wrktareas-file').on('change', function(){
+        $('#btnGuardarArchivo').css('display', 'block');
     });
 });
 

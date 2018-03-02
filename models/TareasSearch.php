@@ -52,12 +52,12 @@ class TareasSearch extends WrkTareas
         ]);
 
         $this->load($params);
-        if($user->txt_auth_item==="abogado"){
+        //if($user->txt_auth_item==="abogado"){
             $query->andFilterWhere(['id_localidad'=>$id]);
-        }else{
+        /*}else{
             $wrkUserTareas = WrkUsuariosTareas::find()->where(['id_usuario'=>$idUser])->select('id_tarea')->asArray()->all(); 
             $query->andFilterWhere(['in', 'id_tarea', $wrkUserTareas]);
-        } 
+        }*/ 
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails

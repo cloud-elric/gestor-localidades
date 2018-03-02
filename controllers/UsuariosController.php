@@ -95,10 +95,14 @@ class UsuariosController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post())){
-            $grupo = $model->usuarioPadre;
+            if($usuario->txt_auth_item == "abogado"){
+                $grupo = $model->usuarioPadre;
+            }else{
+                $model->usuarioPadre = $usuario->id_usuario;
+            }
             if ($user = $model->signup()) {
                 $relUsuarios = new WrkUsuarioUsuarios();
-                if($usuario->txt_auth_item == "abogado"){
+                if($usuario->txt_auth_item == "abogado" && $grupo){
                     $relUsuarios->id_usuario_padre = $grupo->id_usuario;
                     $relUsuarios->id_usuario_hijo = $user->id_usuario;
                 }else{
@@ -110,7 +114,7 @@ class UsuariosController extends Controller
                     return $this->redirect(['usuarios/index']);
                 }
             }else{
-                print_r($user);
+                //print_r($user->errors);exit;
                 echo "No guardo modelo";exit;
             }
         

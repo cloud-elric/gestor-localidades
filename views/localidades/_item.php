@@ -45,7 +45,7 @@ foreach($decodeDropbox['entries'] as $retorno){
     <?php // $form->field($model, 'b_completa')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Guardar', ['id' => 'btnGuardarArchivo', 'class' => 'btn btn-success', 'style' => 'display:none' ]) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

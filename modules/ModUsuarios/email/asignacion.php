@@ -279,7 +279,7 @@ a[x-apple-data-detectors=true] {
                     <div class="">
 	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
 	<div style="line-height:200%;color:#555555;font-family:'Verdanaf', Georgia, Times, 'Times New Roman', serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
-		<div style="font-size:16px;line-height:24px;font-family:'Verdana', Georgia, Times, 'Times New Roman', serif;color:#555555;text-align:left;"><p style="margin: 0;font-size: 16px;line-height: 28px;text-align: left"><span style="font-size: 24px; font-weight: bold; color: #2B3736; line-height: 48px;">Hola Alfredo</span></p></div>	
+		<div style="font-size:16px;line-height:24px;font-family:'Verdana', Georgia, Times, 'Times New Roman', serif;color:#555555;text-align:left;"><p style="margin: 0;font-size: 16px;line-height: 28px;text-align: left"><span style="font-size: 24px; font-weight: bold; color: #2B3736; line-height: 48px;">Hola <?= $user ?></span></p></div>	
 	</div>
 	<!--[if mso]></td></tr></table><![endif]-->
 </div>
@@ -293,7 +293,7 @@ a[x-apple-data-detectors=true] {
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">
               <a href="http://dev.2geeksonemonkey.com/ryg/gestor-localidades/web/login/" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: left;color: #2B3736; width: auto; font-family: 'Verdanaf', Georgia, Times, 'Times New Roman', serif; mso-border-alt: none; font-weight: 300; color: #3C86E9; font-size: 14px; line-height: 16px;">
-                <span style="font-size:12px;line-height:24px;"><span style="font-size: 14px; line-height: 32px;" data-mce-style="font-size: 14px; line-height: 32px; color: #2B3736;">http://dev.2geeksonemonkey.com/ryg/gestor-localidades/web/login/</span></span>
+                <span style="font-size:12px;line-height:24px;"><span style="font-size: 14px; line-height: 32px;" data-mce-style="font-size: 14px; line-height: 32px; color: #2B3736;"><?= $url ?></span></span>
               </a>
             </p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
