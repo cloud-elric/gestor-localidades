@@ -59,31 +59,6 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 
-<?php if(Yii::$app->user->identity->txt_auth_item != 'abogado'){?>
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h3>Tareas asignadas</h3>
-            </div>
-            <?php if($tareas){ ?>
-                <div class="panel-body">
-                <?= ListView::widget([
-                    'dataProvider' => $dataProviderTarea,
-                    'itemView' => '_item',
-                ]); ?>
-                </div>
-            <?php }else{ ?>
-                <div class="panel-body">
-                    <p>No hay tareas asignadas</p>
-                </div>
-            <?php } ?>
-        </div>
-    </div>
-</div>
-
-<?php } ?>
-
 <?php
 
 $this->registerJs("

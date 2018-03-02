@@ -12,7 +12,7 @@ use kartik\date\DatePicker;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<?php if(true/*$flag$model->isNewRecord*/){ ?>
+<?php if($flag/*$model->isNewRecord*/){ ?>
     <div class="ent-localidades-form">
 
     <?php $form = ActiveForm::begin(); ?>

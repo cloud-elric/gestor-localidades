@@ -429,6 +429,10 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 	 */
 	public function signup($isFacebook=false) {
 		
+		if (! $this->validate ()) {
+			//print_r($this->errors);exit;			
+			return null;
+		}
 		
 		$user = new EntUsuarios ();
 

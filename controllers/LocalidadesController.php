@@ -53,9 +53,9 @@ class LocalidadesController extends Controller
         $searchModel = new EntLocalidadesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        $searchModelTarea = new TareasSearch();
+        /*$searchModelTarea = new TareasSearch();
         $dataProviderTarea = $searchModelTarea->search(Yii::$app->request->queryParams);
-        $tareas=true;
+        $tareas=true;*/
         $model = new EntLocalidades();
         $flag = false;
         $estatus = new EntEstatus();
@@ -64,9 +64,9 @@ class LocalidadesController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'searchModelTarea' => $searchModelTarea,
+            /*'searchModelTarea' => $searchModelTarea,
             'dataProviderTarea' => $dataProviderTarea,
-            'tareas' => $tareas,
+            'tareas' => $tareas,*/
             'model' => $model,
             'estatus' => $estatus,
             'historial' => $historial,
@@ -89,14 +89,18 @@ class LocalidadesController extends Controller
         $userRel = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$id])->all();
         //$idUsersRel = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$id])->select('id_usuario')->all();
 
-        $tareas = WrkTareas::find()->where(['id_localidad'=>$id])->all();
+        $searchModelTarea = new TareasSearch();
+        $dataProviderTarea = $searchModelTarea->search(Yii::$app->request->queryParams, $id);
+        $tareas = true;
+        //$tareas = WrkTareas::find()->where(['id_localidad'=>$id])->all();
 
         return $this->render('view', [
             'model' => $this->findModel($id),
             'userRel' => $userRel,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'tareas' => $tareas
+            'tareas' => $tareas,
+            'dataProviderTarea' => $dataProviderTarea
             //'relUserLoc' => $relUserLoc,
             //'idUsersRel' => $idUsersRel
         ]);
@@ -167,13 +171,15 @@ class LocalidadesController extends Controller
                 return $this->redirect(['view', 'id' => $model->id_localidad]);
             }
         }
+        $tareas = true;
         $flag = true;
 
         return $this->render('update', [
             'model' => $model,
             'estatus' => $estatus,
+            'tareas' => $tareas,
+            'historial' => $historial,
             'flag' => $flag,
-            'historial' => $historial
         ]);
     }
 
@@ -230,13 +236,12 @@ class LocalidadesController extends Controller
 					// Parametros para el email
 					$parametrosEmail ['localidad'] = $localidad->txt_nombre;
                     $parametrosEmail ['user'] = $user->getNombreCompleto ();
-                    $parametrosEmail ["url"] = Yii::$app->urlManager->createAbsoluteUrl([ 
+                    $parametrosEmail ['url'] = Yii::$app->urlManager->createAbsoluteUrl([
                         'localidades/index/?token=' . $user->txt_token
                     ]);
 					
 					// Envio de correo electronico
                     $utils->sendEmailAsignacion( $user->txt_email,$parametrosEmail );
-                    
                     				
                 }
                 
