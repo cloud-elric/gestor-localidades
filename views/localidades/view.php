@@ -12,6 +12,9 @@ use yii\web\View;
 use app\models\EntEstatus;
 use yii\widgets\ListView;
 use app\models\ConstantesWeb;
+use app\models\WrkUsuarioUsuarios;
+use app\models\WrkUsuariosTareas;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\EntLocalidades */
@@ -19,6 +22,8 @@ use app\models\ConstantesWeb;
 $this->title = $model->txt_nombre;
 $this->params['breadcrumbs'][] = ['label' => 'Ent Localidades', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+$user = Yii::$app->user->identity;
 ?>
 <div class="ent-localidades-view">
 
@@ -155,37 +160,12 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 
-<?php if(Yii::$app->user->identity->txt_auth_item != ConstantesWeb::ABOGADO){?>
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h3>Tareas asignadas</h3>
-            </div>
-            <?php if($tareas){ ?>
-                <div class="panel-body">
-                <?= ListView::widget([
-                    'dataProvider' => $dataProviderTarea,
-                    'itemView' => '_item',
-                ]); ?>
-                </div>
-            <?php }else{ ?>
-                <div class="panel-body">
-                    <p>No hay tareas asignadas</p>
-                </div>
-            <?php } ?>
-        </div>
-    </div>
-</div>
-
-<?php } ?>
-
-<?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
+<?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::CLIENTE){ ?>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h3>Tareas asignadas</h3>
+                    <h3>Tareas</h3>
                 </div>
                 <?php if($tareas){ ?>
                     <div class="panel-body">
@@ -225,17 +205,34 @@ $this->params['breadcrumbs'][] = $this->title;
                             'txt_descripcion:ntext',
                             [
                                 'attribute' => 'Asignar usuario',
-                                'format' => 'raw',                
+                                'format' => 'raw',
                                 'value' => function($data){
-                                    return Html::activeDropDownList($data, 'id_usuario', ArrayHelper::map(EntUsuarios::find()
-                                    ->where(['!=', 'txt_auth_item', ConstantesWeb::SUPER_ADMIN])
-                                    ->andWhere(['!=', 'txt_auth_item', ConstantesWeb::ABOGADO])
-                                    ->orderBy('txt_username')
-                                    ->asArray()
-                                    ->all(), 'id_usuario', 'txt_username'),['id' => "tarea-".$data->id_tarea, 'class' => 'select-tarea select-tarea-'.$data->id_tarea, 'data-idTar' => $data->id_tarea, 'prompt' => 'Seleccionar usuario']);
-                                    /*foreach($relLocalidades as $relLocalidad){
-                                        $user = EntUsuarios::find()->where(['id_usuario'=>$data->id_usuario])-one();
-                                    }*/
+                                    if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::CLIENTE){
+                                        $user = Yii::$app->user->identity;
+                                        $grupoTrabajo = WrkUsuarioUsuarios::find()->where(['id_usuario_padre'=>$user->id_usuario])->select('id_usuario_hijo')->asArray();
+                                        return Html::activeDropDownList($data, 'id_usuario', ArrayHelper::map(EntUsuarios::find()
+                                        /*->where(['!=', 'txt_auth_item', ConstantesWeb::SUPER_ADMIN])
+                                        ->andWhere(['!=', 'txt_auth_item', ConstantesWeb::ABOGADO])*/
+                                        ->where(['in', 'id_usuario', $grupoTrabajo])                                    
+                                        ->orderBy('txt_username')
+                                        ->asArray()
+                                        ->all(), 'id_usuario', 'txt_username'),['id' => "tarea-".$data->id_tarea, 'class' => 'select-tarea select-tarea-'.$data->id_tarea, 'data-idTar' => $data->id_tarea, 'prompt' => 'Seleccionar usuario']);
+                                        /*foreach($relLocalidades as $relLocalidad){
+                                            $user = EntUsuarios::find()->where(['id_usuario'=>$data->id_usuario])-one();
+                                        }*/
+                                    }else{
+                                        /*$idUser = WrkUsuariosTareas::find()->where(['id_tarea'=>$data->id_tarea])->select('id_usuario');
+                                        if(!$idUser){
+                                            $user = EntUsuarios::find()->where(['id_usuario'=>$idUser])->one();
+                                            return Html::img($user->txt_imagen, ['alt'=>$user->txt_email, 'style'=>'position: relative;
+                                                display: inline-block;
+                                                width: 40px;
+                                                white-space: nowrap;
+                                                border-radius: 1000px;
+                                                vertical-align: bottom;']);
+                                        }*/
+                                        return Html::img('imagen', ['alt'=>'imagen']);
+                                    }
                                 }
                             ],
                             //'fch_creacion',
@@ -255,8 +252,34 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
     <p>
-        <?= Html::a('Crear Tarea', ['tareas/create', 'idLoc' => $model->id_localidad], ['class' => 'btn btn-success']) ?>
+        <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
+            <?= Html::a('Crear Tarea', ['tareas/create', 'idLoc' => $model->id_localidad], ['class' => 'btn btn-success']) ?>
+        <?php } ?>
     </p>
+<?php } ?>
+
+<?php if(Yii::$app->user->identity->txt_auth_item != ConstantesWeb::ABOGADO){?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3>Tareas</h3>
+                </div>
+                <?php if($tareas){ ?>
+                    <div class="panel-body">
+                    <?= ListView::widget([
+                        'dataProvider' => $dataProviderTarea,
+                        'itemView' => '_item',
+                    ]); ?>
+                    </div>
+                <?php }else{ ?>
+                    <div class="panel-body">
+                        <p>No hay tareas asignadas</p>
+                    </div>
+                <?php } ?>
+            </div>
+        </div>
+    </div>
 <?php } ?>
 
 <?php

@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\models\Dropbox;
+use app\models\WrkUsuariosTareas;
+use app\models\ConstantesWeb;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\WrkTareas */
@@ -17,6 +19,10 @@ foreach($decodeDropbox['entries'] as $retorno){
         $existeArchivo = true;
     } 
 }
+
+$user = Yii::$app->user->identity;
+$tarea = $model->id_tarea;
+$rel = WrkUsuariosTareas::find()->where(['id_usuario'=>$user->id_usuario])->andWhere(['id_tarea'=>$tarea])->one();
 ?>
 
 <div class="wrk-tareas-form">
@@ -34,7 +40,9 @@ foreach($decodeDropbox['entries'] as $retorno){
 
     <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true, 'disabled'=>true]) ?>
 
-    <?= $form->field($model, 'file')->fileInput() ?>
+    <?php if($rel || $user->txt_auth_item == ConstantesWeb::CLIENTE){ ?>
+        <?= $form->field($model, 'file')->fileInput() ?>
+    <?php } ?>
 
     <?php // $form->field($model, 'txt_descripcion')->textarea(['rows' => 6]) ?>
 
