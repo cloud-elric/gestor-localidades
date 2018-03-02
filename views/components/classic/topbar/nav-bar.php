@@ -45,7 +45,7 @@ role="navigation">
         <li class="nav-item dropdown">
           <a class="nav-link navbar-avatar" data-toggle="dropdown" href="#" aria-expanded="false"
           data-animation="scale-up" role="button">
-            <span class="user-name">Juan Perez</span>
+            <span class="user-name"><?=EntUsuarios::getUsuarioLogueado()->nombreCompleto?></span>
             <span class="avatar avatar-online">
               <img src="<?=EntUsuarios::getUsuarioLogueado()->imageProfile?>" alt="...">
               <i></i>
