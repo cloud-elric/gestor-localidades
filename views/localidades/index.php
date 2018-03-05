@@ -9,6 +9,7 @@ use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use yii\web\View;
 use yii\widgets\ListView;
+use app\assets\AppAsset;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\EntLocalidadesSearch */
@@ -16,6 +17,18 @@ use yii\widgets\ListView;
 
 $this->title = 'Localidades';
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->registerCssFile(
+    '@web/webAssets/templates/classic/global/vendor/jquery-selective/jquery-selective.css',
+    ['depends' => [AppAsset::className()]]
+  );  
+  
+$this->registerJsFile(
+    '@web/webAssets/templates/classic/global/vendor/jquery-selective/jquery-selective.min.js',
+    ['depends' => [AppAsset::className()]]
+);
+
+
 ?>
 
 <!-- Panel -->
@@ -25,12 +38,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="panel-search">
             <h3 class="panel-search-title">Listado de localidades</h3>
             <div class="panel-search-int">
-                <form >
-
+                
                 <?= $this->render('_search', [
-                    'model' => $model,
+                    'model' => $searchModel,
                     //'estatus' => $estatus            
-                ]) ?>
+                ]); ?>
 
                 
                 <?php if(Yii::$app->user->identity->txt_auth_item == "abogado"){ ?>
@@ -75,7 +87,8 @@ $(document).ready(function(){
             type: 'POST',
             success: function(resp){
                 if(resp.status == 'success'){
-                    console.log('Asignacion correcta');
+                    //console.log('Asignacion correcta');
+                    $('#js_div_responsables').append('<img class=\'panel-listado-img\' src=\''+resp.img+'\' alt=\''+resp.nombre+'\' >');
                 }
             }
         });
@@ -83,5 +96,61 @@ $(document).ready(function(){
 });
 
 ", View::POS_END );
+$selected = [];
+$i=0;
+foreach($directoresJuridicos as $directorJuridico){
+    $selected[$i]['id'] = $directorJuridico->id_usuario;
+    $selected[$i]['name'] = $directorJuridico->getNombreCompleto();
+    $selected[$i]['avatar'] = $directorJuridico->getImageProfile();$i++;
+}
+$jsonEncode = json_encode($selected);
+$this->registerJs("
 
-?>
+$(document).ready(function(){
+    var member = ".$jsonEncode.";
+
+    $('.plugin-selective').each(function () {
+        var elemento = $(this);
+        elemento.selective({
+          namespace: 'addMember',
+          local: member,
+          onAfterSelected: function(e){
+              //alert(elemento.val());
+          },
+          onAfterItemAdd: function(e){
+            alert(elemento.val());
+          },
+          buildFromHtml: false,
+          tpl: {
+            optionValue: function optionValue(data) {
+              return data.id;
+            },
+            frame: function frame() {
+              return '<div class=\"' + this.namespace + '\">                ' + this.options.tpl.items.call(this) + '                <div class=\"' + this.namespace + '-trigger\">                ' + this.options.tpl.triggerButton.call(this) + '                <div class=\"' + this.namespace + '-trigger-dropdown\">                ' + this.options.tpl.list.call(this) + '                </div>                </div>                </div>';
+        
+              // i++;
+            },
+            triggerButton: function triggerButton() {
+              return '<div class=\"' + this.namespace + '-trigger-button\"><i class=\"wb-plus\"></i></div>';
+            },
+            listItem: function listItem(data) {
+              return '<li class=\"' + this.namespace + '-list-item\"><img class=\"avatar\" src=\"' + data.avatar + '\">' + data.name + '</li>';
+            },
+            item: function item(data) {
+              return '<li class=\"' + this.namespace + '-item\"><img class=\"avatar\" src=\"' + data.avatar + '\" title=\"' + data.name + '\">' + this.options.tpl.itemRemove.call(this) + '</li>';
+            },
+            itemRemove: function itemRemove() {
+              return '<span class=\"' + this.namespace + '-remove\"><i class=\"wb-minus-circle\"></i></span>';
+            },
+            option: function option(data) {
+              return '<option value=\"' + this.options.tpl.optionValue.call(this, data) + '\">' + data.name + '</option>';
+            }
+          }
+        });
+    });
+});
+
+", View::POS_END );
+
+
+

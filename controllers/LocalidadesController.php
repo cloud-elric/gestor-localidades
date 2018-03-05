@@ -53,6 +53,8 @@ class LocalidadesController extends Controller
         $searchModel = new EntLocalidadesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $directoresJuridicos = EntUsuarios::find()->where(['txt_auth_item'=>'cliente','id_status'=>2])->all();
+
         /*$searchModelTarea = new TareasSearch();
         $dataProviderTarea = $searchModelTarea->search(Yii::$app->request->queryParams);
         $tareas=true;*/
@@ -67,6 +69,7 @@ class LocalidadesController extends Controller
             /*'searchModelTarea' => $searchModelTarea,
             'dataProviderTarea' => $dataProviderTarea,
             'tareas' => $tareas,*/
+            'directoresJuridicos' => $directoresJuridicos,
             'model' => $model,
             'estatus' => $estatus,
             'historial' => $historial,
@@ -226,9 +229,8 @@ class LocalidadesController extends Controller
             $relUserLoc->id_localidad = $_POST['idL'];
 
             if($relUserLoc->save()){
-
+                $user = EntUsuarios::findIdentity($relUserLoc->id_usuario);
                 if (Yii::$app->params ['modUsuarios'] ['mandarCorreoActivacion']) {
-                    $user = EntUsuarios::findIdentity($relUserLoc->id_usuario);
                     $localidad = EntLocalidades::findOne($relUserLoc->id_localidad);
 
 					// Enviar correo
@@ -246,7 +248,11 @@ class LocalidadesController extends Controller
                 }
                 
                 //return $this->redirect(['view', 'id'=>$relUserLoc->id_localidad]);
-                return ['status'=>'success'];	
+                return [
+                    'status' => 'success',
+                    'img' => EntUsuarios::getUsuarioLogueado()->imageProfile,
+                    'nombre' => $user->getNombreCompleto()
+                ];	
             }
 
             return ['status'=>'error'];	            

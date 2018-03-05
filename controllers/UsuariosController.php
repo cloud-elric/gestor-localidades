@@ -94,21 +94,28 @@ class UsuariosController extends Controller
             return ActiveForm::validate($model);
         }
 
+        $grupo = null;
+        $padre = null;
         if ($model->load(Yii::$app->request->post())){
-            if($usuario->txt_auth_item == "abogado"){
-                $grupo = $model->usuarioPadre;
+            
+            if($model->txt_auth_item == "cliente"){
+                $grupo = $usuario;
             }else{
-                $model->usuarioPadre = $usuario->id_usuario;
+                $padre = $model->usuarioPadre; 
             }
+
             if ($user = $model->signup()) {
+
                 $relUsuarios = new WrkUsuarioUsuarios();
-                if($usuario->txt_auth_item == "abogado" && $grupo){
+
+                if($grupo){
                     $relUsuarios->id_usuario_padre = $grupo->id_usuario;
                     $relUsuarios->id_usuario_hijo = $user->id_usuario;
                 }else{
-                    $relUsuarios->id_usuario_padre = $usuario->id_usuario;
+                    $relUsuarios->id_usuario_padre = $padre;
                     $relUsuarios->id_usuario_hijo = $user->id_usuario;
                 }
+
                 if($relUsuarios->save()){
 
                     return $this->redirect(['usuarios/index']);
