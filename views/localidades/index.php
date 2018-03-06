@@ -9,6 +9,7 @@ use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use yii\web\View;
 use yii\widgets\ListView;
+use app\assets\AppAsset;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\EntLocalidadesSearch */
@@ -16,6 +17,17 @@ use yii\widgets\ListView;
 
 $this->title = 'Localidades';
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->registerCssFile(
+    '@web/webAssets/templates/classic/global/vendor/jquery-selective/jquery-selective.css',
+    ['depends' => [AppAsset::className()]]
+  );  
+  
+$this->registerJsFile(
+    '@web/webAssets/templates/classic/global/vendor/jquery-selective/jquery-selective.min.js',
+    ['depends' => [AppAsset::className()]]
+);
+
 ?>
 
 <!-- Panel -->
@@ -25,12 +37,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="panel-search">
             <h3 class="panel-search-title">Listado de localidades</h3>
             <div class="panel-search-int">
-                <form >
-
+                
                 <?= $this->render('_search', [
-                    'model' => $model,
+                    'model' => $searchModel,
                     //'estatus' => $estatus            
-                ]) ?>
+                ]); ?>
 
                 
                 <?php if(Yii::$app->user->identity->txt_auth_item == "abogado"){ ?>
@@ -64,24 +75,85 @@ $this->params['breadcrumbs'][] = $this->title;
 $this->registerJs("
 
 $(document).ready(function(){
-    $('.select').on('change', function(){
-        console.log('cambio select--'+$(this).data('idloc')+'--'+$(this).val());
-        var idLoc = $(this).data('idloc');
-        var idUser = $(this).val();
-        $.ajax({
-            url: '".Yii::$app->urlManager->createAbsoluteUrl(['localidades/asignar-usuarios'])."',
-            data: {idL: idLoc, idU: idUser},
-            dataType: 'json',
-            type: 'POST',
-            success: function(resp){
-                if(resp.status == 'success'){
-                    console.log('Asignacion correcta');
+    var member = ".$jsonAgregar.";
+
+    $('.plugin-selective').each(function () {
+        var elemento = $(this);
+        elemento.selective({
+          namespace: 'addMember',
+          selected: elemento.data('json'),
+          local: member,
+          onAfterSelected: function(e){
+              //alert(elemento.val());
+          },
+          onAfterItemAdd: function(e){
+            //alert(elemento.val());
+            //alert(elemento.data('id'));
+            var idLoc = elemento.data('id');
+            var idUser = elemento.val();
+
+            $.ajax({
+                url: '".Yii::$app->urlManager->createAbsoluteUrl(['localidades/asignar-usuarios'])."',
+                data: {idL: idLoc, idU: idUser},
+                dataType: 'json',
+                type: 'POST',
+                success: function(resp){
+                    if(resp.status == 'success'){
+                        console.log('Asignacion correcta');
+                    }
                 }
+            });
+          },
+          onAfterItemRemove: function(e){
+            var idLoc = elemento.data('id');
+            var idUser = elemento.val();
+            if(!idUser){
+                idUser = -1;
             }
+
+            $.ajax({
+                url: '".Yii::$app->urlManager->createAbsoluteUrl(['localidades/asignar-usuarios-eliminar'])."',
+                data: {idL: idLoc, idU: idUser},
+                dataType: 'json',
+                type: 'POST',
+                success: function(resp){
+                    if(resp.status == 'success'){
+                        console.log('Eliminacion correcta');
+                    }
+                }
+            });
+          },
+          buildFromHtml: false,
+          tpl: {
+            optionValue: function optionValue(data) {
+              return data.id;
+            },
+            frame: function frame() {
+              return '<div class=\"' + this.namespace + '\">                ' + this.options.tpl.items.call(this) + '                <div class=\"' + this.namespace + '-trigger\">                ' + this.options.tpl.triggerButton.call(this) + '                <div class=\"' + this.namespace + '-trigger-dropdown\">                ' + this.options.tpl.list.call(this) + '                </div>                </div>                </div>';
+        
+              // i++;
+            },
+            triggerButton: function triggerButton() {
+              return '<div class=\"' + this.namespace + '-trigger-button\"><i class=\"wb-plus\"></i></div>';
+            },
+            listItem: function listItem(data) {
+              return '<li class=\"' + this.namespace + '-list-item\"><img class=\"avatar\" src=\"' + data.avatar + '\">' + data.name + '</li>';
+            },
+            item: function item(data) {
+              return '<li class=\"' + this.namespace + '-item\"><img class=\"avatar\" src=\"' + data.avatar + '\" title=\"' + data.name + '\">' + this.options.tpl.itemRemove.call(this) + '</li>';
+            },
+            itemRemove: function itemRemove() {
+              return '<span class=\"' + this.namespace + '-remove\"><i class=\"wb-minus-circle\"></i></span>';
+            },
+            option: function option(data) {
+              return '<option value=\"' + this.options.tpl.optionValue.call(this, data) + '\">' + data.name + '</option>';
+            }
+          }
         });
     });
 });
 
 ", View::POS_END );
 
-?>
+
+

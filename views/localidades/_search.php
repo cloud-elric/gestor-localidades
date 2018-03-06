@@ -10,30 +10,27 @@ use app\models\CatEstados;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="ent-localidades-search">
-
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        "class" => "panel-search-form",
-        'method' => 'get',
-    ]); ?>
+<?php $form = ActiveForm::begin([
+    'options' => [
+        'class' => 'panel-search-form',
+    ],
+    /*'action' => ['index'],
+    'class' => 'panel-search-form',*/
+    'method' => 'get',
+]); ?>
 
     <?php // $form->field($model, 'id_localidad')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true, "class"=>"panel-search-form-select", "placeholder"=>"Buscar por nombre"]) ?>    
+    <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true, "class"=>"panel-search-form-select", "placeholder"=>"Buscar por nombre"])->label(false) ?>    
 
-    <?= $form->field($model, 'id_estado')->dropDownList(ArrayHelper::map(CatEstados::find()->orderBy('txt_nombre')->asArray()->all(), 'id_estado', 'txt_nombre'),['prompt' => 'Seleccionar estado']) ?>
+    <?= $form->field($model, 'id_estado')->dropDownList(ArrayHelper::map(CatEstados::find()->orderBy('txt_nombre')->asArray()->all(), 'id_estado', 'txt_nombre'),['prompt' => 'Seleccionar estado'])->label(false) ?>
 
     <?php // $form->field($model, 'id_usuario')->textInput(['maxlength' => true]) ?>
 
     <?php // $form->field($model, 'txt_token')->textInput(['maxlength' => true]) ?>
 
 
-
-
-
-
-    <?= $form->field($model, 'txt_arrendador')->textInput(['maxlength' => true, "class"=>"panel-search-form-input ml-35", "placeholder"=>"Cliente"]) ?>
+    <?= $form->field($model, 'txt_arrendador')->textInput(['maxlength' => true, "class"=>"panel-search-form-select", "placeholder"=>"Cliente"])->label(false) ?>
 
     <?php // echo $form->field($model, 'txt_beneficiario') ?>
 
@@ -68,6 +65,6 @@ use app\models\CatEstados;
         <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
+<?php ActiveForm::end(); ?>
 
-</div>
+ 

@@ -17,6 +17,8 @@ use app\models\TareasSearch;
 use app\models\WrkUsuariosTareas;
 use app\models\Dropbox;
 use app\models\EntEstatus;
+use app\models\ConstantesWeb;
+use app\models\WrkUsuarioUsuarios;
 
 /**
  * LocalidadesController implements the CRUD actions for EntLocalidades model.
@@ -53,6 +55,31 @@ class LocalidadesController extends Controller
         $searchModel = new EntLocalidadesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $selected = [];
+        //LISTA DE USUARIOA PARA AGREGAR
+        if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){
+
+            $directoresJuridicos = EntUsuarios::find()->where(['txt_auth_item'=>ConstantesWeb::CLIENTE,'id_status'=>2])->all();
+            $i=0;
+            foreach($directoresJuridicos as $directorJuridico){
+                $selected[$i]['id'] = $directorJuridico->id_usuario;
+                $selected[$i]['name'] = $directorJuridico->getNombreCompleto();
+                $selected[$i]['avatar'] = $directorJuridico->getImageProfile();
+                $i++;
+            }
+        }else if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::CLIENTE){
+            $colab = WrkUsuarioUsuarios::find()->where(['id_usuario_padre'=>$idUser])->select('id_usuario_hijo')->asArray()->all();
+            $colaboradores = EntUsuarios::find()->where(['in', 'id_usuario', $colab])->andWhere(['id_status'=>2])->all();
+            $i=0;
+            foreach($colaboradores as $colaborador){
+                $selected[$i]['id'] = $colaborador->id_usuario;
+                $selected[$i]['name'] = $colaborador->getNombreCompleto();
+                $selected[$i]['avatar'] = $colaborador->getImageProfile();
+                $i++;
+            }
+        }else{}
+        $jsonAgregar = json_encode($selected);
+
         /*$searchModelTarea = new TareasSearch();
         $dataProviderTarea = $searchModelTarea->search(Yii::$app->request->queryParams);
         $tareas=true;*/
@@ -67,6 +94,7 @@ class LocalidadesController extends Controller
             /*'searchModelTarea' => $searchModelTarea,
             'dataProviderTarea' => $dataProviderTarea,
             'tareas' => $tareas,*/
+            'jsonAgregar' => $jsonAgregar,
             'model' => $model,
             'estatus' => $estatus,
             'historial' => $historial,
@@ -132,12 +160,7 @@ class LocalidadesController extends Controller
                 if($model->save()){
                     $estatus->id_localidad = $model->id_localidad;
                     if($estatus->save()){     
-                        $relUserLoc = new WrkUsuariosLocalidades();
-                        $relUserLoc->id_usuario = $model->id_usuario;
-                        $relUserLoc->id_localidad = $model->id_localidad;
-                        if($relUserLoc->save()){
-                            return $this->redirect(['view', 'id' => $model->id_localidad]);
-                        }
+                        return $this->redirect(['view', 'id' => $model->id_localidad]);
                     }
                 }
             }
@@ -217,18 +240,24 @@ class LocalidadesController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         if(isset($_POST['idL']) && isset($_POST['idU']) ){
+            $longArray = sizeOf($_POST['idU']);
+            $idUser = null;
+            for($i = $longArray - 1; $i >= 0; $i--){
+                $idUser = $_POST['idU'][$i];
+                break;
+            }
+            
             $relacion = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$_POST['idL']])->one();
             if($relacion){
                 //$relacion->delete();
             }
             $relUserLoc = new WrkUsuariosLocalidades();
-            $relUserLoc->id_usuario = $_POST['idU'];
+            $relUserLoc->id_usuario = $idUser;
             $relUserLoc->id_localidad = $_POST['idL'];
 
             if($relUserLoc->save()){
-
+                $user = EntUsuarios::findIdentity($relUserLoc->id_usuario);
                 if (Yii::$app->params ['modUsuarios'] ['mandarCorreoActivacion']) {
-                    $user = EntUsuarios::findIdentity($relUserLoc->id_usuario);
                     $localidad = EntLocalidades::findOne($relUserLoc->id_localidad);
 
 					// Enviar correo
@@ -246,38 +275,35 @@ class LocalidadesController extends Controller
                 }
                 
                 //return $this->redirect(['view', 'id'=>$relUserLoc->id_localidad]);
-                return ['status'=>'success'];	
+                return [
+                    'status' => 'success'
+                ];	
             }
 
             return ['status'=>'error'];	            
         }
         return ['status'=>'error'];
-        /*if(isset($_POST['WrkUsuariosLocalidades']['id_usuario']) && isset($_POST['WrkUsuariosLocalidades']['id_localidad']) ){
-            $relUserLoc = new WrkUsuariosLocalidades();
-            $relUserLoc->id_usuario = $_POST['WrkUsuariosLocalidades']['id_usuario'];
-            $relUserLoc->id_localidad = $_POST['WrkUsuariosLocalidades']['id_localidad'];
+    }
 
-            if($relUserLoc->save()){
+    public function actionAsignarUsuariosEliminar(){
+        Yii::$app->response->format = Response::FORMAT_JSON;
 
-                if (Yii::$app->params ['modUsuarios'] ['mandarCorreoActivacion']) {
-                    $user = EntUsuarios::findIdentity($relUserLoc->id_usuario);
-                    $localidad = EntLocalidades::findOne($relUserLoc->id_localidad);
-
-					// Enviar correo
-					$utils = new Utils ();
-					// Parametros para el email
-					$parametrosEmail ['localidad'] = $localidad->txt_nombre;
-					$parametrosEmail ['user'] = $user->getNombreCompleto ();
-					
-					// Envio de correo electronico
-                    $utils->sendEmailAsignacion( $user->txt_email,$parametrosEmail );
-                    
-                    				
+        if(isset($_POST['idL']) && isset($_POST['idU']) ){
+            
+            $idUser =  $_POST['idU'];
+            $relacion = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$_POST['idL']])->andWhere(['not in', 'id_usuario', $_POST['idU']])->one();
+            if($relacion){
+                if($relacion->delete()){
+                    return [
+                        'status' => 'success'
+                    ];	
                 }
-                
-                return $this->redirect(['view', 'id'=>$relUserLoc->id_localidad]);	
+                return ['status'=>'error'];
+            
             }
-        }*/
+            return ['status'=>'error'];	            
+        }
+        return ['status'=>'error post'];
     }
 
     public function actionAsignarUsuariosTareas(){

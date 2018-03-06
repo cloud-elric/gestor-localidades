@@ -15,25 +15,23 @@ use kartik\date\DatePicker;
 <?php if($flag/*$model->isNewRecord*/){ ?>
     <div class="ent-localidades-form">
 
-    <?php $form = ActiveForm::begin(); ?>
-    
-    <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-4">
-            
-            <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true]) ?>
-            
-            <?= $form->field($model, 'txt_arrendador')->textInput(['maxlength' => true]) ?>
-            
-            <?= $form->field($model, 'txt_beneficiario')->textInput(['maxlength' => true]) ?>
-            
-            <?= $form->field($model, 'txt_antecedentes')->textarea(['rows' => 6]) ?>
-
-            <?= $form->field($estatus, 'txt_estatus')->textarea(['rows' => 6]) ?>
-
-        </div>
+        <?php $form = ActiveForm::begin(); ?>
         
         <div class="row">
-            
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                
+                <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true]) ?>
+                
+                <?= $form->field($model, 'txt_arrendador')->textInput(['maxlength' => true]) ?>
+                
+                <?= $form->field($model, 'txt_beneficiario')->textInput(['maxlength' => true]) ?>
+                
+                <?= $form->field($model, 'txt_antecedentes')->textarea(['rows' => 6]) ?>
+
+                <?= $form->field($estatus, 'txt_estatus')->textarea(['rows' => 6]) ?>
+
+            </div>
+                
             <div class="col-sm-12 col-md-6 col-lg-4">
                 
                 <?= $form->field($model, 'id_estado')->dropDownList(ArrayHelper::map(CatEstados::find()->orderBy('txt_nombre')->asArray()->all(), 'id_estado', 'txt_nombre'),['prompt' => 'Seleccionar estado']) ?>
@@ -80,10 +78,9 @@ use kartik\date\DatePicker;
                 <?= Html::submitButton('<i class="icon wb-plus"></i> Guardar', ['class' => 'btn btn-success btn-form-save']) ?>
                 
             </div>
+            
+            <?php ActiveForm::end(); ?>
         </div>
-    
-        <?php ActiveForm::end(); ?>
-
     </div>
 
     <?php if($historial){ ?>
