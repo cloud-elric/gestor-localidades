@@ -23,19 +23,23 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="panel-body">
 
         <div class="panel-search">
-            <h3 class="panel-search-title">Listado de localidades</h3>
-            <div class="panel-search-int">
-                <form >
+            <div class="row">
+                <div class="col-md-3">
+                    <h3 class="panel-search-title">Listado de localidades</h3>
+                </div>
+                <div class="col-md-9">
+                        
+                    <?= $this->render('_search', [
+                        'model' => $model,
+                        //'estatus' => $estatus            
+                    ]) ?>
 
-                <?= $this->render('_search', [
-                    'model' => $model,
-                    //'estatus' => $estatus            
-                ]) ?>
-
-                
-                <?php if(Yii::$app->user->identity->txt_auth_item == "abogado"){ ?>
-                    <?= Html::a('<i class="icon wb-plus"></i> Crear Localidades', ['create'], ['class' => 'btn btn-success btn-add']) ?>
-                <?php } ?>
+                    
+                    <?php if(Yii::$app->user->identity->txt_auth_item == "abogado"){ ?>
+                        <?= Html::a('<i class="icon wb-plus"></i> Crear Localidades', ['create'], ['class' => 'btn btn-success btn-add']) ?>
+                    <?php } ?>
+                 
+                </div>
             </div>
         </div>
 
@@ -53,34 +57,40 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= ListView::widget([
                 'dataProvider' => $dataProvider,
                 'itemView' => '_itemLocalidades',
+                'options' => [
+                    'class'=>"panel-listado-body"
+                ],
+                'layout' => '{items}{summary}{pager}',
             ]);?>
 
         </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h3>Tareas asignadas</h3>
-            </div>
-            <?php if($tareas){ ?>
-                <div class="panel-body">
-                <?= ListView::widget([
-                    'dataProvider' => $dataProviderTarea,
-                    'itemView' => '_item',
-                ]); ?>
-                </div>
-            <?php }else{ ?>
-                <div class="panel-body">
-                    <p>No hay tareas asignadas</p>
-                </div>
-            <?php } ?>
-        </div>
-    </div>
-</div>
+<div class="panel panel-tareas-asignadas">
 
+    <div class="panel-tareas-asignadas-head">
+        <h3>Tareas asignadas</h3>
+    </div>
+                
+    <?php if($tareas){ ?>
+        
+        <?= ListView::widget([
+            'dataProvider' => $dataProviderTarea,
+            'itemView' => '_item',
+            'options' => [
+                'class'=>"panel-tareas-asignadas-body"
+            ],
+            'layout' => '{items}{summary}{pager}',
+        ]); ?>
+        </div>
+    <?php }else{ ?>
+        <div class="panel-tareas-asignadas-body-null">
+            <p>No hay tareas asignadas</p>
+        </div>
+    <?php } ?>
+
+</div>
 <?php  
 
 $this->registerJs("

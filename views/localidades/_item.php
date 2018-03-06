@@ -19,7 +19,7 @@ foreach($decodeDropbox['entries'] as $retorno){
 }
 ?>
 
-<div class="wrk-tareas-form">
+<div class="panel-tareas-asignadas-body-col">
 
     <?php $form = ActiveForm::begin([
         'action' => ['tareas/update', 'id'=>$model->id_tarea],

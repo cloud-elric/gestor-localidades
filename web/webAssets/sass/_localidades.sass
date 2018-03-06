@@ -22,6 +22,7 @@
 		z-index: 3
 		.panel-localidades
 			background-color: rgba($ryg-second,.45)
+			// padding: 20px 0
 			.panel-body
 				padding: 0
 				.list-group-item
@@ -29,11 +30,9 @@
 
 				// .page-header
 				.panel-search
-					align-content: center
-					display: flex
-					justify-content: flex-start
+					margin-bottom: 48px
 					padding: 20px
-					width: 100%
+
 					.panel-search-title
 						color: $ryg-aqua
 						font-size: 1rem
@@ -41,40 +40,54 @@
 						line-height: 2.4
 						margin: 0
 						min-width: 152px
-					.panel-search-int
-						display: flex
-						.panel-search-form
-							align-content: center
-							display: flex
-							justify-content: flex-start
+					
+					form
+						
+						.form-group
 							margin-bottom: 0
-							.panel-search-form-input,
-							.panel-search-form-select
-								background-color: $ryg-second
-								border: none
-								color: $ryg-aqua
+							.help-block
+								color: $error
+								font-size: .85rem
+								margin-top: .3rem
+								padding-left: 1rem
+							
+						.panel-search-form-input,
+						.panel-search-form-select
+							background-color: $ryg-second
+							border: none
+							color: $ryg-aqua
+							font-size: 1rem
+							font-weight: $light
+							width: 100%
+							+placeholder
+								color: rgba($ryg-aqua,.6)
 								font-size: 1rem
 								font-weight: $light
-								margin-left: 20px
-								+placeholder
-									color: rgba($ryg-aqua,.6)
-									font-size: 1rem
-									font-weight: $light
-								&:focus
-									outline: none
+							&:focus
+								outline: none
 
-							.panel-search-form-select
-								+border-radius(30px)
-								padding: 6px 20px
-							.panel-search-form-input
-								+border-radius(3px)
-								padding: 6px 16px
-								width: 13%
-					
-						.btn-add
-							background-color: $ryg-accent
-							border-color: $ryg-accent
-							color: $ryg-second
+						.panel-search-form-select
+							+border-radius(30px)
+							height: 34px
+							padding: 6px 20px
+						.panel-search-form-input
+							+border-radius(3px)
+							padding: 6px 16px
+
+						.form-group-btns
+							align-items: center
+							background-color: purple
+							display: flex
+							justify-content: flex-end
+							.btn-search
+								background-color: $ryg-accent
+								border-color: $ryg-accent
+								color: $ryg-second
+								width: 100%
+							.btn-clear
+								background-color: $ryg-aqua
+								border-color: $ryg-accent
+								color: $ryg-second
 
 				.panel-listado
 					// background-color: #ddd
@@ -100,55 +113,113 @@
 							color: $ryg-gray
 							font-size: 1.03rem
 							font-weight: $medium
+						
+					.panel-listado-body
 
-					.panel-listado-row
-						border-top: 1px solid $ryg-gray
-						padding: 16px 0
-						&:last-child
-							border-bottom: 1px solid $ryg-gray
-						&:hover
-							background-color: rgba($ryg-second, .8)
-						.panel-listado-col
-							color: $ryg-aqua
-							font-weight: $light
-							.panel-listado-iden,
-							.panel-listado-img,
-							.panel-listado-acction
-								display: block
-								+border-radius(50%)
-							.panel-listado-iden
-								background-color: $ryg-accent
-								height: 12px
-								margin: 0 auto
-								width: 12px
-								&.x2
-									height: 24px
-									width: 24px
-							.panel-listado-img
-								background-color: $ryg-pink
-								height: 32px
-								margin-right: .8rem
-								width: 32px
-								&:last-child
-									margin-right: 0
-							.panel-listado-acction
-								align-items: center
-								display: flex
-								height: 24px
-								justify-content: center
-								margin-right: .8rem
-								width: 24px
-								&:last-child
-									margin-right: 0
-								i
-									color: $ryg-primary
-									font-size: .85rem
-								&.acction-edit
-									background-color: $ryg-aqua
-								&.acction-delete
+						.panel-listado-row
+							border-top: 1px solid $ryg-gray
+							padding: 16px 0
+							&:last-child
+								border-bottom: 1px solid $ryg-gray
+							&:hover
+								background-color: rgba($ryg-second, .8)
+							.panel-listado-col
+								color: $ryg-aqua
+								font-weight: $light
+								a
+									color: $ryg-aqua
+									text-decoration: none
+
+								.panel-listado-iden,
+								.panel-listado-img,
+								.panel-listado-acction
+									display: block
+									+border-radius(50%)
+								.panel-listado-iden
 									background-color: $ryg-accent
+									height: 12px
+									margin: 0 auto
+									width: 12px
+									&.x2
+										height: 24px
+										width: 24px
+								.panel-listado-img
+									background-color: $ryg-pink
+									height: 32px
+									margin-right: .8rem
+									width: 32px
+									&:last-child
+										margin-right: 0
+								.panel-listado-acction
+									align-items: center
+									display: flex
+									height: 24px
+									justify-content: center
+									margin-right: .8rem
+									text-decoration: none
+									width: 24px
+									&:last-child
+										margin-right: 0
+									i
+										color: $ryg-primary
+										font-size: .85rem
+									&.acction-edit
+										background-color: $ryg-aqua
+									&.acction-delete
+										background-color: $ryg-accent
 
+						.summary
+							align-items: center
+							display: flex
+							justify-content: flex-end
+							margin-top: 32px
+							padding: 0 20px 16px
+							b
+								margin: 0 8px
 
+		// Panel - Tareas Asignadas
+		.panel-tareas-asignadas
+			background-color: rgba($ryg-second,.45)
+			margin-bottom: 0
+			padding: 20px
+
+			.panel-tareas-asignadas-head
+				margin-bottom: 32px
+				h3
+					color: $ryg-aqua
+					font-size: 1.2rem
+					font-weight: $light
+					margin: 0
+
+			.panel-tareas-asignadas-body
+
+				.panel-tareas-asignadas-body-null
+					align-items: center
+					display: flex
+					justify-content: center
+					padding: 12px 20px
+					p
+						color: $white
+						font-size: .95rem
+						letter-spacing: 1px
+						line-height: 1.2
+						text-align: center
+
+				.panel-tareas-asignadas-body-col
+					margin-bottom: 20px
+
+					form
+						display: flex
+
+				.summary
+					align-items: center
+					display: flex
+					justify-content: flex-end
+					margin-top: 32px
+					padding: 0
+					b
+						margin: 0 8px
+			
 /*  Page Crear
 	======================================= */
 .ent-localidades-create
