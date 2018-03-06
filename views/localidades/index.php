@@ -28,7 +28,6 @@ $this->registerJsFile(
     ['depends' => [AppAsset::className()]]
 );
 
-
 ?>
 
 <!-- Panel -->
@@ -76,49 +75,53 @@ $this->registerJsFile(
 $this->registerJs("
 
 $(document).ready(function(){
-    $('.select').on('change', function(){
-        console.log('cambio select--'+$(this).data('idloc')+'--'+$(this).val());
-        var idLoc = $(this).data('idloc');
-        var idUser = $(this).val();
-        $.ajax({
-            url: '".Yii::$app->urlManager->createAbsoluteUrl(['localidades/asignar-usuarios'])."',
-            data: {idL: idLoc, idU: idUser},
-            dataType: 'json',
-            type: 'POST',
-            success: function(resp){
-                if(resp.status == 'success'){
-                    //console.log('Asignacion correcta');
-                    $('#js_div_responsables').append('<img class=\'panel-listado-img\' src=\''+resp.img+'\' alt=\''+resp.nombre+'\' >');
-                }
-            }
-        });
-    });
-});
-
-", View::POS_END );
-$selected = [];
-$i=0;
-foreach($directoresJuridicos as $directorJuridico){
-    $selected[$i]['id'] = $directorJuridico->id_usuario;
-    $selected[$i]['name'] = $directorJuridico->getNombreCompleto();
-    $selected[$i]['avatar'] = $directorJuridico->getImageProfile();$i++;
-}
-$jsonEncode = json_encode($selected);
-$this->registerJs("
-
-$(document).ready(function(){
-    var member = ".$jsonEncode.";
+    var member = ".$jsonAgregar.";
 
     $('.plugin-selective').each(function () {
         var elemento = $(this);
         elemento.selective({
           namespace: 'addMember',
+          selected: elemento.data('json'),
           local: member,
           onAfterSelected: function(e){
               //alert(elemento.val());
           },
           onAfterItemAdd: function(e){
-            alert(elemento.val());
+            //alert(elemento.val());
+            //alert(elemento.data('id'));
+            var idLoc = elemento.data('id');
+            var idUser = elemento.val();
+
+            $.ajax({
+                url: '".Yii::$app->urlManager->createAbsoluteUrl(['localidades/asignar-usuarios'])."',
+                data: {idL: idLoc, idU: idUser},
+                dataType: 'json',
+                type: 'POST',
+                success: function(resp){
+                    if(resp.status == 'success'){
+                        console.log('Asignacion correcta');
+                    }
+                }
+            });
+          },
+          onAfterItemRemove: function(e){
+            var idLoc = elemento.data('id');
+            var idUser = elemento.val();
+            if(!idUser){
+                idUser = -1;
+            }
+
+            $.ajax({
+                url: '".Yii::$app->urlManager->createAbsoluteUrl(['localidades/asignar-usuarios-eliminar'])."',
+                data: {idL: idLoc, idU: idUser},
+                dataType: 'json',
+                type: 'POST',
+                success: function(resp){
+                    if(resp.status == 'success'){
+                        console.log('Eliminacion correcta');
+                    }
+                }
+            });
           },
           buildFromHtml: false,
           tpl: {

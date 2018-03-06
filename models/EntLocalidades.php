@@ -114,4 +114,26 @@ class EntLocalidades extends \yii\db\ActiveRecord
     {
         return $this->hasMany(WrkTareas::className(), ['id_localidad' => 'id_localidad']);
     }
+
+    /** 
+    * @return \yii\db\ActiveQuery 
+    */ 
+   public function getWrkUsuariosLocalidades() 
+   { 
+       return $this->hasMany(WrkUsuariosLocalidades::className(), ['id_localidad' => 'id_localidad']); 
+   } 
+ 
+   /** 
+    * @return \yii\db\ActiveQuery 
+    */ 
+   public function getUsuarios() 
+   { 
+       return $this->hasMany(EntUsuarios::className(), ['id_usuario' => 'id_usuario'])->viaTable('wrk_usuarios_localidades', ['id_localidad' => 'id_localidad']); 
+   }
+
+   public function getUsuariosDirectores() 
+   { 
+       return $this->hasMany(EntUsuarios::className(), ['id_usuario' => 'id_usuario'])->viaTable('wrk_usuarios_localidades', ['id_localidad' => 'id_localidad']); 
+   } 
+
 }
