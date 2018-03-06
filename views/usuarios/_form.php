@@ -27,6 +27,9 @@ use yii\helpers\ArrayHelper;
             <?= $form->field($model, 'image')->fileInput(["class" => "hidden-xxl-down"])->label(false) ?> 
             <div class="row">
                 <div class="col-md-6">
+                    
+                    <h4>Datos Generales</h4>
+
                     <?= $form->field($model, 'txt_auth_item')
                         ->widget(Select2::classname(), [
                             'data' => ArrayHelper::map($roles, 'name', 'description'),
@@ -60,6 +63,9 @@ use yii\helpers\ArrayHelper;
                 
                     
                 <div class="col-md-6">
+
+                    <h4>Datos de Usuario</h4>
+
                     <div class="form-group">
                         <input type="text" class="form-control form-input-usuario" disabled placeholder="usuario">
                     </div>

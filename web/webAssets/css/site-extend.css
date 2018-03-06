@@ -3980,6 +3980,10 @@ a {
         .ryg-page .page-content .panel-usuarios-editar .panel-body .user-file .user-file-a img {
           margin-top: -25%;
           max-width: 100%; }
+    .ryg-page .page-content .panel-usuarios-create .panel-body form h4,
+    .ryg-page .page-content .panel-usuarios-editar .panel-body form h4 {
+      color: #485158;
+      font-size: 1.1rem; }
     .ryg-page .page-content .panel-usuarios-create .panel-body form .btn-usuarios-add,
     .ryg-page .page-content .panel-usuarios-editar .panel-body form .btn-usuarios-add {
       background-color: #E5E264;
