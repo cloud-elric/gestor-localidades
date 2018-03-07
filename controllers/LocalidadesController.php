@@ -55,34 +55,20 @@ class LocalidadesController extends Controller
         $searchModel = new EntLocalidadesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        $selected = [];
+        
         //LISTA DE USUARIOA PARA AGREGAR
-        if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){
-
-            $directoresJuridicos = EntUsuarios::find()->where(['txt_auth_item'=>ConstantesWeb::CLIENTE,'id_status'=>2])->all();
-            $i=0;
-            foreach($directoresJuridicos as $directorJuridico){
-                $selected[$i]['id'] = $directorJuridico->id_usuario;
-                $selected[$i]['name'] = $directorJuridico->getNombreCompleto();
-                $selected[$i]['avatar'] = $directorJuridico->getImageProfile();
-                $i++;
-            }
-        }else if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::CLIENTE){
-            $colab = WrkUsuarioUsuarios::find()->where(['id_usuario_padre'=>$idUser])->select('id_usuario_hijo')->asArray()->all();
-            $colaboradores = EntUsuarios::find()->where(['in', 'id_usuario', $colab])->andWhere(['id_status'=>2])->all();
-            $i=0;
-            foreach($colaboradores as $colaborador){
-                $selected[$i]['id'] = $colaborador->id_usuario;
-                $selected[$i]['name'] = $colaborador->getNombreCompleto();
-                $selected[$i]['avatar'] = $colaborador->getImageProfile();
-                $i++;
-            }
-        }else{}
+        $selected = [];
+        $directoresJuridicos = EntUsuarios::find()->where(['txt_auth_item'=>ConstantesWeb::CLIENTE,'id_status'=>2])->all();
+        $i=0;
+        foreach($directoresJuridicos as $directorJuridico){
+            $selected[$i]['id'] = $directorJuridico->id_usuario;
+            $selected[$i]['name'] = $directorJuridico->getNombreCompleto();
+            $selected[$i]['avatar'] = $directorJuridico->getImageProfile();
+            $i++;
+        }
+        
         $jsonAgregar = json_encode($selected);
 
-        /*$searchModelTarea = new TareasSearch();
-        $dataProviderTarea = $searchModelTarea->search(Yii::$app->request->queryParams);
-        $tareas=true;*/
         $model = new EntLocalidades();
         $flag = false;
         $estatus = new EntEstatus();
@@ -122,13 +108,33 @@ class LocalidadesController extends Controller
         $tareas = true;
         //$tareas = WrkTareas::find()->where(['id_localidad'=>$id])->all();
 
+
+
+        $user = Yii::$app->user->identity;
+        $selected = [];
+        if($user->txt_auth_item == ConstantesWeb::CLIENTE){
+            $grupoTrabajo = WrkUsuarioUsuarios::find()->where(['id_usuario_padre'=>$user->id_usuario])->select('id_usuario_hijo')->asArray();
+            $colaboradores = EntUsuarios::find()->where(['in', 'id_usuario', $grupoTrabajo])->all();
+            
+            $i=0;
+            foreach($colaboradores as $colaborador){
+                $selected[$i]['id'] = $colaborador->id_usuario;
+                $selected[$i]['name'] = $colaborador->getNombreCompleto();
+                $selected[$i]['avatar'] = $colaborador->getImageProfile();
+                $i++;
+            }
+        }
+        $jsonAgregar = json_encode($selected);
+        
+
         return $this->render('view', [
             'model' => $this->findModel($id),
             'userRel' => $userRel,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'tareas' => $tareas,
-            'dataProviderTarea' => $dataProviderTarea
+            'dataProviderTarea' => $dataProviderTarea,
+            'jsonAgregar' => $jsonAgregar
             //'relUserLoc' => $relUserLoc,
             //'idUsersRel' => $idUsersRel
         ]);
@@ -310,12 +316,19 @@ class LocalidadesController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         if(isset($_POST['idT']) && isset($_POST['idU']) ){
+            $longArray = sizeOf($_POST['idU']);
+            $idUser = null;
+            for($i = $longArray - 1; $i >= 0; $i--){
+                $idUser = $_POST['idU'][$i];
+                break;
+            }
+
             $relacion = WrkUsuariosTareas::find()->where(['id_tarea'=>$_POST['idT']])->one();
             if($relacion)
                 $relacion->delete();
 
             $relUserLoc = new WrkUsuariosTareas();
-            $relUserLoc->id_usuario = $_POST['idU'];
+            $relUserLoc->id_usuario = $idUser;
             $relUserLoc->id_tarea = $_POST['idT'];
 
             if($relUserLoc->save()){

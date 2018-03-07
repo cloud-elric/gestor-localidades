@@ -10,6 +10,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\View;
 use yii\widgets\ListView;
 use app\assets\AppAsset;
+use app\models\ConstantesWeb;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\EntLocalidadesSearch */
@@ -57,7 +58,9 @@ $this->registerJsFile(
                 <div class="panel-listado-col w-m">Última actualización</div>
                 <div class="panel-listado-col w-m">Fecha de asignación</div>
                 <div class="panel-listado-col w-m">Arrendedor</div>
-                <div class="panel-listado-col w-m">Responsables</div>
+                <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
+                    <div class="panel-listado-col w-m">Responsables</div>
+                <?php } ?>
                 <div class="panel-listado-col w-s">Acciones</div>
             </div>
 

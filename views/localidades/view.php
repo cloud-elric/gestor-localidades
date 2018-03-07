@@ -15,6 +15,7 @@ use app\models\ConstantesWeb;
 use app\models\WrkUsuarioUsuarios;
 use app\models\WrkUsuariosTareas;
 use yii\helpers\Url;
+use app\assets\AppAsset;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\EntLocalidades */
@@ -22,6 +23,16 @@ use yii\helpers\Url;
 $this->title = $model->txt_nombre;
 $this->params['breadcrumbs'][] = ['label' => 'Ent Localidades', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->registerCssFile(
+    '@web/webAssets/templates/classic/global/vendor/jquery-selective/jquery-selective.css',
+    ['depends' => [AppAsset::className()]]
+  );  
+  
+$this->registerJsFile(
+    '@web/webAssets/templates/classic/global/vendor/jquery-selective/jquery-selective.min.js',
+    ['depends' => [AppAsset::className()]]
+);
 
 $user = Yii::$app->user->identity;
 ?>
@@ -160,171 +171,147 @@ $user = Yii::$app->user->identity;
     </div>
 </div>
 
-<?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::CLIENTE){ ?>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h3>Tareas</h3>
+<!-- ************************************************************************************************************************************* -->
+
+<?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::CLIENTE){ ?>
+    <div class="panel panel-localidades">
+        <div class="panel-body">
+            <div class="panel-listado">
+                <div class="panel-listado-head">
+                    <div class="panel-listado-col w-x"></div>
+                    <div class="panel-listado-col w-m">Nombre</div>
+                    <div class="panel-listado-col w-m">Ver Archivo</div>
+                    <div class="panel-listado-col w-m">Descripcion</div>
+                    <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::CLIENTE){ ?>
+                        <div class="panel-listado-col w-m">Responsables</div>
+                    <?php } ?>
+                    <div class="panel-listado-col w-s">Acciones</div>
                 </div>
-                <?php if($tareas){ ?>
-                    <div class="panel-body">
-                    <?= GridView::widget([
-                        'dataProvider' => $dataProvider,
-                        'filterModel' => $searchModel,
-                        'columns' => [
-                            ['class' => 'yii\grid\SerialColumn'],
-                
-                            //'id_tarea',
-                            //'id_usuario',
-                            //'id_tarea_padre',
-                            //'id_localidad',
-                            [
-                                'attribute' => 'txt_nombre',
-                                'format' => 'raw',
-                                'value' => function($data){
-                                    return Html::a($data->txt_nombre, [
-                                        'tareas/view', 'id' => $data->id_tarea
-                                    ]);
-                                }
-                            ],
-                            [
-                                'attribute' => 'ver archivo',
-                                'format' => 'raw',
-                                'value' => function($data){
-                                    if($data->txt_path){
-                                        return Html::a('Descargar', [
-                                            'tareas/descargar', 'id' => $data->id_tarea,
-                                        ]);
-                                    }else{
-                                        return "<p>No se a subido archivo</p>";
-                                    }
-                                }
-                            ],
-                            //'txt_nombre',
-                            'txt_descripcion:ntext',
-                            [
-                                'attribute' => 'Asignar usuario',
-                                'format' => 'raw',
-                                'value' => function($data){
-                                    if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::CLIENTE){
-                                        $user = Yii::$app->user->identity;
-                                        $grupoTrabajo = WrkUsuarioUsuarios::find()->where(['id_usuario_padre'=>$user->id_usuario])->select('id_usuario_hijo')->asArray();
-                                        return Html::activeDropDownList($data, 'id_usuario', ArrayHelper::map(EntUsuarios::find()
-                                        /*->where(['!=', 'txt_auth_item', ConstantesWeb::SUPER_ADMIN])
-                                        ->andWhere(['!=', 'txt_auth_item', ConstantesWeb::ABOGADO])*/
-                                        ->where(['in', 'id_usuario', $grupoTrabajo])                                    
-                                        ->orderBy('txt_username')
-                                        ->asArray()
-                                        ->all(), 'id_usuario', 'txt_username'),['id' => "tarea-".$data->id_tarea, 'class' => 'select-tarea select-tarea-'.$data->id_tarea, 'data-idTar' => $data->id_tarea, 'prompt' => 'Seleccionar usuario']);
-                                        /*foreach($relLocalidades as $relLocalidad){
-                                            $user = EntUsuarios::find()->where(['id_usuario'=>$data->id_usuario])-one();
-                                        }*/
-                                    }else{
-                                        /*$idUser = WrkUsuariosTareas::find()->where(['id_tarea'=>$data->id_tarea])->select('id_usuario');
-                                        if(!$idUser){
-                                            $user = EntUsuarios::find()->where(['id_usuario'=>$idUser])->one();
-                                            return Html::img($user->txt_imagen, ['alt'=>$user->txt_email, 'style'=>'position: relative;
-                                                display: inline-block;
-                                                width: 40px;
-                                                white-space: nowrap;
-                                                border-radius: 1000px;
-                                                vertical-align: bottom;']);
-                                        }*/
-                                        return Html::img('imagen', ['alt'=>'imagen']);
-                                    }
-                                }
-                            ],
-                            //'fch_creacion',
-                            //'fch_due_date',
-                            //'b_completa',
-                
-                            ['class' => 'yii\grid\ActionColumn'],
-                        ],
-                    ]); ?>
-                    </div>
-                <?php }else{ ?>
-                    <div class="panel-body">
-                        <p>No hay tareas asignadas</p>
-                    </div>
-                <?php } ?>
+
+                <?= ListView::widget([
+                    'dataProvider' => $dataProvider,
+                    'itemView' => '_itemTareas',
+                ]);?>
             </div>
         </div>
     </div>
-    <p>
-        <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
-            <?= Html::a('Crear Tarea', ['tareas/create', 'idLoc' => $model->id_localidad], ['class' => 'btn btn-success']) ?>
-        <?php } ?>
-    </p>
 <?php } ?>
 
-<?php if(Yii::$app->user->identity->txt_auth_item != ConstantesWeb::ABOGADO){?>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h3>Tareas</h3>
-                </div>
-                <?php if($tareas){ ?>
-                    <div class="panel-body">
-                    <?= ListView::widget([
-                        'dataProvider' => $dataProviderTarea,
-                        'itemView' => '_item',
-                    ]); ?>
-                    </div>
-                <?php }else{ ?>
-                    <div class="panel-body">
-                        <p>No hay tareas asignadas</p>
-                    </div>
-                <?php } ?>
+<?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
+    <?= Html::a('Crear Tarea', ['tareas/create', 'idLoc' => $model->id_localidad], ['class' => 'btn btn-success']) ?>
+<?php } ?>
+
+<!-- ************************************************************************************************************************************* -->
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3>Tareas</h3>
             </div>
+            <?php if($tareas){ ?>
+                <div class="panel-body">
+                <?= ListView::widget([
+                    'dataProvider' => $dataProviderTarea,
+                    'itemView' => '_item',
+                ]); ?>
+                </div>
+            <?php }else{ ?>
+                <div class="panel-body">
+                    <p>No hay tareas asignadas</p>
+                </div>
+            <?php } ?>
         </div>
     </div>
-<?php } ?>
+</div>
+
 
 <?php
 $this->registerJs("
-
 $(document).ready(function(){
-    $('.select-tarea').on('change', function(){
-        //console.log('cambio select');
-        var idTar = $(this).data('idtar');
-        var idUser = $(this).val();
-        $.ajax({
-            url: '".Yii::$app->urlManager->createAbsoluteUrl(['localidades/asignar-usuarios-tareas'])."',
-            data: {idT: idTar, idU: idUser},
-            dataType: 'json',
-            type: 'POST',
-            success: function(resp){
-                if(resp.status == 'success'){
-                    console.log('Asignacion correcta');
-                }
-            }
-        });
-    });
 
     $('#wrktareas-file').on('change', function(){
         $('#btnGuardarArchivo').css('display', 'block');
     });
-});
 
+    var member = ".$jsonAgregar.";
+
+    $('.plugin-selective').each(function () {
+        var elemento = $(this);
+        elemento.selective({
+          namespace: 'addMember',
+          selected: elemento.data('json'),
+          local: member,
+          onAfterSelected: function(e){
+              //alert(elemento.val());
+          },
+          onAfterItemAdd: function(e){
+            //alert(elemento.val());
+            //alert(elemento.data('id'));
+            var idTar = elemento.data('idtar');
+            var idUser = elemento.val();
+
+            $.ajax({
+                url: '".Yii::$app->urlManager->createAbsoluteUrl(['localidades/asignar-usuarios-tareas'])."',
+                data: {idT: idTar, idU: idUser},
+                dataType: 'json',
+                type: 'POST',
+                success: function(resp){
+                    if(resp.status == 'success'){
+                        console.log('Asignacion de tarea correcta');
+                    }
+                }
+            });
+          },
+          onAfterItemRemove: function(e){
+            var idLoc = elemento.data('id');
+            var idUser = elemento.val();
+            if(!idUser){
+                idUser = -1;
+            }
+
+            $.ajax({
+                url: '".Yii::$app->urlManager->createAbsoluteUrl(['localidades/asignar-usuarios-eliminar'])."',
+                data: {idL: idLoc, idU: idUser},
+                dataType: 'json',
+                type: 'POST',
+                success: function(resp){
+                    if(resp.status == 'success'){
+                        console.log('Eliminacion correcta');
+                    }
+                }
+            });
+          },
+          buildFromHtml: false,
+          tpl: {
+            optionValue: function optionValue(data) {
+              return data.id;
+            },
+            frame: function frame() {
+              return '<div class=\"' + this.namespace + '\">                ' + this.options.tpl.items.call(this) + '                <div class=\"' + this.namespace + '-trigger\">                ' + this.options.tpl.triggerButton.call(this) + '                <div class=\"' + this.namespace + '-trigger-dropdown\">                ' + this.options.tpl.list.call(this) + '                </div>                </div>                </div>';
+        
+              // i++;
+            },
+            triggerButton: function triggerButton() {
+              return '<div class=\"' + this.namespace + '-trigger-button\"><i class=\"wb-plus\"></i></div>';
+            },
+            listItem: function listItem(data) {
+              return '<li class=\"' + this.namespace + '-list-item\"><img class=\"avatar\" src=\"' + data.avatar + '\">' + data.name + '</li>';
+            },
+            item: function item(data) {
+              return '<li class=\"' + this.namespace + '-item\"><img class=\"avatar\" src=\"' + data.avatar + '\" title=\"' + data.name + '\">' + this.options.tpl.itemRemove.call(this) + '</li>';
+            },
+            itemRemove: function itemRemove() {
+              return '<span class=\"' + this.namespace + '-remove\"><i class=\"wb-minus-circle\"></i></span>';
+            },
+            option: function option(data) {
+              return '<option value=\"' + this.options.tpl.optionValue.call(this, data) + '\">' + data.name + '</option>';
+            }
+          }
+        });
+    });
+});
 ", View::POS_END );
 
 ?>
-
-<!-- <div class="ent-localidades-form">
-    <?php /*$form = ActiveForm::begin([
-        'action' => ['localidades/asignar-usuarios'],
-        'options' => ['method' => 'post']
-    ]); */?>
-
-    <?php // $form->field($relUserLoc, 'id_usuario')->dropDownList(ArrayHelper::map(EntUsuarios::find()->where(['txt_auth_item'=>'cliente'])->andWhere(['not in', 'id_usuario', $idUsersRel])->orderBy('txt_username')->asArray()->all(), 'id_usuario', 'txt_username'),['prompt' => 'Seleccionar usuario']) ?>
-
-    <?php // $form->field($relUserLoc, 'id_localidad')->hiddenInput(['value' => $model->id_localidad])->label(false) ?>
-
-    <div class="form-group">
-        <?php // Html::submitButton('Asignar', ['class' => 'btn btn-success']) ?>
-    </div>
-
-    <?php // ActiveForm::end(); ?>
-</div> -->

@@ -67,8 +67,15 @@ class EntLocalidadesSearch extends EntLocalidades
                 'id_localidad' => $this->id_localidad
                 ]);
         }
-        if($user->txt_auth_item == ConstantesWeb::CLIENTE || $user->txt_auth_item == ConstantesWeb::COLABORADOR){
+        if($user->txt_auth_item == ConstantesWeb::CLIENTE){
             $loc = WrkUsuariosLocalidades::find()->select('id_localidad')->where(['id_usuario'=>$user->id_usuario])->asArray();//var_dump($loc);exit;
+            // grid filtering conditions
+            $query->andFilterWhere(['in', 'id_localidad', $loc]);
+        }
+
+        if($user->txt_auth_item == ConstantesWeb::COLABORADOR){
+            $grupoTrabajo = WrkUsuarioUsuarios::find()->where(['id_usuario_hijo'=>$user->id_usuario])->one();
+            $loc = WrkUsuariosLocalidades::find()->select('id_localidad')->where(['id_usuario'=>$grupoTrabajo->id_usuario_padre])->asArray();//var_dump($loc);exit;
             // grid filtering conditions
             $query->andFilterWhere(['in', 'id_localidad', $loc]);
         }

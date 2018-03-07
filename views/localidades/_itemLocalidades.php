@@ -37,10 +37,11 @@ $seleccionados = json_encode($seleccionados);
     
     <div class="panel-listado-col w-m"><?= $model->txt_arrendador ?></div>
     
-    
-    <div id="js_div_responsables" class="panel-listado-col w-m">
-        <select multiple="multiple" class="plugin-selective" data-id="<?= $model->id_localidad ?>" data-json='<?= $seleccionados ?>'></select> 
-    </div>
+    <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
+        <div id="js_div_responsables" class="panel-listado-col w-m">
+            <select multiple="multiple" class="plugin-selective" data-id="<?= $model->id_localidad ?>" data-json='<?= $seleccionados ?>'></select> 
+        </div>
+    <?php } ?>
     
     <div class="panel-listado-col w-s"><a class="panel-listado-acction acction-edit" href=""><i class="icon wb-plus"></i></a><a class="panel-listado-acction acction-delete" href=""><i class="icon wb-plus"></i></a></div>
     
