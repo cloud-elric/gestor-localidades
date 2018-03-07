@@ -22,6 +22,8 @@ use kartik\date\DatePicker;
                 
                 <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true]) ?>
                 
+                <?= $form->field($model, 'cms')->textInput(['maxlength' => true]) ?>
+
                 <?= $form->field($model, 'txt_arrendador')->textInput(['maxlength' => true]) ?>
                 
                 <?= $form->field($model, 'txt_beneficiario')->textInput(['maxlength' => true]) ?>
