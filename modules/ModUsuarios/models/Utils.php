@@ -78,6 +78,12 @@ class Utils {
 		// Envia el correo electronico
 		return $this->sendEmail ( '@app/modules/ModUsuarios/email/notificacionTarea', '@app/modules/ModUsuarios/email/layouts/text', Yii::$app->params ['modUsuarios'] ['email'] ['emailActivacion'],$email, Yii::$app->params ['modUsuarios'] ['email'] ['subjectActivacion'], $parametrosEmail );
 	}
+
+	public function sendEmailCargaTareas($email,$parametrosEmail) {
+		
+		// Envia el correo electronico
+		return $this->sendEmail ( '@app/modules/ModUsuarios/email/cargaDropbox', '@app/modules/ModUsuarios/email/layouts/text', Yii::$app->params ['modUsuarios'] ['email'] ['emailActivacion'],$email, Yii::$app->params ['modUsuarios'] ['email'] ['subjectActivacion'], $parametrosEmail );
+	}
 	
 	/**
 	 * Envia el correo electronico para recuperar el correo electronico

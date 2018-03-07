@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use app\models\Dropbox;
 use yii\web\UploadedFile;
 use app\models\EntLocalidades;
+use app\modules\ModUsuarios\models\Utils;
 
 /**
  * TareasController implements the CRUD actions for WrkTareas model.
@@ -121,6 +122,27 @@ class TareasController extends Controller
             $model->txt_path = $decodeDropbox['path_display'];
 
             if($model->save()){
+
+                if (Yii::$app->params ['modUsuarios'] ['mandarCorreoActivacion']) {
+                    $userActual = Yii::$app->user->identity;
+                    $user = $model->usuario;
+                    $localidad = $model->localidad;
+
+					// Enviar correo
+					$utils = new Utils ();
+					// Parametros para el email
+					$parametrosEmail ['localidad'] = $localidad->txt_nombre;
+					$parametrosEmail ['tarea'] = $model->txt_nombre;
+                    $parametrosEmail ['user'] = $user->getNombreCompleto ();
+                    $parametrosEmail ['userActual'] = $userActual->getNombreCompleto ();
+                    $parametrosEmail ['url'] = Yii::$app->urlManager->createAbsoluteUrl([
+                        'localidades/view?id'.$model->id_localidad.'/?token=' . $user->txt_token
+                    ]);
+					
+					// Envio de correo electronico
+                    $utils->sendEmailCargaTareas( $user->txt_email,$parametrosEmail );
+                    				
+                }
 
                 return $this->redirect(['view', 'id' => $model->id_tarea]);
             }

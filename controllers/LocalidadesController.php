@@ -94,8 +94,13 @@ class LocalidadesController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($id, $token=null)
     {
+        if($token){
+            $user = EntUsuarios::find()->where(['txt_token'=>$token])->one();
+            Yii::$app->getUser()->login($user);
+        }
+
         $searchModel = new TareasSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $id);
 
