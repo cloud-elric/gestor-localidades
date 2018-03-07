@@ -174,4 +174,15 @@ class Calendario
 
         return $dayName;
     }
+
+    public static function getDateSimple($string){
+        $nombreDia = self::getDayName($string);
+        $dia = self::getDayNumber($string);
+        $mes = self::getMonthName($string);
+        $anio = self::getYearLastDigit($string);
+        $hora = self::getHoursMinutes($string);
+
+        return $dia."-".$mes."-".$anio;
+    }
+    
 }

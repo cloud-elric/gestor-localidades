@@ -1,12 +1,16 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
-use yii\widgets\ListView;
+// use yii\grid\GridView;
+// use yii\widgets\ListView;
+use app\models\Calendario;
+use kartik\grid\GridView;
 use app\modules\ModUsuarios\models\EntUsuarios;
 use kop\y2sp\ScrollPager;
 use app\components\LinkSorterExtends;
 use yii\helpers\Url;
+use kartik\date\DatePicker;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\UsuariosSearch */
@@ -38,6 +42,12 @@ $this->registerJsFile(
   ['depends' => [\app\assets\AppAsset::className()]]
 );
 
+$this->registerJsFile(
+  '@web/webAssets/js/usuarios/index.js',
+  ['depends' => [\app\assets\AppAsset::className()]]
+);
+
+
 ?>
 
 <?php
@@ -59,84 +69,130 @@ $this->registerJsFile(
                 </div>';
 
       ?>   
-
+    
 <!-- Panel -->
-<div class="panel panel-usuarios">
-  <div class="panel-body">
-
-    <div class="panel-search">
-      <h3 class="panel-search-title"><?= Html::encode($this->title) ?></h3>
-      <div class="panel-search-int">
-          <form class="panel-search-form">
-            <input type="text" class="panel-search-form-input" placeholder="Buscar por nombre o correo">
-          <input type="text" class="panel-search-form-select" placeholder="Tipo">
-          </form>
-          <a class="btn btn-success btn-add" href="<?=Url::base()?>/usuarios/create"><i class="icon wb-plus"></i> Agregar usuario</a>
-      </div>
-        
-    </div>
+<div class="panel panel-list-user-table">
       
-    <div class="panel-listado">
-      <div class="panel-listado-head">
-          <div class="panel-listado-col w-m">Nombre</div>
-          <div class="panel-listado-col w-m">Tipo de usuario</div>
-          <div class="panel-listado-col w-m">Fecha de creación</div>
-          <div class="panel-listado-col w-m">Estatus</div>
-          <div class="panel-listado-col w-x">Editar</div>
-      </div>
-
-      <?php
-      echo ListView::widget([
-          'dataProvider' => $dataProvider,
-          'itemView' => '_item',
-          'itemOptions'=>[
-            'tag'=>"div",
-            'class'=>"panel-listado-row"
+    <?php
+    $sort = "txt_username";
+    if(isset($_GET['sort'])){
+      $sort = substr($_GET['sort'], 0,1);
+      if($sort=="-"){
+        $sort = substr($_GET['sort'], 1);
+      }else{
+        $sort = $_GET['sort'];
+      }
+    }
+    #exit;
+    ?>
+    
+   
+    <?php
+    
+    echo GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel'=>$searchModel,
+        'options' => [
+          'class'=>"panel-table-int"
+        ],
+        'responsive'=>true,
+        'striped'=>false,
+        'hover'=>false,
+        'bordered'=>false,
+        'pjax'=>true,
+        'pjaxSettings'=>[
+          'options'=>[
+            'linkSelector'=>"a:not(.no-pjax)"
+          ]
+        ],
+        'tableOptions' => [
+          'class'=>"table table-hover"
+        ],
+        'layout' => '{items}{summary}{pager}',
+        'columns' =>[
+          [
+            'attribute' => 'nombreCompleto',
+            
+            'format'=>'raw',
+            'contentOptions' => [
+              'class'=>"flex"
+            ],
+            'value'=>function($data){
+                
+              return '<a class="no-pjax" href="'.Url::base().'/usuarios/update/'.$data->id_usuario.'"><img class="panel-listado-img" src="'.$data->imageProfile.'" alt="">
+              <span>'.$data->nombreCompleto .'</span></a>';
+            }
           ],
-          'layout'=>$sorter.'<ul class="list-group">{items}</ul>{pager}{summary}',
-          'sorter'=>[
-            'class'=>LinkSorterExtends::className(),
-            'attributes'=>[
-              'id_usuario',
-              'txt_username',
-              'txt_apellido_paterno',
-              'txt_apellido_materno',
-              'txt_email',
-              'fch_creacion'
-            ],
-            'options'=>[
-              'class'=>"dropdown-menu animation-scale-up animation-top-right animation-duration-250",
-              'role'=>"menu"
-            ],
-            'linkOptions'=>[
-              "class"=>"dropdown-item"
-            ]
-          ],
-          'pager' => [
-            'item'=>".panel-listado-row",
-            'class' => ScrollPager::className(),
-            'triggerText'=>'Cargar más datos',
-            'noneLeftText'=>'No hay datos por cargar',
-            'triggerOffset'=>999999999999999999999999999999999999999,
-            'negativeMargin'=>100,
-            'enabledExtensions' => [
-                ScrollPager::EXTENSION_TRIGGER,
-                ScrollPager::EXTENSION_SPINNER,
-                ScrollPager::EXTENSION_NONE_LEFT,
-                ScrollPager::EXTENSION_PAGING,
-            ],
-            // ScrollPager::EXTENSION_SPINNER,
-            // ScrollPager::EXTENSION_PAGING,
-        ]
+          // [
+          //   'attribute' => 'roleDescription',
+          //   'filter'=>ArrayHelper::map($roles, 'name', 'description'),
+          // ],
           
-      ]);?>
+          [
+            'attribute' => 'fch_creacion',
+            'filter'=>DatePicker::widget([
+              'model'=>$searchModel,
+              'attribute'=>'fch_creacion',
+              'pickerButton'=>false,
+              'removeButton'=>false,
+              'type' => DatePicker::TYPE_INPUT,
+              'pluginOptions' => [
+                  'autoclose'=>true,
+                  'format' => 'dd-mm-yyyy'
+              ]
+            ]),
+            'format'=>'raw',
+            'value'=>function($data){
+                
+              return Calendario::getDateSimple($data->fch_creacion);
+            }
+          ],
+          [
+            'attribute' => 'id_status',
+            'filter'=>[EntUsuarios::STATUS_ACTIVED=>'Activo', EntUsuarios::STATUS_BLOCKED=>'Inactivo'],
+            'format'=>'raw',
+            
+            'value'=>function($data){
 
-    
-    </div>
-     
-             
+            $activo = $data->id_status == 2?'active':'';
+            $inactivo = $data->id_status == 1||$data->id_status == 3?'active':'';
+                
+              return '<div class="btn-group" data-toggle="buttons" role="group">
+              <label class="btn btn-active '.$activo.'"  data-token="'.$data->txt_token.'">
+              <input class="js-activar-usuario" type="radio" name="options" autocomplete="off" value="male" checked />
+              Activo
+              </label>
+              <label class="btn btn-inactive '.$inactivo.'" data-token="'.$data->txt_token.'">
+              <input class="js-bloquear-usuario"  type="radio" name="options" autocomplete="off" value="female" />
+              Inactivo
+              </label>
+              </div>';
+            }
+          ],
+          [
+            'attribute' => 'Editar',
+            'format'=>'raw',
+           
+            'value'=>function($data){
+                
+              return '<a href="'.Url::base().'/usuarios/update/'.$data->id_usuario.'" class="btn btn-outline btn-success btn-sm"><i class="icon wb-edit"></i></a>';
+            }
+          ]
+        ],
+        'pager'=>[
+          'linkOptions' => [
+              'class' => 'page-link'
+          ],
+          'pageCssClass'=>'page-item',
+          'prevPageCssClass' => 'page-item',
+          'nextPageCssClass' => 'page-item',
+          'firstPageCssClass' => 'page-item',
+          'lastPageCssClass' => 'page-item',
+          'maxButtonCount' => '5',
+        ]
       
+    ]);?>
     
-  </div>
+
 </div>
 <!-- End Panel -->
