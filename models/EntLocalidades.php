@@ -49,10 +49,19 @@ class EntLocalidades extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_estado', 'id_usuario', 'txt_token', 'txt_nombre', 'txt_arrendador', 'txt_beneficiario'], 'required'],
-            [['id_estado', 'id_usuario', 'b_problemas_acceso', 'b_archivada'], 'integer'],
+            [
+                ['num_incremento_autorizado'], 'required', 'message'=>'Campo requerido',
+                'when' => function ($model) {
+                    return $model->b_status_localidad == 0;
+                }/*, 'whenClient' => "function (attribute, value) {
+                    
+                    return $('#entusuarios-txt_auth_item').val()=='usuario-cliente';
+                }"*/
+            ],
+            [['id_estado', 'id_usuario', 'cms', 'txt_token', 'txt_nombre', 'txt_arrendador', 'txt_beneficiario'], 'required'],
+            [['id_estado', 'id_usuario', 'b_problemas_acceso', 'b_archivada', 'b_status_localidad'], 'integer'],
             [['txt_estatus', 'txt_antecedentes'], 'string'],
-            [['num_renta_actual', 'num_incremento_autorizado'], 'number'],
+            [['num_renta_actual', 'num_incremento_autorizado', 'num_pretencion_renta'], 'number'],
             [['fch_vencimiento_contratro', 'fch_creacion', 'fch_asignacion'], 'safe'],
             [['txt_token'], 'string', 'max' => 70],
             [['txt_nombre', 'txt_arrendador', 'txt_beneficiario', 'txt_calle', 'txt_colonia', 'txt_municipio'], 'string', 'max' => 150],

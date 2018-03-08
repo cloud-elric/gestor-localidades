@@ -11,6 +11,8 @@ use yii\filters\VerbFilter;
 use app\modules\ModUsuarios\models\Utils;
 use app\models\AuthItem;
 use app\models\WrkUsuarioUsuarios;
+use app\models\ConstantesWeb;
+use app\models\CatPorcentajeRentaAbogados;
 
 /**
  * UsuariosController implements the CRUD actions for EntUsuarios model.
@@ -88,7 +90,7 @@ class UsuariosController extends Controller
         $model = new EntUsuarios([
             'scenario' => 'registerInput'
         ]);
-        $usuariosClientes = EntUsuarios::find()->where(['txt_auth_item'=>'cliente'])->all();
+        $usuariosClientes = EntUsuarios::find()->where(['txt_auth_item'=>ConstantesWeb::CLIENTE])->all();
 
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
@@ -98,8 +100,14 @@ class UsuariosController extends Controller
         $grupo = null;
         $padre = null;
         if ($model->load(Yii::$app->request->post())){
+
+            if($model->txt_auth_item == ConstantesWeb::ABOGADO){
+                $porcentajeRenta = new CatPorcentajeRentaAbogados();
+                $porcentajeRenta->id_usuario = $model->id_usuario;
+                $porcentajeRenta->num_porcentaje = 10;
+            }
             
-            if($model->txt_auth_item == "cliente"){
+            if($model->txt_auth_item == ConstantesWeb::CLIENTE){
                 $grupo = $usuario;
             }else{
                 $padre = $model->usuarioPadre; 
