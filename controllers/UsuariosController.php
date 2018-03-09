@@ -13,6 +13,7 @@ use app\models\AuthItem;
 use app\models\WrkUsuarioUsuarios;
 use app\models\ConstantesWeb;
 use app\models\CatPorcentajeRentaAbogados;
+use app\models\ResponseServices;
 
 /**
  * UsuariosController implements the CRUD actions for EntUsuarios model.
@@ -212,5 +213,40 @@ class UsuariosController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionBloquearUsuario($token=null){
+        $respuesta = new ResponseServices();
+
+        $usuario = $this->findModel(['txt_token'=>$token]);
+
+        $usuario->id_status = EntUsuarios::STATUS_BLOCKED;
+        if($usuario->save()){
+            $respuesta->status = "success";
+            $respuesta->message= "Usuario bloqeado";
+        }else{
+            $respuesta->status = "error";
+            $respuesta->message = "No se pudo bloquear al usuario";
+            $respuesta->result = $usuario->errors;
+        }
+        return $respuesta;
+    }
+
+    public function actionActivarUsuario($token=null){
+        $respuesta = new ResponseServices();
+
+        $usuario = $this->findModel(['txt_token'=>$token]);
+
+        $usuario->id_status = EntUsuarios::STATUS_ACTIVED;
+        if($usuario->save()){
+            $respuesta->status = "success";
+            $respuesta->message= "Usuario activado";
+        }else{
+            $respuesta->status = "error";
+            $respuesta->message = "No se pudo activar al usuario";
+            $respuesta->result = $usuario->errors;
+        }
+
+        return $respuesta;
     }
 }
