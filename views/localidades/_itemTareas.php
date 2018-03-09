@@ -29,13 +29,25 @@ $seleccionados = json_encode($seleccionados);
     </div>
     
     <div class="panel-listado-col w-m">
-    <?php
-            if($model->txt_path){
-                echo Html::a('Descargar', [
-                    'tareas/descargar', 'id' => $model->id_tarea,
-                ]);
-            }else{
-                echo "<p>No se a subido archivo</p>";
+        <?php
+            if($model->id_tipo == 1){
+                if($model->txt_path){
+                    echo Html::a('Descargar', [
+                        'tareas/descargar', 'id' => $model->id_tarea,
+                    ]);
+                }else{
+                    echo "<p>No se a subido archivo</p>";
+                }
+            }
+        ?>
+
+        <?php
+            if($model->id_tipo == 2){
+                if($model->txt_tarea){
+                    echo "<p>".$model->txt_tarea."</p>";
+                }else{
+                    echo "<p>No se a completado</p>";
+                }
             }
         ?>
     </div>
