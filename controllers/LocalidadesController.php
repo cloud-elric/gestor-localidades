@@ -313,7 +313,21 @@ class LocalidadesController extends Controller
             
             }
             return ['status'=>'error'];	            
+        }else{
+            if(isset($_POST['idL'])){
+                $relacion = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$_POST['idL']])->one();
+                if($relacion){
+                    if($relacion->delete()){
+                        return [
+                            'status' => 'success'
+                        ];	
+                    }
+
+                    return ['status'=>'error'];
+                }
+            }
         }
+
         return ['status'=>'error post'];
     }
 
@@ -368,6 +382,7 @@ class LocalidadesController extends Controller
 
             return ['status'=>'error guardar relacion'];
         }
+
         return ['status'=>'error post data'];
     }
 

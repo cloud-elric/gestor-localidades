@@ -41,6 +41,10 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                 
             <div class="col-sm-12 col-md-6 col-lg-4">
                 
+                <?php require(__DIR__ . '/../components/select2.php'); ?>
+
+                <?= $form->field($model, 'txt_cp')->textInput(['maxlength' => true]) ?>
+                
                 <?= $form->field($model, 'id_estado')->dropDownList(ArrayHelper::map(CatEstados::find()->orderBy('txt_nombre')->asArray()->all(), 'id_estado', 'txt_nombre'),['prompt' => 'Seleccionar estado']) ?>
 
                 <?= $form->field($model, 'txt_calle')->textInput(['maxlength' => true]) ?>
@@ -48,8 +52,6 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                 <?= $form->field($model, 'txt_colonia')->textInput(['maxlength' => true]) ?>
                 
                 <?= $form->field($model, 'txt_municipio')->textInput(['maxlength' => true]) ?>
-
-                <?= $form->field($model, 'txt_cp')->textInput(['maxlength' => true]) ?>
 
             </div>
             

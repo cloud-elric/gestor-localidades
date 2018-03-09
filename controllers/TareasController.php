@@ -83,7 +83,6 @@ class TareasController extends Controller
             $model->txt_path = $decodeDropbox['path_display'];            
             */
 
-
             if($model->save()){
                 
                 return $this->redirect(['localidades/view', 'id' => $idLoc]);
@@ -111,22 +110,25 @@ class TareasController extends Controller
         if ($model->load(Yii::$app->request->post())){
 
             $localidad = EntLocalidades::find()->where(['id_localidad'=>$_POST["WrkTareas"]["id_localidad"]])->one();
-
-            $fileDropbox = UploadedFile::getInstance($model, 'file');
-
-            $dropbox = Dropbox::subirArchivo($localidad->txt_nombre, $fileDropbox);
-            $decodeDropbox = json_decode(trim($dropbox), TRUE);
-            //echo $dropbox;exit;
             
-            $model->txt_nombre = $decodeDropbox['name'];         
-            $model->txt_path = $decodeDropbox['path_display'];
+            if($model->id_tipo == 1){
+                $fileDropbox = UploadedFile::getInstance($model, 'file');
+
+                $dropbox = Dropbox::subirArchivo($localidad->txt_nombre, $fileDropbox);
+                $decodeDropbox = json_decode(trim($dropbox), TRUE);
+                //echo $dropbox;exit;
+                
+                $model->txt_nombre = $decodeDropbox['name'];         
+                $model->txt_path = $decodeDropbox['path_display'];
+            }
 
             if($model->save()){
 
+                $userActual = Yii::$app->user->identity;
+                $user = $model->usuario;
+                $localidad = $model->localidad;
+
                 if (Yii::$app->params ['modUsuarios'] ['mandarCorreoActivacion']) {
-                    $userActual = Yii::$app->user->identity;
-                    $user = $model->usuario;
-                    $localidad = $model->localidad;
 
 					// Enviar correo
 					$utils = new Utils ();
@@ -144,7 +146,7 @@ class TareasController extends Controller
                     				
                 }
 
-                return $this->redirect(['view', 'id' => $model->id_tarea]);
+                return $this->redirect(['localidades/view', 'id' => $localidad->id_localidad]);
             }
         }
 
