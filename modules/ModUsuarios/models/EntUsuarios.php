@@ -613,5 +613,10 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 
 	public static function label(){
         return (new EntUsuarios)->attributeLabels();
-    }
+	}
+	
+	public function getRoleDescription(){
+		
+		return $this->txtAuthItem->description;
+	}
 }
