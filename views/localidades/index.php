@@ -37,154 +37,164 @@ $this->registerJsFile(
 
 ?>
 
-<!-- Panel -->
-<div class="panel panel-localidades">
-    <div class="panel-body">
+<div class="panel-localidades-cont">
+
+
+    <!-- Panel -->
+    <div class="panel panel-localidades">
+
 
         <div class="panel-search">
             <h3 class="panel-search-title">Listado de localidades</h3>
-            <div class="panel-search-int">
-                
-                <?= $this->render('_search', [
-                    'model' => $searchModel,
-                    //'estatus' => $estatus            
-                ]); ?>
 
+            <?= $this->render('_search', [
+                'model' => $searchModel,
+                //'estatus' => $estatus            
+            ]); ?>
+
+            <div class="row mt-30">
+                <div class="col-md-3 offset-9">
+                    
+                    <?php if(Yii::$app->user->identity->txt_auth_item == "abogado"){ ?>
+                        <?= Html::a('<i class="icon wb-plus"></i> Crear Localidades', ['create'], ['class' => 'btn btn-add']) ?>
+                    <?php } ?>
                 
-                <?php if(Yii::$app->user->identity->txt_auth_item == "abogado"){ ?>
-                    <?= Html::a('<i class="icon wb-plus"></i> Crear Localidades', ['create'], ['class' => 'btn btn-success btn-add']) ?>
-                <?php } ?>
+                </div>
             </div>
+
         </div>
 
+
     </div>
-</div>
 
- 
-<div class="panel-table">
-    <?= GridView::widget([
-        // 'tableOptions' => [
-        //     "class" => "table"
-        // ],
-        'pjax'=>true,
-        'pjaxSettings'=>[
-            'options'=>[
-                'linkSelector'=>"a:not(.no-pjax)",
-                'id'=>'pjax-usuarios'
-            ]
+    
+    <div class="panel-table">
+        <?= GridView::widget([
+            // 'tableOptions' => [
+            //     "class" => "table"
+            // ],
+            'pjax'=>true,
+            'pjaxSettings'=>[
+                'options'=>[
+                    'linkSelector'=>"a:not(.no-pjax)",
+                    'id'=>'pjax-usuarios'
+                ]
+                ],
+            'dataProvider' => $dataProvider,
+            'tableOptions' => [
+                'class'=>"table table-hover"
             ],
-        'dataProvider' => $dataProvider,
-        'tableOptions' => [
-            'class'=>"table table-hover"
-          ],
-        'layout' => '{items}{summary}{pager}',
-        'columns' =>[
-            
-            [
-                'attribute'=>'txt_nombre',
-                //'filter'=>"",
-                'format'=>'raw',
-                'value'=>function($data){
-                    return '<a href="'.Url::base().'/localidades/view/'.$data->id_localidad.'">'.$data->txt_nombre.'</a>';
-                }
-            ],
-
-            [
-                'label'=>'Ultima',
-                'format'=>'raw',
-                'value'=>function($data){
-                    return 'Hoy';
-                }
-            ],
-
-            [
-                'attribute'=>'fch_asignacion',
-                'filter'=>DatePicker::widget([
-                    'model'=>$searchModel,
-                    'attribute'=>'fch_creacion',
-                    'pickerButton'=>false,
-                    'removeButton'=>false,
-                    'type' => DatePicker::TYPE_INPUT,
-                    'pluginOptions' => [
-                        'autoclose'=>true,
-                        'format' => 'dd-mm-yyyy'
-                    ]
-                ]),
-                'format'=>'raw',
-                'value'=>function($data){
-                    if (!$data->fch_asignacion){
-                        return "(no definido)";
+            'layout' => '{items}{summary}{pager}',
+            'columns' =>[
+                
+                [
+                    'attribute'=>'txt_nombre',
+                    'headerOptions' => [
+                        'class' => 'text-center'
+                    ],
+                    'format'=>'raw',
+                    'value'=>function($data){
+                        return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat cat-yellow"></span></div><a class="panel-listado-user-link" href="'.Url::base().'/localidades/view/'.$data->id_localidad.'">' .$data->txt_nombre.'</a></div>';
                     }
-                    return Calendario::getDateSimple($data->fch_asignacion);
-                }
-            ],
+                ],
 
-            [
-                'attribute'=>'txt_arrendador',
-                'format'=>'raw'
-            ],
-
-            [
-                'label'=>'Responsable',
-                'format'=>'raw',
-                'value'=>function($data){
-
-                    //LISTA DE USUARIOS AGREGADOS
-                    $usuariosSeleccionados = $data->usuarios;
-                    $seleccionados = [];
-                    $i=0;
-                    foreach($usuariosSeleccionados as $usuarioSeleccionado){
-                        $seleccionados[$i]['id'] = $usuarioSeleccionado->id_usuario;
-                        $seleccionados[$i]['name'] = $usuarioSeleccionado->getNombreCompleto();
-                        $seleccionados[$i]['avatar'] = $usuarioSeleccionado->getImageProfile();
-                        $i++;
+                [
+                    'label'=>'Ultima',
+                    'format'=>'raw',
+                    'value'=>function($data){
+                        return 'Hoy';
                     }
-                    $seleccionados = json_encode($seleccionados);
-                    
-                        if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){
-                            return "<div id='js_div_responsables' class='panel-listado-col w-m'>
-                                <select multiple='multiple' class='plugin-selective' data-id='".$data->id_localidad ."' data-json='". $seleccionados ."'></select> 
-                            </div>";
+                ],
+
+                [
+                    'attribute'=>'fch_asignacion',
+                    'filter'=>DatePicker::widget([
+                        'model'=>$searchModel,
+                        'attribute'=>'fch_creacion',
+                        'pickerButton'=>false,
+                        'removeButton'=>false,
+                        'type' => DatePicker::TYPE_INPUT,
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                            'format' => 'dd-mm-yyyy'
+                        ]
+                    ]),
+                    'format'=>'raw',
+                    'value'=>function($data){
+                        if (!$data->fch_asignacion){
+                            return "(no definido)";
                         }
-                }
+                        return Calendario::getDateSimple($data->fch_asignacion);
+                    }
+                ],
+
+                [
+                    'attribute'=>'txt_arrendador',
+                    'format'=>'raw'
+                ],
+
+                [
+                    'label'=>'Responsable',
+                    'format'=>'raw',
+                    'value'=>function($data){
+
+                        //LISTA DE USUARIOS AGREGADOS
+                        $usuariosSeleccionados = $data->usuarios;
+                        $seleccionados = [];
+                        $i=0;
+                        foreach($usuariosSeleccionados as $usuarioSeleccionado){
+                            $seleccionados[$i]['id'] = $usuarioSeleccionado->id_usuario;
+                            $seleccionados[$i]['name'] = $usuarioSeleccionado->getNombreCompleto();
+                            $seleccionados[$i]['avatar'] = $usuarioSeleccionado->getImageProfile();
+                            $i++;
+                        }
+                        $seleccionados = json_encode($seleccionados);
+                        
+                            if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){
+                                return "<div id='js_div_responsables' class='panel-listado-col w-m'>
+                                    <select multiple='multiple' class='plugin-selective' data-id='".$data->id_localidad ."' data-json='". $seleccionados ."'></select> 
+                                </div>";
+                            }
+                    }
+                ],
+
+                // [
+                //     'label'=>'Acciones',
+                //     'format'=>'raw',
+                //     'value'=>function($data){
+
+                //         return '<div class="panel-listado-acctions"><a class="panel-listado-acction acction-edit" href=""><i class="icon wb-plus"></i></a><a class="panel-listado-acction acction-delete" href=""><i class="icon wb-plus"></i></a></div>';
+                //     }
+                // ],
+                
+                
+                
+                
+
             ],
-
-            [
-                // 'attribute'=>'nombre',
-                'format'=>'raw',
-                'value'=>function($data){
-
-                    return '<div class="panel-listado-col w-s"><a class="panel-listado-acction acction-edit" href=""><i class="icon wb-plus"></i></a><a class="panel-listado-acction acction-delete" href=""><i class="icon wb-plus"></i></a></div>';
-                }
-            ],
+            'panelTemplate' => "{panelHeading}\n{items}\n{summary}\n{pager}",
+            'responsive'=>true,
+            'striped'=>false,
+            'hover'=>false,
+            'bordered'=>false,
+            'pager'=>[
+                'linkOptions' => [
+                    'class' => 'page-link'
+                ],
+                'pageCssClass'=>'page-item',
+                'prevPageCssClass' => 'page-item',
+                'nextPageCssClass' => 'page-item',
+                'firstPageCssClass' => 'page-item',
+                'lastPageCssClass' => 'page-item',
+                'maxButtonCount' => '5',
+            ]
             
-            
-            
-            
+        ])
+        ?>
 
-        ],
-        'panelTemplate' => "{panelHeading}\n{items}\n{summary}\n{pager}",
-        'responsive'=>true,
-        'striped'=>false,
-        'hover'=>false,
-        'bordered'=>false,
-        'pager'=>[
-            'linkOptions' => [
-                'class' => 'page-link'
-            ],
-            'pageCssClass'=>'page-item',
-            'prevPageCssClass' => 'page-item',
-            'nextPageCssClass' => 'page-item',
-            'firstPageCssClass' => 'page-item',
-            'lastPageCssClass' => 'page-item',
-            'maxButtonCount' => '5',
-          ]
-        
-    ])
-    ?>
+    </div>
 
-
-
+</div>
 
 <?php
 
