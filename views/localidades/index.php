@@ -51,7 +51,7 @@ $this->registerJsFile(
                 ]); ?>
 
                 
-                <?php if(Yii::$app->user->identity->txt_auth_item == "abogado"){ ?>
+                <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
                     <?= Html::a('<i class="icon wb-plus"></i> Crear Localidades', ['create'], ['class' => 'btn btn-success btn-add']) ?>
                 <?php } ?>
             </div>
@@ -187,7 +187,6 @@ $this->registerJsFile(
 
 
 <?php
-
 $this->registerJs("
 
 $(document).ready(function(){
@@ -195,7 +194,7 @@ $(document).ready(function(){
 
     $('.plugin-selective').each(function () {
         var elemento = $(this);
-        console.log(elemento.data('json'));
+        //console.log(elemento.data('json'));
         elemento.selective({
           namespace: 'addMember',
           selected: elemento.data('json'),

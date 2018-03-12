@@ -200,9 +200,15 @@ class LocalidadesController extends Controller
         $historial = EntEstatus::find()->where(['id_localidad'=>$id])->all();
 
         if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())) {
+            
             $estatus->id_localidad = $model->id_localidad;
-            if($model->save() && $estatus->save()){
-                return $this->redirect(['view', 'id' => $model->id_localidad]);
+            $dropbox = Dropbox::crearFolder("raul/".$_POST["EntLocalidades"]["txt_nombre"]);
+            $decodeDropbox = json_decode(trim($dropbox), TRUE);
+            
+            if($decodeDropbox['metadata']){
+                if($model->save() && $estatus->save()){
+                    return $this->redirect(['view', 'id' => $model->id_localidad]);
+                }
             }
         }
         $tareas = true;
