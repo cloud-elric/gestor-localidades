@@ -8,11 +8,18 @@ use app\modules\ModUsuarios\models\EntUsuarios;
 use kartik\date\DatePicker;
 use yii\web\View;
 use app\models\CatPorcentajeRentaAbogados;
+use yii\helpers\Url;
+use kartik\select2\Select2;
+use yii\web\JsExpression;
+use kartik\depdrop\DepDrop;
+use app\models\CatColonias;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\EntLocalidades */
 /* @var $form yii\widgets\ActiveForm */
 
+$estado = $model->estado;
 $idUser = Yii::$app->user->identity->id_usuario;
 $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$idUser])->one();
 ?>
@@ -41,18 +48,70 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                 
             <div class="col-sm-12 col-md-6 col-lg-4">
                 
-                <?php require(__DIR__ . '/../components/select2.php'); ?>
+                <?php 
+                require(__DIR__ . '/../components/select2.php');
+                $url = Url::to(['codigos-postales/buscar-codigo']);
 
-                <?= $form->field($model, 'txt_cp')->textInput(['maxlength' => true]) ?>
+                echo $form->field($model, 'txt_cp')->widget(Select2::classname(), [
+                    //'initValueText' => empty($model->id_localidad) ? '' : $estado->txt_nombre,
+                    'options' => ['placeholder' => 'Seleccionar código postal'],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                        'minimumInputLength' => 3,
+                        'ajax' => [
+                            'url' => $url,
+                            'dataType' => 'json',
+                            'delay' => 250,
+                            'data' => new JsExpression('function(params) { return {q:params.term, page: params.page}; }'),
+                            'processResults' => new JsExpression($resultsJs),
+                            'cache' => true
+                        ],
+                        'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
+                        'templateResult' => new JsExpression('function(equipo) { return equipo.txt_nombre; }'),
+                        'templateSelection' => new JsExpression('function (equipo) { 
+                            if(equipo.txt_nombre){
+                                return equipo.txt_nombre;
+                            }else{
+                                return "'.$model->txt_cp.'"
+                            }
+                        }'),
+                    ],
+                ]); 
+                ?>
+
+                <input id="texto_colonia" type="hidden" name="colonia" value="<?= $model->txt_colonia ?>">
+                <?php
+                echo $form->field($model, 'txt_colonia')->widget(DepDrop::classname(), [
+                    'data'=> ArrayHelper::map(CatColonias::find()->where(['txt_codigo_postal'=>$model->txt_cp])->all(), 'id_colonia', 'txt_nombre'),
+                    'options' => ['placeholder' => 'Seleccionar ...'],
+                    'type' => DepDrop::TYPE_SELECT2,
+                    'select2Options'=>[
+                        'pluginOptions'=>[
+                            
+                            'allowClear'=>true,
+                            'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
+                            'templateResult' => new JsExpression('function(colonia) {return colonia.text; }'),
+                            'templateSelection' => new JsExpression('function (colonia) { return colonia.text; }'),
+                        ],
+                        ],
+                    'pluginOptions'=>[
+                        'depends'=>['entlocalidades-txt_cp'],
+                        'url' => Url::to(['/codigos-postales/get-colonias-by-codigo-postal?code='.$model->txt_cp]),
+                        'loadingText' => 'Cargando colonias ...',
+                    ]
+                ]);
+                ?>
+
+                <?=Html::label("Municipio", "txt_municipio", ['class'=>'control-label'])?>
+                <?=Html::textInput("txt_municipio", $model->txt_municipio, ['class'=>'form-control','disabled'=>'disabled', 'id'=>'txt_municipio' ])?>
+                <?= $form->field($model, 'txt_municipio')->hiddenInput(['maxlength' => true])->label(false) ?>
                 
-                <?= $form->field($model, 'id_estado')->dropDownList(ArrayHelper::map(CatEstados::find()->orderBy('txt_nombre')->asArray()->all(), 'id_estado', 'txt_nombre'),['prompt' => 'Seleccionar estado']) ?>
+                <?=Html::label("Estado", "txt_estado", ['class'=>'control-label'])?>
+                <?=Html::textInput("txt_estado", $model->id_estado, ['class'=>'form-control','disabled'=>'disabled', 'id'=>'txt_estado' ])?>
+                <?= $form->field($model, 'id_estado')->hiddenInput()->label(false) ?>
 
                 <?= $form->field($model, 'txt_calle')->textInput(['maxlength' => true]) ?>
-
-                <?= $form->field($model, 'txt_colonia')->textInput(['maxlength' => true]) ?>
                 
-                <?= $form->field($model, 'txt_municipio')->textInput(['maxlength' => true]) ?>
-
             </div>
             
             <div class="col-sm-12 col-md-12 col-lg-4">
@@ -148,6 +207,8 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
     <?= Html::endForm() ?>
 <?php } 
 
+$baseUrl = Yii::$app->urlManager->createAbsoluteUrl(['municipios/get-municipio-by-colonia?colonia=']);
+
 $this->registerJs("
 
 $(document).ready(function(){
@@ -184,6 +245,14 @@ $(document).ready(function(){
         $('#entlocalidades-num_incremento_autorizado').removeAttr('disabled');
         $('#entlocalidades-num_pretencion_renta').removeAttr('disabled');
     });
+
+    $('#entlocalidades-txt_colonia').on('change', function(){
+        var id = $(this).val();
+        console.log(id);
+        if(id){
+            buscarMunicipioByColonia($(this).val());
+        }
+    });
 });
 
 function statusLocalidad(input){
@@ -207,6 +276,19 @@ function statusLocalidad(input){
 
         $('#entlocalidades-num_pretencion_renta').val(total);
     }
+}
+
+function buscarMunicipioByColonia(colonia){
+    $.ajax({
+        url: '".$baseUrl."'+colonia,
+        success:function(resp){
+            console.log(resp);
+            $('#entlocalidades-txt_municipio').val(resp.municipio.txt_nombre);
+            $('#txt_municipio').val(resp.municipio.txt_nombre);
+            $('#entlocalidades-id_estado').val(resp.estado.id_estado);
+            $('#txt_estado').val(resp.estado.txt_nombre);
+        }
+    });
 }
 
 ", View::POS_END );
