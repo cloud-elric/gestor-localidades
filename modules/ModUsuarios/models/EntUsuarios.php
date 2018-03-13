@@ -82,6 +82,7 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 						'txt_email',
 						'trim' 
 				],
+				['txt_email','email', 'message'=>'Debe agregar un email válido'],
 				[ 
 						'txt_username',
 						'trim' 
@@ -618,5 +619,32 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 	public function getRoleDescription(){
 		
 		return $this->txtAuthItem->description;
+	}
+
+	public function enviarEmailBienvenida(){
+		// Parametros para el email
+		$params ['url'] = Yii::$app->urlManager->createAbsoluteUrl ( [ 
+			'ingresar/' . $this->txt_token 
+		] );
+		$params ['user'] = $this->getNombreCompleto ();
+		$params ['usuario'] = $this->txt_email;
+		$params ['password'] = $this->password;
+		
+		try{
+			$email = new Email();
+			$email->emailHtml = "@app/modules/ModUsuarios/email/bienvenida";
+			$email->emailText = "@app/modules/ModUsuarios/email/layouts/text";
+			$email->to = $this->txt_email;
+			$email->subject = "Bienvenido";
+			$email->params =$params ;
+			
+			// Envio de correo electronico
+			$email->sendEmail();
+			return true;
+		}catch(\Exception $e){
+			
+			return false;
+		}
+
 	}
 }

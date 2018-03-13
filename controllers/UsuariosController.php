@@ -116,6 +116,8 @@ class UsuariosController extends Controller
 
             if ($user = $model->signup()) {
 
+                $user->enviarEmailBienvenida();
+
                 $relUsuarios = new WrkUsuarioUsuarios();
 
                 if($grupo){
