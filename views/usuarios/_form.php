@@ -64,8 +64,8 @@ use app\models\ConstantesWeb;
                     <div class="form-group">
                         <input type="text" class="form-control form-input-usuario" disabled placeholder="usuario">
                     </div>
-                    <?= $form->field($model, 'password')->passwordInput(['maxlength' => true, 'placeholder' => 'Contraseña'])->label(false) ?>
-                    <?= $form->field($model, 'repeatPassword')->passwordInput(['maxlength' => true, 'placeholder' => 'Repetir contraseña'])->label(false)->hint('<span class="form-pass-info"><i class="icon wb-help" aria-hidden="true"></i></span>') ?>
+                    <?php $form->field($model, 'password')->passwordInput(['maxlength' => true, 'placeholder' => 'Contraseña'])->label(false) ?>
+                    <?php $form->field($model, 'repeatPassword')->passwordInput(['maxlength' => true, 'placeholder' => 'Repetir contraseña'])->label(false)->hint('<span class="form-pass-info"><i class="icon wb-help" aria-hidden="true"></i></span>') ?>
 
                     <?= Html::submitButton('<span class="ladda-label"><i class="icon wb-plus"></i> Guardar usuario</span>', ['class' => "btn btn-success ladda-button btn-usuarios-add", "data-style" => "zoom-in", "id" => "btn-guardar-usuario"]) ?>
                 </div>    

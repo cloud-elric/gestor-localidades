@@ -117,7 +117,7 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 				// 		// 'hasUser'=>false,
 						
 				// ],
-				[ 
+				/*[ 
 						[ 
 								'password',
 								'repeatPassword' 
@@ -125,7 +125,7 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 						'required',
 						'on' => 'registerInput',
 						'message'=>'Campo requerido' 
-				],
+				],*/
 				[ 
 						[ 
 								'password',
@@ -451,7 +451,7 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 				return null;
 			}
 		}
-		$user->setPassword ( $this->password );
+		//$user->setPassword ( $this->password );
 		$user->generateAuthKey ();
 		$user->fch_creacion = Utils::getFechaActual ();
 		

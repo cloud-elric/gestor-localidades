@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\modules\ModUsuarios\models\EntUsuarios;
 
 /**
  * This is the model class for table "cat_porcentaje_renta_abogados".
