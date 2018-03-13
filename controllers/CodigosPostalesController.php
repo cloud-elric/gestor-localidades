@@ -173,8 +173,8 @@ class CodigosPostalesController extends Controller
                     }
                 }
                 // Shows how you can preselect a value
-                echo Json::encode(['output' => $out, 'selected'=>$selected]);
-                return;
+                return Json::encode(['output' => $out, 'selected'=>$selected]);
+                
             }
         }
     }

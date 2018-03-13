@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
+use app\models\ConstantesWeb;
 
 ?>
 <div class="row">
@@ -38,7 +39,7 @@ use yii\helpers\ArrayHelper;
                         ])->label(false);
                     ?> 
                 
-                    <?php if($usuario->txt_auth_item == "abogado"){ ?>
+                    <?php if($usuario->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
                         <div id="select_clientes" class="col-md-6" style="display:none">
                             <?= $form->field($model, 'usuarioPadre')
                                 ->widget(Select2::classname(), [

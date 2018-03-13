@@ -101,20 +101,23 @@ class UsuariosController extends Controller
         $grupo = null;
         $padre = null;
         if ($model->load(Yii::$app->request->post())){
-
-            if($model->txt_auth_item == ConstantesWeb::ABOGADO){
-                $porcentajeRenta = new CatPorcentajeRentaAbogados();
-                $porcentajeRenta->id_usuario = $model->id_usuario;
-                $porcentajeRenta->num_porcentaje = 10;
-            }
             
             if($model->txt_auth_item == ConstantesWeb::CLIENTE){
                 $grupo = $usuario;
-            }else{
+            }
+            if($model->txt_auth_item == ConstantesWeb::COLABORADOR){
+                $model->usuarioPadre = $usuario->id_usuario;
                 $padre = $model->usuarioPadre; 
             }
-
+            
             if ($user = $model->signup()) {
+
+                if($model->txt_auth_item == ConstantesWeb::ABOGADO){
+                    $porcentajeRenta = new CatPorcentajeRentaAbogados();
+                    $porcentajeRenta->id_usuario = $model->id_usuario;
+                    $porcentajeRenta->num_porcentaje = 10;
+                    $porcentajeRenta->save();
+                }
 
                 $relUsuarios = new WrkUsuarioUsuarios();
 
