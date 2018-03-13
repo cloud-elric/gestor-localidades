@@ -430,7 +430,7 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 	public function signup($isFacebook=false) {
 		
 		if (! $this->validate ()) {
-			//print_r($this->errors);exit;			
+			print_r($this->errors);exit;			
 			return null;
 		}
 		
@@ -469,7 +469,7 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 			$auth->assign($authorRole, $usuario->getId());
 			return $user;
 		}else{
-			
+			print_r($user->errors);exit;
 			return null;
 		}
 	}
