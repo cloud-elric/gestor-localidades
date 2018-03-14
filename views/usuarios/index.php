@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = [
   'template'=>'<li class="breadcrumb-item">{link}</li>', 
 ];
 
-$this->params['headerActions'] = '<a class="btn btn-success" href="'.Url::base().'/usuarios/create"><i class="icon wb-plus"></i> Agregar usuario</a>';
+$this->params['headerActions'] = '<a class="btn btn-success no-pjax" href="'.Url::base().'/usuarios/create"><i class="icon wb-plus"></i> Agregar usuario</a>';
 
 $this->params['classBody'] = "site-navbar-small page-user ryg-body";
 
@@ -49,26 +49,7 @@ $this->registerJsFile(
 
 
 ?>
-
-<?php
-      $sort = "txt_username";
-      if(isset($_GET['sort'])){
-        $sort = substr($_GET['sort'], 0,1);
-        if($sort=="-"){
-          $sort = substr($_GET['sort'], 1);
-        }else{
-          $sort = $_GET['sort'];
-        }
-      }
-      #exit;
-      $atributoActivado = EntUsuarios::label()[$sort];
-      $sorter ='<div class="dropdown">
-                  Ordenar por: <a class="dropdown-toggle inline-block" data-toggle="dropdown"
-                  href="#" aria-expanded="false">'.$atributoActivado.'</a>
-                  {sorter}
-                </div>';
-
-      ?>   
+  
     
 <!-- Panel -->
 <div class="panel panel-list-user-table">

@@ -66,7 +66,7 @@ use yii\helpers\ArrayHelper;
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <?= $form->field($model, 'txt_email')->textInput(['maxlength' => true, 'placeholder' => 'Usuario'])->label(false) ?>
+                    <?= $form->field($model, 'txt_email')->textInput(['maxlength' => true, 'placeholder' => 'Correo eléctronico'])->label(false) ?>
                 </div>  
                
             </div>
