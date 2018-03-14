@@ -298,9 +298,19 @@ a[x-apple-data-detectors=true] {
                   <strong style="font-family: Verdana; font-size: 14px; font-style: italic; font-weight: bold;">
                     acceder
                   </strong> 
-                al sistema da click en la siguiente liga: <?=$url?>
+                al sistema da click en la siguiente liga:
               </span>
             </p>
+
+            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
+            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">
+
+              <a href="<?=$url?>" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: left;color: #2B3736; width: auto; font-family: 'Verdanaf', Georgia, Times, 'Times New Roman', serif; mso-border-alt: none; font-weight: 300; color: #3C86E9; font-size: 14px; line-height: 16px;">
+                <span style="font-size:12px;line-height:24px;"><span style="font-size: 14px; line-height: 32px;" data-mce-style="font-size: 14px; line-height: 32px; color: #2B3736;"><?=$url?></span></span>
+
+              </a>
+            </p>
+            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
 
             <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;">
               <span style="font-size: 16px; line-height: 32px;">
@@ -314,15 +324,7 @@ a[x-apple-data-detectors=true] {
               </p>
 
               
-            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
-            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">
-
-              <a href="<?=$url?>" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: left;color: #2B3736; width: auto; font-family: 'Verdanaf', Georgia, Times, 'Times New Roman', serif; mso-border-alt: none; font-weight: 300; color: #3C86E9; font-size: 14px; line-height: 16px;">
-                <span style="font-size:12px;line-height:24px;"><span style="font-size: 14px; line-height: 32px;" data-mce-style="font-size: 14px; line-height: 32px; color: #2B3736;"><?=$url?></span></span>
-
-              </a>
-            </p>
-            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
+            
 
            
         </div>	
