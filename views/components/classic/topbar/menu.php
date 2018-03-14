@@ -12,7 +12,7 @@ use app\models\ConstantesWeb;
           <li class="site-menu-category">General</li>
 
           <?php
-          if(\Yii::$app->user->can(ConstantesWeb::ABOGADO)){?>
+          if(\Yii::$app->user->can(ConstantesWeb::SUPER_ADMIN) || \Yii::$app->user->can(ConstantesWeb::ABOGADO) || \Yii::$app->user->can(ConstantesWeb::CLIENTE)){?>
 
           <li class="dropdown site-menu-item has-sub">
             <a data-toggle="dropdown" href="javascript:void(0)" data-dropdown-toggle="false">
@@ -47,7 +47,7 @@ use app\models\ConstantesWeb;
           ?>
 
           <?php
-          if(\Yii::$app->user->can(ConstantesWeb::ABOGADO)){?>
+          if(\Yii::$app->user->can(ConstantesWeb::SUPER_ADMIN) || \Yii::$app->user->can(ConstantesWeb::ABOGADO) || \Yii::$app->user->can(ConstantesWeb::CLIENTE)){?>
 
           <li class="dropdown site-menu-item has-sub">
             <a data-toggle="dropdown" href="javascript:void(0)" data-dropdown-toggle="false">

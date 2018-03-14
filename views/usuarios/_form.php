@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
+use app\models\ConstantesWeb;
 
 ?>
 <div class="row">
@@ -38,7 +39,7 @@ use yii\helpers\ArrayHelper;
                         ])->label(false);
                     ?> 
                 
-                    <?php if($usuario->txt_auth_item == "abogado"){ ?>
+                    <?php if($usuario->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
                         <div id="select_clientes" class="col-md-6" style="display:none">
                             <?= $form->field($model, 'usuarioPadre')
                                 ->widget(Select2::classname(), [
@@ -63,8 +64,8 @@ use yii\helpers\ArrayHelper;
                     <div class="form-group">
                         <input type="text" class="form-control form-input-usuario" disabled placeholder="usuario">
                     </div>
-                    <?= $form->field($model, 'password')->passwordInput(['maxlength' => true, 'placeholder' => 'Contraseña'])->label(false) ?>
-                    <?= $form->field($model, 'repeatPassword')->passwordInput(['maxlength' => true, 'placeholder' => 'Repetir contraseña'])->label(false)->hint('<span class="form-pass-info"><i class="icon wb-help" aria-hidden="true"></i></span>') ?>
+                    <?php $form->field($model, 'password')->passwordInput(['maxlength' => true, 'placeholder' => 'Contraseña'])->label(false) ?>
+                    <?php $form->field($model, 'repeatPassword')->passwordInput(['maxlength' => true, 'placeholder' => 'Repetir contraseña'])->label(false)->hint('<span class="form-pass-info"><i class="icon wb-help" aria-hidden="true"></i></span>') ?>
 
                     <?= Html::submitButton('<span class="ladda-label"><i class="icon wb-plus"></i> Guardar usuario</span>', ['class' => "btn btn-success ladda-button btn-usuarios-add", "data-style" => "zoom-in", "id" => "btn-guardar-usuario"]) ?>
                 </div>    

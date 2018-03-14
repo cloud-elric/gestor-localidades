@@ -54,12 +54,13 @@ $this->registerJsFile(
 
             <div class="row mt-30">
                 <div class="col-md-3 offset-9">
-                    
-                    <?php if(Yii::$app->user->identity->txt_auth_item == "abogado"){ ?>
-                        <?= Html::a('<i class="icon wb-plus"></i> Crear Localidades', ['create'], ['class' => 'btn btn-add']) ?>
-                    <?php } ?>
                 
+                    <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
+                        <?= Html::a('<i class="icon wb-plus"></i> Crear Localidades', ['create'], ['class' => 'btn btn-success btn-add']) ?>
+                    <?php } ?>
+
                 </div>
+
             </div>
 
         </div>
@@ -197,7 +198,6 @@ $this->registerJsFile(
 </div>
 
 <?php
-
 $this->registerJs("
 
 $(document).ready(function(){
@@ -205,7 +205,7 @@ $(document).ready(function(){
 
     $('.plugin-selective').each(function () {
         var elemento = $(this);
-        console.log(elemento.data('json'));
+        //console.log(elemento.data('json'));
         elemento.selective({
           namespace: 'addMember',
           selected: elemento.data('json'),

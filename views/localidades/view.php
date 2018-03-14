@@ -135,41 +135,43 @@ $user = Yii::$app->user->identity;
     ]) ?>
 </div>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h3>Clientes asignados</h3>
-            </div>
-            <?php if($userRel){ ?>
-                <div class="panel-body">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Username</th>
-                                <th>Apellido paterno</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach($userRel as $user){ 
-                                $usuario = EntUsuarios::find()->where(['id_usuario'=>$user->id_usuario])->one();    
-                            ?>
+<?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3>Clientes asignados</h3>
+                </div>
+                <?php if($userRel){ ?>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <thead>
                                 <tr>
-                                    <td><?= $usuario->txt_username ?></td>
-                                    <td><?= $usuario->txt_apellido_paterno ?></td>
+                                    <th>Username</th>
+                                    <th>Apellido paterno</th>
                                 </tr>
-                            <?php }?>
-                        </tbody>
-                    </table>
-                </div>
-            <?php }else{ ?>
-                <div class="panel-body">
-                    <p>No hay clientes asignados</p>
-                </div>
-            <?php } ?>
+                            </thead>
+                            <tbody>
+                                <?php foreach($userRel as $user){ 
+                                    $usuario = EntUsuarios::find()->where(['id_usuario'=>$user->id_usuario])->one();    
+                                ?>
+                                    <tr>
+                                        <td><?= $usuario->txt_username ?></td>
+                                        <td><?= $usuario->txt_apellido_paterno ?></td>
+                                    </tr>
+                                <?php }?>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php }else{ ?>
+                    <div class="panel-body">
+                        <p>No hay clientes asignados</p>
+                    </div>
+                <?php } ?>
+            </div>
         </div>
     </div>
-</div>
+<?php } ?>
 
 <!-- ************************************************************************************************************************************* -->
 
@@ -232,7 +234,13 @@ $this->registerJs("
 $(document).ready(function(){
 
     $('#wrktareas-file').on('change', function(){
-        $('#btnGuardarArchivo').css('display', 'block');
+        id = $(this).data('id');
+        $('#btnGuardarArchivo-'+id).css('display', 'block');
+    });
+
+    $('#wrktareas-txt_tarea').focus(function(){
+        id = $(this).data('id');
+        $('#btnGuardarArchivo-'+id).css('display', 'block');
     });
 
     var member = ".$jsonAgregar.";
