@@ -101,22 +101,24 @@ class UsuariosController extends Controller
         $grupo = null;
         $padre = null;
         if ($model->load(Yii::$app->request->post())){
-
-            if($model->txt_auth_item == ConstantesWeb::ABOGADO){
-                $porcentajeRenta = new CatPorcentajeRentaAbogados();
-                $porcentajeRenta->id_usuario = $model->id_usuario;
-                $porcentajeRenta->num_porcentaje = 10;
-            }
             
             if($model->txt_auth_item == ConstantesWeb::CLIENTE){
                 $grupo = $usuario;
-            }else{
+            }
+            if($model->txt_auth_item == ConstantesWeb::COLABORADOR){
+                $model->usuarioPadre = $usuario->id_usuario;
                 $padre = $model->usuarioPadre; 
             }
-
+            
             if ($user = $model->signup()) {
 
                 $user->enviarEmailBienvenida();
+                if($model->txt_auth_item == ConstantesWeb::ABOGADO){
+                    $porcentajeRenta = new CatPorcentajeRentaAbogados();
+                    $porcentajeRenta->id_usuario = $user->id_usuario;
+                    $porcentajeRenta->num_porcentaje = 10;
+                    $porcentajeRenta->save();
+                }
 
                 $relUsuarios = new WrkUsuarioUsuarios();
 
@@ -126,6 +128,20 @@ class UsuariosController extends Controller
                 }else{
                     $relUsuarios->id_usuario_padre = $padre;
                     $relUsuarios->id_usuario_hijo = $user->id_usuario;
+                }
+
+                if (Yii::$app->params ['modUsuarios'] ['mandarCorreoActivacion']) {
+                    // Enviar correo
+					$utils = new Utils ();
+					// Parametros para el email
+					$parametrosEmail ['user'] = $user->getNombreCompleto();
+					//$parametrosEmail ['abogado'] = $abogado->getNombreCompleto();
+					$parametrosEmail ['url'] = Yii::$app->urlManager->createAbsoluteUrl([ 
+                        'usuarios/cambiar-pass/?token=' . $user->txt_token
+                    ]);
+					
+					// Envio de correo electronico
+                    $utils->sendEmailCambiarPass( $user->txt_email,$parametrosEmail );
                 }
 
                 if($relUsuarios->save()){
@@ -250,5 +266,34 @@ class UsuariosController extends Controller
         }
 
         return $respuesta;
+    }
+
+    public function actionCambiarPass($token = null){
+        if($token){
+            $user = EntUsuarios::find()->where(['txt_token'=>$token])->one();
+            Yii::$app->getUser()->login($user);
+            
+            if($user->txt_password_hash){
+
+                return $this->redirect(['localidades/index']);
+            }
+
+            if ($user->load(Yii::$app->request->post())){
+                if(isset($_POST["EntUsuarios"]['password'])){
+                    $user->setPassword($_POST["EntUsuarios"]['password']);
+                    $user->generateAuthKey();
+                }
+                if($user->save()){
+                    
+                    return $this->redirect(['usuarios/index']);
+                }
+            }else{
+                $user->scenario = 'cambiarPass';
+                return $this->render('cambio-pass', [
+                    'model' => $user
+                ]);
+            }
+            
+        }
     }
 }

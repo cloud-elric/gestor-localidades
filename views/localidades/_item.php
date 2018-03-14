@@ -34,15 +34,27 @@ $rel = WrkUsuariosTareas::find()->where(['id_usuario'=>$user->id_usuario])->andW
 
     <?= $form->field($model, 'id_usuario')->hiddenInput()->label(false) ?>
 
+    <?= $form->field($model, 'id_tipo')->hiddenInput()->label(false) ?>
+
     <?= $form->field($model, 'id_tarea_padre')->hiddenInput()->label(false) ?>
 
     <?= $form->field($model, 'id_localidad')->hiddenInput()->label(false) ?>
 
     <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true, 'disabled'=>true]) ?>
 
-    <?php if($rel || $user->txt_auth_item == ConstantesWeb::CLIENTE){ ?>
-        <?= $form->field($model, 'file')->fileInput() ?>
-    <?php } ?>
+    <?php 
+    if($rel || $user->txt_auth_item == ConstantesWeb::CLIENTE){ 
+        if($model->id_tipo == 1){
+    ?>
+            <?= $form->field($model, 'file')->fileInput(['data-id'=>$tarea]) ?>
+    <?php 
+        }else{
+    ?>
+            <?= $form->field($model, 'txt_tarea')->textarea(['rows' => 6, 'data-id'=>$tarea]) ?>
+    <?php
+        }
+    }
+    ?>
 
     <?php // $form->field($model, 'txt_descripcion')->textarea(['rows' => 6]) ?>
 
@@ -53,7 +65,7 @@ $rel = WrkUsuariosTareas::find()->where(['id_usuario'=>$user->id_usuario])->andW
     <?php // $form->field($model, 'b_completa')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Guardar', ['id' => 'btnGuardarArchivo', 'class' => 'btn btn-success', 'style' => 'display:none' ]) ?>
+        <?= Html::submitButton('Guardar', ['id' => 'btnGuardarArchivo-'.$tarea, 'class' => 'btn btn-success', 'style' => 'display:none' ]) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

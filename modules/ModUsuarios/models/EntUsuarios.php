@@ -118,7 +118,7 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 				// 		// 'hasUser'=>false,
 						
 				// ],
-				[ 
+				/*[ 
 						[ 
 								'password',
 								'repeatPassword' 
@@ -126,7 +126,7 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 						'required',
 						'on' => 'registerInput',
 						'message'=>'Campo requerido' 
-				],
+				],*/
 				[ 
 						[ 
 								'password',
@@ -431,7 +431,7 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 	public function signup($isFacebook=false) {
 		
 		if (! $this->validate ()) {
-			//print_r($this->errors);exit;			
+			print_r($this->errors);exit;			
 			return null;
 		}
 		
@@ -452,7 +452,7 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 				return null;
 			}
 		}
-		$user->setPassword ( $this->password );
+		//$user->setPassword ( $this->password );
 		$user->generateAuthKey ();
 		$user->fch_creacion = Utils::getFechaActual ();
 		
@@ -470,7 +470,7 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 			$auth->assign($authorRole, $usuario->getId());
 			return $user;
 		}else{
-			
+			print_r($user->errors);exit;
 			return null;
 		}
 	}
