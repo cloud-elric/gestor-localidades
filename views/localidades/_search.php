@@ -19,19 +19,26 @@ use app\models\CatEstados;
     'method' => 'get',
 ]); ?>
 
+<div class="row">
+
     <?php // $form->field($model, 'id_localidad')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true, "class"=>"panel-search-form-select", "placeholder"=>"Buscar por nombre"])->label(false) ?>    
+    <div class="col-sm-12 col-md-6 col-lg-4">
+        <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true, "class"=>"panel-search-form-input", "placeholder"=>"Buscar por nombre"])->label(false) ?>    
+    </div>
 
-    <?= $form->field($model, 'id_estado')->dropDownList(ArrayHelper::map(CatEstados::find()->orderBy('txt_nombre')->asArray()->all(), 'id_estado', 'txt_nombre'),['prompt' => 'Seleccionar estado'])->label(false) ?>
+    <div class="col-sm-12 col-md-6 col-lg-3">
+        <?= $form->field($model, 'id_estado')->dropDownList(ArrayHelper::map(CatEstados::find()->orderBy('txt_nombre')->asArray()->all(), 'id_estado', 'txt_nombre'),['prompt' => 'Seleccionar estado', "class"=>"panel-search-form-select"])->label(false) ?>
+    </div>
 
     <?php // $form->field($model, 'id_usuario')->textInput(['maxlength' => true]) ?>
 
     <?php // $form->field($model, 'txt_token')->textInput(['maxlength' => true]) ?>
 
-
-    <?= $form->field($model, 'txt_arrendador')->textInput(['maxlength' => true, "class"=>"panel-search-form-select", "placeholder"=>"Cliente"])->label(false) ?>
-
+    <div class="col-sm-12 col-md-5 col-lg-4">
+        <?= $form->field($model, 'txt_arrendador')->textInput(['maxlength' => true, "class"=>"panel-search-form-input", "placeholder"=>"Cliente"])->label(false) ?>
+    </div>
+    
     <?php // echo $form->field($model, 'txt_beneficiario') ?>
 
     <?php // echo $form->field($model, 'txt_calle') ?>
@@ -60,11 +67,13 @@ use app\models\CatEstados;
 
     <?php // echo $form->field($model, 'b_archivada') ?>
 
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
+    <div class="col-sm-12 col-md-1 col-lg-1">
+        <div class="form-group">
+            <?= Html::submitButton('<i class="icon wb-search" aria-hidden="true"></i>', ['class' => 'btn btn-search']) ?>
+            <!-- <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?> -->
+        </div>
     </div>
 
-<?php ActiveForm::end(); ?>
+ </div>
 
- 
+ <?php ActiveForm::end(); ?>

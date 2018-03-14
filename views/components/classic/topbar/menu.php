@@ -16,7 +16,7 @@ use app\models\ConstantesWeb;
 
           <li class="dropdown site-menu-item has-sub">
             <a data-toggle="dropdown" href="javascript:void(0)" data-dropdown-toggle="false">
-              <i class="site-menu-icon pe-users" aria-hidden="true"></i>
+              <i class="icon wb-users" aria-hidden="true"></i>
               <span class="site-menu-title">Usuarios</span>
               <span class="site-menu-arrow"></span>
             </a>
@@ -51,7 +51,7 @@ use app\models\ConstantesWeb;
 
           <li class="dropdown site-menu-item has-sub">
             <a data-toggle="dropdown" href="javascript:void(0)" data-dropdown-toggle="false">
-              <i class="site-menu-icon pe-users" aria-hidden="true"></i>
+              <i class="icon wb-map" aria-hidden="true"></i>
               <span class="site-menu-title">Localidades</span>
               <span class="site-menu-arrow"></span>
             </a>
