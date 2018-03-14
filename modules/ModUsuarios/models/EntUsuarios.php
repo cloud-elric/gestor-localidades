@@ -10,6 +10,7 @@ use app\modules\ModUsuarios\models\Utils;
 use kartik\password\StrengthValidator;
 use yii\web\UploadedFile;
 use app\models\AuthItem;
+use app\models\Email;
 
 /**
  * This is the model class for table "ent_usuarios".
@@ -431,7 +432,7 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 	public function signup($isFacebook=false) {
 		
 		if (! $this->validate ()) {
-			print_r($this->errors);exit;			
+						
 			return null;
 		}
 		
@@ -452,7 +453,7 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 				return null;
 			}
 		}
-		//$user->setPassword ( $this->password );
+		$user->setPassword ( $this->password );
 		$user->generateAuthKey ();
 		$user->fch_creacion = Utils::getFechaActual ();
 		
@@ -646,5 +647,16 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 			return false;
 		}
 
+	}
+
+	public function randomPassword() {
+		$alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+		$pass = array(); //remember to declare $pass as an array
+		$alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+		for ($i = 0; $i < 8; $i++) {
+			$n = rand(0, $alphaLength);
+			$pass[] = $alphabet[$n];
+		}
+		return implode($pass); //turn the array into a string
 	}
 }

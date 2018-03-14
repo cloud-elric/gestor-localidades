@@ -53,21 +53,7 @@ $this->registerJsFile(
     
 <!-- Panel -->
 <div class="panel panel-list-user-table">
-      
-    <?php
-    $sort = "txt_username";
-    if(isset($_GET['sort'])){
-      $sort = substr($_GET['sort'], 0,1);
-      if($sort=="-"){
-        $sort = substr($_GET['sort'], 1);
-      }else{
-        $sort = $_GET['sort'];
-      }
-    }
-    #exit;
-    ?>
-    
-   
+  
     <?php
     
     echo GridView::widget([
@@ -104,10 +90,14 @@ $this->registerJsFile(
               <span>'.$data->nombreCompleto .'</span></a>';
             }
           ],
-          // [
-          //   'attribute' => 'roleDescription',
-          //   'filter'=>ArrayHelper::map($roles, 'name', 'description'),
-          // ],
+           [
+             'attribute' => 'roleDescription',
+             'filter'=>ArrayHelper::map($roles, 'name', 'description'),
+             'filterInputOptions'=>[
+               "prompt"=>"Todos",
+               'class'=>'form-control'
+             ]
+           ],
           
           [
             'attribute' => 'fch_creacion',

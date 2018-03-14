@@ -17,7 +17,8 @@ $this->params['breadcrumbs'][] = 'Actualizar';
     <div class="panel-body">
         <?= $this->render('_form', [
             'model' => $model,
-            'roles'=>$roles
+            'roles'=>$roles,
+            'usuariosClientes' => $usuariosClientes
         ]) ?>
     </div>
 </div>

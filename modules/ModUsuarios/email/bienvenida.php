@@ -298,7 +298,7 @@ a[x-apple-data-detectors=true] {
                   <strong style="font-family: Verdana; font-size: 14px; font-style: italic; font-weight: bold;">
                     acceder
                   </strong> 
-                al sistema da click en la siguiente liga:<?=$url?>
+                al sistema da click en la siguiente liga: <?=$url?>
               </span>
             </p>
 
