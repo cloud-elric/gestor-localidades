@@ -56,7 +56,7 @@ $this->registerJsFile(
                 <div class="col-md-3 offset-9">
                 
                     <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
-                        <?= Html::a('<i class="icon wb-plus"></i> Crear Localidades', ['create'], ['class' => 'btn btn-add']) ?>
+                        <?= Html::a('<i class="icon wb-plus"></i> Crear Localidades', ['create'], ['class' => 'btn btn-add no-pjax']) ?>
                     <?php } ?>
 
                 </div>
@@ -95,7 +95,7 @@ $this->registerJsFile(
                     ],
                     'format'=>'raw',
                     'value'=>function($data){
-                        return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat cat-yellow"></span></div><a class="panel-listado-user-link" href="'.Url::base().'/localidades/view/'.$data->id_localidad.'">' .$data->txt_nombre.'</a></div>';
+                        return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat cat-yellow"></span></div><a class="panel-listado-user-link no-pjax" href="'.Url::base().'/localidades/view/'.$data->id_localidad.'">' .$data->txt_nombre.'</a></div>';
                     }
                 ],
 

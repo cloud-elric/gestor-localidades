@@ -70,7 +70,7 @@ $this->registerJsFile(
         'pjaxSettings'=>[
           'options'=>[
             'linkSelector'=>"a:not(.no-pjax)",
-            'timeout' => 20000000000, 
+            //'timeout' => 20000000000, 
           ]
         ],
         'tableOptions' => [
