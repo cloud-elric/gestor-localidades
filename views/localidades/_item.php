@@ -56,7 +56,11 @@ $rel = WrkUsuariosTareas::find()->where(['id_usuario'=>$user->id_usuario])->andW
     }
     ?>
 
-    <?php // $form->field($model, 'txt_descripcion')->textarea(['rows' => 6]) ?>
+    <?php
+    if($model->txt_tarea){  
+        echo $form->field($model, 'txt_tarea')->textarea(['rows' => 6, 'disabled'=>true]);
+    }    
+    ?>
 
     <?php // $form->field($model, 'fch_creacion')->textInput() ?>
 
