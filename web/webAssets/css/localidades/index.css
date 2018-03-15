@@ -1,0 +1,9 @@
+.slidePanel {
+    z-index: 1401; 
+}
+
+.slidePanel-right, .slidePanel-left {
+    top: 66.01px;
+    bottom: 0;
+    width: 100%;
+}

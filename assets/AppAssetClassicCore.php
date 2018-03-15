@@ -60,9 +60,10 @@ class AppAssetClassicCore extends AssetBundle
         'js/Config.js',
         'js/config/colors.js',
         'js/Plugin/asscrollable.js',
-        'js/Plugin/slidepanel.js',
+        
         'js/Plugin/switchery.js',
-        'js/Plugin/material.js'
+        'js/Plugin/material.js',
+        
     ];
     public $depends = [
         'yii\web\YiiAsset',

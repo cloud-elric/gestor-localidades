@@ -102,6 +102,9 @@ class UsuariosController extends Controller
         $padre = null;
         if ($model->load(Yii::$app->request->post())){
             
+            $model->password = $model->randomPassword();
+            $model->repeatPassword = $model->password;
+
             if($model->txt_auth_item == ConstantesWeb::CLIENTE){
                 $grupo = $usuario;
             }
@@ -112,6 +115,7 @@ class UsuariosController extends Controller
             
             if ($user = $model->signup()) {
 
+                $model->enviarEmailBienvenida();
                 if($model->txt_auth_item == ConstantesWeb::ABOGADO){
                     $porcentajeRenta = new CatPorcentajeRentaAbogados();
                     $porcentajeRenta->id_usuario = $user->id_usuario;
@@ -140,18 +144,14 @@ class UsuariosController extends Controller
                     ]);
 					
 					// Envio de correo electronico
-                    $utils->sendEmailCambiarPass( $user->txt_email,$parametrosEmail );
+                    //$utils->sendEmailCambiarPass( $user->txt_email,$parametrosEmail );
                 }
 
                 if($relUsuarios->save()){
 
-                    return $this->redirect(['usuarios/index']);
-                }else{
-                    return $this->redirect(['usuarios/index']);
                 }
-            }else{
-                //print_r($user->errors);exit;
-                echo "No guardo modelo";exit;
+                return $this->redirect(['usuarios/index']);
+                
             }
         
         // return $this->redirect(['view', 'id' => $model->id_usuario]);
@@ -182,8 +182,8 @@ class UsuariosController extends Controller
         $roles = AuthItem::find()->where(['in', 'name', array_keys($hijos)])->orderBy("name")->all();
 
         $model = $this->findModel($id);
-        
-        //var_dump($_POST["EntUsuarios"]['password']);exit;
+
+        $usuariosClientes = EntUsuarios::find()->where(['txt_auth_item'=>ConstantesWeb::CLIENTE])->all();
 
         if ($model->load(Yii::$app->request->post())){
             if(isset($_POST["EntUsuarios"]['password'])){
@@ -198,7 +198,8 @@ class UsuariosController extends Controller
             $model->scenario = 'updateModel';
             return $this->render('update', [
                 'model' => $model,
-                'roles'=>$roles
+                'roles'=>$roles,
+                'usuariosClientes' => $usuariosClientes
             ]);
         }
     }
