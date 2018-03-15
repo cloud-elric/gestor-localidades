@@ -16,6 +16,7 @@ use kartik\grid\GridView;
 use app\models\Calendario;
 // use yii\helpers\ArrayHelper;
 use kartik\date\DatePicker;
+use app\assets\AppAssetClassicCore;
 
 
 /* @var $this yii\web\View */
@@ -29,9 +30,24 @@ $this->registerCssFile(
     '@web/webAssets/templates/classic/global/vendor/jquery-selective/jquery-selective.css',
     ['depends' => [AppAsset::className()]]
   );  
-  
+
+$this->registerCssFile(
+    '@web/webAssets/templates/classic/global/vendor/slidepanel/slidePanel.css',
+    ['depends' => [AppAssetClassicCore::className()]]
+); 
+
 $this->registerJsFile(
     '@web/webAssets/templates/classic/global/vendor/jquery-selective/jquery-selective.min.js',
+    ['depends' => [AppAsset::className()]]
+);
+
+$this->registerJsFile(
+    '@web/webAssets/js/localidades/index.js',
+    ['depends' => [AppAsset::className()]]
+);
+
+$this->registerCssFile(
+    '@web/webAssets/css/localidades/index.css',
     ['depends' => [AppAsset::className()]]
 );
 
@@ -95,7 +111,8 @@ $this->registerJsFile(
                     ],
                     'format'=>'raw',
                     'value'=>function($data){
-                        return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat cat-yellow"></span></div><a class="panel-listado-user-link no-pjax" href="'.Url::base().'/localidades/view/'.$data->id_localidad.'">' .$data->txt_nombre.'</a></div>';
+                        return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat cat-yellow"></span></div>
+                        <a  class="panel-listado-user-link no-pjax run-slide-panel" href="'.Url::base().'/localidades/view/'.$data->id_localidad.'">' .$data->txt_nombre.'</a></div>';
                     }
                 ],
 
@@ -158,6 +175,17 @@ $this->registerJsFile(
                             }
                     }
                 ],
+
+                [
+                    'label'=>'Acciones',
+                    'format'=>'raw',
+                    'value'=>function(){
+                        return '<button type="submit" class="btn btn-search"><i class="icon wb-search" aria-hidden="true"></i></button>
+                            <button type="submit" class="btn btn-search"><i class="icon wb-search" aria-hidden="true"></i></button>
+                        ';
+                    }
+                    
+                ]
 
                 // [
                 //     'label'=>'Acciones',

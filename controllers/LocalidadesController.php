@@ -132,7 +132,7 @@ class LocalidadesController extends Controller
         $jsonAgregar = json_encode($selected);
         
 
-        return $this->render('view', [
+        return $this->renderAjax('view', [
             'model' => $this->findModel($id),
             'userRel' => $userRel,
             'searchModel' => $searchModel,
