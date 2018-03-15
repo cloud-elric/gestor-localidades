@@ -276,3 +276,78 @@
 				border-color: $ryg-accent
 				color: $ryg-second
 				width: 100%
+	
+
+/*  Page View
+	======================================= */
+.ent-localidades-view
+	// background-color: red
+
+	.ent-localidades-view-head
+		align-items: center
+		display: flex
+		justify-content: flex-end
+		margin-bottom: 32px
+		width: 100%
+
+		.btn-update,
+		.btn-delete
+			border-color: $ryg-accent
+
+		.btn-update
+			background-color: $ryg-accent
+			color: $ryg-primary
+			&:active,
+			&:active:focus,
+			&:active:hover,
+			&:disabled,
+			&[disabled]:hover,
+			&[disabled]:focus,
+			&:hover,
+			&:focus
+				background-color: rgba($ryg-accent,.8)
+
+		.btn-delete
+			background-color: rgba($ryg-accent,.45)
+			color: $white
+			margin-left: 12px
+			&:active,
+			&:active:focus,
+			&:active:hover,
+			&:disabled,
+			&[disabled]:hover,
+			&[disabled]:focus,
+			&:hover,
+			&:focus
+				background-color: rgba($ryg-accent,.6)
+	
+	.ent-localidades-view-body
+		
+		.ent-localidades-view-panel
+			// background-color: rgba($ryg-primary,.75)
+			// margin-bottom: 32px
+			padding: 0 0 16px
+			&:last-child
+				margin-bottom: 0
+
+			h3
+				background-color: rgba($ryg-second,.9)
+				color: $ryg-aqua
+				font-size: 1.15rem
+				font-weight: $thin
+				margin: 0
+				padding: 24px
+				text-transform: uppercase
+			
+			.col
+				margin-bottom: 32px
+			
+			.ent-localidades-view-panel-int
+				background-color: rgba($ryg-primary,.75)
+				padding: 16px 38px
+				.row
+					border-bottom: 1px solid $ryg-second
+					padding-bottom: 8px
+					padding-top: 8px
+					&:last-child
+						border-bottom: none
