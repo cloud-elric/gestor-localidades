@@ -1,98 +1,677 @@
-<header class="slidePanel-header bg-purple-600">
-  <div class="slidePanel-actions" aria-label="actions" role="group">
-    <button type="button" class="btn btn-pure btn-inverse slidePanel-will-close actions-top icon wb-close"
-      aria-hidden="true">Cerrar</button>
-  </div>
-  <h1>Titudin venenatis ipsum ac feugiat. Vestibulum ullamcorper Neque quam.</h1>
-</header>
-<div class="slidePanel-inner">
-  <section class="slidePanel-inner-section">
-    <div class="step-info d-flex">
-      <div class="col-lg-3 col-6">
-        <div class="step">
-          <span class="step-numbers blue-600">85%</span>
-          <div class="step-desc">
-            <span class="step-title">Project</span>
-            <p>Progress</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-6">
-        <div class="step">
-          <span class="step-numbers red-600">3%</span>
-          <div class="step-desc">
-            <span class="step-title">Delay</span>
-            <p>Rate</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-6">
-        <div class="step">
-          <span class="step-numbers orange-600">14</span>
-          <div class="step-desc">
-            <span class="step-title">Unfinished</span>
-            <p>Business</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-6">
-        <div class="step">
-          <span class="step-numbers green-600">8</span>
-          <div class="step-desc">
-            <span class="step-title">Completed</span>
-            <p>Tasks</p>
-          </div>
-        </div>
-      </div>
+<?php
+
+use yii\helpers\Html;
+use yii\widgets\DetailView;
+use app\models\CatEstados;
+use app\modules\ModUsuarios\models\EntUsuarios;
+use app\modules\ModUsuarios\models\Utils;
+use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use yii\grid\GridView;
+use yii\web\View;
+use app\models\EntEstatus;
+use yii\widgets\ListView;
+use app\models\ConstantesWeb;
+use app\models\WrkUsuarioUsuarios;
+use app\models\WrkUsuariosTareas;
+use yii\helpers\Url;
+use app\assets\AppAsset;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\EntLocalidades */
+
+$this->title = $model->txt_nombre;
+$this->params['breadcrumbs'][] = ['label' => 'Ent Localidades', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
+
+$this->registerCssFile(
+    '@web/webAssets/templates/classic/global/vendor/jquery-selective/jquery-selective.css',
+    ['depends' => [AppAsset::className()]]
+  ); 
+
+$this->registerCssFile(
+    '@web/webAssets/templates/classic/global/vendor/blueimp-file-upload/jquery.fileupload.css',
+    ['depends' => [AppAsset::className()]]
+  );
+$this->registerCssFile(
+    '@web/webAssets/templates/classic/topbar/assets/examples/css/pages/project.css',
+    ['depends' => [AppAsset::className()]]
+  );  
+
+
+
+$this->registerJsFile(
+    '@web/webAssets/templates/classic/global/vendor/jquery-selective/jquery-selective.min.js',
+    ['depends' => [AppAsset::className()]]
+);
+
+$this->registerJsFile(
+    '@web/webAssets/templates/classic/global/vendor/asprogress/jquery-asProgress.js',
+    ['depends' => [AppAsset::className()]]
+);
+$this->registerJsFile(
+    '@web/webAssets/templates/classic/global/vendor/blueimp-tmpl/tmpl.js',
+    ['depends' => [AppAsset::className()]]
+);
+
+$this->registerJsFile(
+    '@web/webAssets/templates/classic/global/vendor/blueimp-load-image/load-image.all.min.js',
+    ['depends' => [AppAsset::className()]]
+);
+
+
+$this->registerJsFile(
+    '@web/webAssets/templates/classic/global/vendor/blueimp-canvas-to-blob/canvas-to-blob.js',
+    ['depends' => [AppAsset::className()]]
+);
+$this->registerJsFile(
+    '@web/webAssets/templates/classic/global/vendor/blueimp-load-image/load-image.all.min.js',
+    ['depends' => [AppAsset::className()]]
+);
+
+$this->registerJsFile(
+    '@web/webAssets/templates/classic/global/vendor/blueimp-file-upload/jquery.fileupload.js',
+    ['depends' => [AppAsset::className()]]
+);
+$this->registerJsFile(
+    '@web/webAssets/templates/classic/global/vendor/blueimp-file-upload/jquery.fileupload-process.js',
+    ['depends' => [AppAsset::className()]]
+);
+$this->registerJsFile(
+    '@web/webAssets/templates/classic/global/vendor/blueimp-file-upload/jquery.fileupload-image.js',
+    ['depends' => [AppAsset::className()]]
+);
+$this->registerJsFile(
+    '@web/webAssets/templates/classic/global/vendor/blueimp-file-upload/jquery.fileupload-audio.js',
+    ['depends' => [AppAsset::className()]]
+);
+$this->registerJsFile(
+    '@web/webAssets/templates/classic/global/vendor/blueimp-file-upload/jquery.fileupload-video.js',
+    ['depends' => [AppAsset::className()]]
+);
+$this->registerJsFile(
+    '@web/webAssets/templates/classic/global/vendor/blueimp-file-upload/jquery.fileupload-validate.js',
+    ['depends' => [AppAsset::className()]]
+);
+$this->registerJsFile(
+    '@web/webAssets/templates/classic/global/vendor/blueimp-file-upload/jquery.fileupload-ui.js',
+    ['depends' => [AppAsset::className()]]
+);
+
+$this->registerJsFile(
+    '@web/webAssets/templates/classic/global/js/config/colors.js',
+    ['depends' => [AppAsset::className()]]
+);
+$this->registerJsFile(
+    '@web/webAssets/templates/classic/global/js/Plugin/asprogress.js',
+    ['depends' => [AppAsset::className()]]
+);
+$this->registerJsFile(
+    '@web/webAssets/templates/classic/topbar/assets/examples/js/pages/project.js',
+    ['depends' => [AppAsset::className()]]
+);
+
+$user = Yii::$app->user->identity;
+?>
+<div class="ent-localidades-view">
+
+    
+
+    <div class="ent-localidades-view-head">
+        <?php //if(Yii::$app->user->identity->txt_auth_item == "abogado"){ ?>
+            <?= Html::a('<i class="icon wb-pencil" aria-hidden="true"></i> Actualizar', ['update', 'id' => $model->id_localidad], ['class' => 'btn btn-update']) ?>
+            <?= Html::a('<i class="icon wb-trash" aria-hidden="true"></i>', ['delete', 'id' => $model->id_localidad], [
+                'class' => 'btn btn-delete',
+                'data' => [
+                    'confirm' => 'Are you sure you want to delete this item?',
+                    'method' => 'post',
+                ],
+            ]) ?>
+        <?php //} ?>
     </div>
-    <div class="line-chart">
-      <div class="chart-header">
-        <h3 class="blue-grey-700">PROJECT TREENDS</h3>
-        <div class="btn-group dropdown">
-          <button type="button" class="btn btn-outline btn-default dropdown-toggle" data-toggle="dropdown">
-            Week
-          </button>
-          <div class="dropdown-menu animate dropdown-menu-right" role="menu">
-            <a class="dropdown-item" href="#" role="menuitem">Day</a>
-            <a class="dropdown-item" href="#" role="menuitem">Month</a>
-            <a class="dropdown-item" href="#" role="menuitem">Year</a>
-          </div>
+
+    <div class="ent-localidades-view-body">
+
+        <div class="ent-localidades-view-panel">
+            
+
+            <div class="row">
+                <div class="col-md-6 col">
+
+                    <h3>Generales</h3>
+                    
+                    <div class="ent-localidades-view-panel-int">
+                        <div class="row">
+                            <div class="col-md-6">
+                                Estado: 
+                                <?php
+                                
+                                $estado = CatEstados::find()->where(['id_estado'=>$model->id_estado])->one();
+                                echo $estado->txt_nombre;
+                                
+                                ?>
+                            </div>
+                            <div class="col-md-6">
+                                Nombre: 
+                                <?= $model->txt_nombre ?>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                Arrendador: 
+                                <?= $model->txt_arrendador ?>
+                            </div>
+                            <div class="col-md-6">
+                                Beneficiario: 
+                                <?= $model->txt_beneficiario ?>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                Calle: 
+                                <?= $model->txt_calle ?>
+                            </div>
+                            <div class="col-md-6">
+                                Colonia: 
+                                <?= $model->txt_colonia ?>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                Municipio: 
+                                <?= $model->txt_municipio ?>
+                            </div>
+                            <div class="col-md-6">
+                                Codigo postal: 
+                                <?= $model->txt_cp ?>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                Estatus: 
+                                <?php
+                                $estatus = EntEstatus::find()->where(['id_localidad'=>$model->id_localidad])->orderBy('fch_creacion')->all();
+                                $arr = "";
+                                foreach ($estatus as $est){
+                                    $arr .= '<span class="badge badge-outline badge-success badge-round mr-10">'.$est->txt_estatus.'</span>';
+                                }
+                                echo $arr;
+                                ?>
+                            </div>
+                            <div class="col-md-6">
+                                Antecedentes: 
+                                <?= $model->txt_antecedentes ?>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                Num Renta Actual: 
+                                <?= $model->num_renta_actual ?>
+                            </div>
+                            <div class="col-md-6">
+                                Num Incremento Autotizado: 
+                                <?= $model->num_incremento_autorizado ?>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                Fecha Vencimiento Contratado: 
+                                <?= Utils::changeFormatDate($model->fch_vencimiento_contratro); ?>
+                            </div>
+                            <div class="col-md-6">
+                                Fecha Creación: 
+                                <?= Utils::changeFormatDate($model->fch_creacion); ?>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                Fecha Asignación: 
+                                <?= Utils::changeFormatDate($model->fch_asignacion); ?>
+                            </div>
+                            <div class="col-md-6">
+                                Problemas Acceso: 
+                                <?php
+                                if($model->b_problemas_acceso == 0){
+                                    echo "No";
+                                }else{
+                                    echo "Si";
+                                }
+                                ?>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6 col">
+
+                    <h3>Tareas</h3>
+
+                    <div class="ent-localidades-view-panel-int">
+                        
+                        <div class="row">
+                            
+                                
+                            <?php if($tareas){ ?>
+                                <div class="col-md-12">
+                                    <?= ListView::widget([
+                                    'dataProvider' => $dataProviderTarea,
+                                    'itemView' => '_item',
+                                    ]); ?>
+                                </div>
+                            <?php }else{ ?>
+                                <div class="col-md-12">
+                                    <p>No hay tareas asignadas</p>
+                                </div>
+                            <?php } ?>
+
+                            <div class="col-md-12">
+                                
+                                <div class="card-block p-0">
+                                    <ul class="project-team-items clearfix">
+                                        <li class="team-item">
+                                            <a href="#" class="avatar avatar-sm my-5">
+                                            <img src="http://via.placeholder.com/30x30">
+                                            </a>
+                                        </li>
+                                        <li class="team-item item-divider">
+                                            <i class="icon wb-chevron-right mr-0"></i>
+                                        </li>
+                                        <li class="team-item">
+                                            <a class="avatar avatar-sm my-5 mr-5" data-member-id="m_1">
+                                                <img src="http://via.placeholder.com/30x30" />
+                                            </a>
+                                            <a class="avatar avatar-sm my-5 mr-5" data-member-id="m_2">
+                                                <img src="http://via.placeholder.com/30x30" />
+                                            </a>
+                                            <a class="avatar avatar-sm my-5 mr-5" data-member-id="m_3">
+                                                <img src="http://via.placeholder.com/30x30" />
+                                            </a>
+                                            <a class="avatar avatar-sm my-5 mr-5" data-member-id="m_4">
+                                                <img src="http://via.placeholder.com/30x30" />
+                                            </a>
+                                            <a class="avatar avatar-sm my-5 mr-5" data-member-id="m_5">
+                                                <img src="http://via.placeholder.com/30x30" />
+                                            </a>
+                                            <a class="avatar avatar-sm my-5 mr-5" data-member-id="m_6">
+                                                <img src="http://via.placeholder.com/30x30" />
+                                            </a>
+                                        </li>       
+                                    </ul>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-12">
+
+                                <div class="card-block project-checklist p-0">
+                                    <h4 class="project-checklist-title project-option-title">
+                                        <button type="button" class="btn btn-pure btn-default icon wb-trash btn-trash"></button>
+                                        Title
+                                    </h4>
+
+                                    <div class="progress progress-xs" data-plugin="progress" data-labeltype="percentage">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuemax="100"
+                                        aria-valuemin="0" aria-valuenow="50">
+                                        </div>
+                                        <div class="progress-label progress-percent blue-grey-400"></div>
+                                    </div>
+
+                                    <!-- <div class="checkbox-custom checkbox-primary mb-15">
+                                        <input type="checkbox" name="checkbox">
+                                        <label class="title">Checklist item1</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-primary mb-15">
+                                        <input type="checkbox" checked="checked" name="checkbox">
+                                        <label class="title">Checklist item2</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-primary mb-15">
+                                        <input type="checkbox" name="checkbox" disabled>
+                                        <label class="title">Checklist item3</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-primary mb-15">
+                                        <input type="checkbox" checked="checked" name="checkbox" disabled>
+                                        <label class="title">Checklist item4</label>
+                                    </div> -->
+                                    <!-- <button type="button" class="btn btn-default btn-add">Add checklist item</button>
+                                    <div class="project-checklist-add bg-blue-grey-200">
+                                        <form>
+                                            <input type="text" name="title" class="form-control">
+                                            <div class="operations">
+                                            <button type="button" class="btn btn-primary">Add</button>
+                                            <button type="button" class="btn btn-pure btn-default icon wb-trash p-0 btn-trash ml-10"></button>
+                                            </div>
+                                        </form>
+                                    </div> -->
+                                </div>
+            
+                            </div>
+
+
+                            <div class="col-md-12">
+
+                                <div class="card-block p-0">
+                                    <h4 class="project-option-title">Uploading</h4>
+                                    <form class="upload-form" id="projectUploadForm" method="POST">
+                                        <input type="file" id="inputUpload" name="files[]" multiple="" />
+                                        <div class="uploader-inline">
+                                            <p class="upload-instructions">Click Or Drop Files To Upload.</p>
+                                        </div>
+                                        <div class="file-wrap container-fluid">
+                                            <div class="file-list row"></div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
+                <div class="col-md-6 col">
+                    
+                    <h3>Abo</h3>
+
+                    <div class="ent-localidades-view-panel-int">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                
+                                <?php if($userRel){ ?>
+                                    <div class="panel-body">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                            <th>Username</th>
+                                            <th>Apellido paterno</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php foreach($userRel as $user){ 
+                                            $usuario = EntUsuarios::find()->where(['id_usuario'=>$user->id_usuario])->one();    
+                                            ?>
+                                            <tr>
+                                            <td><?= $usuario->txt_username ?></td>
+                                            <td><?= $usuario->txt_apellido_paterno ?></td>
+                                            </tr>
+                                            <?php }?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                <?php }else{ ?>
+                                    <div class="panel-body">
+                                        <p>No hay clientes asignados</p>
+                                    </div>
+                                <?php } ?>
+                            
+                            </div>
+                            <!-- <div class="col-md-6">
+                                sdf
+                            </div> -->
+                        </div>
+                    
+                    </div>
+
+                </div>
+                <?php } ?>
+
+                <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::CLIENTE){ ?>
+                <div class="col-md-6 col">
+
+                    <h3>Clientes</h3>
+
+                    <div class="ent-localidades-view-panel-int">
+                        
+                        <div class="row">
+                            <!-- <div class="col-md-6">
+                                Algo
+                            </div> -->
+                            <div class="col-md-12">
+                                
+                                <div class="panel panel-localidades">
+                                    <div class="panel-body">
+                                        <div class="panel-listado">
+                                            <div class="panel-listado-head">
+                                                <div class="panel-listado-col w-x"></div>
+                                                <div class="panel-listado-col w-m">Nombre</div>
+                                                <div class="panel-listado-col w-m">Ver Archivo</div>
+                                                <div class="panel-listado-col w-m">Descripcion</div>
+                                                <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::CLIENTE){ ?>
+                                                    <div class="panel-listado-col w-m">Responsables</div>
+                                                <?php } ?>
+                                                <div class="panel-listado-col w-s">Acciones</div>
+                                            </div>
+
+                                            <?= ListView::widget([
+                                                'dataProvider' => $dataProvider,
+                                                'itemView' => '_itemTareas',
+                                            ]);?>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <?php } ?>
+
+                <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
+                    <?= Html::a('Crear Tarea', ['tareas/create', 'idLoc' => $model->id_localidad], ['class' => 'btn btn-success']) ?>
+                <?php  } ?>
+
+            </div>   
+
         </div>
-        <div class="chart-color">
-          <span>
-            <i class="bg-green-600"></i>
-            <p>COMPLETED</p>
-          </span>
-          <span>
-            <i class="bg-cyan-600"></i>
-            <p>ADDED</p>
-          </span>
-        </div>
-      </div>
-      <div class="ct-chart trends-chart chartist-tooltip-wrap"></div>
+
     </div>
-    <div class="bar-chart">
-      <div class="chart-header">
-        <h3 class="blue-grey-700">PROJECT TRENDS</h3>
-        <div class="chart-color">
-          <span>
-            <i class="bg-blue-600"></i>
-            <p>UNFINISHED</p>
-          </span>
-          <span>
-            <i class="bg-green-600"></i>
-            <p>COMPLETED</p>
-          </span>
-        </div>
-      </div>
-      <div class="ct-chart member-chart"></div>
-    </div>
-  </section>
-  <div class="slidePanel-footer">
-    <button type="button" class="btn btn-icon btn-danger btn-round">
-      <i class="icon wb-flag" aria-hidden="true"></i>
-    </button>
-    <span>Tody completed
-      <span class="red-600">3 tasks</span> . 3 New Tasks , 0 Schedule , 1 Topic , 2 Documents.</span>
-  </div>
+
+
 </div>
+
+<?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
+    <!-- <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3>Clientes asignados</h3>
+                </div>
+                <?php if($userRel){ ?>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Apellido paterno</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($userRel as $user){ 
+                                    $usuario = EntUsuarios::find()->where(['id_usuario'=>$user->id_usuario])->one();    
+                                ?>
+                                    <tr>
+                                        <td><?= $usuario->txt_username ?></td>
+                                        <td><?= $usuario->txt_apellido_paterno ?></td>
+                                    </tr>
+                                <?php }?>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php }else{ ?>
+                    <div class="panel-body">
+                        <p>No hay clientes asignados</p>
+                    </div>
+                <?php } ?>
+            </div>
+        </div>
+    </div> -->
+<?php } ?>
+
+<!-- ************************************************************************************************************************************* -->
+
+<?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::CLIENTE){ ?>
+    <!-- <div class="panel panel-localidades">
+        <div class="panel-body">
+            <div class="panel-listado">
+                <div class="panel-listado-head">
+                    <div class="panel-listado-col w-x"></div>
+                    <div class="panel-listado-col w-m">Nombre</div>
+                    <div class="panel-listado-col w-m">Ver Archivo</div>
+                    <div class="panel-listado-col w-m">Descripcion</div>
+                    <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::CLIENTE){ ?>
+                        <div class="panel-listado-col w-m">Responsables</div>
+                    <?php } ?>
+                    <div class="panel-listado-col w-s">Acciones</div>
+                </div>
+
+                <?= ListView::widget([
+                    'dataProvider' => $dataProvider,
+                    'itemView' => '_itemTareas',
+                ]);?>
+            </div>
+        </div>
+    </div> -->
+<?php } ?>
+
+<?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
+    <?php # Html::a('Crear Tarea', ['tareas/create', 'idLoc' => $model->id_localidad], ['class' => 'btn btn-success']) ?>
+<?php } ?>
+
+<!-- ************************************************************************************************************************************* -->
+
+
+<!-- <div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3>Tareas</h3>
+            </div>
+            <?php if($tareas){ ?>
+                <div class="panel-body">
+                <?= ListView::widget([
+                    'dataProvider' => $dataProviderTarea,
+                    'itemView' => '_item',
+                ]); ?>
+                </div>
+            <?php }else{ ?>
+                <div class="panel-body">
+                    <p>No hay tareas asignadas</p>
+                </div>
+            <?php } ?>
+        </div>
+    </div>
+</div> -->
+
+
+<?php
+$this->registerJs("
+$(document).ready(function(){
+
+    $('#wrktareas-file').on('change', function(){
+        id = $(this).data('id');
+        $('#btnGuardarArchivo-'+id).css('display', 'block');
+    });
+
+    $('#wrktareas-txt_tarea').focus(function(){
+        id = $(this).data('id');
+        $('#btnGuardarArchivo-'+id).css('display', 'block');
+    });
+
+    var member = ".$jsonAgregar.";
+
+    $('.plugin-selective').each(function () {
+        var elemento = $(this);
+        elemento.selective({
+          namespace: 'addMember',
+          selected: elemento.data('json'),
+          local: member,
+          onAfterSelected: function(e){
+              //alert(elemento.val());
+          },
+          onAfterItemAdd: function(e){
+            //alert(elemento.val());
+            //alert(elemento.data('id'));
+            var idTar = elemento.data('idtar');
+            var idUser = elemento.val();
+
+            $.ajax({
+                url: '".Yii::$app->urlManager->createAbsoluteUrl(['localidades/asignar-usuarios-tareas'])."',
+                data: {idT: idTar, idU: idUser},
+                dataType: 'json',
+                type: 'POST',
+                success: function(resp){
+                    if(resp.status == 'success'){
+                        console.log('Asignacion de tarea correcta');
+                    }
+                }
+            });
+          },
+          onAfterItemRemove: function(e){
+            var idLoc = elemento.data('id');
+            var idUser = elemento.val();
+            if(!idUser){
+                idUser = -1;
+            }
+
+            $.ajax({
+                url: '".Yii::$app->urlManager->createAbsoluteUrl(['localidades/asignar-usuarios-eliminar'])."',
+                data: {idL: idLoc, idU: idUser},
+                dataType: 'json',
+                type: 'POST',
+                success: function(resp){
+                    if(resp.status == 'success'){
+                        console.log('Eliminacion correcta');
+                    }
+                }
+            });
+          },
+          buildFromHtml: false,
+          tpl: {
+            optionValue: function optionValue(data) {
+              return data.id;
+            },
+            frame: function frame() {
+              return '<div class=\"' + this.namespace + '\">                ' + this.options.tpl.items.call(this) + '                <div class=\"' + this.namespace + '-trigger\">                ' + this.options.tpl.triggerButton.call(this) + '                <div class=\"' + this.namespace + '-trigger-dropdown\">                ' + this.options.tpl.list.call(this) + '                </div>                </div>                </div>';
+        
+              // i++;
+            },
+            triggerButton: function triggerButton() {
+              return '<div class=\"' + this.namespace + '-trigger-button\"><i class=\"wb-plus\"></i></div>';
+            },
+            listItem: function listItem(data) {
+              return '<li class=\"' + this.namespace + '-list-item\"><img class=\"avatar\" src=\"' + data.avatar + '\">' + data.name + '</li>';
+            },
+            item: function item(data) {
+              return '<li class=\"' + this.namespace + '-item\"><img class=\"avatar\" src=\"' + data.avatar + '\" title=\"' + data.name + '\">' + this.options.tpl.itemRemove.call(this) + '</li>';
+            },
+            itemRemove: function itemRemove() {
+              return '<span class=\"' + this.namespace + '-remove\"><i class=\"wb-minus-circle\"></i></span>';
+            },
+            option: function option(data) {
+              return '<option value=\"' + this.options.tpl.optionValue.call(this, data) + '\">' + data.name + '</option>';
+            }
+          }
+        });
+    });
+});
+", View::POS_END );
+
+?>
