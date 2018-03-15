@@ -267,7 +267,7 @@ $(document).ready(function(){
                 success: function(resp){
                     if(resp.status == 'success'){
                         console.log('Asignacion correcta');
-                        swal('Good job!', 'You clicked the button!', 'success');
+                        //swal('Good job!', 'You clicked the button!', 'success');
                     }
                 }
             });
@@ -287,7 +287,7 @@ $(document).ready(function(){
                 success: function(resp){
                     if(resp.status == 'success'){
                         console.log('Eliminacion correcta');
-                        swal('Deleted!', 'Your imaginary file has been deleted.', 'success');
+                        //swal('Deleted!', 'Your imaginary file has been deleted.', 'success');
                     }
                 }
             });
