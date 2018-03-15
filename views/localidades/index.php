@@ -51,6 +51,17 @@ $this->registerCssFile(
     ['depends' => [AppAsset::className()]]
 );
 
+
+$this->registerCssFile(
+    '@web/webAssets/templates/classic/global/vendor/dropify/dropify.css',
+    ['depends' => [AppAsset::className()]]
+  ); 
+
+  $this->registerJsFile(
+    '@web/webAssets/templates/classic/global/vendor/dropify/dropify.min.js',
+    ['depends' => [AppAsset::className()]]
+);
+
 ?>
 
 <div class="panel-localidades-cont">
@@ -179,10 +190,11 @@ $this->registerCssFile(
                 [
                     'label'=>'Acciones',
                     'format'=>'raw',
-                    'value'=>function(){
-                        return '<button type="submit" class="btn btn-search"><i class="icon wb-search" aria-hidden="true"></i></button>
-                            <button type="submit" class="btn btn-search"><i class="icon wb-search" aria-hidden="true"></i></button>
-                        ';
+                    'value'=>function($data){
+                        $acciones = Html::a('<i class="icon wb-eye" aria-hidden="true"></i>', ['localidades/view/'.$data->id_localidad], ["class"=>"btn btn-icon btn-primary btn-outline no-pjax run-slide-panel"]);
+                        $acciones .= Html::a('<i class="icon wb-list" aria-hidden="true"></i>', ['/localidades/ver-tareas-localidad?id='.$data->id_localidad], ["class"=>"btn btn-icon btn-primary btn-outline no-pjax run-slide-panel"]); 
+
+                        return $acciones;
                     }
                     
                 ]

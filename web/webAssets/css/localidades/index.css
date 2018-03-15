@@ -5,5 +5,12 @@
 .slidePanel-right, .slidePanel-left {
     top: 66.01px;
     bottom: 0;
-    width: 100%;
+    /* width: 100%; */
+    background: #252525;
+}
+
+.slidePanel-right .dropify-wrapper, .slidePanel-left .dropify-wrapper {
+    
+    height: 100px;
+   
 }

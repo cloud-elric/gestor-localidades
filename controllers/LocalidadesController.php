@@ -101,45 +101,12 @@ class LocalidadesController extends Controller
             Yii::$app->getUser()->login($user);
         }
 
-        $searchModel = new TareasSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $id);
-
-        //$relUserLoc = new WrkUsuariosLocalidades();
-        $userRel = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$id])->all();
-        //$idUsersRel = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$id])->select('id_usuario')->all();
-
-        $searchModelTarea = new TareasSearch();
-        $dataProviderTarea = $searchModelTarea->search(Yii::$app->request->queryParams, $id);
-        $tareas = true;
-        //$tareas = WrkTareas::find()->where(['id_localidad'=>$id])->all();
-
-
-
-        $user = Yii::$app->user->identity;
-        $selected = [];
-        if($user->txt_auth_item == ConstantesWeb::CLIENTE){
-            $grupoTrabajo = WrkUsuarioUsuarios::find()->where(['id_usuario_padre'=>$user->id_usuario])->select('id_usuario_hijo')->asArray();
-            $colaboradores = EntUsuarios::find()->where(['in', 'id_usuario', $grupoTrabajo])->all();
-            
-            $i=0;
-            foreach($colaboradores as $colaborador){
-                $selected[$i]['id'] = $colaborador->id_usuario;
-                $selected[$i]['name'] = $colaborador->getNombreCompleto();
-                $selected[$i]['avatar'] = $colaborador->getImageProfile();
-                $i++;
-            }
-        }
-        $jsonAgregar = json_encode($selected);
+       
         
 
         return $this->renderAjax('view', [
             'model' => $this->findModel($id),
-            'userRel' => $userRel,
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'tareas' => $tareas,
-            'dataProviderTarea' => $dataProviderTarea,
-            'jsonAgregar' => $jsonAgregar
+            
             //'relUserLoc' => $relUserLoc,
             //'idUsersRel' => $idUsersRel
         ]);
@@ -431,5 +398,53 @@ class LocalidadesController extends Controller
         }
 
         exit;
+    }
+
+    public function actionVerTareasLocalidad($id){
+
+        $localidad = $this->findModel($id);
+        $tareas = $localidad->wrkTareas;
+
+        return $this->renderAjax("ver-tareas-localidad-clear", ["localidad"=>$localidad, "tareas"=>$tareas]);
+
+        exit;
+        
+        $searchModel = new TareasSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $id);
+
+        //$relUserLoc = new WrkUsuariosLocalidades();
+        $userRel = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$id])->all();
+        //$idUsersRel = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$id])->select('id_usuario')->all();
+
+        $searchModelTarea = new TareasSearch();
+        $dataProviderTarea = $searchModelTarea->search(Yii::$app->request->queryParams, $id);
+        $tareas = true;
+        //$tareas = WrkTareas::find()->where(['id_localidad'=>$id])->all();
+
+
+
+        $user = Yii::$app->user->identity;
+        $selected = [];
+        if($user->txt_auth_item == ConstantesWeb::CLIENTE){
+            $grupoTrabajo = WrkUsuarioUsuarios::find()->where(['id_usuario_padre'=>$user->id_usuario])->select('id_usuario_hijo')->asArray();
+            $colaboradores = EntUsuarios::find()->where(['in', 'id_usuario', $grupoTrabajo])->all();
+            
+            $i=0;
+            foreach($colaboradores as $colaborador){
+                $selected[$i]['id'] = $colaborador->id_usuario;
+                $selected[$i]['name'] = $colaborador->getNombreCompleto();
+                $selected[$i]['avatar'] = $colaborador->getImageProfile();
+                $i++;
+            }
+        }
+        $jsonAgregar = json_encode($selected);
+        
+        return $this->renderAjax("ver-tareas-localidad", ['userRel' => $userRel,
+        'searchModel' => $searchModel,
+        'dataProvider' => $dataProvider,
+        'tareas' => $tareas,
+        'dataProviderTarea' => $dataProviderTarea,
+        'jsonAgregar' => $jsonAgregar,
+        'model'=>$this->findModel($id)]);
     }
 }
