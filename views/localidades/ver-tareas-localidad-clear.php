@@ -7,6 +7,8 @@ use yii\bootstrap\Html;
 use yii\web\View;
 use app\assets\AppAsset;
 
+$usuario = EntUsuarios::getIdentity();
+
 $this->registerCssFile(
     '@web/webAssets/templates/classic/global/vendor/dropify/dropify.css',
     ['depends' => [AppAsset::className()]]
@@ -40,6 +42,11 @@ $this->registerCssFile(
                                     <div class="col-md-12">
                                         <ul class="list-group taskboard-list ui-sortable">
                                             <?php 
+                                            if(count($tareas)==0){
+                                                echo "<h2>No hay tareas</h2>";
+                                            }
+
+
                                             foreach($tareas as $tarea){
                                             $hasArchivo = $tarea->id_tipo==ConstantesWeb::TAREA_ARCHIVO && $tarea->txt_path;
                                             ?>
@@ -78,6 +85,19 @@ $this->registerCssFile(
                                         </ul>
                                     </div>   
                                 </div>
+                                <?php
+                                if($usuario->txt_auth_item==ConstantesWeb::ABOGADO){
+                                ?>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button class="">
+
+                                        </button>
+                                    </div>
+                                </div>
+                                <?php
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
