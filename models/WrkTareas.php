@@ -64,11 +64,11 @@ class WrkTareas extends \yii\db\ActiveRecord
             'id_tarea' => 'Id Tarea',
             'id_usuario' => 'Id Usuario',
             'id_tarea_padre' => 'Id Tarea Padre',
-            'id_localidad' => 'Id Localidad',
-            'txt_nombre' => 'Txt Nombre',
-            'txt_descripcion' => 'Txt Descripcion',
-            'fch_creacion' => 'Fch Creacion',
-            'fch_due_date' => 'Fch Due Date',
+            'id_localidad' => 'Localidad',
+            'txt_nombre' => 'Nombre',
+            'txt_descripcion' => 'Descripcion',
+            'fch_creacion' => 'Fecha Creacion',
+            'fch_due_date' => 'Fecha Due Date',
             'b_completa' => 'B Completa',
         ];
     }
