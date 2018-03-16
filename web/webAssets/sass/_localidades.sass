@@ -252,9 +252,12 @@
 				input[type="email"],
 				input[type="password"],
 				input[type="text"],
+				input[type="text"]:disabled,
+				input[type="text"][readonly],
 				select,
 				textarea,
-				.form-control
+				.form-control,
+				.form-control:disabled
 					background-color: $ryg-second
 					border-color: $ryg-second
 					font-weight: $light
@@ -266,13 +269,59 @@
 						outline: none
 				textarea
 					resize: none
+
 				.help-block
 					color: $error
 					font-size: .85rem
 					margin-top: .3rem
 					padding-left: 1rem
+				
+				.select2,
+				.select2-container--krajee
+					position: relative
+					.select2-selection
+						background-color: $ryg-second
+						border-color: $ryg-second
+						color: $ryg-aqua
+						font-weight: $light
+						position: relative
+						.select2-selection__rendered
+							position: relative
+							.select2-selection__clear
+								color: $ryg-aqua
+								right: .2rem
+								top: -.4rem
+
+					.select2-selection--single
+						.select2-selection__arrow	
+							border-left-color: $ryg-second
+
+				.select2-container--krajee.select2-container--open .select2-selection,
+				.select2-container--krajee .select2-selection:focus
+					box-shadow: none
+
+			.radio-custom label::before
+				background-color: $ryg-gray
+				border-color: $ryg-gray
+				
+			.radio-warning
+				input[type=radio]:checked+input[type=hidden]+label::before,
+				input[type=radio]:checked+label::before
+					background-color: $ryg-accent
+					border-color: $ryg-accent
+
+				input[type=radio]:checked+input[type=hidden]+label::after,
+				input[type=radio]:checked+label::after
+					background-color: $ryg-gray
+					border-color: $ryg-gray
+
 			.btn-form-save
 				background-color: $ryg-accent
 				border-color: $ryg-accent
 				color: $ryg-second
 				width: 100%
+
+.form-control:disabled,
+.form-control[readonly]
+	background-color: $ryg-second
+	border-color: $ryg-second
