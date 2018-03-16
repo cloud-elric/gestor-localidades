@@ -175,7 +175,7 @@ $user = Yii::$app->user->identity;
 
 <!-- ************************************************************************************************************************************* -->
 
-<?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::CLIENTE){ ?>
+<?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::CLIENTE || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
     <div class="panel panel-localidades">
         <div class="panel-body">
             <div class="panel-listado">

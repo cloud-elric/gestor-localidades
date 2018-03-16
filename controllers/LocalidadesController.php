@@ -117,8 +117,9 @@ class LocalidadesController extends Controller
 
         $user = Yii::$app->user->identity;
         $selected = [];
-        if($user->txt_auth_item == ConstantesWeb::CLIENTE){
-            $grupoTrabajo = WrkUsuarioUsuarios::find()->where(['id_usuario_padre'=>$user->id_usuario])->select('id_usuario_hijo')->asArray();
+        if($user->txt_auth_item == ConstantesWeb::CLIENTE || $user->txt_auth_item == ConstantesWeb::ABOGADO){
+            $directores = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$id])->select('id_usuario')->asArray();
+            $grupoTrabajo = WrkUsuarioUsuarios::find()->where(['in', 'id_usuario_padre', $directores])->select('id_usuario_hijo')->asArray();
             $colaboradores = EntUsuarios::find()->where(['in', 'id_usuario', $grupoTrabajo])->all();
             
             $i=0;

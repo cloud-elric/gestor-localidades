@@ -285,6 +285,8 @@ class UsuariosController extends Controller
                     Yii::$app->getUser()->login($user);
                     
                     return $this->redirect(['usuarios/index']);
+                }else{
+                    print_r($user);exit;
                 }
             }else{
                 $user->scenario = 'cambiarPass';
