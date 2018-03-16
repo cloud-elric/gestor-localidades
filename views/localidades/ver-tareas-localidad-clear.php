@@ -90,8 +90,8 @@ $this->registerCssFile(
                                 ?>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button class="">
-
+                                        <button class="btn btn-success btn-block">
+                                            Agregar tarea
                                         </button>
                                     </div>
                                 </div>

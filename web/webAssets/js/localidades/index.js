@@ -17,3 +17,20 @@ $(document).ready(function(){
         }); 
       
 });
+
+
+$(document).on({
+    'click' : function(e) {
+   
+     e.preventDefault();
+     var elemento = $(this);
+     var token = elemento.data('token');
+     var padre = elemento.parents('.obras-escritas-text-cont') 
+     padre.css('display', 'none');
+     elemento.addClass('pendiente-eliminar');
+     
+     
+     eliminarElemento(token, elemento);
+     
+    }
+   }, '.obras-escritas-texto-delete');

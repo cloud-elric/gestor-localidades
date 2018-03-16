@@ -238,6 +238,9 @@ $this->registerCssFile(
 </div>
 
 <?php
+$this->params['modal']=$this->render("//tareas/_modal-crear-tarea");?>
+
+<?php
 $this->registerJs("
 
 $(document).ready(function(){
