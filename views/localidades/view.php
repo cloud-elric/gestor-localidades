@@ -175,6 +175,29 @@ $user = Yii::$app->user->identity;
 
 <!-- ************************************************************************************************************************************* -->
 
+<?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::CLIENTE){ ?>
+    <div class="panel panel-localidades">
+        <div class="panel-body">
+            <div class="panel-listado">
+                <div class="panel-listado-head">
+                    <div class="panel-listado-col w-x"></div>
+                    <div class="panel-listado-col w-m">Nombre</div>
+                    <div class="panel-listado-col w-m">Ver Archivo</div>
+                    <div class="panel-listado-col w-m">Descripcion</div>
+                    <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::CLIENTE){ ?>
+                        <div class="panel-listado-col w-m">Responsables</div>
+                    <?php } ?>
+                    <div class="panel-listado-col w-s">Acciones</div>
+                </div>
+
+                <?= ListView::widget([
+                    'dataProvider' => $dataProvider,
+                    'itemView' => '_itemTareas'
+                ]);?>
+            </div>
+        </div>
+    </div>
+<?php } ?>
 
 <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
     <?= Html::a('Crear Tarea', ['tareas/create', 'idLoc' => $model->id_localidad], ['class' => 'btn btn-success']) ?>

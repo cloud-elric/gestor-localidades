@@ -247,7 +247,7 @@ $(document).ready(function(){
                 success: function(resp){
                     if(resp.status == 'success'){
                         console.log('Eliminacion correcta');
-                        s//wal('Deleted!', 'Your imaginary file has been deleted.', 'success');
+                        //wal('Deleted!', 'Your imaginary file has been deleted.', 'success');
                     }
                 }
             });

@@ -48,18 +48,13 @@ $rel = WrkUsuariosTareas::find()->where(['id_usuario'=>$user->id_usuario])->andW
     ?>
             <?= $form->field($model, 'file')->fileInput(['data-id'=>$tarea]) ?>
     <?php 
-        }else{
+        }
+        if($model->id_tipo == 2){
     ?>
             <?= $form->field($model, 'txt_tarea')->textarea(['rows' => 6, 'data-id'=>$tarea]) ?>
     <?php
         }
     }
-    ?>
-
-    <?php
-    if($model->txt_tarea){  
-        echo $form->field($model, 'txt_tarea')->textarea(['rows' => 6, 'disabled'=>true]);
-    }    
     ?>
 
     <?php // $form->field($model, 'fch_creacion')->textInput() ?>
