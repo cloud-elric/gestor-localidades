@@ -129,7 +129,7 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
 
                 <?= $form->field($model, 'num_renta_actual')->textInput() ?>
 
-                <?= $form->field($model, 'num_incremento_autorizado')->textInput(['value'=>$porcentajeAbogado->num_porcentaje, 'disabled'=>true]) ?>
+                <?= $form->field($model, 'num_incremento_autorizado')->textInput(['value'=>$porcentajeAbogado->num_porcentaje]) ?>
 
                 <?= $form->field($model, 'num_pretencion_renta')->textInput(['disabled'=>true]) ?>
 
@@ -237,7 +237,11 @@ $(document).ready(function(){
             incremento = rentaActual * porce;
             total = parseInt(rentaActual) + parseInt(incremento);
 
-            $('#entlocalidades-num_pretencion_renta').val(total);
+            if(porcentaje > 1){
+                $('#entlocalidades-num_pretencion_renta').val(total);
+            }else{
+                $('#entlocalidades-num_pretencion_renta').val(0);
+            }
         }
     });
 
@@ -257,11 +261,10 @@ $(document).ready(function(){
 
 function statusLocalidad(input){
     if(input.val() == 'renovacion'){
+        $('#entlocalidades-num_pretencion_renta').val('0');
         $('.field-entlocalidades-num_incremento_autorizado').css('display', 'none');
         $('.field-entlocalidades-num_pretencion_renta').css('display', 'none');
         $('#entlocalidades-b_status_localidad').val('2');
-
-        ('#entlocalidades-num_pretencion_renta').val('');
     }else{
         $('.field-entlocalidades-num_incremento_autorizado').css('display', 'block');
         $('.field-entlocalidades-num_pretencion_renta').css('display', 'block');
@@ -274,7 +277,11 @@ function statusLocalidad(input){
         incremento = rentaActual * porce;
         total = parseInt(rentaActual) + parseInt(incremento);
 
-        $('#entlocalidades-num_pretencion_renta').val(total);
+        if(rentaActual > 1){
+            $('#entlocalidades-num_pretencion_renta').val(total);
+        }else{
+            $('#entlocalidades-num_pretencion_renta').val(0);
+        }
     }
 }
 
