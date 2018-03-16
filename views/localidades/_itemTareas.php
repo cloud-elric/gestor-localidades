@@ -56,9 +56,7 @@ $seleccionados = json_encode($seleccionados);
     
     <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::CLIENTE){ ?>
         <div id="js_div_responsables" class="panel-listado-col w-m">
-            <select multiple="multiple" class="plugin-selective" data-idTar="<?= $model->id_tarea ?>" data-json='<?= $seleccionados ?>'></select> 
+            <select multiple="multiple" class="plugin-selective" data-idTar="<?= $model->id_tarea ?>" data-id="<?= $model->id_localidad ?>" data-json='<?= $seleccionados ?>'></select> 
         </div>
     <?php } ?>
-    
-    <div class="panel-listado-col w-s"><a class="panel-listado-acction acction-edit" href=""><i class="icon wb-plus"></i></a><a class="panel-listado-acction acction-delete" href=""><i class="icon wb-plus"></i></a></div>
 </div>
