@@ -107,7 +107,7 @@ class UsuariosController extends Controller
             }
             if($model->txt_auth_item == ConstantesWeb::COLABORADOR){
                 $model->usuarioPadre = $usuario->id_usuario;
-                $padre = $model->usuarioPadre; 
+                $padre = $_POST['EntUsuarios']['usuarioPadre']; 
             }
             
             if ($user = $model->signup()) {
@@ -128,6 +128,7 @@ class UsuariosController extends Controller
                     $relUsuarios->id_usuario_padre = $padre;
                     $relUsuarios->id_usuario_hijo = $user->id_usuario;
                 }
+                $relUsuarios->save();
 
                 if (Yii::$app->params ['modUsuarios'] ['mandarCorreoActivacion']) {
                     // Enviar correo
@@ -143,12 +144,8 @@ class UsuariosController extends Controller
                     $utils->sendEmailCambiarPass( $user->txt_email,$parametrosEmail );
                 }
 
-                if($relUsuarios->save()){
-
-                    return $this->redirect(['usuarios/index']);
-                }else{
-                    return $this->redirect(['usuarios/index']);
-                }
+                return $this->redirect(['usuarios/index']);
+                
             }else{
                 //print_r($user->errors);exit;
                 echo "No guardo modelo";exit;
