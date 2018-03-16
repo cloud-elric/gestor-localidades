@@ -284,7 +284,7 @@ class UsuariosController extends Controller
                 if($user->save()){
                     Yii::$app->getUser()->login($user);
                     
-                    return $this->redirect(['usuarios/index']);
+                    return $this->redirect(['localidades/index']);
                 }else{
                     print_r($user);exit;
                 }
