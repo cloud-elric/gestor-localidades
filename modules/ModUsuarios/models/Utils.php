@@ -64,31 +64,31 @@ class Utils {
 	public function sendEmailAsignacion($email,$parametrosEmail) {
 		
 		// Envia el correo electronico
-		return $this->sendEmail ( '@app/modules/ModUsuarios/email/asignacion', '@app/modules/ModUsuarios/email/layouts/text', Yii::$app->params ['modUsuarios'] ['email'] ['emailActivacion'],$email, Yii::$app->params ['modUsuarios'] ['email'] ['subjectActivacion'], $parametrosEmail );
+		return $this->sendEmail ( '@app/modules/ModUsuarios/email/asignacion', '@app/modules/ModUsuarios/email/layouts/text', Yii::$app->params ['modUsuarios'] ['email'] ['emailActivacion'],$email, "Asignacion de localidad", $parametrosEmail );
 	}
 
 	public function sendEmailAsignacionTarea($email,$parametrosEmail) {
 		
 		// Envia el correo electronico
-		return $this->sendEmail ( '@app/modules/ModUsuarios/email/asignacionTarea', '@app/modules/ModUsuarios/email/layouts/text', Yii::$app->params ['modUsuarios'] ['email'] ['emailActivacion'],$email, Yii::$app->params ['modUsuarios'] ['email'] ['subjectActivacion'], $parametrosEmail );
+		return $this->sendEmail ( '@app/modules/ModUsuarios/email/asignacionTarea', '@app/modules/ModUsuarios/email/layouts/text', Yii::$app->params ['modUsuarios'] ['email'] ['emailActivacion'],$email, "Asignacion de tarea", $parametrosEmail );
 	}
 
 	public function sendEmailNotificacionesTareas($email,$parametrosEmail) {
 		
 		// Envia el correo electronico
-		return $this->sendEmail ( '@app/modules/ModUsuarios/email/notificacionTarea', '@app/modules/ModUsuarios/email/layouts/text', Yii::$app->params ['modUsuarios'] ['email'] ['emailActivacion'],$email, Yii::$app->params ['modUsuarios'] ['email'] ['subjectActivacion'], $parametrosEmail );
+		return $this->sendEmail ( '@app/modules/ModUsuarios/email/notificacionTarea', '@app/modules/ModUsuarios/email/layouts/text', Yii::$app->params ['modUsuarios'] ['email'] ['emailActivacion'],$email, "Notificacion", $parametrosEmail );
 	}
 
 	public function sendEmailCargaTareas($email,$parametrosEmail) {
 		
 		// Envia el correo electronico
-		return $this->sendEmail ( '@app/modules/ModUsuarios/email/cargaDropbox', '@app/modules/ModUsuarios/email/layouts/text', Yii::$app->params ['modUsuarios'] ['email'] ['emailActivacion'],$email, Yii::$app->params ['modUsuarios'] ['email'] ['subjectActivacion'], $parametrosEmail );
+		return $this->sendEmail ( '@app/modules/ModUsuarios/email/cargaDropbox', '@app/modules/ModUsuarios/email/layouts/text', Yii::$app->params ['modUsuarios'] ['email'] ['emailActivacion'],$email, "Tarea", $parametrosEmail );
 	}
 
 	public function sendEmailCambiarPass($email,$parametrosEmail) {
 		
 		// Envia el correo electronico
-		return $this->sendEmail ( '@app/modules/ModUsuarios/email/cambiarPass', '@app/modules/ModUsuarios/email/layouts/text', Yii::$app->params ['modUsuarios'] ['email'] ['emailActivacion'],$email, Yii::$app->params ['modUsuarios'] ['email'] ['subjectActivacion'], $parametrosEmail );
+		return $this->sendEmail ( '@app/modules/ModUsuarios/email/cambiarPass', '@app/modules/ModUsuarios/email/layouts/text', Yii::$app->params ['modUsuarios'] ['email'] ['emailActivacion'],$email, "Cambiar contraseña", $parametrosEmail );
 	}
 	
 	/**
