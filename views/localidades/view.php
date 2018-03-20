@@ -268,6 +268,8 @@ $(document).ready(function(){
                 success: function(resp){
                     if(resp.status == 'success'){
                         console.log('Asignacion de tarea correcta');
+                        // Display a success toast, with a title
+                        toastr.success('Se ha asignado la tarea', 'Se mando un email de notificacion');
                     }
                 }
             });
@@ -287,6 +289,8 @@ $(document).ready(function(){
                 success: function(resp){
                     if(resp.status == 'success'){
                         console.log('Eliminacion correcta');
+                        // Display a success toast, with a title
+                        toastr.success('Se elimino correctamente al usuario');
                     }
                 }
             });

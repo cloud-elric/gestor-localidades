@@ -20,13 +20,14 @@ class AppAsset extends AssetBundle
     public $css = [
         'plugins/ladda/ladda.css',
         'css/site-extend.css',
-        'css/site-extend.css.map'
+        'css/site-extend.css.map',
+        'https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css'
     ];
     public $js = [
         'plugins/ladda/spin.js',
         'plugins/ladda/ladda.js',
-        'js/geeks.js'
-
+        'js/geeks.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js'
     ];
     public $depends = [
         'app\assets\AppAssetClassicTopBar',
