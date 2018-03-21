@@ -98,20 +98,12 @@ class UsuariosController extends Controller
             return ActiveForm::validate($model);
         }
 
-        $grupo = null;
+        
         $padre = null;
         if ($model->load(Yii::$app->request->post())){
             
             $model->password = $model->randomPassword();
             $model->repeatPassword = $model->password;
-
-            if($model->txt_auth_item == ConstantesWeb::CLIENTE){
-                $grupo = $usuario;
-            }
-            if($model->txt_auth_item == ConstantesWeb::COLABORADOR){
-                $model->usuarioPadre = $usuario->id_usuario;
-                $padre = $model->usuarioPadre; 
-            }
             
             if ($user = $model->signup()) {
 
@@ -121,16 +113,6 @@ class UsuariosController extends Controller
                     $porcentajeRenta->id_usuario = $user->id_usuario;
                     $porcentajeRenta->num_porcentaje = 10;
                     $porcentajeRenta->save();
-                }
-
-                $relUsuarios = new WrkUsuarioUsuarios();
-
-                if($grupo){
-                    $relUsuarios->id_usuario_padre = $grupo->id_usuario;
-                    $relUsuarios->id_usuario_hijo = $user->id_usuario;
-                }else{
-                    $relUsuarios->id_usuario_padre = $padre;
-                    $relUsuarios->id_usuario_hijo = $user->id_usuario;
                 }
 
                 if (Yii::$app->params ['modUsuarios'] ['mandarCorreoActivacion']) {
@@ -147,9 +129,14 @@ class UsuariosController extends Controller
                     //$utils->sendEmailCambiarPass( $user->txt_email,$parametrosEmail );
                 }
 
-                if($relUsuarios->save()){
-
+                if($model->txt_auth_item == ConstantesWeb::COLABORADOR){
+                    $relUsuarios = new WrkUsuarioUsuarios();
+                    $relUsuarios->id_usuario_hijo =$user->id_usuario;
+                    $relUsuarios->id_usuario_padre = $_POST['EntUsuarios']['usuarioPadre'];
+                    $relUsuarios->save(); 
                 }
+
+              
                 return $this->redirect(['usuarios/index']);
                 
             }
