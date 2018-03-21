@@ -58,7 +58,7 @@ class EntLocalidades extends \yii\db\ActiveRecord
                     return $('#entusuarios-txt_auth_item').val()=='usuario-cliente';
                 }"*/
             ],
-            [['id_estado', 'id_usuario', 'cms', 'txt_token', 'txt_nombre', 'txt_arrendador', 'txt_beneficiario'], 'required'],
+            [['id_estado', 'id_usuario', 'cms', 'txt_token', 'txt_nombre', 'txt_arrendador', 'txt_beneficiario', 'txt_cp', 'txt_calle', 'txt_colonia', 'txt_municipio', 'num_renta_actual', 'fch_vencimiento_contratro', 'fch_asignacion'], 'required'],
             [['id_estado', 'id_usuario', 'b_problemas_acceso', 'b_archivada', 'b_status_localidad'], 'integer'],
             [['txt_estatus', 'txt_antecedentes'], 'string'],
             [['num_renta_actual', 'num_incremento_autorizado', 'num_pretencion_renta'], 'number'],
@@ -90,8 +90,9 @@ class EntLocalidades extends \yii\db\ActiveRecord
             'txt_cp' => 'Codigo postal',
             'txt_estatus' => 'Estatus',
             'txt_antecedentes' => 'Antecedentes',
-            'num_renta_actual' => 'Num Renta Actual',
-            'num_incremento_autorizado' => 'Num Incremento Autorizado',
+            'num_renta_actual' => 'Renta Actual',
+            'num_incremento_autorizado' => 'Incremento Autorizado',
+            'num_pretencion_renta' => 'Pretencion de renta',
             'fch_vencimiento_contratro' => 'Fecha Vencimiento Contratro',
             'fch_creacion' => 'Fecha Creacion',
             'fch_asignacion' => 'Fecha Asignacion',

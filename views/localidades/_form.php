@@ -116,20 +116,21 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
             
             <div class="col-sm-12 col-md-12 col-lg-4">
 
-                <p>
+                <div class="radio-custom radio-warning">
                     <input name="group1" type="radio" id="test-regularizacion-<?=$idUser?>" value="regularizacion" onclick="statusLocalidad($(this));" checked="checked" /> 
                     <label for="test-regularizacion-<?=$idUser?>">Regularizacion</label>
-                </p>
-                <p>
-                    <input name="group1" type="radio" id="test-renovacion-<?=$idUser?>" value="renovacion" onclick="statusLocalidad($(this));" /> 
+                </div>
+
+                <div class="radio-custom radio-warning">
+                    <input name="group1" type="radio" id="test-renovacion-<?=$idUser?>" value="renovacion" onclick="statusLocalidad($(this));" />  
                     <label for="test-renovacion-<?=$idUser?>">Renovacion</label>
-                </p>
+                </div>
 
                 <?= $form->field($model, 'b_status_localidad')->hiddenInput()->label(false) ?>
 
                 <?= $form->field($model, 'num_renta_actual')->textInput() ?>
 
-                <?= $form->field($model, 'num_incremento_autorizado')->textInput(['value'=>$porcentajeAbogado->num_porcentaje, 'disabled'=>true]) ?>
+                <?= $form->field($model, 'num_incremento_autorizado')->textInput(['value'=>$porcentajeAbogado->num_porcentaje]) ?>
 
                 <?= $form->field($model, 'num_pretencion_renta')->textInput(['disabled'=>true]) ?>
 
@@ -153,7 +154,7 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                     ]
                 ]);?>
 
-                <?= $form->field($model, 'b_problemas_acceso')->dropDownList(['1'=>'Sí', '0'=>"No"]) ?>
+                <?= $form->field($model, 'b_problemas_acceso')->dropDownList([ '0'=>"No", '1'=>'Sí']) ?>
 
                 <?= Html::submitButton('<i class="icon wb-plus"></i> Guardar', ['class' => 'btn btn-success btn-form-save']) ?>
                 
@@ -237,7 +238,11 @@ $(document).ready(function(){
             incremento = rentaActual * porce;
             total = parseInt(rentaActual) + parseInt(incremento);
 
-            $('#entlocalidades-num_pretencion_renta').val(total);
+            if(porcentaje > 1){
+                $('#entlocalidades-num_pretencion_renta').val(total);
+            }else{
+                $('#entlocalidades-num_pretencion_renta').val(0);
+            }
         }
     });
 
@@ -257,11 +262,10 @@ $(document).ready(function(){
 
 function statusLocalidad(input){
     if(input.val() == 'renovacion'){
+        $('#entlocalidades-num_pretencion_renta').val('0');
         $('.field-entlocalidades-num_incremento_autorizado').css('display', 'none');
         $('.field-entlocalidades-num_pretencion_renta').css('display', 'none');
         $('#entlocalidades-b_status_localidad').val('2');
-
-        ('#entlocalidades-num_pretencion_renta').val('');
     }else{
         $('.field-entlocalidades-num_incremento_autorizado').css('display', 'block');
         $('.field-entlocalidades-num_pretencion_renta').css('display', 'block');
@@ -274,7 +278,11 @@ function statusLocalidad(input){
         incremento = rentaActual * porce;
         total = parseInt(rentaActual) + parseInt(incremento);
 
-        $('#entlocalidades-num_pretencion_renta').val(total);
+        if(rentaActual > 1){
+            $('#entlocalidades-num_pretencion_renta').val(total);
+        }else{
+            $('#entlocalidades-num_pretencion_renta').val(0);
+        }
     }
 }
 

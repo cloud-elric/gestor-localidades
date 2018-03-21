@@ -258,7 +258,6 @@ class UsuariosController extends Controller
     public function actionCambiarPass($token = null){
         if($token){
             $user = EntUsuarios::find()->where(['txt_token'=>$token])->one();
-            Yii::$app->getUser()->login($user);
             
             if($user->txt_password_hash){
 
@@ -271,8 +270,11 @@ class UsuariosController extends Controller
                     $user->generateAuthKey();
                 }
                 if($user->save()){
+                    Yii::$app->getUser()->login($user);
                     
-                    return $this->redirect(['usuarios/index']);
+                    return $this->redirect(['localidades/index']);
+                }else{
+                    print_r($user);exit;
                 }
             }else{
                 $user->scenario = 'cambiarPass';

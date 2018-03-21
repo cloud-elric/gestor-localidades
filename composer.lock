@@ -886,16 +886,16 @@
         },
         {
             "name": "webcreate/jquery-ias",
-            "version": "v2.2.3",
+            "version": "v2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webcreate/infinite-ajax-scroll.git",
-                "reference": "1deffb3b56a170098a53a06aeff66674146c09b6"
+                "reference": "181edf2a80e6515c38146c28b3222bf515fb5a35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webcreate/infinite-ajax-scroll/zipball/1deffb3b56a170098a53a06aeff66674146c09b6",
-                "reference": "1deffb3b56a170098a53a06aeff66674146c09b6",
+                "url": "https://api.github.com/repos/webcreate/infinite-ajax-scroll/zipball/181edf2a80e6515c38146c28b3222bf515fb5a35",
+                "reference": "181edf2a80e6515c38146c28b3222bf515fb5a35",
                 "shasum": ""
             },
             "type": "library",
@@ -907,12 +907,12 @@
             "authors": [
                 {
                     "name": "fieg",
-                    "email": "jeroen@fieg.nl",
+                    "email": "jeroen@webcreate.nl",
                     "homepage": "http://webcreate.nl"
                 }
             ],
-            "description": "Infinite AJAX Scroll: A jQuery plugin that turns your server-side pagination into an infinite scrolling one using AJAX",
-            "homepage": "http://infiniteajaxscroll.com",
+            "description": "Infinite Ajax Scroll: A jQuery plugin that turns your server-side pagination into an infinite scrolling one using AJAX",
+            "homepage": "https://infiniteajaxscroll.com",
             "keywords": [
                 "ajax",
                 "ias",
@@ -922,7 +922,7 @@
                 "scroll",
                 "scrolling"
             ],
-            "time": "2017-06-29T21:13:27+00:00"
+            "time": "2018-03-16T13:18:35+00:00"
         },
         {
             "name": "yiisoft/yii2",
@@ -1363,6 +1363,7 @@
         },
         {
             "name": "codeception/phpunit-wrapper",
+<<<<<<< HEAD
             "version": "6.0.7",
             "source": {
                 "type": "git",
@@ -1373,6 +1374,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/Codeception/phpunit-wrapper/zipball/d020db336c52af4498aefe5905a17333b26486c8",
                 "reference": "d020db336c52af4498aefe5905a17333b26486c8",
+=======
+            "version": "6.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Codeception/phpunit-wrapper.git",
+                "reference": "e18f3ea1f841bfd2cecaf6e183e584127b9d467b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Codeception/phpunit-wrapper/zipball/e18f3ea1f841bfd2cecaf6e183e584127b9d467b",
+                "reference": "e18f3ea1f841bfd2cecaf6e183e584127b9d467b",
+>>>>>>> dev
                 "shasum": ""
             },
             "require": {
@@ -1405,7 +1418,11 @@
                 }
             ],
             "description": "PHPUnit classes used by Codeception",
+<<<<<<< HEAD
             "time": "2018-03-13T02:15:58+00:00"
+=======
+            "time": "2018-03-16T10:17:47+00:00"
+>>>>>>> dev
         },
         {
             "name": "codeception/specify",

@@ -272,7 +272,9 @@ $(document).ready(function(){
                 success: function(resp){
                     if(resp.status == 'success'){
                         console.log('Asignacion correcta');
-                        //swal('Good job!', 'You clicked the button!', 'success');
+                        // swal('Good job!', 'You clicked the button!', 'success');
+                        // Display a success toast, with a title
+                        toastr.success('Se ha asignado la localidad', 'Se mando un email de notificacion');
                     }
                 }
             });
@@ -293,7 +295,9 @@ $(document).ready(function(){
                 success: function(resp){
                     if(resp.status == 'success'){
                         console.log('Eliminacion correcta');
-                        //swal('Deleted!', 'Your imaginary file has been deleted.', 'success');
+                        //wal('Deleted!', 'Your imaginary file has been deleted.', 'success');
+                        // Display a success toast, with a title
+                        toastr.success('Se elimino correctamente al usuario');
                     }
                 }
             });
