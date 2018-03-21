@@ -23,11 +23,11 @@ use app\models\CatEstados;
 
     <?php // $form->field($model, 'id_localidad')->textInput(['maxlength' => true]) ?>
 
-    <div class="col-sm-12 col-md-6 col-lg-4">
+    <div class="col-sm-12 col-md-4 col-lg-4">
         <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true, "class"=>"panel-search-form-input", "placeholder"=>"Buscar por nombre"])->label(false) ?>    
     </div>
 
-    <div class="col-sm-12 col-md-6 col-lg-3">
+    <div class="col-sm-12 col-md-3 col-lg-3">
         <?= $form->field($model, 'id_estado')->dropDownList(ArrayHelper::map(CatEstados::find()->orderBy('txt_nombre')->asArray()->all(), 'id_estado', 'txt_nombre'),['prompt' => 'Seleccionar estado', "class"=>"panel-search-form-select"])->label(false) ?>
     </div>
 
@@ -35,7 +35,7 @@ use app\models\CatEstados;
 
     <?php // $form->field($model, 'txt_token')->textInput(['maxlength' => true]) ?>
 
-    <div class="col-sm-12 col-md-5 col-lg-4">
+    <div class="col-sm-12 col-md-4 col-lg-4">
         <?= $form->field($model, 'txt_arrendador')->textInput(['maxlength' => true, "class"=>"panel-search-form-input", "placeholder"=>"Cliente"])->label(false) ?>
     </div>
     

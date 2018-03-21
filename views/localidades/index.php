@@ -80,7 +80,7 @@ $this->registerCssFile(
             ]); ?>
 
             <div class="row mt-30">
-                <div class="col-md-3 offset-9">
+                <div class="col-md-3 offset-md-9">
                 
                     <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
                         <?= Html::a('<i class="icon wb-plus"></i> Crear Localidades', ['create'], ['class' => 'btn btn-add no-pjax']) ?>
@@ -191,10 +191,11 @@ $this->registerCssFile(
                     'label'=>'Acciones',
                     'format'=>'raw',
                     'value'=>function($data){
-                        $acciones = Html::a('<i class="icon wb-eye" aria-hidden="true"></i>', ['localidades/view/'.$data->id_localidad], ["class"=>"btn btn-icon btn-primary btn-outline no-pjax run-slide-panel"]);
-                        $acciones .= Html::a('<i class="icon wb-list" aria-hidden="true"></i>', ['/localidades/ver-tareas-localidad?id='.$data->id_localidad], ["class"=>"btn btn-icon btn-primary btn-outline no-pjax run-slide-panel"]); 
-
-                        return $acciones;
+                        return '<div class="panel-listado-acctions">
+                            <a href="'.Url::base().'/localidades/view/'.$data->id_localidad.'" class="btn btn-icon btn-success btn-outline panel-listado-acction acction-detail no-pjax run-slide-panel"><i class="icon wb-eye" aria-hidden="true"></i></a>
+                            <a href="'.Url::base().'/localidades/ver-tareas-localidad?id='.$data->id_localidad.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel"><i class="icon wb-list" aria-hidden="true"></i></a>
+                        </div>
+                        ';
                     }
                     
                 ]
