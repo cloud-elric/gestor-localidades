@@ -11,6 +11,7 @@ use yii\widgets\ActiveForm;
 use yii\web\View;
 
 $usuario = EntUsuarios::getIdentity();
+$isAbogado = $usuario->txt_auth_item == ConstantesWeb::ABOGADO;
 
 $this->registerCssFile(
     '@web/webAssets/templates/classic/global/vendor/dropify/dropify.css',
@@ -42,7 +43,10 @@ $this->registerCssFile(
                         <div class="col-md-12 col">
                             
                             <div class="ent-localidades-view-panel-int">
-
+                                <?php
+                                if($isAbogado){
+                                ?>
+                                <!--Botón para generar nueva tarea-->
                                 <div class="row row-no-border">
                                     <div class="col-sm-6 offset-sm-6 col-md-6 offset-md-6">
                                         <button data-token="<?=$localidad->id_localidad?>" class="btn btn-warning btn-block js-open-modal-tarea">
@@ -50,6 +54,11 @@ $this->registerCssFile(
                                         </button>
                                     </div>
                                 </div>
+                                <!--Botón para generar nueva tarea fin-->
+                                <?php
+                                }
+                                ?>
+
                                 <div class="row row-no-border">
                                     
                                     <div class="col-md-12">
@@ -58,7 +67,6 @@ $this->registerCssFile(
                                             if(count($tareas)==0){
                                                 echo "<h2>No hay tareas</h2>";
                                             }
-
 
                                             foreach($tareas as $tarea){
                                             $hasArchivo = $tarea->id_tipo==ConstantesWeb::TAREA_ARCHIVO && $tarea->txt_path;
@@ -70,11 +78,25 @@ $this->registerCssFile(
                                                     <div class="row row-no-border">
 
                                                         <div class="col-xs-8 col-sm-8 col-md-8">
+                                                            <?php
+                                                            if($isAbogado){
+                                                            ?>
                                                             <div class="checkbox-custom checkbox-success">
                                                                 <input type="checkbox" name="checkbox">
+                                                               
                                                                 <label class="task-title"><?=$tarea->txt_nombre?></label>
                                                             </div>
+                                                            <?php
+                                                            }else{?>
+                                                                <p><?=$tarea->txt_nombre?></p>
+                                                            <?php
+                                                            }
+                                                            ?>
+
                                                         </div>
+                                                        <?php
+                                                        if($isAbogado){
+                                                        ?>
                                                         <div class="col-xs-2 col-sm-2 col-md-2 text-right">
                                                             <select multiple='multiple' class='plugin-selective-tareas' data-localidad="<?=$localidad->id_localidad?>" data-id='<?=$tarea->id_tarea?>' data-json='[]'></select> 
                                                         </div>
@@ -82,9 +104,14 @@ $this->registerCssFile(
                                                             <?= Html::a(' <i class="icon wb-attach-file" aria-hidden="true"></i>
                                                                             ', ['tareas/descargar', 'id' => $tarea->id_tarea,], ['target' => '_blank', 'class' => 'btn btn-success btn-outline']);?>
                                                         </div>
-                                                
+                                                        <?php
+                                                        }
+                                                        ?>    
                                                     </div>
                                                    
+                                                    <?php
+                                                    if(!$isAbogado){
+                                                    ?>    
                                                     <div class="row row-no-border">
                                                         <div class="col-md-12">
                                                             <?php
@@ -116,7 +143,10 @@ $this->registerCssFile(
                                                             ActiveForm::end();
                                                             ?>
                                                         </div>
-                                                    </div> 
+                                                    </div>
+                                                    <?php
+                                                    }
+                                                    ?>  
                                                 </div>
                                                 
                                             </li>
