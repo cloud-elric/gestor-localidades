@@ -12,6 +12,8 @@ use app\models\Dropbox;
 use yii\web\UploadedFile;
 use app\models\EntLocalidades;
 use app\modules\ModUsuarios\models\Utils;
+use app\models\ResponseServices;
+use app\modules\ModUsuarios\models\EntUsuarios;
 
 /**
  * TareasController implements the CRUD actions for WrkTareas model.
@@ -61,19 +63,41 @@ class TareasController extends Controller
         ]);
     }
 
+    public function actionCrearTarea(){
+        $respuesta = new ResponseServices();
+        $model = new WrkTareas();
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())){
+            $model->id_usuario = EntUsuarios::getUsuarioLogueado()->id_usuario;
+            if($model->save()){ 
+                $respuesta->status = "success";
+                $respuesta->message = "Tarea guardada";
+                
+            }else{
+                $respuesta->message = "No se pudo guardar la tarea";
+                $respuesta->result = $model->errors;
+            }
+
+        }else{
+            $respuesta->message = "No se enviaron los parametros necesarios";
+            $respuesta->result = $_POST;
+        }
+
+        return $respuesta;
+    }
+
     /**
      * Creates a new WrkTareas model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($idLoc)
+    public function actionCreate($idTar)
     {
         $idUser = Yii::$app->user->identity->id_usuario;
         $model = new WrkTareas();
 
         if ($model->load(Yii::$app->request->post())){
 
-            /*$fileDropbox = UploadedFile::getInstance($model, 'file');
+            $fileDropbox = UploadedFile::getInstance($model, 'file');
 
             $dropbox = Dropbox::subirArchivo($fileDropbox);
             $decodeDropbox = json_decode(trim($dropbox), TRUE);
@@ -81,7 +105,7 @@ class TareasController extends Controller
             
             $model->txt_nombre = $decodeDropbox['name'];         
             $model->txt_path = $decodeDropbox['path_display'];            
-            */
+            
 
             if($model->save()){
                 
@@ -190,6 +214,9 @@ class TareasController extends Controller
 
         $dropbox = Dropbox::descargarArchivo($tarea->txt_path);
         $decodeDropbox = json_decode(trim($dropbox), TRUE);
+
+        print_r($decodeDropbox);
+        exit;
 
         return $this->redirect($decodeDropbox['link']);
     }

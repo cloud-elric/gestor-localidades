@@ -36,6 +36,7 @@ class AppAssetClassicCore extends AssetBundle
         'fonts/font-awesome/font-awesome.css',
         'fonts/octicons/octicons.css',
         'http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic',
+        'vendor/toastr/toastr.css'
      
     ];
     public $js = [
@@ -53,6 +54,7 @@ class AppAssetClassicCore extends AssetBundle
         'vendor/slidepanel/jquery-slidePanel.js',
         'vendor/jquery-placeholder/jquery.placeholder.js',
         'vendor/bootstrap-sweetalert/sweetalert.js',
+        'vendor/toastr/toastr.js',
         'js/State.js',
         'js/Component.js',
         'js/Plugin.js',

@@ -250,6 +250,7 @@ $(document).ready(function(){
         var elemento = $(this);
         //console.log(elemento.data('json'));
         elemento.selective({
+          closeOnSelect: true , 
           namespace: 'addMember',
           selected: elemento.data('json'),
           local: member,
@@ -257,9 +258,9 @@ $(document).ready(function(){
               //alert(elemento.val());
           },
           onAfterItemAdd: function(e){
-            //alert(elemento.val());
-            //alert(elemento.data('id'));
             var idLoc = elemento.data('id');
+            $('*[data-key=\"'+idLoc+'\"] .addMember-trigger-button').hide();
+
             var idUser = elemento.val();
 
             $.ajax({
@@ -277,6 +278,7 @@ $(document).ready(function(){
           },
           onAfterItemRemove: function(e){
             var idLoc = elemento.data('id');
+            $('*[data-key=\"'+idLoc+'\"] .addMember-trigger-button').show();
             var idUser = elemento.val();
             if(!idUser){
                 idUser = -1;
@@ -306,7 +308,12 @@ $(document).ready(function(){
               // i++;
             },
             triggerButton: function triggerButton() {
-              return '<div class=\"' + this.namespace + '-trigger-button\"><i class=\"wb-plus\"></i></div>';
+                var isAsignado = 'block';
+                
+                if(elemento.data('json').length>0){
+                    var isAsignado = 'none';
+                }
+              return '<div style=\"display:'+isAsignado+'\" class=\"' + this.namespace + '-trigger-button\"><i class=\"wb-plus\"></i></div>';
             },
             listItem: function listItem(data) {
               return '<li class=\"' + this.namespace + '-list-item\"><img class=\"avatar\" src=\"' + data.avatar + '\">' + data.name + '</li>';

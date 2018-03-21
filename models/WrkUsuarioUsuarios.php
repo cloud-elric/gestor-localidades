@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\modules\ModUsuarios\models\EntUsuarios;
 
 /**
  * This is the model class for table "wrk_usuario_usuarios".
@@ -41,5 +42,13 @@ class WrkUsuarioUsuarios extends \yii\db\ActiveRecord
             'id_usuario_padre' => 'Id Usuario Padre',
             'id_usuario_hijo' => 'Id Usuario Hijo',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsuarioHijo()
+    {
+        return $this->hasOne(EntUsuarios::className(), ['id_usuario' => 'id_usuario_hijo']);
     }
 }

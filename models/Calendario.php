@@ -62,6 +62,21 @@ class Calendario
 
     }
 
+    public static function getMonthNameComplete($string=null)
+    {
+        // Inicializamos la fecha y hora actual
+
+        $tiempo = time();
+        if($string){
+            $tiempo = strtotime($string);
+        }
+        $fecha = date('n', $tiempo);
+        $nombreMes = self::nombreMesCompleto($fecha);
+
+        return $nombreMes;
+
+    }
+
     public static function getYearLastDigit($string=null)
     {
 
@@ -135,6 +150,54 @@ class Calendario
                 break;
             case '12' :
                 $nombreMes = 'Dic';
+                break;
+            default :
+                # code...
+                break;
+        }
+
+        return $nombreMes;
+    }
+
+    public static function nombreMesCompleto($fecha)
+    {
+        $nombreMes = '';
+        switch ($fecha) {
+            case '1' :
+                $nombreMes = 'Enero';
+                break;
+            case '2' :
+                $nombreMes = 'Febrero';
+                break;
+            case '3' :
+                $nombreMes = 'Marzo';
+                break;
+            case '4' :
+                $nombreMes = 'Abril';
+                break;
+            case '5' :
+                $nombreMes = 'Mayo';
+                break;
+            case '6' :
+                $nombreMes = 'Junio';
+                break;
+            case '7' :
+                $nombreMes = 'Julio';
+                break;
+            case '8' :
+                $nombreMes = 'Agosto';
+                break;
+            case '9' :
+                $nombreMes = 'Septiembre';
+                break;
+            case '10' :
+                $nombreMes = 'Octubre';
+                break;
+            case '11' :
+                $nombreMes = 'Noviembre';
+                break;
+            case '12' :
+                $nombreMes = 'Diciembre';
                 break;
             default :
                 # code...

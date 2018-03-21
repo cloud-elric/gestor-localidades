@@ -4,8 +4,11 @@ use yii\widgets\ListView;
 use app\models\ConstantesWeb;
 use app\modules\ModUsuarios\models\EntUsuarios;
 use yii\bootstrap\Html;
-use yii\web\View;
+
 use app\assets\AppAsset;
+
+use yii\widgets\ActiveForm;
+use yii\web\View;
 
 $usuario = EntUsuarios::getIdentity();
 
@@ -20,6 +23,7 @@ $this->registerCssFile(
 );
 
 ?>
+<div style="display:none;" id="json-colaboradores-<?=$localidad->id_localidad?>" data-colaboradores='<?=$jsonAgregar?>'></div>
 <header class="slidePanel-header ryg-header">
   <div class="slidePanel-actions" aria-label="actions" role="group">
     <button type="button" class="btn btn-pure btn-inverse slidePanel-close actions-top icon wb-close"
@@ -33,6 +37,15 @@ $this->registerCssFile(
         <div class="ent-localidades-view">
             <div class="ent-localidades-view-body">
                 <div class="ent-localidades-view-panel">
+                   
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button data-token="<?=$localidad->id_localidad?>" class="btn btn-success btn-block js-open-modal-tarea">
+                                Agregar tarea
+                            </button>
+                        </div>
+                    </div>
+                   
                     <div class="row">
                         <div class="col-md-12 col">
                             
@@ -51,12 +64,14 @@ $this->registerCssFile(
                                             $hasArchivo = $tarea->id_tipo==ConstantesWeb::TAREA_ARCHIVO && $tarea->txt_path;
                                             ?>
                                             <li class="list-group-item">
+                                                
                                                 <div class="checkbox-custom checkbox-primary">
                                                     <input type="checkbox" name="checkbox">
                                                     <label class="task-title"><?=$tarea->txt_nombre?></label>
                                                 </div>
                                                 <div class="w-full">
-                                                    
+                                                    <select multiple='multiple' class='plugin-selective-tareas' data-localidad="<?=$localidad->id_localidad?>" data-id='<?=$tarea->id_tarea?>' data-json='[]'></select> 
+                                                   
                                                     <div class="task-badges">
                                                         <?= Html::a('<span class="task-badge task-badge-attachments icon wb-paperclip">
                                                                     Descargar archivo
@@ -64,20 +79,33 @@ $this->registerCssFile(
     
                                                     </div>
                                                    
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-12">
                                                         <?php
+                                                        
+                                                        $form = ActiveForm::begin([
+                                                            'id'=>'form-tarea-'.$tarea->id_tarea,
+                                                            'action'=>'tareas/create?idTar='.$tarea->id_tarea,
+                                                        ]); 
+                                                        
                                                         if($tarea->id_tipo==ConstantesWeb::TAREA_ARCHIVO){
                                                         ?>
-                                                        <input type="file" id="input-file-now" data-plugin="dropify" data-allowed-file-extensions="xlsx" data-default-file="">
+                                                        <input type="file" id="input-file-now" data-plugin="dropify"   data-default-file="">
                                                         <?php
                                                         }else if($tarea->id_tipo==ConstantesWeb::TAREA_ABIERTO){
                                                         ?>
-                                                        <textarea></textarea>   
+                                                        <div class="form-group">
+                                                            
+                                                            <textarea style="resize:none" class="form-control"></textarea>   
+                                                        </div>
+                                                        
                                                         <?php
                                                         }
+                                                        echo Html::submitButton("Guardar tarea", ["id"=>"btn-guardar-form-tarea-".$tarea->id_tarea, "class"=>"btn btn-success"]);
+                                                        ActiveForm::end();
                                                         ?>
                                                     </div> 
                                                 </div>
+                                                
                                             </li>
                                             <?php
                                             }
@@ -85,19 +113,7 @@ $this->registerCssFile(
                                         </ul>
                                     </div>   
                                 </div>
-                                <?php
-                                if($usuario->txt_auth_item==ConstantesWeb::ABOGADO){
-                                ?>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <button class="btn btn-success btn-block">
-                                            Agregar tarea
-                                        </button>
-                                    </div>
-                                </div>
-                                <?php
-                                }
-                                ?>
+                                
                             </div>
                         </div>
                     </div>

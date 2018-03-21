@@ -405,7 +405,29 @@ class LocalidadesController extends Controller
         $localidad = $this->findModel($id);
         $tareas = $localidad->wrkTareas;
 
-        return $this->renderAjax("ver-tareas-localidad-clear", ["localidad"=>$localidad, "tareas"=>$tareas]);
+        $directorAsignado = WrkUsuariosLocalidades::find()->where(["id_localidad"=>$id])->one();
+        $colaboradores = [];
+        if($directorAsignado){
+            $colaboradores = WrkUsuarioUsuarios::find()->where(["id_usuario_padre"=>$directorAsignado->id_usuario])->all();
+        }
+
+        $user = Yii::$app->user->identity;
+        $selected = [];
+        $i = 0;
+        foreach($colaboradores as $colaborador){
+            $colaborador = $colaborador->usuarioHijo;
+            $selected[$i]['id'] = $colaborador->id_usuario;
+            $selected[$i]['name'] = $colaborador->nombreCompleto;
+            $selected[$i]['avatar'] = $colaborador->imageProfile;
+            $i++;
+        }
+        
+
+        $jsonAgregar = json_encode($selected);
+        
+        
+
+        return $this->renderAjax("ver-tareas-localidad-clear", ["localidad"=>$localidad, "tareas"=>$tareas, "jsonAgregar"=>$jsonAgregar]);
 
         exit;
         
