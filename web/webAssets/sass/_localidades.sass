@@ -58,7 +58,6 @@
 						.form-group
 							margin-bottom: 0
 							+respond-to(xs)
-								background-color: red
 								margin-bottom: 12px
 
 						.panel-search-form-input,
@@ -107,10 +106,12 @@
 						&:hover
 							background-color: rgba($ryg-accent,.45)
 
-						// +respond-to(md)
-						// 	background-color: red
-						// +respond-to(tl)
-						// 	background-color: purple
+						+respond-to(md)
+							padding: .5rem .3rem
+						+respond-to(tl)
+							padding: .5rem .15rem
+						+respond-to(xs)
+							padding: .5rem 1rem
 
 			.panel-table
 				// background-color: red
@@ -215,6 +216,11 @@
 									align-items: center
 									display: flex
 									flex-wrap: wrap
+									justify-content: center
+									+respond-to(xs)
+										flex-direction: column
+									+respond-to(sl)
+										flex-direction: row
 									.panel-listado-acction
 										align-items: center
 										border-radius: 3px
@@ -231,6 +237,14 @@
 											font-size: .85rem
 										&:active
 											background-color: transparent
+
+										+respond-to(xs)
+											margin-bottom: .8rem
+											margin-right: 0
+										+respond-to(sl)
+											margin-bottom: 0
+											margin-right: .8rem
+
 										// &.acction-detail
 										// 	// background-color: $ryg-aqua
 										// 	border-color: $ryg-aqua
@@ -253,9 +267,10 @@
 					font-weight: $regular
 					margin: 0 8px
 
-/*  Page Crear
+/*  Page Crear - Actualizar
 	======================================= */
-.ent-localidades-create
+.ent-localidades-create,
+.ent-localidades-update
 	.ent-localidades-form
 		padding: 40px 0 60px
 		form
@@ -271,7 +286,8 @@
 				select,
 				textarea,
 				.form-control,
-				.form-control:disabled
+				.form-control:disabled,
+				.form-control[readonly]
 					background-color: $ryg-second
 					border-color: $ryg-second
 					font-weight: $light
@@ -334,7 +350,30 @@
 				border-color: $ryg-accent
 				color: $ryg-second
 				width: 100%
-	
+
+			.form-control,
+			.form-control:disabled,
+			.form-control[readonly]
+				background-color: $ryg-second
+				border-color: $ryg-second
+
+
+/*  Page Actualizar
+	======================================= */
+.ent-localidades-update
+	.ent-localidades-update-history
+		// background-color: red
+		.panel-history
+			background-color: rgba($ryg-second,.65)
+			.panel-heading
+				background-color: $ryg-second
+				padding: 12px 16px
+				h3
+					color: $ryg-aqua
+					margin: 0
+			.panel-body
+				padding: 24px 16px
+
 
 /*  Page View
 	======================================= */
@@ -410,6 +449,9 @@
 					&:last-child
 						border-bottom: none
 
+
+/*  Slide Paneles
+	======================================= */	
 .slidePanel
 	+box-shadow(-6px 0 4px 0 rgba($ryg-second, .2))
 .slidePanel-right,
