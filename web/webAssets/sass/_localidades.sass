@@ -57,6 +57,9 @@
 						width: 100%
 						.form-group
 							margin-bottom: 0
+							+respond-to(xs)
+								background-color: red
+								margin-bottom: 12px
 
 						.panel-search-form-input,
 						.panel-search-form-select
@@ -103,6 +106,11 @@
 						&:focus,
 						&:hover
 							background-color: rgba($ryg-accent,.45)
+
+						// +respond-to(md)
+						// 	background-color: red
+						// +respond-to(tl)
+						// 	background-color: purple
 
 			.panel-table
 				// background-color: red
@@ -209,22 +217,28 @@
 									flex-wrap: wrap
 									.panel-listado-acction
 										align-items: center
-										border-radius: 50%
+										border-radius: 3px
 										display: flex
-										height: 24px
+										height: 26px
 										justify-content: center
 										margin-right: .8rem
 										text-decoration: none
-										width: 24px
+										width: 26px
 										&:last-child
 											margin-right: 0
 										i
-											color: $ryg-primary
+											// color: $ryg-primary
 											font-size: .85rem
-										&.acction-edit
-											background-color: $ryg-aqua
-										&.acction-delete
-											background-color: $ryg-accent
+										&:active
+											background-color: transparent
+										// &.acction-detail
+										// 	// background-color: $ryg-aqua
+										// 	border-color: $ryg-aqua
+										// 	color: $ryg-aqua
+										// &.acction-tarea
+										// 	// background-color: $ryg-accent
+										// 	border-color: $ryg-accent
+										// 	color: $ryg-accent
 			
 			.summary
 				color: $ryg-aqua
@@ -351,3 +365,89 @@
 					padding-top: 8px
 					&:last-child
 						border-bottom: none
+
+.slidePanel
+	+box-shadow(-6px 0 4px 0 rgba($ryg-second, .2))
+.slidePanel-right,
+.slidePanel-left
+	background-color: $ryg-second!important
+
+.slidePanel-header
+	background-color: $ryg-second!important
+	padding: 40px 30px
+	.slidePanel-actions
+		position: absolute
+		right: 20px
+		top: 0
+	h1
+		color: $ryg-aqua
+		text-align: center
+
+.slidePanel-content
+	.page-content
+		padding: 0 30px
+	.ent-localidades-view-panel-int
+		background-color: rgba($ryg-primary,.35)!important
+	.row-padding
+		padding: 4px 38px
+	.list-group-item
+		background-color: transparent
+		padding-left: 0
+		padding-right: 0
+	.btn-warning
+		background-color: $ryg-accent
+		border-color: $ryg-accent
+		color: $ryg-second
+	.task-badges
+		a
+			color: $ryg-aqua
+
+	.dropify-wrapper
+		background-color: transparent
+		border-color: $ryg-accent
+		&:hover
+			background-color: rgba($ryg-accent,.1)
+			background-image: linear-gradient(-45deg, rgba($white,.15) 25%, transparent 25%, transparent 50%, rgba($white,.15) 50%, rgba($white,.15) 75%, transparent 75%, transparent)
+		.dropify-message
+			color: $white
+			&:active,
+			&:hover,
+			&:focus
+				background-color: rgba($ryg-accent,.45)
+				cursor: pointer
+				outline: none
+		.dropify-preview
+			background-color: $ryg-second
+
+	textarea.form-control
+		background-color: transparent
+		border: 1px solid $ryg-accent
+		font-size: 1.1rem
+		font-weight: $light
+		min-height: 120px
+		padding: 16px
+		resize: none
+
+	.row.row-no-border
+		// background-color: red
+		border-bottom: none!important
+		border-top: none!important
+		.list-group-item
+			border-top: 1px solid $ryg-gray
+			margin-top: 12px
+			padding: 8px
+
+	.addMember
+		margin-top: 6px
+
+	.btn.btn-success.btn-outline
+		// color: $white
+		display: inline-block
+		height: 26px
+		margin-top: 8px
+		padding: 4px 0
+		text-align: center
+		vertical-align: middle
+		width: 26px
+		.icon
+			margin-right: 0

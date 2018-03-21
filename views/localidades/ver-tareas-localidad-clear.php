@@ -38,19 +38,19 @@ $this->registerCssFile(
             <div class="ent-localidades-view-body">
                 <div class="ent-localidades-view-panel">
                    
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button data-token="<?=$localidad->id_localidad?>" class="btn btn-success btn-block js-open-modal-tarea">
-                                Agregar tarea
-                            </button>
-                        </div>
-                    </div>
-                   
-                    <div class="row">
+                    <div class="row row-no-border">
                         <div class="col-md-12 col">
                             
                             <div class="ent-localidades-view-panel-int">
-                                <div class="row">
+
+                                <div class="row row-no-border">
+                                    <div class="col-sm-6 offset-sm-6 col-md-6 offset-md-6">
+                                        <button data-token="<?=$localidad->id_localidad?>" class="btn btn-warning btn-block js-open-modal-tarea">
+                                            <i class="icon wb-plus" aria-hidden="true"></i> Agregar tarea
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row row-no-border">
                                     
                                     <div class="col-md-12">
                                         <ul class="list-group taskboard-list ui-sortable">
@@ -65,44 +65,57 @@ $this->registerCssFile(
                                             ?>
                                             <li class="list-group-item">
                                                 
-                                                <div class="checkbox-custom checkbox-primary">
-                                                    <input type="checkbox" name="checkbox">
-                                                    <label class="task-title"><?=$tarea->txt_nombre?></label>
-                                                </div>
                                                 <div class="w-full">
-                                                    <select multiple='multiple' class='plugin-selective-tareas' data-localidad="<?=$localidad->id_localidad?>" data-id='<?=$tarea->id_tarea?>' data-json='[]'></select> 
-                                                   
-                                                    <div class="task-badges">
-                                                        <?= Html::a('<span class="task-badge task-badge-attachments icon wb-paperclip">
-                                                                    Descargar archivo
-                                                                    </span>', ['tareas/descargar', 'id' => $tarea->id_tarea,], ['target' => '_blank']);?>
-    
+
+                                                    <div class="row row-no-border">
+
+                                                        <div class="col-xs-8 col-sm-8 col-md-8">
+                                                            <div class="checkbox-custom checkbox-success">
+                                                                <input type="checkbox" name="checkbox">
+                                                                <label class="task-title"><?=$tarea->txt_nombre?></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-2 col-sm-2 col-md-2 text-right">
+                                                            <select multiple='multiple' class='plugin-selective-tareas' data-localidad="<?=$localidad->id_localidad?>" data-id='<?=$tarea->id_tarea?>' data-json='[]'></select> 
+                                                        </div>
+                                                        <div class="col-xs-2 col-sm-2 col-md-2 text-right">
+                                                            <?= Html::a(' <i class="icon wb-attach-file" aria-hidden="true"></i>
+                                                                            ', ['tareas/descargar', 'id' => $tarea->id_tarea,], ['target' => '_blank', 'class' => 'btn btn-success btn-outline']);?>
+                                                        </div>
+                                                
                                                     </div>
                                                    
-                                                    <div class="col-md-12">
-                                                        <?php
-                                                        
-                                                        $form = ActiveForm::begin([
-                                                            'id'=>'form-tarea-'.$tarea->id_tarea,
-                                                            'action'=>'tareas/create?idTar='.$tarea->id_tarea,
-                                                        ]); 
-                                                        
-                                                        if($tarea->id_tipo==ConstantesWeb::TAREA_ARCHIVO){
-                                                        ?>
-                                                        <input type="file" id="input-file-now" data-plugin="dropify"   data-default-file="">
-                                                        <?php
-                                                        }else if($tarea->id_tipo==ConstantesWeb::TAREA_ABIERTO){
-                                                        ?>
-                                                        <div class="form-group">
+                                                    <div class="row row-no-border">
+                                                        <div class="col-md-12">
+                                                            <?php
                                                             
-                                                            <textarea style="resize:none" class="form-control"></textarea>   
+                                                            $form = ActiveForm::begin([
+                                                                'id'=>'form-tarea-'.$tarea->id_tarea,
+                                                                'action'=>'tareas/create?idTar='.$tarea->id_tarea,
+                                                            ]); 
+                                                            
+                                                            if($tarea->id_tipo==ConstantesWeb::TAREA_ARCHIVO){
+                                                            ?>
+                                                            <input type="file" id="input-file-now" data-plugin="dropify"   data-default-file="">
+                                                            <?php
+                                                            }else if($tarea->id_tipo==ConstantesWeb::TAREA_ABIERTO){
+                                                            ?>
+                                                            <div class="form-group mb-0">
+                                                                <textarea style="resize:none" class="form-control" placeholder="Descripción"></textarea>   
+                                                            </div>
+
+                                                            <?php
+                                                            }
+                                                            ?>
+
+                                                            <div class="form-group text-right">
+                                                                <?=Html::submitButton("<i class='icon wb-file' aria-hidden='true'></i> Guardar tarea", ["id"=>"btn-guardar-form-tarea-".$tarea->id_tarea, "class"=>"btn btn-warning mt-20"]);?>
+                                                            </div>
+                                                            
+                                                            <?php
+                                                            ActiveForm::end();
+                                                            ?>
                                                         </div>
-                                                        
-                                                        <?php
-                                                        }
-                                                        echo Html::submitButton("Guardar tarea", ["id"=>"btn-guardar-form-tarea-".$tarea->id_tarea, "class"=>"btn btn-success"]);
-                                                        ActiveForm::end();
-                                                        ?>
                                                     </div> 
                                                 </div>
                                                 
