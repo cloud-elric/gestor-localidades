@@ -164,10 +164,11 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
         </div>
     </div>
 
+    <div class="ent-localidades-update-history">
     <?php if($historial){ ?>
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-info">
+                <div class="panel panel-history">
                     <div class="panel-heading">
                         <h3>Historial de estatus</h3>
                     </div>
@@ -186,7 +187,8 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
             </div>
         </div>
     <?php } ?>
-
+    </div>
+    
 <?php }else{ ?>
     <?= Html::beginForm([
             'localidades/index',
