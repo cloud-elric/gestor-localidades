@@ -97,13 +97,20 @@ $this->registerCssFile(
                                                         <?php
                                                         if($isAbogado){
                                                         ?>
-                                                        <div class="col-xs-2 col-sm-2 col-md-2 text-right">
-                                                            <select multiple='multiple' class='plugin-selective-tareas' data-localidad="<?=$localidad->id_localidad?>" data-id='<?=$tarea->id_tarea?>' data-json='[]'></select> 
-                                                        </div>
-                                                        <div class="col-xs-2 col-sm-2 col-md-2 text-right">
-                                                            <?= Html::a(' <i class="icon wb-attach-file" aria-hidden="true"></i>
-                                                                            ', ['tareas/descargar', 'id' => $tarea->id_tarea,], ['target' => '_blank', 'class' => 'btn btn-success btn-outline']);?>
-                                                        </div>
+                                                            <div class="col-xs-2 col-sm-2 col-md-2 text-right">
+                                                                <select multiple='multiple' class='plugin-selective-tareas' data-localidad="<?=$localidad->id_localidad?>" data-id='<?=$tarea->id_tarea?>' data-json='[]'></select> 
+                                                            </div>
+
+                                                            <?php
+                                                            if($hasArchivo){
+                                                            ?>
+                                                            <div class="col-xs-2 col-sm-2 col-md-2 text-right">
+                                                                <?= Html::a(' <i class="icon wb-attach-file" aria-hidden="true"></i>
+                                                                                ', ['tareas/descargar', 'id' => $tarea->id_tarea,], ['target' => '_blank', 'class' => 'btn btn-success btn-outline']);?>
+                                                            </div>
+                                                            <?php
+                                                            }
+                                                            ?>
                                                         <?php
                                                         }
                                                         ?>    
