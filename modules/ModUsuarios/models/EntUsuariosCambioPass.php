@@ -3,7 +3,7 @@
 namespace app\modules\ModUsuarios\models;
 
 use Yii;
-use app\modules\modUsuarios\models\Utils;
+use app\modules\ModUsuarios\models\Utils;
 
 /**
  * This is the model class for table "ent_usuarios_cambio_pass".
@@ -106,7 +106,7 @@ class EntUsuariosCambioPass extends \yii\db\ActiveRecord
      * @param string $t
      * @return NULL | EntUsuariosCambioPass
      */
-    public function getPeticionByToken($t){
+    public static function getPeticionByToken($t){
     	
     	$params = [':t'=>$t];
     	$where = 'txt_token=:t AND b_usado=1';

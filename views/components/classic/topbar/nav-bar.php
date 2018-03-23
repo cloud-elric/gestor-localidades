@@ -52,7 +52,7 @@ role="navigation">
             </span>
           </a>
           <div class="dropdown-menu" role="menu">
-            <a class="dropdown-item" href="<?=Url::base()?>/site/logout" role="menuitem"><i class="icon wb-power" aria-hidden="true"></i> Logout</a>
+            <a class="dropdown-item  no-pjax" href="<?=Url::base()?>/site/logout" role="menuitem"><i class="icon wb-power" aria-hidden="true"></i> Logout</a>
           </div>
         </li>
       </ul>

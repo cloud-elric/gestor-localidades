@@ -516,7 +516,7 @@
 
             function() {
               var $this = $(this);
-              var $item = $this.parents('li');
+              var $item = $this.parent('li');
               that.instance.itemRemove($item);
             }
           );

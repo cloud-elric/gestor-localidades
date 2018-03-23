@@ -37,7 +37,7 @@ $this->registerCssFile(
 ); 
 
 $this->registerJsFile(
-    '@web/webAssets/templates/classic/global/vendor/jquery-selective/jquery-selective.min.js',
+    '@web/webAssets/templates/classic/global/vendor/jquery-selective/jquery-selective.js',
     ['depends' => [AppAsset::className()]]
 );
 

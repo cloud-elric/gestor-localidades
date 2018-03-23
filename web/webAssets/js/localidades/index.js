@@ -34,47 +34,43 @@ function generarSelected(){
             elemento.selective({
               closeOnSelect: true , 
               namespace: 'addMember',
-              //selected: elemento.data('json'),
+              selected: elemento.data('json'),
               local: $("#json-colaboradores-"+token).data("colaboradores"),
               onAfterSelected: function(e){
                   //alert(elemento.val());
               },
               onAfterItemAdd: function(e){
-                var idLoc = elemento.data('id');
-                $('*[data-key=\"'+idLoc+'\"] .addMember-trigger-button').hide();
-    
+                var idTar = elemento.data('id');
                 var idUser = elemento.val();
-    
+                $('*[data-tareakey=\"'+idTar+'\"] .addMember-trigger-button').hide();
                 $.ajax({
-                    url: '',
-                    data: {idL: idLoc, idU: idUser},
+                    url: baseUrl+'localidades/asignar-usuarios-tareas',
+                    data: {idT: idTar, idU: idUser},
                     dataType: 'json',
                     type: 'POST',
                     success: function(resp){
                         if(resp.status == 'success'){
-                            console.log('Asignacion correcta');
-                            //swal('Good job!', 'You clicked the button!', 'success');
+                            console.log('Asignacion de tarea correcta');
                         }
                     }
                 });
               },
               onAfterItemRemove: function(e){
-                var idLoc = elemento.data('id');
-                $('*[data-key=\"'+idLoc+'\"] .addMember-trigger-button').show();
+                var idTar = elemento.data('id');
                 var idUser = elemento.val();
-                if(!idUser){
+                if(idUser.length==0){
                     idUser = -1;
                 }
-    
+
+                $('*[data-tareakey=\"'+idTar+'\"] .addMember-trigger-button').show();
                 $.ajax({
-                    url: '',
-                    data: {idL: idLoc, idU: idUser},
+                    url: baseUrl+'localidades/remover-asignacion-tarea',
+                    data: {idT: idTar, idU: idUser},
                     dataType: 'json',
                     type: 'POST',
                     success: function(resp){
                         if(resp.status == 'success'){
                             console.log('Eliminacion correcta');
-                            //swal('Deleted!', 'Your imaginary file has been deleted.', 'success');
                         }
                     }
                 });
@@ -140,7 +136,10 @@ $(document).on({
                 if(r.status=="success"){
                     $("#modal-crear-tarea").modal("hide");
                     document.getElementById("form-guardar-tarea").reset();
-                    message();
+                    //message();
+
+                    $(".js-tareas-contenedor-"+$("#wrktareas-id_localidad").val()).append(r.result);
+                    generarSelected();
                 }else{
                     swal("Espera", "Ocurrio un problema", "error");
                 }

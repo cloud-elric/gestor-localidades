@@ -9,6 +9,7 @@ use app\assets\AppAsset;
 
 use yii\widgets\ActiveForm;
 use yii\web\View;
+use app\models\WrkUsuariosTareas;
 
 $usuario = EntUsuarios::getIdentity();
 $isAbogado = $usuario->txt_auth_item == ConstantesWeb::ABOGADO;
@@ -62,16 +63,17 @@ $this->registerCssFile(
                                 <div class="row row-no-border">
                                     
                                     <div class="col-md-12">
-                                        <ul class="list-group taskboard-list ui-sortable">
+                                        <ul class="list-group taskboard-list ui-sortable js-tareas-contenedor-<?=$localidad->id_localidad?>">
                                             <?php 
                                             if(count($tareas)==0){
                                                 echo "<h2>No hay tareas</h2>";
                                             }
 
                                             foreach($tareas as $tarea){
+                                            
                                             $hasArchivo = $tarea->id_tipo==ConstantesWeb::TAREA_ARCHIVO && $tarea->txt_path;
                                             ?>
-                                            <li class="list-group-item">
+                                            <li class="list-group-item" data-tareakey="<?=$tarea->id_tarea?>">
                                                 
                                                 <div class="w-full">
 
@@ -98,7 +100,7 @@ $this->registerCssFile(
                                                         if($isAbogado){
                                                         ?>
                                                             <div class="col-xs-2 col-sm-2 col-md-2 text-right">
-                                                                <select multiple='multiple' class='plugin-selective-tareas' data-localidad="<?=$localidad->id_localidad?>" data-id='<?=$tarea->id_tarea?>' data-json='[]'></select> 
+                                                                <select multiple='multiple' class='plugin-selective-tareas' data-localidad="<?=$localidad->id_localidad?>" data-id='<?=$tarea->id_tarea?>' data-json='<?=$tarea->colaboradoresAsignados?>'></select> 
                                                             </div>
 
                                                             <?php

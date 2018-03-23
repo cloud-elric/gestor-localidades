@@ -69,8 +69,24 @@ class TareasController extends Controller
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())){
             $model->id_usuario = EntUsuarios::getUsuarioLogueado()->id_usuario;
             if($model->save()){ 
+                $templateItem = '<li class="list-group-item" data-tareakey="'.$model->id_tarea.'">                        
+                                    <div class="w-full">
+                                        <div class="row row-no-border">
+                                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                                <div class="checkbox-custom checkbox-success">
+                                                    <input type="checkbox" name="checkbox">
+                                                        <label class="task-title">'.$model->txt_nombre.'</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-2 col-sm-2 col-md-2 text-right">
+                                                <select multiple="multiple" class="plugin-selective-tareas" data-localidad="'.$model->id_localidad.'" data-id="'.$model->id_tarea.'" data-json="[]"/>
+                                            </div>                                       
+                                        </div>
+                                    </div>
+                                </li>';
                 $respuesta->status = "success";
                 $respuesta->message = "Tarea guardada";
+                $respuesta->result = $templateItem;
                 
             }else{
                 $respuesta->message = "No se pudo guardar la tarea";
