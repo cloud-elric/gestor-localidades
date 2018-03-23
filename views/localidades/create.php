@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'estatus' => $estatus,
         'historial' => $historial,
+        'monedas' => $monedas,
         'flag' => $flag  
     ]) ?>
 

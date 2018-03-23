@@ -134,6 +134,18 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
 
                 <?= $form->field($model, 'num_pretencion_renta')->textInput(['disabled'=>true]) ?>
 
+                <?php 
+                if($monedas){
+                    foreach($monedas as $moneda){
+                ?>
+                        <div class="radio-custom radio-warning">
+                            <input name="group2" type="radio" id="tipo-moneda-<?=$moneda->id_moneda?>" value="<?= $moneda->id_moneda ?>"/> 
+                            <label for="tipo-moneda-<?=$moneda->id_moneda?>"><?= $moneda->txt_siglas ?></label>
+                        </div>
+                <?php
+                    }
+                } ?>
+
                 <?= $form->field($model, 'fch_vencimiento_contratro')->widget(DatePicker::classname(), [
                     //'options' => ['placeholder' => 'Enter birth date ...'],
                     'type' => DatePicker::TYPE_INPUT,
