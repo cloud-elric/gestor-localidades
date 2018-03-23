@@ -142,12 +142,13 @@ $this->registerJsFile(
             }
           ],
           [
-            'attribute' => 'Editar',
+            'attribute' => 'Acciones',
             'format'=>'raw',
            
             'value'=>function($data){
-                
-              return '<a href="'.Url::base().'/usuarios/update/'.$data->id_usuario.'" class="btn btn-outline btn-success btn-sm"><i class="icon wb-edit"></i></a>';
+               $botonEditar =  '<a href="'.Url::base().'/usuarios/update/'.$data->id_usuario.'" class="btn btn-outline btn-success btn-sm"><i class="icon wb-edit"></i></a>';
+               $botonEnviarBienvenida = '<a href="'.Url::base().'/usuarios/update/'.$data->id_usuario.'" class="btn btn-outline btn-success btn-sm"><i class="icon wb-edit"></i></a>';
+              return $botonEditar.$botonEnviarBienvenida;
             }
           ]
         ],

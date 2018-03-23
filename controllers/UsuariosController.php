@@ -85,6 +85,8 @@ class UsuariosController extends Controller
         $auth = Yii::$app->authManager;
 
         $hijos = $auth->getChildRoles($usuario->txt_auth_item);
+
+        unset($hijos[$usuario->txt_auth_item]);
         ksort($hijos);
         $roles = AuthItem::find()->where(['in', 'name', array_keys($hijos)])->orderBy("name")->all();
 
@@ -108,6 +110,7 @@ class UsuariosController extends Controller
             if ($user = $model->signup()) {
 
                 $model->enviarEmailBienvenida();
+                
                 if($model->txt_auth_item == ConstantesWeb::ABOGADO){
                     $porcentajeRenta = new CatPorcentajeRentaAbogados();
                     $porcentajeRenta->id_usuario = $user->id_usuario;
@@ -119,10 +122,10 @@ class UsuariosController extends Controller
                     // Enviar correo
 					$utils = new Utils ();
 					// Parametros para el email
-					$parametrosEmail ['user'] = $user->getNombreCompleto();
+					$parametrosEmail ['user'] = $model->getNombreCompleto();
 					//$parametrosEmail ['abogado'] = $abogado->getNombreCompleto();
 					$parametrosEmail ['url'] = Yii::$app->urlManager->createAbsoluteUrl([ 
-                        'usuarios/cambiar-pass/?token=' . $user->txt_token
+                        'usuarios/cambiar-pass/?token=' . $model->txt_token
                     ]);
 					
 					// Envio de correo electronico
@@ -285,4 +288,7 @@ class UsuariosController extends Controller
             
         }
     }
+
+    
+	
 }
