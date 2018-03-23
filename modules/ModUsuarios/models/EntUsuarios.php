@@ -10,6 +10,7 @@ use app\modules\ModUsuarios\models\Utils;
 use kartik\password\StrengthValidator;
 use yii\web\UploadedFile;
 use app\models\AuthItem;
+use app\models\Email;
 
 /**
  * This is the model class for table "ent_usuarios".
@@ -65,6 +66,13 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 					}"
 				],*/
 				[ 
+					'repeatPassword',
+						'compare',
+						'compareAttribute' => 'password',
+						'on' => 'cambiarPass',
+						'message'=>'Las contraseñas deben coincidir' 
+			],
+				[ 
 						'password',
 						'compare',
 						'compareAttribute' => 'repeatPassword',
@@ -82,6 +90,7 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 						'txt_email',
 						'trim' 
 				],
+				['txt_email','email', 'message'=>'Debe agregar un email válido'],
 				[ 
 						'txt_username',
 						'trim' 
@@ -430,7 +439,7 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 	public function signup($isFacebook=false) {
 		
 		if (! $this->validate ()) {
-			print_r($this->errors);exit;			
+						
 			return null;
 		}
 		
@@ -451,7 +460,7 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 				return null;
 			}
 		}
-		//$user->setPassword ( $this->password );
+		$user->setPassword ( $this->password );
 		$user->generateAuthKey ();
 		$user->fch_creacion = Utils::getFechaActual ();
 		
@@ -618,5 +627,43 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 	public function getRoleDescription(){
 		
 		return $this->txtAuthItem->description;
+	}
+
+	public function enviarEmailBienvenida(){
+		// Parametros para el email
+		$params ['url'] = Yii::$app->urlManager->createAbsoluteUrl ( [ 
+			'ingresar/' . $this->txt_token 
+		] );
+		$params ['user'] = $this->getNombreCompleto ();
+		$params ['usuario'] = $this->txt_email;
+		$params ['password'] = $this->password;
+		
+		try{
+			$email = new Email();
+			$email->emailHtml = "@app/modules/ModUsuarios/email/bienvenida";
+			$email->emailText = "@app/modules/ModUsuarios/email/layouts/text";
+			$email->to = $this->txt_email;
+			$email->subject = "Bienvenido";
+			$email->params =$params ;
+			
+			// Envio de correo electronico
+			$email->sendEmail();
+			return true;
+		}catch(\Exception $e){
+			
+			return false;
+		}
+
+	}
+
+	public function randomPassword() {
+		$alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+		$pass = array(); //remember to declare $pass as an array
+		$alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+		for ($i = 0; $i < 8; $i++) {
+			$n = rand(0, $alphaLength);
+			$pass[] = $alphabet[$n];
+		}
+		return implode($pass); //turn the array into a string
 	}
 }

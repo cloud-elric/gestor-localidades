@@ -26,6 +26,11 @@ $this->params['breadcrumbs'][] = [
     ['depends' => [\yii\web\JqueryAsset::className()]]
   );
 
+  $this->registerJsFile(
+    '@web/webAssets/js/usuarios/form.js',
+    ['depends' => [\yii\web\JqueryAsset::className()]]
+  );
+
   $this->registerCssFile(
     '@web/webAssets/css/signUp.css',
     ['depends' => [\yii\web\JqueryAsset::className()]]

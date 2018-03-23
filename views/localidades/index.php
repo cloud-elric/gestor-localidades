@@ -16,6 +16,7 @@ use kartik\grid\GridView;
 use app\models\Calendario;
 // use yii\helpers\ArrayHelper;
 use kartik\date\DatePicker;
+use app\assets\AppAssetClassicCore;
 
 
 /* @var $this yii\web\View */
@@ -29,9 +30,35 @@ $this->registerCssFile(
     '@web/webAssets/templates/classic/global/vendor/jquery-selective/jquery-selective.css',
     ['depends' => [AppAsset::className()]]
   );  
-  
+
+$this->registerCssFile(
+    '@web/webAssets/templates/classic/global/vendor/slidepanel/slidePanel.css',
+    ['depends' => [AppAssetClassicCore::className()]]
+); 
+
 $this->registerJsFile(
-    '@web/webAssets/templates/classic/global/vendor/jquery-selective/jquery-selective.min.js',
+    '@web/webAssets/templates/classic/global/vendor/jquery-selective/jquery-selective.js',
+    ['depends' => [AppAsset::className()]]
+);
+
+$this->registerJsFile(
+    '@web/webAssets/js/localidades/index.js',
+    ['depends' => [AppAsset::className()]]
+);
+
+$this->registerCssFile(
+    '@web/webAssets/css/localidades/index.css',
+    ['depends' => [AppAsset::className()]]
+);
+
+
+$this->registerCssFile(
+    '@web/webAssets/templates/classic/global/vendor/dropify/dropify.css',
+    ['depends' => [AppAsset::className()]]
+  ); 
+
+  $this->registerJsFile(
+    '@web/webAssets/templates/classic/global/vendor/dropify/dropify.min.js',
     ['depends' => [AppAsset::className()]]
 );
 
@@ -53,10 +80,10 @@ $this->registerJsFile(
             ]); ?>
 
             <div class="row mt-30">
-                <div class="col-md-3 offset-9">
+                <div class="col-md-3 offset-md-9">
                 
                     <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
-                        <?= Html::a('<i class="icon wb-plus"></i> Crear Localidades', ['create'], ['class' => 'btn btn-add']) ?>
+                        <?= Html::a('<i class="icon wb-plus"></i> Crear Localidades', ['create'], ['class' => 'btn btn-add no-pjax']) ?>
                     <?php } ?>
 
                 </div>
@@ -95,7 +122,8 @@ $this->registerJsFile(
                     ],
                     'format'=>'raw',
                     'value'=>function($data){
-                        return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat cat-yellow"></span></div><a class="panel-listado-user-link" href="'.Url::base().'/localidades/view/'.$data->id_localidad.'">' .$data->txt_nombre.'</a></div>';
+                        return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat cat-yellow"></span></div>
+                        <a  class="panel-listado-user-link no-pjax run-slide-panel" href="'.Url::base().'/localidades/view/'.$data->id_localidad.'">' .$data->txt_nombre.'</a></div>';
                     }
                 ],
 
@@ -159,6 +187,19 @@ $this->registerJsFile(
                     }
                 ],
 
+                [
+                    'label'=>'Acciones',
+                    'format'=>'raw',
+                    'value'=>function($data){
+                        return '<div class="panel-listado-acctions">
+                            <a href="'.Url::base().'/localidades/view/'.$data->id_localidad.'" class="btn btn-icon btn-success btn-outline panel-listado-acction acction-detail no-pjax run-slide-panel"><i class="icon wb-eye" aria-hidden="true"></i></a>
+                            <a href="'.Url::base().'/localidades/ver-tareas-localidad?id='.$data->id_localidad.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel"><i class="icon wb-list" aria-hidden="true"></i></a>
+                        </div>
+                        ';
+                    }
+                    
+                ]
+
                 // [
                 //     'label'=>'Acciones',
                 //     'format'=>'raw',
@@ -198,6 +239,9 @@ $this->registerJsFile(
 </div>
 
 <?php
+$this->params['modal']=$this->render("//tareas/_modal-crear-tarea");?>
+
+<?php
 $this->registerJs("
 
 $(document).ready(function(){
@@ -207,6 +251,7 @@ $(document).ready(function(){
         var elemento = $(this);
         //console.log(elemento.data('json'));
         elemento.selective({
+          closeOnSelect: true , 
           namespace: 'addMember',
           selected: elemento.data('json'),
           local: member,
@@ -214,9 +259,9 @@ $(document).ready(function(){
               //alert(elemento.val());
           },
           onAfterItemAdd: function(e){
-            //alert(elemento.val());
-            //alert(elemento.data('id'));
             var idLoc = elemento.data('id');
+            $('*[data-key=\"'+idLoc+'\"] .addMember-trigger-button').hide();
+
             var idUser = elemento.val();
 
             $.ajax({
@@ -236,6 +281,7 @@ $(document).ready(function(){
           },
           onAfterItemRemove: function(e){
             var idLoc = elemento.data('id');
+            $('*[data-key=\"'+idLoc+'\"] .addMember-trigger-button').show();
             var idUser = elemento.val();
             if(!idUser){
                 idUser = -1;
@@ -267,7 +313,12 @@ $(document).ready(function(){
               // i++;
             },
             triggerButton: function triggerButton() {
-              return '<div class=\"' + this.namespace + '-trigger-button\"><i class=\"wb-plus\"></i></div>';
+                var isAsignado = 'block';
+                
+                if(elemento.data('json').length>0){
+                    var isAsignado = 'none';
+                }
+              return '<div style=\"display:'+isAsignado+'\" class=\"' + this.namespace + '-trigger-button\"><i class=\"wb-plus\"></i></div>';
             },
             listItem: function listItem(data) {
               return '<li class=\"' + this.namespace + '-list-item\"><img class=\"avatar\" src=\"' + data.avatar + '\">' + data.name + '</li>';

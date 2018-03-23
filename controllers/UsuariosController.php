@@ -98,37 +98,22 @@ class UsuariosController extends Controller
             return ActiveForm::validate($model);
         }
 
-        $grupo = null;
+        
         $padre = null;
         if ($model->load(Yii::$app->request->post())){
             
-            if($model->txt_auth_item == ConstantesWeb::CLIENTE){
-                $grupo = $usuario;
-            }
-            if($model->txt_auth_item == ConstantesWeb::COLABORADOR){
-                $model->usuarioPadre = $usuario->id_usuario;
-                $padre = $_POST['EntUsuarios']['usuarioPadre']; 
-            }
+            $model->password = $model->randomPassword();
+            $model->repeatPassword = $model->password;
             
             if ($user = $model->signup()) {
 
+                $model->enviarEmailBienvenida();
                 if($model->txt_auth_item == ConstantesWeb::ABOGADO){
                     $porcentajeRenta = new CatPorcentajeRentaAbogados();
                     $porcentajeRenta->id_usuario = $user->id_usuario;
                     $porcentajeRenta->num_porcentaje = 10;
                     $porcentajeRenta->save();
                 }
-
-                $relUsuarios = new WrkUsuarioUsuarios();
-
-                if($grupo){
-                    $relUsuarios->id_usuario_padre = $grupo->id_usuario;
-                    $relUsuarios->id_usuario_hijo = $user->id_usuario;
-                }else{
-                    $relUsuarios->id_usuario_padre = $padre;
-                    $relUsuarios->id_usuario_hijo = $user->id_usuario;
-                }
-                $relUsuarios->save();
 
                 if (Yii::$app->params ['modUsuarios'] ['mandarCorreoActivacion']) {
                     // Enviar correo
@@ -141,14 +126,19 @@ class UsuariosController extends Controller
                     ]);
 					
 					// Envio de correo electronico
-                    $utils->sendEmailCambiarPass( $user->txt_email,$parametrosEmail );
+                    //$utils->sendEmailCambiarPass( $user->txt_email,$parametrosEmail );
                 }
 
+                if($model->txt_auth_item == ConstantesWeb::COLABORADOR){
+                    $relUsuarios = new WrkUsuarioUsuarios();
+                    $relUsuarios->id_usuario_hijo =$user->id_usuario;
+                    $relUsuarios->id_usuario_padre = $_POST['EntUsuarios']['usuarioPadre'];
+                    $relUsuarios->save(); 
+                }
+
+              
                 return $this->redirect(['usuarios/index']);
                 
-            }else{
-                //print_r($user->errors);exit;
-                echo "No guardo modelo";exit;
             }
         
         // return $this->redirect(['view', 'id' => $model->id_usuario]);
@@ -179,8 +169,8 @@ class UsuariosController extends Controller
         $roles = AuthItem::find()->where(['in', 'name', array_keys($hijos)])->orderBy("name")->all();
 
         $model = $this->findModel($id);
-        
-        //var_dump($_POST["EntUsuarios"]['password']);exit;
+
+        $usuariosClientes = EntUsuarios::find()->where(['txt_auth_item'=>ConstantesWeb::CLIENTE])->all();
 
         if ($model->load(Yii::$app->request->post())){
             if(isset($_POST["EntUsuarios"]['password'])){
@@ -195,7 +185,8 @@ class UsuariosController extends Controller
             $model->scenario = 'updateModel';
             return $this->render('update', [
                 'model' => $model,
-                'roles'=>$roles
+                'roles'=>$roles,
+                'usuariosClientes' => $usuariosClientes
             ]);
         }
     }

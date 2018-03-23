@@ -19,6 +19,7 @@ use app\models\Dropbox;
 use app\models\EntEstatus;
 use app\models\ConstantesWeb;
 use app\models\WrkUsuarioUsuarios;
+use app\models\ResponseServices;
 
 /**
  * LocalidadesController implements the CRUD actions for EntLocalidades model.
@@ -101,46 +102,12 @@ class LocalidadesController extends Controller
             Yii::$app->getUser()->login($user);
         }
 
-        $searchModel = new TareasSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $id);
-
-        //$relUserLoc = new WrkUsuariosLocalidades();
-        $userRel = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$id])->all();
-        //$idUsersRel = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$id])->select('id_usuario')->all();
-
-        $searchModelTarea = new TareasSearch();
-        $dataProviderTarea = $searchModelTarea->search(Yii::$app->request->queryParams, $id);
-        $tareas = true;
-        //$tareas = WrkTareas::find()->where(['id_localidad'=>$id])->all();
-
-
-
-        $user = Yii::$app->user->identity;
-        $selected = [];
-        if($user->txt_auth_item == ConstantesWeb::CLIENTE || $user->txt_auth_item == ConstantesWeb::ABOGADO){
-            $directores = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$id])->select('id_usuario')->asArray();
-            $grupoTrabajo = WrkUsuarioUsuarios::find()->where(['in', 'id_usuario_padre', $directores])->select('id_usuario_hijo')->asArray();
-            $colaboradores = EntUsuarios::find()->where(['in', 'id_usuario', $grupoTrabajo])->all();
-            
-            $i=0;
-            foreach($colaboradores as $colaborador){
-                $selected[$i]['id'] = $colaborador->id_usuario;
-                $selected[$i]['name'] = $colaborador->getNombreCompleto();
-                $selected[$i]['avatar'] = $colaborador->getImageProfile();
-                $i++;
-            }
-        }
-        $jsonAgregar = json_encode($selected);
+       
         
 
-        return $this->render('view', [
+        return $this->renderAjax('view', [
             'model' => $this->findModel($id),
-            'userRel' => $userRel,
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'tareas' => $tareas,
-            'dataProviderTarea' => $dataProviderTarea,
-            'jsonAgregar' => $jsonAgregar
+            
             //'relUserLoc' => $relUserLoc,
             //'idUsersRel' => $idUsersRel
         ]);
@@ -172,7 +139,7 @@ class LocalidadesController extends Controller
                 if($model->save()){
                     $estatus->id_localidad = $model->id_localidad;
                     if($estatus->save()){     
-                        return $this->redirect(['view', 'id' => $model->id_localidad]);
+                        return $this->redirect(['index']);
                     }
                 }
             }
@@ -338,6 +305,30 @@ class LocalidadesController extends Controller
         return ['status'=>'error post'];
     }
 
+    public function actionRemoverAsignacionTarea(){
+        $respuesta = new ResponseServices();
+        if(isset($_POST['idT']) && isset($_POST['idU']) ){
+            $longArray = sizeOf($_POST['idU']);
+            $idUser = null;
+            for($i = $longArray - 1; $i >= 0; $i--){
+                $idUser = $_POST['idU'][$i];
+                break;
+            }
+
+            $relacion = WrkUsuariosTareas::find()->where(['id_tarea'=>$_POST['idT']])->one();
+            if($relacion){
+                $respuesta->status = "success";
+                $respuesta->message = "Se ha eliminado la asignacion a la tarea";
+                $relacion->delete();
+            }    
+        }else{
+            $respuesta->message= "No se enviaron los datos por post";
+        }
+
+
+        return $respuesta;
+    }
+
     public function actionAsignarUsuariosTareas(){
         Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -432,5 +423,60 @@ class LocalidadesController extends Controller
         }
 
         exit;
+    }
+
+    public function actionVerTareasLocalidad($id){
+
+        $localidad = $this->findModel($id);
+        $usuarioLogueado = EntUsuarios::getIdentity();
+        // Obtiene las tareas del colaborador si no seran todas
+        if($usuarioLogueado->txt_auth_item==ConstantesWeb::COLABORADOR){
+            $tareasColaborador = WrkUsuariosTareas::find()->where(['id_usuario'=>$usuarioLogueado->id_usuario])->select('id_tarea')->asArray()->all();
+            $tareas = WrkTareas::find()->where(["in", 'id_tarea', $tareasColaborador])->all();
+        }else{
+            $tareas = $localidad->wrkTareas;
+        }
+        
+        // Obtiene al director asigando a la localidad para conseguir a sus colaboradores
+        $directorAsignado = WrkUsuariosLocalidades::find()->where(["id_localidad"=>$id])->one();
+        $colaboradores = [];
+        if($directorAsignado){
+            $colaboradores = WrkUsuarioUsuarios::find()->where(["id_usuario_padre"=>$directorAsignado->id_usuario])->all();
+        }
+        $selected = [];
+        $i = 0;
+        foreach($colaboradores as $colaborador){
+            $colaborador = $colaborador->usuarioHijo;
+            $selected[$i]['id'] = $colaborador->id_usuario;
+            $selected[$i]['name'] = $colaborador->nombreCompleto;
+            $selected[$i]['avatar'] = $colaborador->imageProfile;
+            $i++;
+        }
+        $jsonAgregar = json_encode($selected);
+
+        // Obtiene a los usuarios asignados a la tarea
+        if(!($usuarioLogueado->txt_auth_item==ConstantesWeb::COLABORADOR)){
+            $tareasA = [];
+            foreach($tareas as $tarea){
+                $idUsuarios = WrkUsuariosTareas::find()->where(['id_tarea'=>$tarea->id_tarea])->select('id_usuario')->asArray()->all();
+                $usersSeleccionados = EntUsuarios::find()->where(['in', 'id_usuario', $idUsuarios])->all();
+                $colaboradoresTarea = [];
+                $i=0;
+                foreach($usersSeleccionados as $userSeleccionado){
+                    $colaboradoresTarea[$i]['id'] = $userSeleccionado->id_usuario;
+                    $colaboradoresTarea[$i]['name'] = $userSeleccionado->getNombreCompleto();
+                    $colaboradoresTarea[$i]['avatar'] = $userSeleccionado->getImageProfile();
+                    $i++;
+                }
+                $tarea->colaboradoresAsignados = json_encode($colaboradoresTarea);
+                $tareasA[]=$tarea;
+            }
+
+            $tareas = $tareasA;
+        }
+        
+
+        return $this->renderAjax("ver-tareas-localidad-clear", ["localidad"=>$localidad, "tareas"=>$tareas, "jsonAgregar"=>$jsonAgregar]);
+
     }
 }

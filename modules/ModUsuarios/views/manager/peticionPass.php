@@ -1,27 +1,44 @@
 <?php 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\Url;
+
+$this->title = 'Recuperar contraseña';
+$this->params['classBody'] = "page-login-v3 layout-full";
 ?>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="panel">
+	<div class="panel-body">
+
+		<?php 
+		$form = ActiveForm::begin([
+			'id' => 'login-form',
+			'fieldConfig' => [
+				"template" => "{input}{label}{error}",
+				"options" => [
+					"class" => "form-group form-material floating",
+					"data-plugin" => "formMaterial"
+				],
+				"labelOptions" => [
+					"class" => "floating-label"
+				]
+			]
+		]); 
+		?>
+
+		<?= $form->field($model, 'username')->textInput(["class"=>"form-control"]) ?>
 
 
-    <?php $form = ActiveForm::begin([
-        'id' => 'login-form',
-        'options' => ['class' => 'form-horizontal'],
-        'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-            'labelOptions' => ['class' => 'col-lg-1 control-label'],
-        ],
-    ]); ?>
+		<?= Html::submitButton('<span class="ladda-label">Recuperar contraseña</span>', ["data-style"=>"zoom-in", 'class' => 'btn btn-recuperar-pass btn-block btn-lg mt-20 ladda-button', 'name' => 'login-button'])
+        ?>
+        <div class="form-group clearfix  text-center mt-20">
+			<a class="login-link-gray login-link-lg" href="<?=Url::base()?>/login">Iniciar sesión</a>
+		</div>
+        
 
-        <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
-        <div class="form-group">
-            <div class="col-lg-offset-1 col-lg-11">
-                <?= Html::submitButton('Recuperar password', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-            </div>
-        </div>
+		<?php ActiveForm::end(); ?>
 
-    <?php ActiveForm::end(); ?>
+
+		<p class="soporteTxt">¿Necesitas ayuda? escribe a: <a class="no-redirect login-link-white" href="mailto:soporte@2gom.com.mx?Subject=Solicitud%de%Soporte">soporte@2gom.com.mx</a></p>
+	</div>
 </div>
