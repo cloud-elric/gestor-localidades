@@ -59,15 +59,18 @@ class EntLocalidades extends \yii\db\ActiveRecord
                 }"*/
             ],
             [['id_estado', 'id_usuario', 'cms', 'txt_token', 'txt_nombre', 'txt_arrendador', 'txt_beneficiario', 'txt_cp', 'txt_calle', 'txt_colonia', 'txt_municipio', 'num_renta_actual', 'fch_vencimiento_contratro', 'fch_asignacion'], 'required'],
-            [['id_estado', 'id_usuario', 'b_problemas_acceso', 'b_archivada', 'b_status_localidad'], 'integer'],
+            [['id_estado', 'id_usuario', 'id_moneda', 'b_problemas_acceso', 'b_archivada', 'b_status_localidad'], 'integer'],
             [['txt_estatus', 'txt_antecedentes'], 'string'],
             [['num_renta_actual', 'num_incremento_autorizado', 'num_pretencion_renta'], 'number'],
             [['fch_vencimiento_contratro', 'fch_creacion', 'fch_asignacion'], 'safe'],
+            [['cms'], 'string', 'max' => 50], 
             [['txt_token'], 'string', 'max' => 70],
             [['txt_nombre', 'txt_arrendador', 'txt_beneficiario', 'txt_calle', 'txt_colonia', 'txt_municipio'], 'string', 'max' => 150],
             [['txt_cp'], 'string', 'max' => 5],
             [['id_estado'], 'exist', 'skipOnError' => true, 'targetClass' => CatEstados::className(), 'targetAttribute' => ['id_estado' => 'id_estado']],
             [['id_usuario'], 'exist', 'skipOnError' => true, 'targetClass' => EntUsuarios::className(), 'targetAttribute' => ['id_usuario' => 'id_usuario']],
+            [['b_status_localidad'], 'exist', 'skipOnError' => true, 'targetClass' => CatRegularizacionRenovacion::className(), 'targetAttribute' => ['b_status_localidad' => 'id_catalogo']],
+            [['id_moneda'], 'exist', 'skipOnError' => true, 'targetClass' => CatTiposMonedas::className(), 'targetAttribute' => ['id_moneda' => 'id_moneda']],
         ];
     }
 
@@ -80,7 +83,9 @@ class EntLocalidades extends \yii\db\ActiveRecord
             'id_localidad' => 'Id Localidad',
             'id_estado' => 'Estado',
             'id_usuario' => 'Usuario',
+            'id_moneda' => 'Tipo de moneda',
             'txt_token' => 'Txt Token',
+            'cms' => 'Cms',
             'txt_nombre' => 'Nombre localidad',
             'txt_arrendador' => 'Arrendador',
             'txt_beneficiario' => 'Beneficiario',
@@ -100,6 +105,22 @@ class EntLocalidades extends \yii\db\ActiveRecord
             'b_archivada' => 'Archivada',
         ];
     }
+
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+   public function getBStatusLocalidad() 
+   { 
+       return $this->hasOne(CatRegularizacionRenovacion::className(), ['id_catalogo' => 'b_status_localidad']); 
+   } 
+ 
+   /** 
+    * @return \yii\db\ActiveQuery 
+    */ 
+   public function getMoneda() 
+   { 
+       return $this->hasOne(CatTiposMonedas::className(), ['id_moneda' => 'id_moneda']); 
+   } 
 
     /**
      * @return \yii\db\ActiveQuery
