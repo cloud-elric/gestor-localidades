@@ -1,22 +1,71 @@
 $(document).ready(function(){
     
-        $('.run-slide-panel').slidePanel({
-            closeSelector:".slidePanel-close",
-            template: function template(options) {
-                return '<div class="' + options.classes.base + ' ' + options.classes.base + '-' + options.direction + '">\n                  <div class="' + options.classes.base + '-scrollable">\n                    <div><div class="' + options.classes.content + '"></div></div>\n                  </div>\n                  <div class="' + options.classes.base + '-handler"></div>\n                </div>';
-            },
-            afterLoad: function(options){
-                $('.slidePanel-scrollable').asScrollable({
-                    namespace: 'scrollable',
-                    contentSelector: '>',
-                    containerSelector: '>'
-                });
+    $('.run-slide-panel').slidePanel({
+        closeSelector:".slidePanel-close",
+        template: function template(options) {
+            return '<div class="' + options.classes.base + ' ' + options.classes.base + '-' + options.direction + '">\n                  <div class="' + options.classes.base + '-scrollable">\n                    <div><div class="' + options.classes.content + '"></div></div>\n                  </div>\n                  <div class="' + options.classes.base + '-handler"></div>\n                </div>';
+        },
+        afterLoad: function(options){
+            $('.slidePanel-scrollable').asScrollable({
+                namespace: 'scrollable',
+                contentSelector: '>',
+                containerSelector: '>'
+            });
 
-                $('*[data-plugin="dropify"]').dropify();
+            $('*[data-plugin="dropify"]').dropify();
 
-                generarSelected();
+            generarSelected();
+        }
+    });
+
+    $(document).on({'click': function(e){
+            e.preventDefault();
+            var idT = $(this).data('id');
+            var formulario = $('#form-tarea-'+idT); 
+            if(formulario.find('.file_tarea')){
+                if($('#form-tarea-'+idT+" .file_tarea").val() == ""){
+                    swal('Espera', 'Debes agregar un archivo', 'warning');
+                    return false;
+                }
             }
-        }); 
+            formulario.submit();
+        }
+    },'.submit_tarea');
+
+    $(document).on({'submit': function(e){
+            e.preventDefault();
+            
+            var formData = new FormData(this);
+            var boton = $(this).find('.submit_tarea');
+            var l = Ladda.create(boton.get(0));
+            l.start();
+            $.ajax({
+                type:'POST',
+                url: $(this).attr('action'),
+                data:formData,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success:function(data){
+                    if(data.status=="success"){
+                        swal("Perfecto", data.message, "success");
+                        console.log(data.message);
+
+                        $('.js_descargar_archivo-'+data.result.idT+" .url_documento").html(data.result.url);
+                        $(".dropify-clear").trigger("click");
+                        
+                    }else{
+                        swal("Espera", data.message, "error");
+                    }
+                    l.stop();
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    swal("Espera", "Ocurrio un problema: "+textStatus, "error");
+                    l.stop();
+                }
+            });
+        }
+    }, '.formClass');
       
 });
 

@@ -14,6 +14,9 @@ use app\models\EntLocalidades;
 use app\modules\ModUsuarios\models\Utils;
 use app\models\ResponseServices;
 use app\modules\ModUsuarios\models\EntUsuarios;
+use yii\helpers\Url;
+use yii\helpers\Html;
+use app\models\ConstantesWeb;
 
 /**
  * TareasController implements the CRUD actions for WrkTareas model.
@@ -145,14 +148,16 @@ class TareasController extends Controller
      */
     public function actionUpdate($id)
     {
+        $response = new ResponseServices();
         $model = $this->findModel($id);
-
+        //print_r($_POST);exit;
         if ($model->load(Yii::$app->request->post())){
 
-            $localidad = EntLocalidades::find()->where(['id_localidad'=>$_POST["WrkTareas"]["id_localidad"]])->one();
+            $localidad = EntLocalidades::find()->where(['id_localidad'=>$model->id_localidad])->one();
             
-            if($model->id_tipo == 1){
+            if($model->id_tipo ==  ConstantesWeb::TAREA_ARCHIVO){
                 $fileDropbox = UploadedFile::getInstance($model, 'file');
+                $response->message = "Archivo guardado.";
 
                 $dropbox = Dropbox::subirArchivo($localidad->txt_nombre, $fileDropbox);
                 $decodeDropbox = json_decode(trim($dropbox), TRUE);
@@ -161,15 +166,23 @@ class TareasController extends Controller
                 $model->txt_nombre = $decodeDropbox['name'];         
                 $model->txt_path = $decodeDropbox['path_display'];
             }
+            else if($model->id_tipo == ConstantesWeb::TAREA_ABIERTO){
+                $response->message = "Tarea guardada.";
+            }
 
             if($model->save()){
+
+                $response->status = "success";
+                $response->result['url'] = Html::a(' <i class="icon wb-attach-file" aria-hidden="true"></i>
+                ', ['tareas/descargar', 'id' => $model->id_tarea,], ['target' => '_blank', 'class' => 'btn btn-success btn-outline no-pjax']);
+                $response->result['idT'] = $model->id_tarea;
 
                 $userActual = Yii::$app->user->identity;
                 $user = $model->usuario;
                 $localidad = $model->localidad;
 
                 if (Yii::$app->params ['modUsuarios'] ['mandarCorreoActivacion']) {
-
+                    
 					// Enviar correo
 					$utils = new Utils ();
 					// Parametros para el email
@@ -186,13 +199,15 @@ class TareasController extends Controller
                     				
                 }
 
-                return $this->redirect(['localidades/view', 'id' => $localidad->id_localidad]);
+                //return $this->redirect(['localidades/view', 'id' => $localidad->id_localidad]);
+            }else{
+                $response->message= "No se actualizo el modelo.";
             }
         }
-
-        return $this->render('update', [
+        return $response;
+        /*return $this->render('update', [
             'model' => $model,
-        ]);
+        ]);*/
     }
 
     /**
@@ -230,9 +245,6 @@ class TareasController extends Controller
 
         $dropbox = Dropbox::descargarArchivo($tarea->txt_path);
         $decodeDropbox = json_decode(trim($dropbox), TRUE);
-
-        print_r($decodeDropbox);
-        exit;
 
         return $this->redirect($decodeDropbox['link']);
     }
