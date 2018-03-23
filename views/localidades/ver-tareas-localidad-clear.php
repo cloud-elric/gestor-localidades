@@ -77,7 +77,7 @@ $this->registerCssFile(
                                                 
                                                 <div class="w-full">
 
-                                                    <div class="row row-no-border">
+                                                    <div class="row row-no-border js_descargar_archivo-<?=$tarea->id_tarea?>">
 
                                                         <div class="col-xs-8 col-sm-8 col-md-8">
                                                             <?php
@@ -102,20 +102,21 @@ $this->registerCssFile(
                                                             <div class="col-xs-2 col-sm-2 col-md-2 text-right">
                                                                 <select multiple='multiple' class='plugin-selective-tareas' data-localidad="<?=$localidad->id_localidad?>" data-id='<?=$tarea->id_tarea?>' data-json='<?=$tarea->colaboradoresAsignados?>'></select> 
                                                             </div>
-
-                                                            <?php
-                                                            if($hasArchivo){
-                                                            ?>
-                                                            <div class="col-xs-2 col-sm-2 col-md-2 text-right">
-                                                                <?= Html::a(' <i class="icon wb-attach-file" aria-hidden="true"></i>
-                                                                                ', ['tareas/descargar', 'id' => $tarea->id_tarea,], ['target' => '_blank', 'class' => 'btn btn-success btn-outline']);?>
-                                                            </div>
-                                                            <?php
-                                                            }
-                                                            ?>
                                                         <?php
                                                         }
                                                         ?>    
+                                                        <div class="url_documento col-xs-2 col-sm-2 col-md-2 text-right">
+                                                        <?php
+                                                            if($hasArchivo){
+                                                        ?>
+                                                                
+                                                                    <?= Html::a(' <i class="icon wb-attach-file" aria-hidden="true"></i>
+                                                                                    ', ['tareas/descargar', 'id' => $tarea->id_tarea,], ['target' => '_blank', 'class' => 'btn no-pjax btn-success btn-outline']);?>
+                                                               
+                                                        <?php
+                                                            }
+                                                        ?>
+                                                        </div>
                                                     </div>
                                                    
                                                     <?php
@@ -124,28 +125,33 @@ $this->registerCssFile(
                                                     <div class="row row-no-border">
                                                         <div class="col-md-12">
                                                             <?php
-                                                            
+                                                            $tarea->scenario = 'update';
                                                             $form = ActiveForm::begin([
                                                                 'id'=>'form-tarea-'.$tarea->id_tarea,
-                                                                'action'=>'tareas/create?idTar='.$tarea->id_tarea,
+                                                                'action'=>'tareas/update?id='.$tarea->id_tarea,
+                                                                'options' =>[
+                                                                    'class' => 'formClass',
+                                                                    'enctype' => 'multipart/form-data'
+                                                                ]
                                                             ]); 
                                                             
                                                             if($tarea->id_tipo==ConstantesWeb::TAREA_ARCHIVO){
                                                             ?>
-                                                            <input type="file" id="input-file-now" data-plugin="dropify"   data-default-file="">
+                                                                <?= $form->field($tarea, 'file')->fileInput(['data-id'=>$tarea->id_tarea, 'data-plugin'=>"dropify", 'class'=>"file_tarea"]) ?>
                                                             <?php
                                                             }else if($tarea->id_tipo==ConstantesWeb::TAREA_ABIERTO){
                                                             ?>
-                                                            <div class="form-group mb-0">
-                                                                <textarea style="resize:none" class="form-control" placeholder="Descripción"></textarea>   
-                                                            </div>
+
+                                                                    <?= $form->field($tarea, 'txt_tarea')->textarea(['rows' => 6, 'data-id'=>$tarea->id_tarea, 'style'=>"resize:none", 'placeholder'=>"Descripción"])->label(false) ?>  
+                                                                
 
                                                             <?php
                                                             }
                                                             ?>
+                                                            <?= $form->field($tarea, 'id_tipo')->hiddenInput(['class'=>'tipo-'.$tarea->id_tarea])->label(false) ?>
 
                                                             <div class="form-group text-right">
-                                                                <?=Html::submitButton("<i class='icon wb-file' aria-hidden='true'></i> Guardar tarea", ["id"=>"btn-guardar-form-tarea-".$tarea->id_tarea, "class"=>"btn btn-warning mt-20"]);?>
+                                                                <?=Html::submitButton("<span class='ladda-label'><i class='icon wb-file' aria-hidden='true'></i> Guardar tarea</span>", ["data-id"=>$tarea->id_tarea, "data-style"=>'zoom-in', "class"=>"btn ladda-button btn-warning mt-20 submit_tarea"]);?>
                                                             </div>
                                                             
                                                             <?php
