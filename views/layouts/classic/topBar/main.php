@@ -32,7 +32,7 @@ AppAsset::register($this);
   <?php $this->endBody();?>
  
   <?=isset($this->params['modal'])?$this->params['modal']:''?>
-  
+
   <script>
   (function(document, window, $) {
     'use strict';
