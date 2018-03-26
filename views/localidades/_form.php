@@ -29,7 +29,9 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
 <?php if($flag/*$model->isNewRecord*/){ ?>
     <div class="ent-localidades-form">
 
-        <?php $form = ActiveForm::begin(); ?>
+        <?php $form = ActiveForm::begin([
+            'id' => 'form-crear-localidad'
+        ]); ?>
         
         <div class="row">
             <div class="col-sm-12 col-md-6 col-lg-4">
@@ -139,7 +141,7 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
             <div class="col-sm-12 col-md-12 col-lg-4">
 
                 <?= $form->field($model, 'b_status_localidad')->radioList(ArrayHelper::map(CatRegularizacionRenovacion::find()->all(), 'id_catalogo','txt_nombre'), ['item' => function($index, $label, $name, $checked, $value) {  
-                        $return = '<input type="radio" id="tipo_contrato_' . $value . '" name="' . $name . '" value="' . $value . '" onClick="statusLocalidad($(this));">';
+                        $return = '<input type="radio" id="tipo_contrato_' . $value . '" name="' . $name . '" value="' . $value . '" onClick="statusLocalidad($(this));" disabled>';
                         $return .= '<label>' . ucwords($label) . '</label>';
                         return $return;
                     },
@@ -298,6 +300,9 @@ $(document).ready(function(){
         $('#entlocalidades-num_incremento_cliente').val(porcentaje);
     });
 
+    var regularizacion = $('#tipo_contrato_1');
+    var renovacion = $('#tipo_contrato_2');
+
     $('#entlocalidades-fch_vencimiento_contratro').on('change', function(){
         var fechaActual = new Date();
         var fechaVencimiento = new Date($(this).val());
@@ -308,8 +313,6 @@ $(document).ready(function(){
         //console.log(fechaVencimiento);
         //console.log( Math.floor((diferencia) / (1000*60*60*24)) );
 
-        var regularizacion = $('#tipo_contrato_1');
-        var renovacion = $('#tipo_contrato_2');
         if(dif == 0){
             regularizacion.prop('checked', false);
             renovacion.prop('checked', false);
@@ -322,6 +325,13 @@ $(document).ready(function(){
             statusLocalidad(renovacion);           
             //console.log('Renovacion');            
         }
+    });
+
+    $('#form-crear-localidad').submit(function(){
+        regularizacion.prop('disabled', false);
+        renovacion.prop('disabled', false);
+
+        return true;
     });
 });
 
