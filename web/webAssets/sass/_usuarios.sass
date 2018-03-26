@@ -536,22 +536,74 @@
 									&:last-child
 										margin-right: 0
 
-								.panel-listado-acction
+								// .panel-listado-acction
+								// 	align-items: center
+								// 	display: flex
+								// 	height: 24px
+								// 	justify-content: center
+								// 	margin-right: 3vw
+								// 	width: 24px
+								// 	&:last-child
+								// 		margin-right: 0
+								// 	i
+								// 		color: $ryg-second
+								// 		font-size: .85rem
+								// 	&.acction-edit
+								// 		background-color: $ryg-aqua
+								// 	&.acction-delete
+								// 		background-color: $ryg-green
+
+								.panel-listado-acctions
 									align-items: center
 									display: flex
-									height: 24px
+									flex-wrap: wrap
 									justify-content: center
-									margin-right: 3vw
-									width: 24px
-									&:last-child
-										margin-right: 0
-									i
-										color: $ryg-second
-										font-size: .85rem
-									&.acction-edit
-										background-color: $ryg-aqua
-									&.acction-delete
-										background-color: $ryg-green
+									+respond-to(xs)
+										flex-direction: column
+									+respond-to(sl)
+										flex-direction: row
+									.panel-listado-acction
+										align-items: center
+										// background-color: transparent
+										border-radius: 3px
+										display: flex
+										height: 26px
+										justify-content: center
+										margin-right: .8rem
+										text-decoration: none
+										width: 26px
+										&:last-child
+											margin-right: 0
+										i
+											// color: $ryg-primary
+											font-size: .85rem
+										// &:active
+										// 	background-color: transparent
+
+										+respond-to(xs)
+											margin-bottom: .8rem
+											margin-right: 0
+										+respond-to(sl)
+											margin-bottom: 0
+											margin-right: .8rem
+
+										
+
+										// &.acction-edit
+										// 	// background-color: $ryg-aqua
+										// 	// border-color: $ryg-aqua
+										// 	// color: $ryg-aqua
+										// 	i
+										// 		color: #46be8a
+										&.acction-mail
+											padding: 0
+										// 	// background-color: $ryg-accent
+										// 	// border-color: $ryg-accent
+										// 	// color: $ryg-accent
+										// 	i
+										// 		color: #f2a654
+										// 	// &:hover
+										// 	// 	color: $white
 
 								.btn-group
 									align-items: center

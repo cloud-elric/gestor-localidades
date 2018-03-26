@@ -151,9 +151,12 @@ $this->registerJsFile(
             'format'=>'raw',
            
             'value'=>function($data){
-               $botonEditar =  '<a href="'.Url::base().'/usuarios/update/'.$data->id_usuario.'" class="btn btn-outline btn-success btn-sm"><i class="icon wb-edit"></i></a>';
-               $botonEnviarBienvenida = '<button data-token="'.$data->txt_token.'" class="btn btn-outline btn-primary btn-sm js-reenviar-email"><i class="icon wb-envelope"></i></button>';
-              return $botonEditar.$botonEnviarBienvenida;
+               $botonEditar =  '<a href="'.Url::base().'/usuarios/update/'.$data->id_usuario.'" class="btn btn-icon btn-success btn-outline panel-listado-acction acction-edit "><i class="icon wb-edit"></i></a>';
+               $botonEnviarBienvenida = '<button data-token="'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-mail js-reenviar-email"><i class="icon wb-envelope"></i></button>';
+              // return $botonEditar.$botonEnviarBienvenida;
+
+              return '<div class="panel-listado-acctions">'.$botonEditar.$botonEnviarBienvenida.'</div>';
+
             }
           ]
         ],
