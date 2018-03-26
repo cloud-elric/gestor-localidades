@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = [
   'template'=>'<li class="breadcrumb-item">{link}</li>', 
 ];
 
-$this->params['headerActions'] = '<a class="btn btn-success no-pjax" href="'.Url::base().'/usuarios/create"><i class="icon wb-plus"></i> Agregar usuario</a>';
+$this->params['headerActions'] = '<a class="btn btn-primary no-pjax" href="'.Url::base().'/usuarios/create"><i class="icon wb-plus"></i> Agregar usuario</a>';
 
 $this->params['classBody'] = "site-navbar-small page-user ryg-body";
 
