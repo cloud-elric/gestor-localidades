@@ -32,140 +32,197 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
         <?php $form = ActiveForm::begin([
             'id' => 'form-crear-localidad'
         ]); ?>
-        
-        <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-4">
-                
-                <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true]) ?>
-                
-                <?= $form->field($model, 'cms')->textInput(['maxlength' => true]) ?>
 
-                <?= $form->field($model, 'txt_arrendador')->textInput(['maxlength' => true]) ?>
-                
-                <?= $form->field($model, 'txt_beneficiario')->textInput(['maxlength' => true]) ?>
-                
-                <?= $form->field($model, 'txt_antecedentes')->textarea(['rows' => 6]) ?>
-
-                <?= $form->field($estatus, 'txt_estatus')->textarea(['rows' => 6]) ?>
-
+        <div class="panel">
+            <div class="panel-heading">
+                 <h2 class="panel-title">Datos generales</h2>   
             </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true]) ?>
+                    </div>
+                    <div class="col-md-4">
+                        <?= $form->field($model, 'cms')->textInput(['maxlength' => true]) ?>
+                    </div>
+                    <div class="col-md-4">
+                        <?= $form->field($model, 'txt_arrendador')->textInput(['maxlength' => true]) ?>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <?= $form->field($model, 'txt_beneficiario')->textInput(['maxlength' => true]) ?>
+                    </div>
+                    <div class="col-md-4">
+                        <?= $form->field($model, 'txt_antecedentes')->textarea(['rows' => 6]) ?>
+                    </div>
+                    <div class="col-md-4">
+                        <?= $form->field($estatus, 'txt_estatus')->textarea(['rows' => 6]) ?>
+                    </div>
+                </div>
                 
-            <div class="col-sm-12 col-md-6 col-lg-4">
-                
-                <?php 
-                require(__DIR__ . '/../components/select2.php');
-                $url = Url::to(['codigos-postales/buscar-codigo']);
-
-                echo $form->field($model, 'txt_cp')->widget(Select2::classname(), [
-                    //'initValueText' => empty($model->id_localidad) ? '' : $estado->txt_nombre,
-                    'options' => ['placeholder' => 'Seleccionar código postal'],
-                    'pluginOptions' => [
-                        'allowClear' => true,
-                        'minimumInputLength' => 3,
-                        'ajax' => [
-                            'url' => $url,
-                            'dataType' => 'json',
-                            'delay' => 250,
-                            'data' => new JsExpression('function(params) { return {q:params.term, page: params.page}; }'),
-                            'processResults' => new JsExpression($resultsJs),
-                            'cache' => true
-                        ],
-                        'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
-                        'templateResult' => new JsExpression('function(equipo) { return equipo.txt_nombre; }'),
-                        'templateSelection' => new JsExpression('function (equipo) { 
-                            if(equipo.txt_nombre){
-                                return equipo.txt_nombre;
-                            }else{
-                                return "'.$model->txt_cp.'"
-                            }
-                        }'),
-                    ],
-                ]); 
-                ?>
-
-                <input id="texto_colonia" type="hidden" name="colonia" value="<?= $model->txt_colonia ?>">
-                <?php
-                echo $form->field($model, 'txt_colonia')->widget(DepDrop::classname(), [
-                    'data'=> ArrayHelper::map(CatColonias::find()->where(['txt_codigo_postal'=>$model->txt_cp])->all(), 'id_colonia', 'txt_nombre'),
-                    'options' => ['placeholder' => 'Seleccionar ...'],
-                    'type' => DepDrop::TYPE_SELECT2,
-                    'select2Options'=>[
-                        'pluginOptions'=>[
-                            
-                            'allowClear'=>true,
-                            'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
-                            'templateResult' => new JsExpression('function(colonia) {return colonia.text; }'),
-                            'templateSelection' => new JsExpression('function (colonia) { return colonia.text; }'),
-                        ],
-                        ],
-                    'pluginOptions'=>[
-                        'depends'=>['entlocalidades-txt_cp'],
-                        'url' => Url::to(['/codigos-postales/get-colonias-by-codigo-postal?code='.$model->txt_cp]),
-                        'loadingText' => 'Cargando colonias ...',
-                    ]
-                ]);
-                ?>
-
-                <?=Html::label("Municipio", "txt_municipio", ['class'=>'control-label'])?>
-                <?=Html::textInput("txt_municipio", $model->txt_municipio, ['class'=>'form-control','disabled'=>'disabled', 'id'=>'txt_municipio' ])?>
-                <?= $form->field($model, 'txt_municipio')->hiddenInput(['maxlength' => true])->label(false) ?>
-                
-                <?=Html::label("Estado", "txt_estado", ['class'=>'control-label'])?>
-                <?=Html::textInput("txt_estado", $model->id_estado, ['class'=>'form-control','disabled'=>'disabled', 'id'=>'txt_estado' ])?>
-                <?= $form->field($model, 'id_estado')->hiddenInput()->label(false) ?>
-
-                <?= $form->field($model, 'txt_calle')->textInput(['maxlength' => true]) ?>
-
-                <?= $form->field($model, 'fch_vencimiento_contratro')->widget(DatePicker::classname(), [
-                    //'options' => ['placeholder' => 'Enter birth date ...'],
-                    'type' => DatePicker::TYPE_INPUT,
-                    'pluginOptions' => [
-                        'autoclose'=>true,
-                        'format' => 'mm-dd-yyyy'
-                    ]
-                ]);?>
-
-                <?php // $form->field($model, 'fch_creacion')->textInput() ?>
-
-                <?= $form->field($model, 'fch_asignacion')->widget(DatePicker::classname(), [
-                    //'options' => ['placeholder' => 'Enter birth date ...'],
-                    'type' => DatePicker::TYPE_INPUT,
-                    'pluginOptions' => [
-                        'autoclose'=>true,
-                        'format' => 'mm-dd-yyyy'
-                    ]
-                ]);?>
-                
+               
             </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-heading">
+                <h2 class="panel-title">Datos de ubicacion</h2>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <?php 
+                        require(__DIR__ . '/../components/select2.php');
+                        $url = Url::to(['codigos-postales/buscar-codigo']);
+
+                        echo $form->field($model, 'txt_cp')->widget(Select2::classname(), [
+                            //'initValueText' => empty($model->id_localidad) ? '' : $estado->txt_nombre,
+                            'options' => ['placeholder' => 'Seleccionar código postal'],
+                            'pluginOptions' => [
+                                'allowClear' => true,
+                                'minimumInputLength' => 3,
+                                'ajax' => [
+                                    'url' => $url,
+                                    'dataType' => 'json',
+                                    'delay' => 250,
+                                    'data' => new JsExpression('function(params) { return {q:params.term, page: params.page}; }'),
+                                    'processResults' => new JsExpression($resultsJs),
+                                    'cache' => true
+                                ],
+                                'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
+                                'templateResult' => new JsExpression('function(equipo) { return equipo.txt_nombre; }'),
+                                'templateSelection' => new JsExpression('function (equipo) { 
+                                    if(equipo.txt_nombre){
+                                        return equipo.txt_nombre;
+                                    }else{
+                                        return "'.$model->txt_cp.'"
+                                    }
+                                }'),
+                            ],
+                        ]); 
+                        ?>
+                    </div>
+                    <div class="col-md-4">
+                        <input id="texto_colonia" type="hidden" name="colonia" value="<?= $model->txt_colonia ?>">
+                        <?php
+                        echo $form->field($model, 'txt_colonia')->widget(DepDrop::classname(), [
+                            'data'=> ArrayHelper::map(CatColonias::find()->where(['txt_codigo_postal'=>$model->txt_cp])->all(), 'id_colonia', 'txt_nombre'),
+                            'options' => ['placeholder' => 'Seleccionar ...'],
+                            'type' => DepDrop::TYPE_SELECT2,
+                            'select2Options'=>[
+                                'pluginOptions'=>[
+                                    
+                                    'allowClear'=>true,
+                                    'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
+                                    'templateResult' => new JsExpression('function(colonia) {return colonia.text; }'),
+                                    'templateSelection' => new JsExpression('function (colonia) { return colonia.text; }'),
+                                ],
+                                ],
+                            'pluginOptions'=>[
+                                'depends'=>['entlocalidades-txt_cp'],
+                                'url' => Url::to(['/codigos-postales/get-colonias-by-codigo-postal?code='.$model->txt_cp]),
+                                'loadingText' => 'Cargando colonias ...',
+                            ]
+                        ]);
+                        ?>
+                    </div>
+                    <div class="col-md-4">
+                        <?=Html::label("Municipio", "txt_municipio", ['class'=>'control-label'])?>
+                        <?=Html::textInput("txt_municipio", $model->txt_municipio, ['class'=>'form-control','disabled'=>'disabled', 'id'=>'txt_municipio' ])?>
+                        <?= $form->field($model, 'txt_municipio')->hiddenInput(['maxlength' => true])->label(false) ?>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <?=Html::label("Estado", "txt_estado", ['class'=>'control-label'])?>
+                        <?=Html::textInput("txt_estado", $model->id_estado, ['class'=>'form-control','disabled'=>'disabled', 'id'=>'txt_estado' ])?>
+                        <?= $form->field($model, 'id_estado')->hiddenInput()->label(false) ?>
+                    </div>
+                    <div class="col-md-4">
+                        <?= $form->field($model, 'txt_calle')->textInput(['maxlength' => true]) ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-heading">
+                <h2 class="panel-title">Datos de contrato</h2>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <?= $form->field($model, 'fch_vencimiento_contratro')->widget(DatePicker::classname(), [
+                            //'options' => ['placeholder' => 'Enter birth date ...'],
+                            'type' => DatePicker::TYPE_INPUT,
+                            'pluginOptions' => [
+                                'autoclose'=>true,
+                                'format' => 'mm-dd-yyyy'
+                            ]
+                        ]);?>
+                    </div>
+                    <div class="col-md-4">
+                        <?= $form->field($model, 'fch_asignacion')->widget(DatePicker::classname(), [
+                            //'options' => ['placeholder' => 'Enter birth date ...'],
+                            'type' => DatePicker::TYPE_INPUT,
+                            'pluginOptions' => [
+                                'autoclose'=>true,
+                                'format' => 'mm-dd-yyyy'
+                            ]
+                        ]);?>
+                    </div>
+                    <div class="col-md-4">
+                        <?= $form->field($model, 'b_status_localidad')->radioList(ArrayHelper::map(CatRegularizacionRenovacion::find()->all(), 'id_catalogo','txt_nombre'), ['item' => function($index, $label, $name, $checked, $value) {  
+                            $return = '<input type="radio" id="tipo_contrato_' . $value . '" name="' . $name . '" value="' . $value . '" onClick="statusLocalidad($(this));" disabled>';
+                            $return .= '<label>' . ucwords($label) . '</label>';
+                            return $return;
+                        },
+                        'class'=>'radio-custom radio-warning'])->label(false) ?>
+                    </div>
+                </div>
+                
             
+                <div class="row">
+                    <div class="col-md-4">
+                        <?= $form->field($model, 'num_renta_actual')->textInput() ?>
+                    </div>
+                    <div class="col-md-4">
+                        <?= $form->field($model, 'num_incremento_autorizado')->textInput(['value'=>$porcentajeAbogado->num_porcentaje]) ?>
+                    </div>
+                    <div class="col-md-4">
+                        <?= $form->field($model, 'num_pretencion_renta')->textInput(['disabled'=>true]) ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <?= $form->field($model, 'num_incremento_cliente')->textInput() ?>
+                    </div>
+                    <div class="col-md-4">
+                        <?= $form->field($model, 'num_pretencion_renta_cliente')->textInput() ?>
+                    </div>
+                    <div class="col-md-4">
+                        <?= $form->field($model, 'id_moneda')->radioList(ArrayHelper::map(CatTiposMonedas::find()->where(['b_habilitado'=>1])->all(), 'id_moneda', 'txt_siglas'), ['item' => function($index, $label, $name, $checked, $value) {  
+                                $return = '<input type="radio" name="' . $name . '" value="' . $value . '" >';
+                                $return .= '<label>' . ucwords($label) . '</label>';
+                                return $return;
+                            }
+                        ,'class'=>'radio-custom radio-warning']) ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                    <?= $form->field($model, 'b_problemas_acceso')->dropDownList([ '0'=>"No", '1'=>'Sí']) ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-4">
-
-                <?= $form->field($model, 'b_status_localidad')->radioList(ArrayHelper::map(CatRegularizacionRenovacion::find()->all(), 'id_catalogo','txt_nombre'), ['item' => function($index, $label, $name, $checked, $value) {  
-                        $return = '<input type="radio" id="tipo_contrato_' . $value . '" name="' . $name . '" value="' . $value . '" onClick="statusLocalidad($(this));" disabled>';
-                        $return .= '<label>' . ucwords($label) . '</label>';
-                        return $return;
-                    },
-                    'class'=>'radio-custom radio-warning'])->label(false) ?>
-
-                <?= $form->field($model, 'num_renta_actual')->textInput() ?>
-
-                <?= $form->field($model, 'num_incremento_autorizado')->textInput(['value'=>$porcentajeAbogado->num_porcentaje]) ?>
-
-                <?= $form->field($model, 'num_pretencion_renta')->textInput(['disabled'=>true]) ?>
-
-                <?= $form->field($model, 'num_incremento_cliente')->textInput() ?>
-
-                <?= $form->field($model, 'num_pretencion_renta_cliente')->textInput() ?>
-
-                <?= $form->field($model, 'id_moneda')->radioList(ArrayHelper::map(CatTiposMonedas::find()->where(['b_habilitado'=>1])->all(), 'id_moneda', 'txt_siglas'), ['item' => function($index, $label, $name, $checked, $value) {  
-                        $return = '<input type="radio" name="' . $name . '" value="' . $value . '" >';
-                        $return .= '<label>' . ucwords($label) . '</label>';
-                        return $return;
-                    }
-                ,'class'=>'radio-custom radio-warning']) ?>
-
-                <?= $form->field($model, 'b_problemas_acceso')->dropDownList([ '0'=>"No", '1'=>'Sí']) ?>
-
+  
                 <?= Html::submitButton('<i class="icon wb-plus"></i> Guardar', ['class' => 'btn btn-success btn-form-save']) ?>
                 
             </div>
