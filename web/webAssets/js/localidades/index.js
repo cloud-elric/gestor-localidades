@@ -32,6 +32,7 @@ $(document).ready(function(){
         }
     },'.submit_tarea');
 
+
     $(document).on({'submit': function(e){
             e.preventDefault();
             
@@ -227,3 +228,84 @@ $(document).on({
 
       toastr.success('Tarea guardada');
    }
+
+
+$(document).on({'change': function(e){
+    var elemento = $(this);
+    var token = elemento.data("token");
+    if(elemento.prop("checked")){
+        completarTarea(token, elemento);
+    }else{
+        noCompletarTarea(token, elemento);
+    } 
+}
+}, '.js-completar-tarea');
+
+function completarTarea(token, elemento){
+    swal({
+        title: "Confirmación",
+        text: "¿Estas seguro de marcar esta tarea como completada?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-warning",
+        confirmButtonText: "Sí, esta completa",
+        cancelButtonText: "No",
+        closeOnConfirm: true,
+        //closeOnCancel: false
+    },
+        function () {
+            elemento.prop("checked", true);
+            $.ajax({
+                url:baseUrl+"tareas/completar-tarea?token="+token,
+             
+                success:function(r){
+                    if(r.status=="success"){
+                       
+                    }else{
+                        swal("Espera", "Ocurrio un problema", "error");
+                    }
+                    
+                },
+                error:function (){
+                    swal("Espera", "Ocurrio un problema", "error");
+                }
+            });
+        });
+        elemento.prop("checked", false);
+        return false;
+}
+
+function noCompletarTarea(token,  elemento){
+    swal({
+        title: "Confirmación",
+        text: "¿Estas seguro de marcar esta tarea como incompleta?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-warning",
+        confirmButtonText: "Sí",
+        cancelButtonText: "No",
+        closeOnConfirm: true,
+        //closeOnCancel: false
+    },
+        function () {
+            elemento.prop("checked", false);
+            $.ajax({
+                url:baseUrl+"tareas/descompletar-tarea?token="+token,
+             
+                success:function(r){
+                    if(r.status=="success"){
+                       
+                    }else{
+                        swal("Espera", "Ocurrio un problema", "error");
+                    }
+                    
+                },
+                error:function (){
+                    swal("Espera", "Ocurrio un problema", "error");
+                }
+            });
+        });
+
+        elemento.prop("checked", true);
+        return false;
+}

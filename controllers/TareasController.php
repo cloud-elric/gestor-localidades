@@ -167,7 +167,7 @@ class TareasController extends Controller
                 $decodeDropbox = json_decode(trim($dropbox), TRUE);
                 //echo $dropbox;exit;
                 
-                $model->txt_nombre = $decodeDropbox['name'];         
+                //$model->txt_nombre = $decodeDropbox['name'];         
                 $model->txt_path = $decodeDropbox['path_display'];
             }
             else if($model->id_tipo == ConstantesWeb::TAREA_ABIERTO){
@@ -252,4 +252,28 @@ class TareasController extends Controller
 
         return $this->redirect($decodeDropbox['link']);
     }
+
+    public function actionCompletarTarea($token=null){
+        $response = new ResponseServices();
+        $tarea = $this->findModel($token);
+        $tarea->b_completa = 1;
+        $tarea->save();
+
+        $response->status = "success";
+        $response->message = "Estatus de la tarea guardado";
+        return $response;
+    }
+
+    public function actionDescompletarTarea($token=null){
+        $response = new ResponseServices();
+        $tarea = $this->findModel($token);
+        $tarea->b_completa = 0;
+        $tarea->save();
+
+        $response->status = "success";
+        $response->message = "Estatus de la tarea guardado";
+        return $response;
+    }
+
+   
 }

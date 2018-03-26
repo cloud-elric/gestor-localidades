@@ -85,8 +85,8 @@ $this->registerCssFile(
                                                             if($isAbogado){
                                                             ?>
                                                             <div class="checkbox-custom checkbox-success">
-                                                                <input type="checkbox" name="checkbox">
-                                                               
+                                                                <input type="checkbox" class="js-completar-tarea" data-token="<?=$tarea->id_tarea?>" name="checkbox" <?=$tarea->b_completa?"checked":""?>>
+                                                                
                                                                 <label class="task-title"><?=$tarea->txt_nombre?></label>
                                                             </div>
                                                             <?php
@@ -121,7 +121,7 @@ $this->registerCssFile(
                                                     </div>
                                                    
                                                     <?php
-                                                    if($isColaborador){
+                                                    if($isColaborador && !$tarea->b_completa){
                                                     ?>    
                                                     <div class="row row-no-border">
                                                         <div class="col-md-12">
