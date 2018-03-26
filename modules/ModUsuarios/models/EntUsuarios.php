@@ -10,6 +10,7 @@ use app\modules\ModUsuarios\models\Utils;
 use kartik\password\StrengthValidator;
 use yii\web\UploadedFile;
 use app\models\Email;
+use app\models\AuthItem;
 
 /**
  * This is the model class for table "ent_usuarios".
@@ -45,6 +46,7 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 	public $repeat;
 	public $repeatEmail;
 	public $image;
+	public $usuarioPadre;
 	
 	/**
 	 * @inheritdoc
@@ -58,7 +60,15 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 	 */
 	public function rules() {
 		return [ 
-			
+				[
+					['usuarioPadre'], 'required', 'message'=>'Campo requerido',
+					'when' => function ($model) {
+						return $model->txt_auth_item == 'usuario-cliente';
+					}, 'whenClient' => "function (attribute, value) {
+						
+						return $('#entusuarios-txt_auth_item').val()=='usuario-cliente';
+					}"
+				],
 				[ 
 					'repeatEmail',
 					'compare',
@@ -224,11 +234,12 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 				'txt_auth_key' => 'Txt Auth Key',
 				'txt_password_hash' => 'Txt Password Hash',
 				'txt_password_reset_token' => 'Txt Password Reset Token',
-				'txt_email' => 'Txt Email',
+				'txt_email' => 'Email',
 				'fch_creacion' => 'Fch Creacion',
 				'fch_actualizacion' => 'Fch Actualizacion',
-				'id_status' => 'Id Status',
-				'repeatEmail'=>'Repetir email' 
+				'id_status' => 'Estatus',
+				'repeatEmail'=>'Repetir email',
+				'roleDescription'=>'Tipo de usuario' 
 		];
 	}
 	
@@ -462,11 +473,11 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 		$this->fch_creacion = Utils::getFechaActual ();
 		
 		// Si esta activada la opcion de mandar correo de activación el usuario estara en status pendiente
-		if (Yii::$app->params ['modUsuarios'] ['mandarCorreoActivacion'] && !$isFacebook) {
+		//if (Yii::$app->params ['modUsuarios'] ['mandarCorreoActivacion'] && !$isFacebook) {
 			$this->id_status = self::STATUS_PENDIENTED;
-		} else {
+		//} else {
 			$this->id_status = self::STATUS_ACTIVED;
-		}
+		//}
 
 		if($this->save()){
 
@@ -477,6 +488,19 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 			return false;
 		}
 		
+	}
+
+	public function getRoleDescription(){
+
+		return $this->txtAuthItem->description;
+	}
+
+	/**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTxtAuthItem()
+    {
+        return $this->hasOne(AuthItem::className(), ['name' => 'txt_auth_item']);
 	}
 
 	public function guardarRoleUsuario(){
@@ -624,8 +648,8 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 		$params ['url'] = Yii::$app->urlManager->createAbsoluteUrl ( [ 
 			'ingresar/' . $this->txt_token 
 		] );
-		$params ['usuario'] = $this->nombreCompleto;
-		$params ['user'] = $this->txt_email;
+		$params ['user'] = $this->nombreCompleto;
+		$params ['usuario'] = $this->txt_email;
 		$params ['password'] = $this->password;
 		
 		
@@ -644,13 +668,15 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 	}
 
 
-	public static function getIdentity(){
+	public static function getUsuarioLogueado(){
 		$usuarioLogueado = Yii::$app->user->identity;
 		if(!$usuarioLogueado){
 			$usuarioLogueado = new EntUsuarios();
 		}
 		return $usuarioLogueado;
 	}
+
+
 
 	public function randomPassword() {
 		$alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';

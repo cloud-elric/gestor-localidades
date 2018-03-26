@@ -253,7 +253,7 @@
         $BODY.animsition({
           inClass: 'fade-in',
           inDuration: 800,
-          //linkElement:'a:not([class="no-redirect"])',
+          linkElement:'a:not(.no-redirect)',
           loading: true,
           loadingClass: 'loader-overlay',
           loadingParentElement: 'html',

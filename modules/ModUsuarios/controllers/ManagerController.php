@@ -128,6 +128,29 @@ class ManagerController extends Controller {
 				'model' => $model 
 		] );
 	}
+
+	/**
+	 * Ingresa automaticamente al portal
+	 */
+	public function actionIngresar($t=null){
+		$usuario = EntUsuarios::find()->where(["txt_token"=>$t])->one();
+
+		if($usuario && $usuario->id_status == EntUsuarios::STATUS_BLOCKED){
+			// Mandar 
+
+			return false;
+		}
+
+		if($usuario){
+			Yii::$app->getUser ()->login ( $usuario );
+			$usuario->id_status = EntUsuarios::STATUS_ACTIVED;
+			$usuario->save();
+		}
+
+		
+
+		return $this->goHome();
+	}
 	
 	/**
 	 * Cambia la contraseña del usuario
