@@ -42,7 +42,7 @@ class LocalidadesController extends Controller
                      [
                          'actions' => ['index'],
                      'allow' => true,
-                         'roles' => [ConstantesWeb::ABOGADO],
+                         'roles' => [ConstantesWeb::ABOGADO, ConstantesWeb::COLABORADOR, ConstantesWeb::CLIENTE],
                      ],
                      
                    
