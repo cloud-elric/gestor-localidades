@@ -447,7 +447,7 @@ class LocalidadesController extends Controller
     public function actionVerTareasLocalidad($id){
 
         $localidad = $this->findModel($id);
-        $usuarioLogueado = EntUsuarios::getIdentity();
+        $usuarioLogueado = EntUsuarios::getUsuarioLogueado();
         // Obtiene las tareas del colaborador si no seran todas
         if($usuarioLogueado->txt_auth_item==ConstantesWeb::COLABORADOR){
             $tareasColaborador = WrkUsuariosTareas::find()->where(['id_usuario'=>$usuarioLogueado->id_usuario])->select('id_tarea')->asArray()->all();
