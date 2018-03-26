@@ -498,6 +498,12 @@
 		background-color: $ryg-accent
 		border-color: $ryg-accent
 		color: $ryg-second
+		&:active,
+		&:focus,
+		&:hover
+			background-color: darken( $ryg-accent, 20% )
+			border-color: darken( $ryg-accent, 20% )
+			color: $ryg-second
 	.task-badges
 		a
 			color: $ryg-aqua
@@ -551,3 +557,11 @@
 		width: 26px
 		.icon
 			margin-right: 0
+
+	.checkbox-warning
+		input[type=radio]:checked+input[type=hidden]+label::before,
+		input[type=radio]:checked+label::before,
+		input[type=checkbox]:checked+input[type=hidden]+label::before, 
+		input[type=checkbox]:checked+label::before
+			background-color: $ryg-accent
+			border-color: $ryg-accent

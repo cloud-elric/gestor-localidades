@@ -41,7 +41,7 @@ $this->registerCssFile(
                                     <div class="col-md-12">
                                         <ul class="list-group taskboard-list ui-sortable">
                                             <li class="list-group-item">
-                                                <div class="checkbox-custom checkbox-primary">
+                                                <div class="checkbox-custom checkbox-warning">
                                                     <input type="checkbox" name="checkbox">
                                                         <label class="task-title">Perspecta historiae studiis</label>
                                                 </div>
