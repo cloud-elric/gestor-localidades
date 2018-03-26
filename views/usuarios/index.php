@@ -99,6 +99,7 @@ $this->registerJsFile(
                'class'=>'form-control'
              ]
            ],
+           'txt_email:raw',
           
           [
             'attribute' => 'fch_creacion',
@@ -122,6 +123,10 @@ $this->registerJsFile(
           [
             'attribute' => 'id_status',
             'filter'=>[EntUsuarios::STATUS_ACTIVED=>'Activo', EntUsuarios::STATUS_BLOCKED=>'Inactivo'],
+            'filterInputOptions'=>[
+              "prompt"=>"Todos",
+              'class'=>'form-control'
+            ],
             'format'=>'raw',
             
             'value'=>function($data){
@@ -142,12 +147,13 @@ $this->registerJsFile(
             }
           ],
           [
-            'attribute' => 'Editar',
+            'attribute' => 'Acciones',
             'format'=>'raw',
            
             'value'=>function($data){
-                
-              return '<a href="'.Url::base().'/usuarios/update/'.$data->id_usuario.'" class="btn btn-outline btn-success btn-sm"><i class="icon wb-edit"></i></a>';
+               $botonEditar =  '<a href="'.Url::base().'/usuarios/update/'.$data->id_usuario.'" class="btn btn-outline btn-success btn-sm"><i class="icon wb-edit"></i></a>';
+               $botonEnviarBienvenida = '<button data-token="'.$data->txt_token.'" class="btn btn-outline btn-primary btn-sm js-reenviar-email"><i class="icon wb-envelope"></i></button>';
+              return $botonEditar.$botonEnviarBienvenida;
             }
           ]
         ],

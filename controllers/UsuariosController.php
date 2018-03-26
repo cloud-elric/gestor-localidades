@@ -42,12 +42,13 @@ class UsuariosController extends Controller
      */
     public function actionIndex()
     {
-        $usuario = EntUsuarios::getIdentity();
+        $usuario = EntUsuarios::getUsuarioLogueado();
 
         $auth = Yii::$app->authManager;
 
         $hijos = $auth->getChildRoles($usuario->txt_auth_item);
         ksort($hijos);
+        unset($hijos[$usuario->txt_auth_item]);
         $roles = AuthItem::find()->where(['in', 'name', array_keys($hijos)])->orderBy("name")->all();
 
         $searchModel = new UsuariosSearch();
@@ -80,11 +81,13 @@ class UsuariosController extends Controller
      */
     public function actionCreate()
     {
-        $usuario = EntUsuarios::getIdentity();//exit;
+        $usuario = EntUsuarios::getUsuarioLogueado();//exit;
 
         $auth = Yii::$app->authManager;
 
         $hijos = $auth->getChildRoles($usuario->txt_auth_item);
+
+        unset($hijos[$usuario->txt_auth_item]);
         ksort($hijos);
         $roles = AuthItem::find()->where(['in', 'name', array_keys($hijos)])->orderBy("name")->all();
 
@@ -108,9 +111,10 @@ class UsuariosController extends Controller
             if ($user = $model->signup()) {
 
                 $model->enviarEmailBienvenida();
+                
                 if($model->txt_auth_item == ConstantesWeb::ABOGADO){
                     $porcentajeRenta = new CatPorcentajeRentaAbogados();
-                    $porcentajeRenta->id_usuario = $user->id_usuario;
+                    $porcentajeRenta->id_usuario = $model->id_usuario;
                     $porcentajeRenta->num_porcentaje = 10;
                     $porcentajeRenta->save();
                 }
@@ -119,10 +123,10 @@ class UsuariosController extends Controller
                     // Enviar correo
 					$utils = new Utils ();
 					// Parametros para el email
-					$parametrosEmail ['user'] = $user->getNombreCompleto();
+					$parametrosEmail ['user'] = $model->getNombreCompleto();
 					//$parametrosEmail ['abogado'] = $abogado->getNombreCompleto();
 					$parametrosEmail ['url'] = Yii::$app->urlManager->createAbsoluteUrl([ 
-                        'usuarios/cambiar-pass/?token=' . $user->txt_token
+                        'usuarios/cambiar-pass/?token=' . $model->txt_token
                     ]);
 					
 					// Envio de correo electronico
@@ -131,7 +135,7 @@ class UsuariosController extends Controller
 
                 if($model->txt_auth_item == ConstantesWeb::COLABORADOR){
                     $relUsuarios = new WrkUsuarioUsuarios();
-                    $relUsuarios->id_usuario_hijo =$user->id_usuario;
+                    $relUsuarios->id_usuario_hijo =$model->id_usuario;
                     $relUsuarios->id_usuario_padre = $_POST['EntUsuarios']['usuarioPadre'];
                     $relUsuarios->save(); 
                 }
@@ -160,7 +164,7 @@ class UsuariosController extends Controller
      */
     public function actionUpdate($id)
     {
-        $usuario = EntUsuarios::getIdentity();
+        $usuario = EntUsuarios::getUsuarioLogueado();
 
         $auth = Yii::$app->authManager;
 
@@ -285,4 +289,25 @@ class UsuariosController extends Controller
             
         }
     }
+
+    public function actionReenviarEmailBienvenida($token=null){
+        $respuesta = new ResponseServices();
+        $usuario = EntUsuarios::find()->where(["txt_token"=>$token])->one();
+
+        $usuario->password = $usuario->randomPassword();
+        $usuario->setPassword ( $usuario->password );
+        $usuario->generateAuthKey ();
+        
+        if($usuario->save()){
+            $usuario->enviarEmailBienvenida();
+            $respuesta->status = "success";
+            $respuesta->message = "Email enviado";
+        }else{
+            $respuesta->message = "No se pudo guardar la información";
+            $respuesta->result = $usuario->errors;
+        }
+        
+        return $respuesta;
+    }
+	
 }

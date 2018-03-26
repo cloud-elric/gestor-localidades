@@ -20,6 +20,9 @@ use app\models\EntEstatus;
 use app\models\ConstantesWeb;
 use app\models\WrkUsuarioUsuarios;
 use app\models\ResponseServices;
+use app\models\CatTiposMonedas;
+use app\components\AccessControlExtend;
+
 
 /**
  * LocalidadesController implements the CRUD actions for EntLocalidades model.
@@ -29,15 +32,28 @@ class LocalidadesController extends Controller
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
+     public function behaviors()
+     {
+         return [
+             'access' => [
+                 'class' => AccessControlExtend::className(),
+                 'only' => ['index'],
+                 'rules' => [
+                     [
+                         'actions' => ['index'],
+                     'allow' => true,
+                         'roles' => [ConstantesWeb::ABOGADO],
+                     ],
+                     
+                   
+                 ],
+             ],
+            // 'verbs' => [
+            //     'class' => VerbFilter::className(),
+            //     'actions' => [
+            //         'logout' => ['post'],
+            //     ],
+            // ],
         ];
     }
 
@@ -122,12 +138,14 @@ class LocalidadesController extends Controller
     {
         $model = new EntLocalidades();
         $estatus = new EntEstatus();
+        $monedas = CatTiposMonedas::find()->where(['b_habilitado'=>1])->all();
         $historial = null;
 
         if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())){
             //var_dump($_POST);exit;
             $model->id_usuario = Yii::$app->user->identity->id_usuario; 
             $model->txt_token = Utils::generateToken('tok');
+            $model->id_moneda = $_POST['group2'];
 
             $model->fch_vencimiento_contratro = Utils::changeFormatDateInput($model->fch_vencimiento_contratro);
             $model->fch_asignacion = Utils::changeFormatDateInput($model->fch_asignacion);
@@ -150,7 +168,8 @@ class LocalidadesController extends Controller
             'model' => $model,
             'estatus' => $estatus,
             'flag' => $flag,        
-            'historial' => $historial
+            'historial' => $historial,
+            'monedas' => $monedas
         ]);
     }
 
