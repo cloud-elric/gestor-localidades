@@ -558,6 +558,8 @@
 									display: flex
 									flex-wrap: wrap
 									justify-content: center
+									+respond-to(tl)
+										flex-direction: column
 									+respond-to(xs)
 										flex-direction: column
 									+respond-to(sl)
@@ -580,6 +582,9 @@
 										// &:active
 										// 	background-color: transparent
 
+										+respond-to(tl)
+											margin-bottom: .8rem
+											margin-right: 0
 										+respond-to(xs)
 											margin-bottom: .8rem
 											margin-right: 0
@@ -611,9 +616,20 @@
 									flex-wrap: wrap
 									justify-content: flex-start
 									width: 90%
+									+respond-to(md)
+										justify-content: center
+										width: 100%
+									+respond-to(tl)
+										justify-content: center
+										width: 100%
+									+respond-to(xs)
+										justify-content: center
+										width: 100%
 									label
 										background-color: transparent
 										border-color: $ryg-aqua
+										color: $ryg-aqua
+										font-size: .9rem
 										width: 50%
 										// &:active,
 										// &:focus,
@@ -622,6 +638,13 @@
 										// 	border-color: $ryg-aqua
 										// 	color: $white
 										+respond-to(md)
+											border-radius: 0
+											width: 100%
+										+respond-to(tl)
+											border-radius: 0
+											width: 100%
+										+respond-to(xs)
+											border-radius: 0
 											width: 100%
 										&.btn-active
 											&.active

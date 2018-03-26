@@ -35,13 +35,15 @@ a
 	======================================= */
 /* primary */
 .btn-primary
-	border-color: $btn-primary
-    background-color: $btn-primary
+	border-color: $ryg-accent
+	background-color: $ryg-accent
+	color: $ryg-second
 	&:active,
 	&:focus,
 	&:hover
-		border-color: $btn-primary-active
-		background-color: $btn-primary-active
+		background-color: darken( $ryg-accent, 20% )
+		border-color: darken( $ryg-accent, 20% )
+		color: $ryg-second
 
 /* succes */
 .btn-success
