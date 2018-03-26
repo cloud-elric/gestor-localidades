@@ -139,7 +139,7 @@ $user = Yii::$app->user->identity;
                                             $estatus = EntEstatus::find()->where(['id_localidad'=>$model->id_localidad])->orderBy('fch_creacion')->all();
                                             $arr = "";
                                             foreach ($estatus as $est){
-                                                $arr .= '<span class="badge badge-outline badge-success badge-round mr-10">'.$est->txt_estatus.'</span>';
+                                                $arr .= '<span class="badge badge-outline badge-success badge-round ml-5 vertical-align-middle">'.$est->txt_estatus.'</span>';
                                             }
                                             echo $arr;
                                             ?>
