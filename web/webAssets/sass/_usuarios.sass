@@ -725,6 +725,12 @@
 						border-color: $ryg-accent
 						color: $ryg-second
 						width: 100%
+						&:active,
+						&:focus,
+						&:hover
+							background-color: darken( $ryg-accent, 20% )
+							border-color: darken( $ryg-accent, 20% )
+							color: $ryg-second
 					.form-group
 						position: relative
 						input[type="email"],

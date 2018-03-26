@@ -94,8 +94,10 @@
 						&:active,
 						&:focus,
 						&:hover
-							background-color: rgba($ryg-accent,.8)
-							// color: $white
+							background-color: darken( $ryg-accent, 20% )
+							border-color: darken( $ryg-accent, 20% )
+							box-shadow: none
+							color: $ryg-second
 					
 					.btn-search
 						background-color: transparent
@@ -351,6 +353,12 @@
 				border-color: $ryg-accent
 				color: $ryg-second
 				width: 100%
+				&:active,
+				&:focus,
+				&:hover
+					background-color: darken( $ryg-accent, 20% )
+					border-color: darken( $ryg-accent, 20% )
+					color: $ryg-second
 
 			.form-control,
 			.form-control:disabled,
@@ -406,7 +414,9 @@
 			&[disabled]:focus,
 			&:hover,
 			&:focus
-				background-color: rgba($ryg-accent,.8)
+				background-color: darken( $ryg-accent, 20% )
+				border-color: darken( $ryg-accent, 20% )
+				color: $ryg-second
 
 		.btn-delete
 			background-color: rgba($ryg-accent,.45)
