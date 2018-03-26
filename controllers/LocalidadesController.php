@@ -21,6 +21,8 @@ use app\models\ConstantesWeb;
 use app\models\WrkUsuarioUsuarios;
 use app\models\ResponseServices;
 use app\models\CatTiposMonedas;
+use app\components\AccessControlExtend;
+
 
 /**
  * LocalidadesController implements the CRUD actions for EntLocalidades model.
@@ -30,15 +32,28 @@ class LocalidadesController extends Controller
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
+     public function behaviors()
+     {
+         return [
+             'access' => [
+                 'class' => AccessControlExtend::className(),
+                 'only' => ['index'],
+                 'rules' => [
+                     [
+                         'actions' => ['index'],
+                     'allow' => true,
+                         'roles' => [ConstantesWeb::ABOGADO],
+                     ],
+                     
+                   
+                 ],
+             ],
+            // 'verbs' => [
+            //     'class' => VerbFilter::className(),
+            //     'actions' => [
+            //         'logout' => ['post'],
+            //     ],
+            // ],
         ];
     }
 
