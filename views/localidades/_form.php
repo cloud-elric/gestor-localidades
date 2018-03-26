@@ -13,6 +13,8 @@ use kartik\select2\Select2;
 use yii\web\JsExpression;
 use kartik\depdrop\DepDrop;
 use app\models\CatColonias;
+use app\models\CatTiposMonedas;
+use app\models\CatRegularizacionRenovacion;
 
 
 /* @var $this yii\web\View */
@@ -111,40 +113,6 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                 <?= $form->field($model, 'id_estado')->hiddenInput()->label(false) ?>
 
                 <?= $form->field($model, 'txt_calle')->textInput(['maxlength' => true]) ?>
-                
-            </div>
-            
-            <div class="col-sm-12 col-md-12 col-lg-4">
-
-                <div class="radio-custom radio-warning">
-                    <input name="group1" type="radio" id="test-regularizacion-<?=$idUser?>" value="regularizacion" onclick="statusLocalidad($(this));" checked="checked" /> 
-                    <label for="test-regularizacion-<?=$idUser?>">Regularizacion</label>
-                </div>
-
-                <div class="radio-custom radio-warning">
-                    <input name="group1" type="radio" id="test-renovacion-<?=$idUser?>" value="renovacion" onclick="statusLocalidad($(this));" />  
-                    <label for="test-renovacion-<?=$idUser?>">Renovacion</label>
-                </div>
-
-                <?= $form->field($model, 'b_status_localidad')->hiddenInput()->label(false) ?>
-
-                <?= $form->field($model, 'num_renta_actual')->textInput() ?>
-
-                <?= $form->field($model, 'num_incremento_autorizado')->textInput(['value'=>$porcentajeAbogado->num_porcentaje]) ?>
-
-                <?= $form->field($model, 'num_pretencion_renta')->textInput(['disabled'=>true]) ?>
-
-                <?php 
-                if($monedas){
-                    foreach($monedas as $moneda){
-                ?>
-                        <div class="radio-custom radio-warning">
-                            <input name="group2" type="radio" id="tipo-moneda-<?=$moneda->id_moneda?>" value="<?= $moneda->id_moneda ?>"/> 
-                            <label for="tipo-moneda-<?=$moneda->id_moneda?>"><?= $moneda->txt_siglas ?></label>
-                        </div>
-                <?php
-                    }
-                } ?>
 
                 <?= $form->field($model, 'fch_vencimiento_contratro')->widget(DatePicker::classname(), [
                     //'options' => ['placeholder' => 'Enter birth date ...'],
@@ -165,6 +133,34 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                         'format' => 'mm-dd-yyyy'
                     ]
                 ]);?>
+                
+            </div>
+            
+            <div class="col-sm-12 col-md-12 col-lg-4">
+
+                <?= $form->field($model, 'b_status_localidad')->radioList(ArrayHelper::map(CatRegularizacionRenovacion::find()->all(), 'id_catalogo','txt_nombre'), ['item' => function($index, $label, $name, $checked, $value) {  
+                        $return = '<input type="radio" name="' . $name . '" value="' . $value . '" onClick="statusLocalidad($(this));" >';
+                        $return .= '<label>' . ucwords($label) . '</label>';
+                        return $return;
+                    },
+                    'class'=>'radio-custom radio-warning'])->label(false) ?>
+
+                <?= $form->field($model, 'num_renta_actual')->textInput() ?>
+
+                <?= $form->field($model, 'num_incremento_autorizado')->textInput(['value'=>$porcentajeAbogado->num_porcentaje]) ?>
+
+                <?= $form->field($model, 'num_pretencion_renta')->textInput(['disabled'=>true]) ?>
+
+                <?= $form->field($model, 'num_incremento_cliente')->textInput() ?>
+
+                <?= $form->field($model, 'num_pretencion_renta_cliente')->textInput() ?>
+
+                <?= $form->field($model, 'id_moneda')->radioList(ArrayHelper::map(CatTiposMonedas::find()->where(['b_habilitado'=>1])->all(), 'id_moneda', 'txt_siglas'), ['item' => function($index, $label, $name, $checked, $value) {  
+                        $return = '<input type="radio" name="' . $name . '" value="' . $value . '" >';
+                        $return .= '<label>' . ucwords($label) . '</label>';
+                        return $return;
+                    }
+                ,'class'=>'radio-custom radio-warning']) ?>
 
                 <?= $form->field($model, 'b_problemas_acceso')->dropDownList([ '0'=>"No", '1'=>'Sí']) ?>
 
@@ -228,7 +224,7 @@ $this->registerJs("
 
 $(document).ready(function(){
 
-    $('#entlocalidades-b_status_localidad').val('1');
+    //$('#entlocalidades-b_status_localidad').val('1');
 
     $('#entlocalidades-num_renta_actual').on('change', function(){
         if( $('#entlocalidades-b_status_localidad').val() == '1' ){
@@ -240,6 +236,9 @@ $(document).ready(function(){
             total = parseInt(rentaActual) + parseInt(incremento);
 
             $('#entlocalidades-num_pretencion_renta').val(total);
+        }
+        if($('#entlocalidades-num_incremento_cliente').val() > 1){
+            $('#entlocalidades-num_incremento_cliente').change();
         }
     });
 
@@ -272,10 +271,36 @@ $(document).ready(function(){
             buscarMunicipioByColonia($(this).val());
         }
     });
+
+    $('#entlocalidades-num_incremento_cliente').on('change', function(){
+        rentaActual = $('#entlocalidades-num_renta_actual').val();
+        porcentaje = $(this).val();
+
+        porce = porcentaje / 100;
+        incremento = rentaActual * porce;
+        total = parseInt(rentaActual) + parseInt(incremento);
+
+        if(porcentaje > 1){
+            $('#entlocalidades-num_pretencion_renta_cliente').val(total);
+        }else{
+            $('#entlocalidades-num_pretencion_renta_cliente').val(0);
+        }
+    });
+
+    $('#entlocalidades-num_pretencion_renta_cliente').on('change', function(){
+        rentaActual = $('#entlocalidades-num_renta_actual').val();
+        pretencion = $(this).val();
+
+        num1 = parseInt(pretencion) - parseInt(rentaActual);
+        num2 = num1 * 100;
+        porcentaje = num2 / rentaActual;
+
+        $('#entlocalidades-num_incremento_cliente').val(porcentaje);
+    });
 });
 
 function statusLocalidad(input){
-    if(input.val() == 'renovacion'){
+    if(input.val() == 2){
         $('#entlocalidades-num_pretencion_renta').val('0');
         $('.field-entlocalidades-num_incremento_autorizado').css('display', 'none');
         $('.field-entlocalidades-num_pretencion_renta').css('display', 'none');
