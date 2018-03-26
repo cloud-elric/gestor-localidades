@@ -139,7 +139,7 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
             <div class="col-sm-12 col-md-12 col-lg-4">
 
                 <?= $form->field($model, 'b_status_localidad')->radioList(ArrayHelper::map(CatRegularizacionRenovacion::find()->all(), 'id_catalogo','txt_nombre'), ['item' => function($index, $label, $name, $checked, $value) {  
-                        $return = '<input type="radio" name="' . $name . '" value="' . $value . '" onClick="statusLocalidad($(this));" >';
+                        $return = '<input type="radio" id="tipo_contrato_' . $value . '" name="' . $name . '" value="' . $value . '" onClick="statusLocalidad($(this));">';
                         $return .= '<label>' . ucwords($label) . '</label>';
                         return $return;
                     },
@@ -296,6 +296,32 @@ $(document).ready(function(){
         porcentaje = num2 / rentaActual;
 
         $('#entlocalidades-num_incremento_cliente').val(porcentaje);
+    });
+
+    $('#entlocalidades-fch_vencimiento_contratro').on('change', function(){
+        var fechaActual = new Date();
+        var fechaVencimiento = new Date($(this).val());
+        var diferencia = fechaActual - fechaVencimiento;
+        var dif = Math.floor((diferencia) / (1000*60*60*24));
+
+        //console.log(fechaActual);
+        //console.log(fechaVencimiento);
+        //console.log( Math.floor((diferencia) / (1000*60*60*24)) );
+
+        var regularizacion = $('#tipo_contrato_1');
+        var renovacion = $('#tipo_contrato_2');
+        if(dif == 0){
+            regularizacion.prop('checked', false);
+            renovacion.prop('checked', false);
+        }else if(dif < 0){
+            regularizacion.prop('checked', true);
+            statusLocalidad(regularizacion);
+            //console.log('Regularizacion');
+        }else{
+            renovacion.prop('checked', true);
+            statusLocalidad(renovacion);           
+            //console.log('Renovacion');            
+        }
     });
 });
 
