@@ -32,6 +32,11 @@ $this->registerCssFile(
   );  
 
 $this->registerCssFile(
+    '@web/webAssets/templates/classic/topbar/assets/examples/css/apps/work.css',
+    ['depends' => [AppAsset::className()]]
+); 
+
+$this->registerCssFile(
     '@web/webAssets/templates/classic/global/vendor/slidepanel/slidePanel.css',
     ['depends' => [AppAssetClassicCore::className()]]
 ); 
@@ -274,7 +279,7 @@ $(document).ready(function(){
                         console.log('Asignacion correcta');
                         // swal('Good job!', 'You clicked the button!', 'success');
                         // Display a success toast, with a title
-                        toastr.success('Se ha asignado la localidad', 'Se mando un email de notificacion');
+                        toastr.success('Se mando un email de notificacion');
                     }
                 }
             });
