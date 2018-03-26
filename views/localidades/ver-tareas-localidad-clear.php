@@ -119,7 +119,8 @@ $this->registerCssFile(
                                                         ?>
                                                         </div>
                                                     </div>
-                                                   
+
+                                                    
                                                     <?php
                                                     if($isColaborador && !$tarea->b_completa){
                                                     ?>    
@@ -160,6 +161,14 @@ $this->registerCssFile(
                                                             ?>
                                                         </div>
                                                     </div>
+                                                    <?php
+                                                    }else if($tarea->b_completa){
+                                                    ?>
+                                                    <div class="row row-no-border">
+                                                        <div class="col-md-12">
+                                                            <p>Tarea completa</p>
+                                                        </div>
+                                                    </div> 
                                                     <?php
                                                     }
                                                     ?>  
