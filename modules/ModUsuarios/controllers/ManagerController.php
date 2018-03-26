@@ -123,6 +123,8 @@ class ManagerController extends Controller {
 			
 			// Envio de correo electronico
 			$utils->sendEmailRecuperarPassword ($user->txt_email, $parametrosEmail );
+
+			Yii::$app->session->setFlash('success', "Se ha enviado un correo eléctronico a '".$user->txt_email."' con instrucciones para recuperar tu contraseña");
 		}
 		return $this->render ( 'peticionPass', [ 
 				'model' => $model 

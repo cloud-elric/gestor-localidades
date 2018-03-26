@@ -293,7 +293,7 @@ a[x-apple-data-detectors=true] {
         <div style="line-height:24px;font-size:12px;color:#555555;font-family:'Verdanaf', Georgia, Times, 'Times New Roman', serif;text-align:left;">
 
             <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">Hola <?= $user ?>:</span></p>
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">Este correo es para: <strong style="font-family: Verdana; font-size: 14px; font-weight: bold;">asignar una contraseña</strong> para poder ingresar al sistema <strong style="font-family: Verdana; font-size: 14px; font-weight: bold;"></strong> - la cual puedes hacer dando click en el siguiente enlace.</span></p>
+            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">Este correo es para poder <strong style="font-family: Verdana; font-size: 14px; font-weight: bold;">asignar una contraseña</strong> para poder ingresar al sistema <strong style="font-family: Verdana; font-size: 14px; font-weight: bold;"></strong> - la cual puedes hacer dando click en el siguiente enlace.</span></p>
 
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
         </div>	

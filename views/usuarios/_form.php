@@ -47,7 +47,7 @@ use yii\web\View;
                 <div id="select_clientes" class="col-md-6" style="display:none">
                     <?= $form->field($model, 'usuarioPadre')
                         ->widget(Select2::classname(), [
-                            'data' => ArrayHelper::map($usuariosClientes, 'id_usuario', 'txt_username'),
+                            'data' => ArrayHelper::map($usuariosClientes, 'id_usuario', 'nombreCompleto'),
                             'language' => 'es',
                             'options' => ['placeholder' => 'Seleccionar grupo de trabajo'],
                             'pluginOptions' => [
