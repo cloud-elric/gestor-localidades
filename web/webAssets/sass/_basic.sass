@@ -250,3 +250,57 @@ a
 	color: $ryg-primary
 	font-weight: $regular
 	font-size: .8rem
+
+.addMember-trigger-dropdown
+	left: 50%
+	top: 0
+	transform: translate(-50%, -100%)
+
+.panel
+	background-color: #000207
+
+
+/*  MODAL
+	======================================= */
+.modal-tarea
+	.modal-dialog
+		.modal-content
+			background-color: $ryg-primary
+			.modal-header
+				padding-bottom: 0
+				h2
+					color: $white
+					font-size: 1.65rem
+					font-weight: $light
+			.modal-body
+				padding-top: 0
+				form
+					.form-group
+						label
+							color: $ryg-gray
+						input,
+						.form-control
+							background-color: $ryg-second
+							border-color: $ryg-second
+							font-weight: $light
+							&:active,
+							&:focus,
+							&:hover
+								border-color: $ryg-second
+								box-shadow: none
+								outline: none
+
+						.radio-custom label::before
+							background-color: $ryg-gray
+							border-color: $ryg-gray
+							
+						.radio-warning
+							input[type=radio]:checked+input[type=hidden]+label::before,
+							input[type=radio]:checked+label::before
+								background-color: $ryg-accent
+								border-color: $ryg-accent
+
+							input[type=radio]:checked+input[type=hidden]+label::after,
+							input[type=radio]:checked+label::after
+								background-color: $ryg-gray
+								border-color: $ryg-gray
