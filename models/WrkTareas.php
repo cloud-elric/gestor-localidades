@@ -71,6 +71,7 @@ class WrkTareas extends \yii\db\ActiveRecord
             'fch_creacion' => 'Fecha Creacion',
             'fch_due_date' => 'Fecha Due Date',
             'b_completa' => 'B Completa',
+            'id_tipo'=>'Tipo de tarea'
         ];
     }
 

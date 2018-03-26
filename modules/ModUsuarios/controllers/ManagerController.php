@@ -178,13 +178,16 @@ class ManagerController extends Controller {
 		if ($model->load ( Yii::$app->request->post () )) {
 			$user = $peticion->idUsuario;
 			$user->setPassword ( $model->password );
-			$user->save ();
+			if($user->save ()){
+
 			
-			$peticion->updateUsuarioPeticion ();
-			
-			return $this->redirect ( [ 
+				return $this->redirect ( [ 
 					'login' 
-			] );
+				] );
+				$peticion->updateUsuarioPeticion ();
+			};
+			
+			
 		}
 		
 		return $this->render ( 'cambiarPass', [ 

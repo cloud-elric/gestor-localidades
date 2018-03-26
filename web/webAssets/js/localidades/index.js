@@ -51,8 +51,11 @@ $(document).ready(function(){
                         swal("Perfecto", data.message, "success");
                         console.log(data.message);
 
-                        $('.js_descargar_archivo-'+data.result.idT+" .url_documento").html(data.result.url);
-                        $(".dropify-clear").trigger("click");
+                        if(data.result.url){
+                            $('.js_descargar_archivo-'+data.result.idT+" .url_documento").html(data.result.url);
+                            $(".dropify-clear").trigger("click");
+                        }
+                        
                         
                     }else{
                         swal("Espera", data.message, "error");

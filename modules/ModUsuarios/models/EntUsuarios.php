@@ -61,7 +61,7 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 	public function rules() {
 		return [ 
 				[
-					['usuarioPadre'], 'required', 'message'=>'Campo requerido',
+					['usuarioPadre'], 'required', "on"=>["registerInput", "update"], 'message'=>'Campo requerido',
 					'when' => function ($model) {
 						return $model->txt_auth_item == 'usuario-cliente';
 					}, 'whenClient' => "function (attribute, value) {

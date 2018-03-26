@@ -11,8 +11,9 @@ use yii\widgets\ActiveForm;
 use yii\web\View;
 use app\models\WrkUsuariosTareas;
 
-$usuario = EntUsuarios::getIdentity();
+$usuario = EntUsuarios::getUsuarioLogueado();
 $isAbogado = $usuario->txt_auth_item == ConstantesWeb::ABOGADO;
+$isColaborador = $usuario->txt_auth_item == ConstantesWeb::COLABORADOR;
 
 $this->registerCssFile(
     '@web/webAssets/templates/classic/global/vendor/dropify/dropify.css',
@@ -120,7 +121,7 @@ $this->registerCssFile(
                                                     </div>
                                                    
                                                     <?php
-                                                    if(!$isAbogado){
+                                                    if($isColaborador){
                                                     ?>    
                                                     <div class="row row-no-border">
                                                         <div class="col-md-12">

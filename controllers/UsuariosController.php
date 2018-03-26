@@ -173,6 +173,7 @@ class UsuariosController extends Controller
         $roles = AuthItem::find()->where(['in', 'name', array_keys($hijos)])->orderBy("name")->all();
 
         $model = $this->findModel($id);
+        $model->scenario = "update";
 
         $usuariosClientes = EntUsuarios::find()->where(['txt_auth_item'=>ConstantesWeb::CLIENTE])->all();
 
@@ -296,7 +297,7 @@ class UsuariosController extends Controller
 
         $usuario->password = $usuario->randomPassword();
         $usuario->setPassword ( $usuario->password );
-        $usuario->generateAuthKey ();
+        $usuario->usuarioPadre = 1;
         
         if($usuario->save()){
             $usuario->enviarEmailBienvenida();

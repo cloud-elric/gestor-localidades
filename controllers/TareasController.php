@@ -154,10 +154,14 @@ class TareasController extends Controller
         if ($model->load(Yii::$app->request->post())){
 
             $localidad = EntLocalidades::find()->where(['id_localidad'=>$model->id_localidad])->one();
+
+            $response->result['idT'] = $model->id_tarea;
             
             if($model->id_tipo ==  ConstantesWeb::TAREA_ARCHIVO){
                 $fileDropbox = UploadedFile::getInstance($model, 'file');
                 $response->message = "Archivo guardado.";
+                $response->result['url'] = Html::a(' <i class="icon wb-attach-file" aria-hidden="true"></i>
+                ', ['tareas/descargar', 'id' => $model->id_tarea,], ['target' => '_blank', 'class' => 'btn btn-success btn-outline no-pjax']);
 
                 $dropbox = Dropbox::subirArchivo($localidad->txt_nombre, $fileDropbox);
                 $decodeDropbox = json_decode(trim($dropbox), TRUE);
@@ -168,36 +172,36 @@ class TareasController extends Controller
             }
             else if($model->id_tipo == ConstantesWeb::TAREA_ABIERTO){
                 $response->message = "Tarea guardada.";
+                $response->result['url'] = null;
             }
 
             if($model->save()){
 
                 $response->status = "success";
-                $response->result['url'] = Html::a(' <i class="icon wb-attach-file" aria-hidden="true"></i>
-                ', ['tareas/descargar', 'id' => $model->id_tarea,], ['target' => '_blank', 'class' => 'btn btn-success btn-outline no-pjax']);
-                $response->result['idT'] = $model->id_tarea;
+               
+                
 
                 $userActual = Yii::$app->user->identity;
                 $user = $model->usuario;
                 $localidad = $model->localidad;
 
-                if (Yii::$app->params ['modUsuarios'] ['mandarCorreoActivacion']) {
+               
                     
-					// Enviar correo
-					$utils = new Utils ();
-					// Parametros para el email
-					$parametrosEmail ['localidad'] = $localidad->txt_nombre;
-					$parametrosEmail ['tarea'] = $model->txt_nombre;
-                    $parametrosEmail ['user'] = $user->getNombreCompleto ();
-                    $parametrosEmail ['userActual'] = $userActual->getNombreCompleto ();
-                    $parametrosEmail ['url'] = Yii::$app->urlManager->createAbsoluteUrl([
-                        'localidades/view?id'.$model->id_localidad.'/?token=' . $user->txt_token
-                    ]);
-					
-					// Envio de correo electronico
-                    $utils->sendEmailCargaTareas( $user->txt_email,$parametrosEmail );
+                // Enviar correo
+                $utils = new Utils ();
+                // Parametros para el email
+                $parametrosEmail ['localidad'] = $localidad->txt_nombre;
+                $parametrosEmail ['tarea'] = $model->txt_nombre;
+                $parametrosEmail ['user'] = $user->getNombreCompleto ();
+                $parametrosEmail ['userActual'] = $userActual->getNombreCompleto ();
+                $parametrosEmail ['url'] = Yii::$app->urlManager->createAbsoluteUrl([
+                    'localidades/view?id'.$model->id_localidad.'/?token=' . $user->txt_token
+                ]);
+                
+                // Envio de correo electronico
+                $utils->sendEmailCargaTareas( $user->txt_email,$parametrosEmail );
                     				
-                }
+                
 
                 //return $this->redirect(['localidades/view', 'id' => $localidad->id_localidad]);
             }else{
