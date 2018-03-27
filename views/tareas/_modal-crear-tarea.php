@@ -41,7 +41,7 @@ Modal::begin([
         </div>
     </div>
     <div class="form-group">
-        <?= Html::submitButton('<span class="ladda-label">Guardar</span>', ['class' => 'btn btn-primary ladda-button', "id"=>"js-btn-guardar-tarea", "data-style"=>"zoom-in"]) ?>
+        <?= Html::submitButton('<span class="ladda-label"><i class="icon fa-save font-size-16" aria-hidden="true"></i> Guardar</span>', ['class' => 'btn btn-primary ladda-button', "id"=>"js-btn-guardar-tarea", "data-style"=>"zoom-in"]) ?>
     </div>
 
     <?php ActiveForm::end(); 
