@@ -23,6 +23,10 @@ use app\models\ResponseServices;
 use app\models\CatTiposMonedas;
 use app\models\CatRegularizacionRenovacion;
 use app\components\AccessControlExtend;
+use app\models\EntLocalidadesArchivadas;
+use app\models\WrkTareasArchivadas;
+use app\models\WrkUsuariosLocalidadesArchivadas;
+use app\models\WrkUsuariosTareasArchivadas;
 
 
 /**
@@ -499,5 +503,66 @@ class LocalidadesController extends Controller
 
         return $this->renderAjax("ver-tareas-localidad-clear", ["localidad"=>$localidad, "tareas"=>$tareas, "jsonAgregar"=>$jsonAgregar]);
 
+    }
+
+    public function actionArchivarLocalidad($id, $mot){
+        $response = new ResponseServices();
+
+        $localidad = $this->findModel($id);
+
+        $archivada = new EntLocalidadesArchivadas();
+        $archivada->attributes = $localidad->attributes;
+        //$archivada->id_localidad = $localidad->id_localidad;
+        $archivada->b_archivada = $mot;
+
+        $transaction = Yii::$app->db->beginTransaction();
+		try{
+
+            if ($archivada->save()){
+                $tareas = $localidad->wrkTareas;
+                if($tareas){
+                    foreach($tareas as $tarea){
+                        $tareaArchivada = new WrkTareasArchivadas();
+                        $tareaArchivada->attributes = $tarea->attributes;
+                        //$tareaArchivada->id_tarea = $tarea->id_tarea;
+                        //$tareaArchivada->id_localidad = $archivada->id_localidad;
+                        
+                        if ($tareaArchivada->save()){
+                            $usersTareas = WrkUsuariosTareas::find()->where(['id_tarea'=>$tarea->id_tarea])->all();
+                            if($usersTareas){
+                                foreach($usersTareas as $userTarea){
+                                    $userTareaArchivada = new WrkUsuariosTareasArchivadas();
+                                    $userTareaArchivada->attributes = $userTarea->attributes;
+
+                                    if(!$userTareaArchivada->save()){
+                                        return $response;
+                                    }
+                                }
+                            }
+
+                            $usersLocs = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$localidad->id_localidad])->all();
+                            if($usersLocs){
+                                foreach($usersLocs as $userLoc){
+                                    $userLocArchivada = new WrkUsuariosLocalidadesArchivadas();
+                                    $userLocArchivada->attributes = $userLoc->attributes;
+
+                                    if(!$userLocArchivada->save()){
+                                        return $response;
+                                    }
+                                }
+                            }
+                            $transaction->commit ();
+                            return true;
+                        }
+                    }
+                }
+			}
+			$transaction->rollBack ();
+		}catch ( \Exception $e ) {
+			$transaction->rollBack ();
+			throw $e;
+		}
+        
+        return $response;
     }
 }

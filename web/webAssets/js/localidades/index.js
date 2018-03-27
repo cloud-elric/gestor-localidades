@@ -241,6 +241,39 @@ $(document).on({'change': function(e){
 }
 }, '.js-completar-tarea');
 
+$(document).on({'click': function(e){
+    e.preventDefault();
+    var motivo = $('#motivo_archivar_localidad').val();
+    var data = $('#js_archivar_localidad').data('url');
+    console.log(data + "&mot=" + motivo);
+
+    swal({
+        title: "Confirmación",
+        text: "¿Estas seguro de archivar esta localidad?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-warning",
+        confirmButtonText: "Sí, archivar",
+        cancelButtonText: "No",
+        closeOnConfirm: true,
+    }, function(){
+        $.ajax({
+            url: baseUrl + data + "&mot=" + motivo,
+            success:function(r){
+                if(r.status=="success"){
+                    $('tr[data-key="'+r.message+'"]').remove();
+                }else{
+                    swal("Espera", "Ocurrio un problema", "error");
+                } 
+            },
+            error:function (){
+                swal("Espera", "Ocurrio un problema", "error");
+            }
+        });
+    });
+}
+}, '#js_aceptar_archivar');
+
 function completarTarea(token, elemento){
     swal({
         title: "Confirmación",

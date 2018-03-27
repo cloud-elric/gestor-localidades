@@ -60,16 +60,16 @@ $user = Yii::$app->user->identity;
         <div class="page-content">
             <div class="ent-localidades-view">
                 <div class="ent-localidades-view-head">
-                    <?php //if(Yii::$app->user->identity->txt_auth_item == "abogado"){ ?>
+                    <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
                         <?= Html::a('<i class="icon wb-pencil" aria-hidden="true"></i> Editar', ['update', 'id' => $model->id_localidad], ['class' => 'btn btn-update no-pjax']) ?>
-                        <?php # Html::a('<i class="icon wb-trash" aria-hidden="true"></i>', ['delete', 'id' => $model->id_localidad], [
-                            #'class' => 'btn btn-delete',
-                            #'data' => [
-                             #   'confirm' => 'Are you sure you want to delete this item?',
-                              #  'method' => 'post',
-                            #],
-                        #]) ?>
-                    <?php //} ?>
+                    <?php } ?>
+                    <?php # Html::a('<i class="icon wb-trash" aria-hidden="true"></i>', ['delete', 'id' => $model->id_localidad], [
+                        #'class' => 'btn btn-delete',
+                        #'data' => [
+                            #   'confirm' => 'Are you sure you want to delete this item?',
+                            #  'method' => 'post',
+                        #],
+                    #]) ?>
                 </div>
 
                 <div class="ent-localidades-view-body">

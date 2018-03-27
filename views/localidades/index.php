@@ -199,6 +199,7 @@ $this->registerCssFile(
                         return '<div class="panel-listado-acctions">
                             <a href="'.Url::base().'/localidades/view/'.$data->id_localidad.'" class="btn btn-icon btn-success btn-outline panel-listado-acction acction-detail no-pjax run-slide-panel"><i class="icon wb-eye" aria-hidden="true"></i></a>
                             <a href="'.Url::base().'/localidades/ver-tareas-localidad?id='.$data->id_localidad.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel"><i class="icon wb-list" aria-hidden="true"></i></a>
+                            <button data-url="localidades/archivar-localidad?id='.$data->id_localidad.'" id="js_archivar_localidad" class="btn btn-icon btn-warning btn-outline no-pjax" data-toggle="modal" data-target="#myModal"><i class="icon wb-inbox" aria-hidden="true"></i></button>
                         </div>
                         ';
                     }
@@ -244,7 +245,9 @@ $this->registerCssFile(
 </div>
 
 <?php
-$this->params['modal']=$this->render("//tareas/_modal-crear-tarea");?>
+$this->params['modal'] = $this->render("//tareas/_modal-crear-tarea");
+$this->params['modal'] .= $this->render("//localidades/_modal_motivo_archivar");
+?>
 
 <?php
 $this->registerJs("
