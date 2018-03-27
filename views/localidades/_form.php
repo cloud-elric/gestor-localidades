@@ -39,25 +39,22 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true]) ?>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'cms')->textInput(['maxlength' => true]) ?>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'txt_arrendador')->textInput(['maxlength' => true]) ?>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'txt_beneficiario')->textInput(['maxlength' => true]) ?>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'txt_antecedentes')->textarea(['rows' => 6]) ?>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($estatus, 'txt_estatus')->textarea(['rows' => 6]) ?>
                     </div>
                 </div>
@@ -72,7 +69,7 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <?php 
                         require(__DIR__ . '/../components/select2.php');
                         $url = Url::to(['codigos-postales/buscar-codigo']);
@@ -104,7 +101,7 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                         ]); 
                         ?>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <input id="texto_colonia" type="hidden" name="colonia" value="<?= $model->txt_colonia ?>">
                         <?php
                         echo $form->field($model, 'txt_colonia')->widget(DepDrop::classname(), [
@@ -128,20 +125,17 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                         ]);
                         ?>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <?=Html::label("Municipio", "txt_municipio", ['class'=>'control-label'])?>
                         <?=Html::textInput("txt_municipio", $model->txt_municipio, ['class'=>'form-control','disabled'=>'disabled', 'id'=>'txt_municipio' ])?>
                         <?= $form->field($model, 'txt_municipio')->hiddenInput(['maxlength' => true])->label(false) ?>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <?=Html::label("Estado", "txt_estado", ['class'=>'control-label'])?>
                         <?=Html::textInput("txt_estado", $model->id_estado, ['class'=>'form-control','disabled'=>'disabled', 'id'=>'txt_estado' ])?>
                         <?= $form->field($model, 'id_estado')->hiddenInput()->label(false) ?>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'txt_calle')->textInput(['maxlength' => true]) ?>
                     </div>
                 </div>
@@ -154,7 +148,7 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'fch_vencimiento_contratro')->widget(DatePicker::classname(), [
                             //'options' => ['placeholder' => 'Enter birth date ...'],
                             'type' => DatePicker::TYPE_INPUT,
@@ -164,7 +158,7 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                             ]
                         ]);?>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'fch_asignacion')->widget(DatePicker::classname(), [
                             //'options' => ['placeholder' => 'Enter birth date ...'],
                             'type' => DatePicker::TYPE_INPUT,
@@ -174,46 +168,38 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                             ]
                         ]);?>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'b_status_localidad')->radioList(ArrayHelper::map(CatRegularizacionRenovacion::find()->all(), 'id_catalogo','txt_nombre'), ['item' => function($index, $label, $name, $checked, $value) {  
-                            $return = '<input type="radio" id="tipo_contrato_' . $value . '" name="' . $name . '" value="' . $value . '" onClick="statusLocalidad($(this));" disabled>';
-                            $return .= '<label>' . ucwords($label) . '</label>';
+                            $return = '<div class="list-inline-item"><input type="radio" id="tipo_contrato_' . $value . '" name="' . $name . '" value="' . $value . '" onClick="statusLocalidad($(this));" disabled>';
+                            $return .= '<label>' . ucwords($label) . '</label></div>';
                             return $return;
                         },
-                        'class'=>'radio-custom radio-warning'])->label(false) ?>
+                        'class'=>'radio-custom radio-warning list-inline'])->label(false) ?>
                     </div>
-                </div>
-                
-            
-                <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'num_renta_actual')->textInput() ?>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'num_incremento_autorizado')->textInput(['value'=>$porcentajeAbogado->num_porcentaje]) ?>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'num_pretencion_renta')->textInput(['disabled'=>true]) ?>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'num_incremento_cliente')->textInput() ?>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'num_pretencion_renta_cliente')->textInput() ?>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'id_moneda')->radioList(ArrayHelper::map(CatTiposMonedas::find()->where(['b_habilitado'=>1])->all(), 'id_moneda', 'txt_siglas'), ['item' => function($index, $label, $name, $checked, $value) {  
-                                $return = '<input type="radio" name="' . $name . '" value="' . $value . '" >';
-                                $return .= '<label>' . ucwords($label) . '</label>';
+                                $return = '<div class="list-inline-item"><input type="radio" name="' . $name . '" value="' . $value . '" >';
+                                $return .= '<label>' . ucwords($label) . '</label></div>';
                                 return $return;
                             }
-                        ,'class'=>'radio-custom radio-warning']) ?>
+                        ,'class'=>'radio-custom radio-warning list-inline']) ?>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                     <?= $form->field($model, 'b_problemas_acceso')->dropDownList([ '0'=>"No", '1'=>'Sí']) ?>
                     </div>
                 </div>
@@ -221,9 +207,9 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
         </div>
 
         <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-4">
+            <div class="col-sm-10 offset-sm-1 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
   
-                <?= Html::submitButton('<i class="icon wb-plus"></i> Guardar', ['class' => 'btn btn-success btn-form-save']) ?>
+                <?= Html::submitButton('<i class="icon fa-save font-size-18" aria-hidden="true"></i> Guardar', ['class' => 'btn btn-success btn-form-save']) ?>
                 
             </div>
             

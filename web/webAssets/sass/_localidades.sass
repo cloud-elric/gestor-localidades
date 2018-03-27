@@ -366,6 +366,14 @@
 				background-color: $ryg-second
 				border-color: $ryg-second
 
+			.panel
+				.panel-heading
+					.panel-title
+						color: $ryg-aqua
+						font-weight: $light
+				.panel-body
+					.list-inline-item:not(:last-child)
+						margin-right: 30px
 
 /*  Page Actualizar
 	======================================= */
@@ -565,3 +573,10 @@
 		input[type=checkbox]:checked+label::before
 			background-color: $ryg-accent
 			border-color: $ryg-accent
+
+	.addMember-cont
+		.addMember
+			.addMember-trigger
+				.addMember-trigger-dropdown
+					&:before
+						border-color: transparent

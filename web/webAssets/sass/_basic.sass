@@ -242,8 +242,8 @@ a
 
 .filters
 	.form-control
-		background-color: ryg-accent
-		border-color: ryg-accent
+		background-color: $ryg-accent
+		border-color: $ryg-accent
 		font-weight: $light
 
 .addMember-list-item
@@ -257,36 +257,44 @@ a
 	transform: translate(-50%, -100%)
 
 .panel
-	background-color: #000207
+	background-color: rgba($black,.65)
+
 
 
 /*  MODAL
 	======================================= */
 .modal-tarea
+	background-color: rgba($ryg-gray,.85)
 	.modal-dialog
 		.modal-content
-			background-color: $ryg-primary
+			background-color: $ryg-second
 			.modal-header
 				padding-bottom: 0
 				h2
-					color: $white
+					color: $ryg-aqua
 					font-size: 1.65rem
 					font-weight: $light
+				.close
+					color: $white
+					&:active,
+					&:hover,
+					&:focus
+						outline: none
 			.modal-body
 				padding-top: 0
 				form
 					.form-group
 						label
-							color: $ryg-gray
+							color: rgba($white,.45)
 						input,
 						.form-control
-							background-color: $ryg-second
-							border-color: $ryg-second
+							background-color: $ryg-primary
+							border-color: $ryg-primary
 							font-weight: $light
 							&:active,
 							&:focus,
 							&:hover
-								border-color: $ryg-second
+								border-color: $ryg-primary
 								box-shadow: none
 								outline: none
 
@@ -304,3 +312,37 @@ a
 							input[type=radio]:checked+label::after
 								background-color: $ryg-gray
 								border-color: $ryg-gray
+
+/*  SWEET
+	======================================= */
+.sweet-overlay
+	background-color: rgba($ryg-gray,.85)
+
+.sweet-alert
+	background-color: $ryg-second
+
+	.sa-icon.sa-warning
+		border-color: $ryg-accent
+		.sa-body
+			background-color: $ryg-accent
+		.sa-dot
+			background-color: $ryg-accent
+
+	h2
+		color: $ryg-aqua
+		font-size: 1.65rem
+		font-weight: $light
+
+	p
+		color: rgba($white,.45)!important
+
+	.sa-button-container
+		.btn-default
+			background-color: $ryg-primary
+			border-color: $ryg-primary
+			// color: $white
+		.sa-confirm-button-container
+			.btn-warning
+				background-color: $ryg-accent
+				border-color: $ryg-accent
+				color: $ryg-second
