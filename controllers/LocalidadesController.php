@@ -512,20 +512,19 @@ class LocalidadesController extends Controller
 
         $archivada = new EntLocalidadesArchivadas();
         $archivada->attributes = $localidad->attributes;
-        //$archivada->id_localidad = $localidad->id_localidad;
+        $archivada->id_localidad = $localidad->id_localidad;
         $archivada->b_archivada = $mot;
 
         $transaction = Yii::$app->db->beginTransaction();
 		try{
-
-            if ($archivada->save()){
+            if($archivada->save()){
                 $tareas = $localidad->wrkTareas;
                 if($tareas){
                     foreach($tareas as $tarea){
                         $tareaArchivada = new WrkTareasArchivadas();
                         $tareaArchivada->attributes = $tarea->attributes;
-                        //$tareaArchivada->id_tarea = $tarea->id_tarea;
-                        //$tareaArchivada->id_localidad = $archivada->id_localidad;
+                        $tareaArchivada->id_tarea = $tarea->id_tarea;
+                        $tareaArchivada->id_localidad = $archivada->id_localidad;
                         
                         if ($tareaArchivada->save()){
                             $usersTareas = WrkUsuariosTareas::find()->where(['id_tarea'=>$tarea->id_tarea])->all();
@@ -533,10 +532,12 @@ class LocalidadesController extends Controller
                                 foreach($usersTareas as $userTarea){
                                     $userTareaArchivada = new WrkUsuariosTareasArchivadas();
                                     $userTareaArchivada->attributes = $userTarea->attributes;
-
+                                    $userTareaArchivada->id_tarea = $userTarea->id_tarea;
+                                    
                                     if(!$userTareaArchivada->save()){
                                         return $response;
                                     }
+                                    $userTarea->delete();
                                 }
                             }
 
@@ -549,15 +550,21 @@ class LocalidadesController extends Controller
                                     if(!$userLocArchivada->save()){
                                         return $response;
                                     }
+                                    $userLoc->delete();
                                 }
                             }
-                            $transaction->commit ();
-                            return true;
                         }
+                        $tarea->delete();
                     }
                 }
+                $localidad->delete();
+                $transaction->commit ();
+                $response->status = 'success';
+                $response->message = $id;
+
+                return $response;
 			}
-			$transaction->rollBack ();
+			$transaction->commit();
 		}catch ( \Exception $e ) {
 			$transaction->rollBack ();
 			throw $e;
