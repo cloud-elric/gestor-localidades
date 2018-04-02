@@ -174,7 +174,7 @@ class TareasController extends Controller
                 $response->message = "Tarea guardada.";
                 $response->result['url'] = null;
             }
-
+            $model ->fch_actualizacion = date("Y-m-d 00:00:00");
             if($model->save()){
 
                 $response->status = "success";

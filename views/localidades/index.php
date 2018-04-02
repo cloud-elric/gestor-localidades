@@ -17,6 +17,7 @@ use app\models\Calendario;
 // use yii\helpers\ArrayHelper;
 use kartik\date\DatePicker;
 use app\assets\AppAssetClassicCore;
+use app\models\WrkTareas;
 
 
 /* @var $this yii\web\View */
@@ -127,7 +128,31 @@ $this->registerCssFile(
                     ],
                     'format'=>'raw',
                     'value'=>function($data){
-                        return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat cat-yellow"></span></div>
+                        $hoy = time();//date("Y-m-d");
+                        $fch_creacion = strtotime($data->fch_creacion);
+                        $punto = 'cat-pink';
+                        
+                        $tareas = $data->wrkTareas;
+                        if($tareas){
+                            foreach($tareas as $tarea){
+                                $fch_creacion = strtotime($tarea->fch_creacion);
+                                $res = $hoy - $fch_creacion;
+                                $res1 = round($res / (60*60*24));
+                                if($res1 > 7){
+                                    $punto = 'cat-red';
+                                }
+                                if($tarea->txt_tarea || $tarea->txt_path){
+                                    if($tarea->b_completa == 0){
+                                        $punto = 'cat-yellow';                                    
+                                    }
+                                }
+                                if($tarea->b_completa){
+                                    $punto = 'cat-green';
+                                }
+                            }
+                        }
+                
+                        return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat '.$punto.'"></span></div>
                         <a  class="panel-listado-user-link no-pjax run-slide-panel" href="'.Url::base().'/localidades/view/'.$data->id_localidad.'">' .$data->txt_nombre.'</a></div>';
                     }
                 ],

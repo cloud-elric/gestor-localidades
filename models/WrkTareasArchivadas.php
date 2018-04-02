@@ -47,7 +47,7 @@ class WrkTareasArchivadas extends \yii\db\ActiveRecord
             [['id_usuario', 'id_tarea_padre', 'id_localidad', 'id_tipo', 'b_completa'], 'integer'],
             [['id_localidad', 'txt_nombre'], 'required'],
             [['txt_descripcion', 'txt_tarea'], 'string'],
-            [['fch_creacion', 'fch_due_date'], 'safe'],
+            [['fch_creacion', 'fch_actualizacion','fch_due_date'], 'safe'],
             [['txt_nombre'], 'string', 'max' => 100],
             [['txt_path'], 'string', 'max' => 500],
             [['id_localidad'], 'exist', 'skipOnError' => true, 'targetClass' => EntLocalidadesArchivadas::className(), 'targetAttribute' => ['id_localidad' => 'id_localidad']],
