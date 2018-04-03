@@ -225,9 +225,8 @@ $this->registerCssFile(
                     'value'=>function($data){
                         return '<div class="panel-listado-acctions">
                             <a href="'.Url::base().'/localidades/view/'.$data->id_localidad.'" class="btn btn-icon btn-success btn-outline panel-listado-acction acction-detail no-pjax run-slide-panel"><i class="icon wb-eye" aria-hidden="true"></i></a>
-                            <a href="'.Url::base().'/localidades/ver-tareas-localidad?id='.$data->id_localidad.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel"><i class="icon wb-list" aria-hidden="true"></i></a>
-                            <button data-url="localidades/archivar-localidad?id='.$data->id_localidad.'" id="js_archivar_localidad" class="btn btn-icon btn-info btn-outline panel-listado-acction acction-archive no-pjax" data-toggle="modal" data-target="#myModal"><i class="icon wb-inbox" aria-hidden="true"></i></button>
-                        </div>
+                            <a href="'.Url::base().'/localidades/ver-tareas-localidad?id='.$data->id_localidad.'" id="js_ver_localidades_'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel"><i class="icon wb-list" aria-hidden="true"></i></a>
+                            <button data-url="localidades/archivar-localidad?id='.$data->id_localidad.'" id="js_archivar_localidad" class="btn btn-icon btn-info btn-outline panel-listado-acction acction-archive no-pjax" data-toggle="modal" data-target="#myModal"><i class="icon wb-inbox" aria-hidden="true"></i></button>            </div>
                         ';
                     }
                     
