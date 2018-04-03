@@ -130,7 +130,7 @@ $this->registerCssFile(
                     'value'=>function($data){
                         $hoy = time();//date("Y-m-d");
                         $fch_creacion = strtotime($data->fch_creacion);
-                        $punto = 'cat-pink';
+                        $punto = 'cat-yellow';
                         
                         $tareas = $data->wrkTareas;
                         if($tareas){
@@ -138,15 +138,17 @@ $this->registerCssFile(
                                 $fch_creacion = strtotime($tarea->fch_creacion);
                                 $res = $hoy - $fch_creacion;
                                 $res1 = round($res / (60*60*24));
-                                if($res1 > 7){
+                                if($res1 > 7 && $tarea->b_completa == 0){
                                     $punto = 'cat-red';
+                                    break;
                                 }
                                 if($tarea->txt_tarea || $tarea->txt_path){
                                     if($tarea->b_completa == 0){
-                                        $punto = 'cat-yellow';                                    
+                                        $punto = 'cat-yellow';
+                                        break;                                    
                                     }
                                 }
-                                if($tarea->b_completa){
+                                if($tarea->b_completa == 1){
                                     $punto = 'cat-green';
                                 }
                             }
