@@ -186,6 +186,8 @@
 									flex-wrap: wrap
 									padding-left: 12px
 									text-decoration: none
+									+respond-to(sl)
+										justify-content: center
 									.panel-listado-user-link
 										color: $ryg-aqua
 										font-size: .8rem
@@ -214,6 +216,11 @@
 											&.cat-lg
 												height: 24px
 												width: 24px
+
+											&.cat-green
+												background-color: $success
+											&.cat-red
+												background-color: $error
 								
 								.panel-listado-acctions
 									align-items: center
@@ -248,6 +255,9 @@
 											margin-bottom: 0
 											margin-right: .8rem
 
+										&.acction-archive
+											padding-top: 6px
+
 										// &.acction-detail
 										// 	// background-color: $ryg-aqua
 										// 	border-color: $ryg-aqua
@@ -256,7 +266,10 @@
 										// 	// background-color: $ryg-accent
 										// 	border-color: $ryg-accent
 										// 	color: $ryg-accent
-			
+
+								.addMember-trigger-dropdown:before
+									display: none !important
+
 			.summary
 				color: $ryg-aqua
 				display: flex

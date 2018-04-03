@@ -250,6 +250,8 @@ a
 	color: $ryg-primary
 	font-weight: $regular
 	font-size: .8rem
+	line-height: 2
+	text-align: left
 
 .addMember-trigger-dropdown
 	left: 50%
@@ -263,7 +265,7 @@ a
 
 /*  MODAL
 	======================================= */
-.modal-tarea
+.modal
 	background-color: rgba($ryg-gray,.85)
 	.modal-dialog
 		.modal-content
@@ -280,6 +282,12 @@ a
 					&:hover,
 					&:focus
 						outline: none
+
+// Modal de agregar tarea
+.modal-tarea
+	.modal-dialog
+		.modal-content
+			
 			.modal-body
 				padding-top: 0
 				form
@@ -312,6 +320,31 @@ a
 							input[type=radio]:checked+label::after
 								background-color: $ryg-gray
 								border-color: $ryg-gray
+
+// Modal motivo por el cual se archiva
+.modal-motivo-archivar
+	.modal-dialog
+		.modal-content
+			
+			.modal-body
+				// padding-top: 0
+				p
+					color: rgba($white,.45)
+				input,
+				.form-control,
+				select
+					background-color: $ryg-primary
+					border-color: $ryg-primary
+					font-weight: $light
+					color: $ryg-grey
+					height: 34px
+					width: 100%
+					&:active,
+					&:focus,
+					&:hover
+						border-color: $ryg-primary
+						box-shadow: none
+						outline: none
 
 /*  SWEET
 	======================================= */
