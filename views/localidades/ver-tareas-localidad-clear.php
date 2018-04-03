@@ -169,7 +169,18 @@ $this->registerCssFile(
                                                     </div> 
                                                     <?php
                                                     }
-                                                    ?>  
+                                                    ?> 
+                                                    
+                                                    <?php
+                                                    if($isAbogado && $tarea->txt_tarea){?>
+                                                    <div class="row row-no-border">
+                                                        <div class="col-md-12">
+                                                            <p><?=$tarea->txt_tarea?></p>
+                                                            </div>
+                                                    </div>         
+                                                    <?php
+                                                    }
+                                                    ?>
                                                 </div>
                                                 
                                             </li>
