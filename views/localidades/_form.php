@@ -192,8 +192,10 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                         <?= $form->field($model, 'num_pretencion_renta_cliente')->textInput() ?>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">
-                        <?= $form->field($model, 'id_moneda')->radioList(ArrayHelper::map(CatTiposMonedas::find()->where(['b_habilitado'=>1])->all(), 'id_moneda', 'txt_siglas'), ['item' => function($index, $label, $name, $checked, $value) {  
-                                $return = '<div class="list-inline-item"><input type="radio" name="' . $name . '" value="' . $value . '" >';
+                        <?= $form->field($model, 'id_moneda')->radioList(ArrayHelper::map(CatTiposMonedas::find()->where(['b_habilitado'=>1])->all(), 'id_moneda', 'txt_siglas'), [
+                            'item' => function($index, $label, $name, $checked, $value) {  
+                                $checked = $checked?"checked":"";
+                                $return = '<div class="list-inline-item"><input type="radio" '.$checked.' name="' . $name . '" value="' . $value . '" >';
                                 $return .= '<label>' . ucwords($label) . '</label></div>';
                                 return $return;
                             }
@@ -340,7 +342,7 @@ $(document).ready(function(){
         num2 = num1 * 100;
         porcentaje = num2 / rentaActual;
 
-        $('#entlocalidades-num_incremento_cliente').val(porcentaje);
+        $('#entlocalidades-num_incremento_cliente').val(porcentaje.toFixed(2));
     });
 
     var regularizacion = $('#tipo_contrato_1');

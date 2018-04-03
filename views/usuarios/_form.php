@@ -13,7 +13,7 @@ use yii\web\View;
     <div class="col-md-4">
         <div class="user-file">
             <a class="user-file-a js-img-avatar">
-                <img class="js-image-preview" src="<?= Url::base() . "/webAssets/images/site/user.png" ?>">
+                <img class="js-image-preview" src="<?=$model->imageProfile?>">
             </a>
         </div>
     </div>
@@ -75,7 +75,7 @@ use yii\web\View;
             
             <div class="row">
                 <div class="col-md-12">
-                <?= Html::submitButton('<span class="ladda-label"><i class="icon wb-plus"></i> Guardar usuario</span>', ['class' => "btn btn-success ladda-button btn-usuarios-add", "data-style" => "zoom-in", "id" => "btn-guardar-usuario"]) ?>
+                <?= Html::submitButton('<span class="ladda-label"><i class="icon wb-plus"></i> '.($model->isNewRecord?"Crear usuario":"Guardar cambios").'</span>', ['class' => "btn btn-success ladda-button btn-usuarios-add", "data-style" => "zoom-in", "id" => "btn-guardar-usuario"]) ?>
                 </div>
             </div>
                     
