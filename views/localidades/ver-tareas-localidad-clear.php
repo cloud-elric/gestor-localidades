@@ -84,18 +84,16 @@ $this->registerCssFile(
                                                             <?php
                                                             if($isAbogado){
                                                             ?>
-                                                            <div class="checkbox-custom checkbox-warning">
-                                                                <input type="checkbox" class="js-completar-tarea" data-token="<?=$tarea->id_tarea?>" name="checkbox" <?=$tarea->b_completa?"checked":""?>>
-                                                                
-                                                                <label class="task-title"><?=$tarea->txt_nombre?></label>
-                                                            </div>
+                                                                <div class="checkbox-custom checkbox-warning">
+                                                                    <input type="checkbox" class="js-completar-tarea" data-token="<?=$tarea->id_tarea?>" name="checkbox" <?=$tarea->b_completa?"checked":""?>>
+                                                                    <label class="task-title"><?=$tarea->txt_nombre?></label>
+                                                                </div>
                                                             <?php
                                                             }else{?>
                                                                 <p><?=$tarea->txt_nombre?></p>
                                                             <?php
                                                             }
                                                             ?>
-
                                                         </div>
                                                         <?php
                                                         if($isAbogado){

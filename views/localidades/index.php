@@ -17,6 +17,7 @@ use app\models\Calendario;
 // use yii\helpers\ArrayHelper;
 use kartik\date\DatePicker;
 use app\assets\AppAssetClassicCore;
+use app\models\WrkTareas;
 
 
 /* @var $this yii\web\View */
@@ -127,7 +128,33 @@ $this->registerCssFile(
                     ],
                     'format'=>'raw',
                     'value'=>function($data){
-                        return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat cat-yellow"></span></div>
+                        $hoy = time();//date("Y-m-d");
+                        $fch_creacion = strtotime($data->fch_creacion);
+                        $punto = 'cat-yellow';
+                        
+                        $tareas = $data->wrkTareas;
+                        if($tareas){
+                            foreach($tareas as $tarea){
+                                $fch_creacion = strtotime($tarea->fch_creacion);
+                                $res = $hoy - $fch_creacion;
+                                $res1 = round($res / (60*60*24));
+                                if($res1 > 7 && $tarea->b_completa == 0){
+                                    $punto = 'cat-red';
+                                    break;
+                                }
+                                if($tarea->txt_tarea || $tarea->txt_path){
+                                    if($tarea->b_completa == 0){
+                                        $punto = 'cat-yellow';
+                                        break;                                    
+                                    }
+                                }
+                                if($tarea->b_completa == 1){
+                                    $punto = 'cat-green';
+                                }
+                            }
+                        }
+                
+                        return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat '.$punto.'"></span></div>
                         <a  class="panel-listado-user-link no-pjax run-slide-panel" href="'.Url::base().'/localidades/view/'.$data->id_localidad.'">' .$data->txt_nombre.'</a></div>';
                     }
                 ],
@@ -199,6 +226,7 @@ $this->registerCssFile(
                         return '<div class="panel-listado-acctions">
                             <a href="'.Url::base().'/localidades/view/'.$data->id_localidad.'" class="btn btn-icon btn-success btn-outline panel-listado-acction acction-detail no-pjax run-slide-panel"><i class="icon wb-eye" aria-hidden="true"></i></a>
                             <a href="'.Url::base().'/localidades/ver-tareas-localidad?id='.$data->id_localidad.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel"><i class="icon wb-list" aria-hidden="true"></i></a>
+                            <button data-url="localidades/archivar-localidad?id='.$data->id_localidad.'" id="js_archivar_localidad" class="btn btn-icon btn-warning btn-outline no-pjax" data-toggle="modal" data-target="#myModal"><i class="icon wb-inbox" aria-hidden="true"></i></button>
                         </div>
                         ';
                     }
@@ -244,7 +272,9 @@ $this->registerCssFile(
 </div>
 
 <?php
-$this->params['modal']=$this->render("//tareas/_modal-crear-tarea");?>
+$this->params['modal'] = $this->render("//tareas/_modal-crear-tarea");
+$this->params['modal'] .= $this->render("//localidades/_modal_motivo_archivar");
+?>
 
 <?php
 $this->registerJs("
