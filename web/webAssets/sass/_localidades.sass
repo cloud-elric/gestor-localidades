@@ -226,7 +226,7 @@
 									align-items: center
 									display: flex
 									flex-wrap: wrap
-									justify-content: center
+									justify-content: flex-start
 									+respond-to(xs)
 										flex-direction: column
 									+respond-to(sl)
@@ -267,8 +267,8 @@
 										// 	border-color: $ryg-accent
 										// 	color: $ryg-accent
 
-								.addMember-trigger-dropdown:before
-									display: none !important
+								// .addMember-trigger-dropdown:before
+								// 	display: none !important
 
 			.summary
 				color: $ryg-aqua
@@ -483,6 +483,21 @@
 					padding-top: 8px
 					&:last-child
 						border-bottom: none
+					span,
+					p
+						display: inline-block
+					span
+						color: rgba($white,.8)
+						font-weight: $medium
+					p
+						color: rgba($white,.65)
+						font-weight: $light
+
+					.addMember-remove
+						color: #fa7a7a
+					.ladda-label
+						color: $ryg-second
+						font-weight: $light
 
 
 /*  Slide Paneles
@@ -587,9 +602,9 @@
 			background-color: $ryg-accent
 			border-color: $ryg-accent
 
-	.addMember-cont
-		.addMember
-			.addMember-trigger
-				.addMember-trigger-dropdown
-					&:before
-						border-color: transparent
+	// .addMember-cont
+	// 	.addMember
+	// 		.addMember-trigger
+	// 			.addMember-trigger-dropdown
+	// 				&:before
+	// 					border-color: transparent

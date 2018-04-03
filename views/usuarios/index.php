@@ -103,6 +103,7 @@ $this->registerJsFile(
           
           [
             'attribute' => 'fch_creacion',
+            'label' => 'Fecha de Creación',
             'filter'=>DatePicker::widget([
               'model'=>$searchModel,
               'attribute'=>'fch_creacion',
@@ -145,14 +146,15 @@ $this->registerJsFile(
               </label>
               </div>';
             }
+
           ],
           [
             'attribute' => 'Acciones',
             'format'=>'raw',
            
             'value'=>function($data){
-               $botonEditar =  '<a href="'.Url::base().'/usuarios/update/'.$data->id_usuario.'" class="btn btn-icon btn-success btn-outline panel-listado-acction acction-edit "><i class="icon wb-edit"></i></a>';
-               $botonEnviarBienvenida = '<button data-token="'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-mail js-reenviar-email"><i class="icon wb-envelope"></i></button>';
+              $botonEditar =  '<a href="'.Url::base().'/usuarios/update/'.$data->id_usuario.'" class="btn btn-icon btn-success btn-outline panel-listado-acction acction-edit " data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Editar" title="" aria-describedby="tooltip652630" data-toolbar-style="success"><i class="icon wb-edit"></i></a>';
+              $botonEnviarBienvenida = '<button data-token="'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-mail js-reenviar-email" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Enviar email" title="" aria-describedby="tooltip652630" data-toolbar-style="danger"><i class="icon wb-envelope"></i></button>';
               // return $botonEditar.$botonEnviarBienvenida;
 
               return '<div class="panel-listado-acctions">'.$botonEditar.$botonEnviarBienvenida.'</div>';

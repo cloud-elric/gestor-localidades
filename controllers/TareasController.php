@@ -76,12 +76,12 @@ class TareasController extends Controller
                                     <div class="w-full">
                                         <div class="row row-no-border">
                                             <div class="col-xs-8 col-sm-8 col-md-8">
-                                                <div class="checkbox-custom checkbox-success">
+                                                <div class="checkbox-custom checkbox-warning">
                                                     <input type="checkbox" name="checkbox">
                                                         <label class="task-title">'.$model->txt_nombre.'</label>
                                                 </div>
                                             </div>
-                                            <div class="col-xs-2 col-sm-2 col-md-2 text-right">
+                                            <div class="col-xs-2 col-sm-2 col-md-2 text-left">
                                                 <select multiple="multiple" class="plugin-selective-tareas" data-localidad="'.$model->id_localidad.'" data-id="'.$model->id_tarea.'" data-json="[]"/>
                                             </div>                                       
                                         </div>

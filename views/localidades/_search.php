@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use app\models\CatEstados;
+use app\models\ConstantesWeb;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\EntLocalidadesSearch */
@@ -23,7 +24,7 @@ use app\models\CatEstados;
 
     <?php // $form->field($model, 'id_localidad')->textInput(['maxlength' => true]) ?>
 
-    <div class="col-sm-12 col-md-4 col-lg-4">
+    <div class="col-sm-12 col-md-3 col-lg-3">
         <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true, "class"=>"panel-search-form-input", "placeholder"=>"Buscar por nombre"])->label(false) ?>    
     </div>
 
@@ -35,7 +36,7 @@ use app\models\CatEstados;
 
     <?php // $form->field($model, 'txt_token')->textInput(['maxlength' => true]) ?>
 
-    <div class="col-sm-12 col-md-4 col-lg-4">
+    <div class="col-sm-12 col-md-4 col-lg-2">
         <?= $form->field($model, 'txt_arrendador')->textInput(['maxlength' => true, "class"=>"panel-search-form-input", "placeholder"=>"Cliente"])->label(false) ?>
     </div>
     
@@ -72,6 +73,14 @@ use app\models\CatEstados;
             <?= Html::submitButton('<i class="icon wb-search" aria-hidden="true"></i>', ['class' => 'btn btn-search']) ?>
             <!-- <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?> -->
         </div>
+    </div>
+
+    <div class="col-sm-12 col-md-1 col-lg-3">
+                
+        <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
+            <?= Html::a('<i class="icon wb-plus"></i> Crear Localidades', ['create'], ['class' => 'btn btn-add no-pjax']) ?>
+        <?php } ?>
+
     </div>
 
  </div>

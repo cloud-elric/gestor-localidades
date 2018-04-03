@@ -72,7 +72,7 @@ a
 	form
 		.form-material
 			label
-				color: #a3afb7
+				color: rgba($white,.65)
 
 .form-material
 	.form-control:-webkit-autofill~.floating-label
@@ -85,7 +85,7 @@ a
 .form-material
 	.form-control.focus~.floating-label,
 	.form-control:focus~.floating-label
-		color: $color-primary
+		color: $ryg-accent
 		top: -1.3rem
 
 /* Error */
@@ -101,7 +101,7 @@ a
 	.form-control.focus~.floating-label,
 	.form-control:focus~.floating-label,
 	.form-control:not(.empty)~.floating-label
-		color: $color-primary
+		color: $ryg-accent
 		top: -1.3rem
 
 /*  Input
@@ -110,11 +110,23 @@ a
 	.form-control,
 	.form-control.focus,
 	.form-control:focus
-		background-image: -webkit-gradient(linear,left top,left bottom,from($color-primary),to($color-primary)),-webkit-gradient(linear,left top,left bottom,from($color-gray),to($color-gray))
-		background-image: -webkit-linear-gradient($color-primary,$color-primary),-webkit-linear-gradient($color-gray,$color-gray)
-		background-image: -o-linear-gradient($color-primary,$color-primary),-o-linear-gradient($color-gray,$color-gray)
-		background-image: linear-gradient($color-primary,$color-primary),linear-gradient($color-gray,$color-gray)
-		
+		background-image: -webkit-gradient(linear,left top,left bottom,from($ryg-accent),to($ryg-accent)),-webkit-gradient(linear,left top,left bottom,from($color-gray),to($color-gray))
+		background-image: -webkit-linear-gradient($ryg-accent,$ryg-accent),-webkit-linear-gradient($color-gray,$color-gray)
+		background-image: -o-linear-gradient($ryg-accent,$ryg-accent),-o-linear-gradient($color-gray,$color-gray)
+		background-image: linear-gradient($ryg-accent,$ryg-accent),linear-gradient($color-gray,$color-gray)
+
+.form-material.form-group.has-success
+	.form-control.focus,
+	.form-control:focus,
+	.form-control:not(.empty)
+		background-image: -webkit-gradient(linear,left top,left bottom,from($ryg-accent),to($ryg-accent)),-webkit-gradient(linear,left top,left bottom,from($color-gray),to($color-gray))
+		background-image: -webkit-linear-gradient($ryg-accent,$ryg-accent),-webkit-linear-gradient($color-gray,$color-gray)
+		background-image: -o-linear-gradient($ryg-accent,$ryg-accent),-o-linear-gradient($color-gray,$color-gray)
+		background-image: linear-gradient($ryg-accent,$ryg-accent),linear-gradient($color-gray,$color-gray)
+
+.form-control
+	color: rgba($white,.9)
+
 /*  Login
 	======================================= */
 /* Imagen de fondo */
@@ -253,15 +265,16 @@ a
 	line-height: 2
 	text-align: left
 
-.addMember-trigger-dropdown
-	left: 50%
-	top: 0
-	transform: translate(-50%, -100%)
+// .addMember-trigger-dropdown
+// 	left: 50%
+// 	top: 0
+// 	transform: translate(-50%, -100%)
 
 .panel
 	background-color: rgba($black,.65)
 
-
+.site-menubar
+	box-shadow: none
 
 /*  MODAL
 	======================================= */
