@@ -42,10 +42,12 @@ class LocalidadesController extends Controller
          return [
              'access' => [
                  'class' => AccessControlExtend::className(),
-                 'only' => ['index'],
+                 'only' => ['create', 'view', 'update', 'delete', 'asignar-usuario', 'asignar-usuario-eliminar', 'remover-asignacion-usuario',
+                    'asignar-usuario-tarea', 'notificaciones', 'ver-tareas-localidad', 'archivar-localidad'],
                  'rules' => [
                      [
-                         'actions' => ['index'],
+                         'actions' => ['create', 'view', 'update', 'delete', 'asignar-usuario', 'asignar-usuario-eliminar', 'remover-asignacion-usuario',
+                            'asignar-usuario-tarea', 'notificaciones', 'ver-tareas-localidad', 'archivar-localidad'],
                      'allow' => true,
                          'roles' => [ConstantesWeb::ABOGADO, ConstantesWeb::COLABORADOR, ConstantesWeb::CLIENTE],
                      ],
@@ -66,12 +68,16 @@ class LocalidadesController extends Controller
      * Lists all EntLocalidades models.
      * @return mixed
      */
-    public function actionIndex($token = null)
+    public function actionIndex($token = null, $tokenLoc = null)
     {
         if($token){
             $user = EntUsuarios::find()->where(['txt_token'=>$token])->one();
             Yii::$app->getUser()->login($user);
         }
+        if(Yii::$app->user->isGuest){
+            return $this->redirect(["//login"]);
+        }
+
         $idUser = Yii::$app->user->identity->id_usuario;
         
         $searchModel = new EntLocalidadesSearch();
@@ -390,7 +396,7 @@ class LocalidadesController extends Controller
 					$parametrosEmail ['user'] = $user->getNombreCompleto();
 					$parametrosEmail ['abogado'] = $abogado->getNombreCompleto();
 					$parametrosEmail ['url'] = Yii::$app->urlManager->createAbsoluteUrl([ 
-                        'localidades/index/?token=' . $user->txt_token
+                        'localidades/index/?token=' . $user->txt_token . '&tokenLoc=' . $loc->txt_token
                     ]);
 					
 					// Envio de correo electronico
@@ -457,7 +463,7 @@ class LocalidadesController extends Controller
         // Obtiene las tareas del colaborador si no seran todas
         if($usuarioLogueado->txt_auth_item==ConstantesWeb::COLABORADOR){
             $tareasColaborador = WrkUsuariosTareas::find()->where(['id_usuario'=>$usuarioLogueado->id_usuario])->select('id_tarea')->asArray()->all();
-            $tareas = WrkTareas::find()->where(["in", 'id_tarea', $tareasColaborador])->all();
+            $tareas = WrkTareas::find()->where(["in", 'id_tarea', $tareasColaborador])->andWhere(['id_localidad' => $localidad->id_localidad])->all();
         }else{
             $tareas = $localidad->wrkTareas;
         }
@@ -500,9 +506,7 @@ class LocalidadesController extends Controller
             $tareas = $tareasA;
         }
         
-
         return $this->renderAjax("ver-tareas-localidad-clear", ["localidad"=>$localidad, "tareas"=>$tareas, "jsonAgregar"=>$jsonAgregar]);
-
     }
 
     public function actionArchivarLocalidad($id, $mot){

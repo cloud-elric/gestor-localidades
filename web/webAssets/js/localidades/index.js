@@ -73,6 +73,15 @@ $(document).ready(function(){
       
 });
 
+$(window).on('load', function() {
+    var url = window.location.href;
+    if(url.search("tokenLoc") > 0){
+        var myParam = location.search.split('tokenLoc=')[1]
+        //console.log("Url con token="+myParam);
+        $("#js_ver_localidades_"+myParam).click();
+    }
+});
+
 function generarSelected(){
     
     $("input, textarea").click(function() {
