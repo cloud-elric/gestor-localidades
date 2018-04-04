@@ -217,6 +217,13 @@ $this->registerCssFile(
                                     <select multiple='multiple' class='plugin-selective' data-id='".$data->id_localidad ."' data-json='". $seleccionados ."'></select> 
                                 </div>";
                             }
+                            return '
+                            <ul class="addMember-items">
+                                <li class="addMember-item">
+                                    <img class="avatar" src="'.Url::base().'/webAssets/images/site/user.png" title="Humberto Director ">
+                                </li>
+                            </ul>
+                            ';
                     }
                 ],
 
