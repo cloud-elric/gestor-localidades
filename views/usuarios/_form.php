@@ -7,6 +7,7 @@ use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use app\models\ConstantesWeb;
 use yii\web\View;
+use app\models\WrkUsuarioUsuarios;
 
 ?>
 <div class="row">
@@ -45,6 +46,12 @@ use yii\web\View;
                     
             
                 <div id="select_clientes" class="col-md-6" style="display:none">
+                    <?php
+                    $usuarioDirector = WrkUsuarioUsuarios::find(["id_usuario_hijo"=>$model->id_usuario])->one();
+                    if($usuarioDirector){
+                        $model->usuarioPadre = $usuarioDirector->id_usuario_padre;
+                    }
+                    ?>
                     <?= $form->field($model, 'usuarioPadre')
                         ->widget(Select2::classname(), [
                             'data' => ArrayHelper::map($usuariosClientes, 'id_usuario', 'nombreCompleto'),
