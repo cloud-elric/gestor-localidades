@@ -244,29 +244,32 @@
 									+respond-to(sl)
 										flex-direction: row
 										justify-content: center
-									.panel-listado-acction
-										align-items: center
-										border-radius: 3px
+									.tooltip-2
+										z-index: 2
+									.panel-listado-acctions-tooltip
 										display: flex
-										height: 26px
-										justify-content: center
 										margin-right: .8rem
-										text-decoration: none
-										width: 26px
 										&:last-child
 											margin-right: 0
-										i
-											// color: $ryg-primary
-											font-size: .85rem
-										&:active
-											background-color: transparent
-
 										+respond-to(xs)
 											margin-bottom: .8rem
 											margin-right: 0
 										+respond-to(sl)
 											margin-bottom: 0
 											margin-right: .8rem
+									.panel-listado-acction
+										align-items: center
+										border-radius: 3px
+										display: flex
+										height: 26px
+										justify-content: center
+										text-decoration: none
+										width: 26px
+										i
+											// color: $ryg-primary
+											font-size: .85rem
+										&:active
+											background-color: transparent
 
 										&.acction-archive
 											display: block
