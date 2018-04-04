@@ -36,7 +36,7 @@ use app\models\ConstantesWeb;
 
     <?php // $form->field($model, 'txt_token')->textInput(['maxlength' => true]) ?>
 
-    <div class="col-sm-12 col-md-4 col-lg-2">
+    <div class="col-sm-12 col-md-2 col-lg-2">
         <?= $form->field($model, 'txt_arrendador')->textInput(['maxlength' => true, "class"=>"panel-search-form-input", "placeholder"=>"Cliente"])->label(false) ?>
     </div>
     
@@ -75,7 +75,7 @@ use app\models\ConstantesWeb;
         </div>
     </div>
 
-    <div class="col-sm-12 col-md-1 col-lg-3">
+    <div class="col-sm-12 col-md-3 col-lg-3">
                 
         <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
             <?= Html::a('<i class="icon wb-plus"></i> Crear Localidades', ['create'], ['class' => 'btn btn-add no-pjax']) ?>
