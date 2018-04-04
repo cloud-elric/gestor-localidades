@@ -75,7 +75,11 @@ use yii\web\View;
             
             <div class="row">
                 <div class="col-md-12">
+<<<<<<< HEAD
+                <?= Html::submitButton('<span class="ladda-label"><i class="icon wb-plus"></i> Crear usuario</span>', ['class' => "btn btn-success ladda-button btn-usuarios-add", "data-style" => "zoom-in", "id" => "btn-guardar-usuario"]) ?>
+=======
                 <?= Html::submitButton('<span class="ladda-label"><i class="icon wb-plus"></i> '.($model->isNewRecord?"Crear usuario":"Guardar cambios").'</span>', ['class' => "btn btn-success ladda-button btn-usuarios-add", "data-style" => "zoom-in", "id" => "btn-guardar-usuario"]) ?>
+>>>>>>> dev
                 </div>
             </div>
                     

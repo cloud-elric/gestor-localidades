@@ -453,6 +453,10 @@
 						border: none
 					thead
 						tr
+							th,
+							td
+								padding-left: 3px
+								padding-right: 3px
 							th
 								color: $ryg-aqua
 								font-size: .8rem
@@ -485,7 +489,18 @@
 										outline: none
 
 								select
+									-webkit-appearance: none
+									-moz-appearance: none
+									-ms-appearance: none
+									appearance: none
+									background-image: url(../images/downarrow.png)
+									background-color: $ryg-second
+									background-position: 96% 50%
+									background-repeat: no-repeat
+									background-size: 10px
+									height: 2.573rem
 									padding: 6px 20px
+
 								input[type="text"]
 									padding: 6px 16px
 					
@@ -500,7 +515,7 @@
 								color: $white
 								font-size: .8rem
 								font-weight: $thin
-								line-height: 3
+								line-height: 5
 								padding: 10px 4px 8px
 								vertical-align: middle
 
@@ -517,6 +532,8 @@
 										justify-content: flex-start
 										text-decoration: none
 										// width: 100%
+										+respond-to(sl)
+											justify-content: center
 										span
 											color: $white
 										&:hover
@@ -558,6 +575,8 @@
 									display: flex
 									flex-wrap: wrap
 									justify-content: center
+									+respond-to(md)
+										flex-direction: column
 									+respond-to(tl)
 										flex-direction: column
 									+respond-to(xs)
@@ -582,15 +601,26 @@
 										// &:active
 										// 	background-color: transparent
 
+										+respond-to(md)
+											margin-bottom: .8rem
+											margin-right: 0
+											&:last-child
+												margin-bottom: 0
 										+respond-to(tl)
 											margin-bottom: .8rem
 											margin-right: 0
+											&:last-child
+												margin-bottom: 0
 										+respond-to(xs)
 											margin-bottom: .8rem
 											margin-right: 0
+											&:last-child
+												margin-bottom: 0
 										+respond-to(sl)
 											margin-bottom: 0
 											margin-right: .8rem
+											&:last-child
+												margin-bottom: 0
 
 										
 
@@ -601,7 +631,9 @@
 										// 	i
 										// 		color: #46be8a
 										&.acction-mail
+											display: block
 											padding: 0
+											line-height: 20px
 										// 	// background-color: $ryg-accent
 										// 	// border-color: $ryg-accent
 										// 	// color: $ryg-accent
@@ -615,7 +647,7 @@
 									display: flex
 									flex-wrap: wrap
 									justify-content: flex-start
-									width: 90%
+									width: 100%
 									+respond-to(md)
 										justify-content: center
 										width: 100%
@@ -630,6 +662,7 @@
 										border-color: $ryg-aqua
 										color: $ryg-aqua
 										font-size: .9rem
+										padding: .5rem .15rem
 										width: 50%
 										// &:active,
 										// &:focus,
