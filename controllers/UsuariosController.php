@@ -178,13 +178,10 @@ class UsuariosController extends Controller
         $usuariosClientes = EntUsuarios::find()->where(['txt_auth_item'=>ConstantesWeb::CLIENTE])->all();
 
         if ($model->load(Yii::$app->request->post())){
-            if(isset($_POST["EntUsuarios"]['password'])){
-                $model->setPassword($_POST["EntUsuarios"]['password']);
-                $model->generateAuthKey();
-            }
+            
             if($model->save()){
                 
-                return $this->redirect(['view', 'id' => $model->id_usuario]);
+                return $this->redirect(['index']);
             }
         }else{
             $model->scenario = 'updateModel';
@@ -260,35 +257,26 @@ class UsuariosController extends Controller
         return $respuesta;
     }
 
-    public function actionCambiarPass($token = null){
-        if($token){
-            $user = EntUsuarios::find()->where(['txt_token'=>$token])->one();
-            
-            if($user->txt_password_hash){
+    public function actionCambiarPass(){
+        $model = EntUsuarios::getUsuarioLogueado();
+        
+		$model->scenario = 'cambiarPass';
+		
+		// Si los campos estan correctos por POST
+		if ($model->load ( Yii::$app->request->post () )) {
+			$model->setPassword ( $model->password );
+			if($model->save ()){
 
-                return $this->redirect(['localidades/index']);
-            }
-
-            if ($user->load(Yii::$app->request->post())){
-                if(isset($_POST["EntUsuarios"]['password'])){
-                    $user->setPassword($_POST["EntUsuarios"]['password']);
-                    $user->generateAuthKey();
-                }
-                if($user->save()){
-                    Yii::$app->getUser()->login($user);
-                    
-                    return $this->redirect(['localidades/index']);
-                }else{
-                    print_r($user);exit;
-                }
-            }else{
-                $user->scenario = 'cambiarPass';
-                return $this->render('cambio-pass', [
-                    'model' => $user
-                ]);
-            }
-            
+                $this->goHome();
+			}
+			
+			
         }
+        
+		return $this->render ( 'cambiar-pass', [ 
+            'model' => $model 
+        ] );
+        
     }
 
     public function actionReenviarEmailBienvenida($token=null){
@@ -310,5 +298,7 @@ class UsuariosController extends Controller
         
         return $respuesta;
     }
+
+    
 	
 }

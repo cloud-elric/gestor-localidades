@@ -135,11 +135,14 @@ $this->registerCssFile(
                                                                 ]
                                                             ]); 
                                                             
+                                                            $textoGuardar = "";
                                                             if($tarea->id_tipo==ConstantesWeb::TAREA_ARCHIVO){
+                                                                $textoGuardar = "Guardar archivo";
                                                             ?>
                                                                 <?= $form->field($tarea, 'file')->fileInput(['data-id'=>$tarea->id_tarea, 'data-plugin'=>"dropify", 'class'=>"file_tarea"]) ?>
                                                             <?php
                                                             }else if($tarea->id_tipo==ConstantesWeb::TAREA_ABIERTO){
+                                                                $textoGuardar = "Guardar";
                                                             ?>
 
                                                                     <?= $form->field($tarea, 'txt_tarea')->textarea(['rows' => 6, 'data-id'=>$tarea->id_tarea, 'style'=>"resize:none", 'placeholder'=>"Descripción"])->label(false) ?>  
@@ -151,7 +154,7 @@ $this->registerCssFile(
                                                             <?= $form->field($tarea, 'id_tipo')->hiddenInput(['class'=>'tipo-'.$tarea->id_tarea])->label(false) ?>
 
                                                             <div class="form-group text-right">
-                                                                <?=Html::submitButton("<span class='ladda-label'><i class='icon wb-file' aria-hidden='true'></i> Guardar tarea</span>", ["data-id"=>$tarea->id_tarea, "data-style"=>'zoom-in', "class"=>"btn ladda-button btn-warning mt-20 submit_tarea"]);?>
+                                                                <?=Html::submitButton("<span class='ladda-label'><i class='icon wb-file' aria-hidden='true'></i>".$textoGuardar."</span>", ["data-id"=>$tarea->id_tarea, "style"=>"display:none;", "data-style"=>'zoom-in', "class"=>"btn ladda-button btn-warning mt-20 submit_tarea"]);?>
                                                             </div>
                                                             
                                                             <?php

@@ -142,11 +142,11 @@ $this->registerCssFile(
                                     $punto = 'cat-red';
                                     break;
                                 }
-                                if($tarea->txt_tarea || $tarea->txt_path){
-                                    if($tarea->b_completa == 0){
+                                if(!$tarea->txt_tarea || !$tarea->txt_path){
+
                                         $punto = 'cat-yellow';
                                         break;                                    
-                                    }
+                                    
                                 }
                                 if($tarea->b_completa == 1){
                                     $punto = 'cat-green';
@@ -225,9 +225,13 @@ $this->registerCssFile(
                     'format'=>'raw',
                     'value'=>function($data){
                         return '<div class="panel-listado-acctions">
-                            <a href="'.Url::base().'/localidades/view/'.$data->id_localidad.'" class="btn btn-icon btn-success btn-outline panel-listado-acction acction-detail no-pjax run-slide-panel" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Ver localidad" title="" aria-describedby="tooltip652630" data-toolbar-style="success"><i class="icon wb-eye" aria-hidden="true"></i></a>
-                            <a href="'.Url::base().'/localidades/ver-tareas-localidad?id='.$data->id_localidad.'" id="js_ver_localidades_'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Ver Tareas" title="" aria-describedby="tooltip652630" data-toolbar-style="success"><i class="icon wb-list" aria-hidden="true"></i></a>
-                            <button data-url="localidades/archivar-localidad?id='.$data->id_localidad.'" id="js_archivar_localidad" class="btn btn-icon btn-info btn-outline panel-listado-acction acction-archive no-pjax" data-toggle="modal" data-target="#myModal" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Archivar localidad" title="" aria-describedby="tooltip652630" data-toolbar-style="success"><i class="icon wb-inbox" aria-hidden="true"></i></button></div>
+
+                        
+
+
+                            <a data-template="<div class=\'tooltip tooltip-success\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>" href="'.Url::base().'/localidades/view/'.$data->id_localidad.'" class="btn btn-icon btn-success btn-outline panel-listado-acction acction-detail no-pjax run-slide-panel" data-toggle="tooltip" data-original-title="Detalles"><i class="icon wb-eye" aria-hidden="true"></i></a>
+                            <a data-template="<div class=\'tooltip tooltip-warning\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>" href="'.Url::base().'/localidades/ver-tareas-localidad?id='.$data->id_localidad.'" id="js_ver_localidades_'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel" data-toggle="tooltip" data-original-title="Tareas"><i class="icon wb-list" aria-hidden="true"></i></a>
+                            <button data-template="<div class=\'tooltip tooltip-info\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>" data-url="localidades/archivar-localidad?id='.$data->id_localidad.'" id="js_archivar_localidad" class="btn btn-icon btn-info btn-outline panel-listado-acction acction-archive no-pjax" data-toggle="modal" data-target="#myModal" data-original-title="Archivar"><i class="icon wb-inbox" aria-hidden="true"></i></button></div>
                         ';
                     }
                     

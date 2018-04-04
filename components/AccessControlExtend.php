@@ -14,6 +14,8 @@ class AccessControlExtend extends AccessControl{
      */
      protected function denyAccess($user)
      {
+       print_r($user);
+       exit;
          if ($user !== false && $user->getIsGuest()) {
              $user->loginRequired();
          } else {

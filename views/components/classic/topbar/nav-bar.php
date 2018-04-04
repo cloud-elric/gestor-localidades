@@ -52,6 +52,7 @@ role="navigation">
             </span>
           </a>
           <div class="dropdown-menu" role="menu">
+            <a class="dropdown-item  no-pjax" href="<?=Url::base()?>/usuarios/cambiar-pass" role="menuitem"><i class="icon wb-more-horizontal" aria-hidden="true"></i> Cambiar contraseña</a>
             <a class="dropdown-item  no-pjax" href="<?=Url::base()?>/site/logout" role="menuitem"><i class="icon wb-power" aria-hidden="true"></i> Logout</a>
           </div>
         </li>
