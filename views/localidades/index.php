@@ -87,12 +87,12 @@ $this->registerCssFile(
 
             <div class="row mt-30">
                 <div class="col-md-3 offset-md-9">
-                
+                <!--
                     <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
                         <?= Html::a('<i class="icon wb-plus"></i> Crear Localidades', ['create'], ['class' => 'btn btn-add no-pjax']) ?>
                         <?= Html::a('<i class="icon wb-inbox"></i> Localidades archivadas', Url::base().'/archivadas/index', ['class' => 'btn btn-default no-pjax']) ?>
                     <?php } ?>
-
+                    -->
                 </div>
 
             </div>
@@ -161,14 +161,6 @@ $this->registerCssFile(
                 ],
 
                 [
-                    'label'=>'Ultima',
-                    'format'=>'raw',
-                    'value'=>function($data){
-                        return 'Hoy';
-                    }
-                ],
-
-                [
                     'attribute'=>'fch_asignacion',
                     'label' => 'Fecha de Asignación',
                     'filter'=>DatePicker::widget([
@@ -204,8 +196,10 @@ $this->registerCssFile(
                         //LISTA DE USUARIOS AGREGADOS
                         $usuariosSeleccionados = $data->usuarios;
                         $seleccionados = [];
+                        $usuarioDefault = new EntUsuarios();
                         $i=0;
                         foreach($usuariosSeleccionados as $usuarioSeleccionado){
+                            $usuarioDefault = $usuarioSeleccionado;
                             $seleccionados[$i]['id'] = $usuarioSeleccionado->id_usuario;
                             $seleccionados[$i]['name'] = $usuarioSeleccionado->getNombreCompleto();
                             $seleccionados[$i]['avatar'] = $usuarioSeleccionado->getImageProfile();
@@ -218,10 +212,12 @@ $this->registerCssFile(
                                     <select multiple='multiple' class='plugin-selective' data-id='".$data->id_localidad ."' data-json='". $seleccionados ."'></select> 
                                 </div>";
                             }
+                                
+                            
                             return '
                             <ul class="addMember-items">
                                 <li class="addMember-item">
-                                    <img class="avatar" src="'.Url::base().'/webAssets/images/site/user.png" title="Humberto Director ">
+                                    <img class="avatar" src="'.$usuarioDefault->imageProfile.'" data-toggle="tooltip" data-original-title="'.$usuarioDefault->nombreCompleto.'"">
                                 </li>
                             </ul>
                             ';
@@ -241,7 +237,8 @@ $this->registerCssFile(
                         $botones .= '<div class="panel-listado-acctions-tooltip" data-toggle="tooltip" data-original-title="Tareas" data-template="<div class=\'tooltip tooltip-2 tooltip-warning\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>">
                                         <a href="'.Url::base().'/localidades/ver-tareas-localidad?id='.$data->id_localidad.'" id="js_ver_localidades_'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel"><i class="icon wb-list" aria-hidden="true"></i></a>
                                     </div>';  
-                        if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){
+                        //if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){
+                            if(false){
                             $botones .= '<div class="panel-listado-acctions-tooltip" data-toggle="modal" data-target="#myModal">
                                             <button data-template="<div class=\'tooltip tooltip-2 tooltip-info\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>" data-url="localidades/archivar-localidad?id='.$data->id_localidad.'" id="js_archivar_localidad" class="btn btn-icon btn-info btn-outline panel-listado-acction acction-archive no-pjax" data-toggle="tooltip" data-original-title="Archivar"><i class="icon wb-inbox" aria-hidden="true"></i></button>
                                         </div>'; 
