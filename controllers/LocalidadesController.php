@@ -27,6 +27,7 @@ use app\models\EntLocalidadesArchivadas;
 use app\models\WrkTareasArchivadas;
 use app\models\WrkUsuariosLocalidadesArchivadas;
 use app\models\WrkUsuariosTareasArchivadas;
+use app\models\Calendario;
 
 
 /**
@@ -48,11 +49,12 @@ class LocalidadesController extends Controller
                      [
                          'actions' => ['create', 'view', 'update', 'delete', 'asignar-usuario', 'asignar-usuario-eliminar', 'remover-asignacion-usuario',
                             'asignar-usuario-tarea', 'notificaciones', 'ver-tareas-localidad', 'archivar-localidad'],
-                     'allow' => true,
+                        'allow' => true,
                          'roles' => [ConstantesWeb::ABOGADO, ConstantesWeb::COLABORADOR, ConstantesWeb::CLIENTE],
+
+                         
                      ],
                      
-                   
                  ],
              ],
             // 'verbs' => [
@@ -148,9 +150,13 @@ class LocalidadesController extends Controller
     public function actionCreate()
     {
         $model = new EntLocalidades();
+        $model->id_moneda = 1;
+        $hoy = Utils::getFechaActual();
+
+        $model->fch_asignacion = Utils::changeFormatDate($hoy);
+
         $estatus = new EntEstatus();
-        //$monedas = CatTiposMonedas::find()->where(['b_habilitado'=>1])->all();
-        //$tipo = CatRegularizacionRenovacion::
+        
         $historial = null;
 
         if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())){

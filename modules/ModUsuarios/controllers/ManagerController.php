@@ -181,10 +181,12 @@ class ManagerController extends Controller {
 			if($user->save ()){
 
 			
-				return $this->redirect ( [ 
-					'login' 
-				] );
+				
 				$peticion->updateUsuarioPeticion ();
+
+				if (Yii::$app->getUser ()->login ( $user )) {
+					return $this->goHome ();
+				}
 			};
 			
 			

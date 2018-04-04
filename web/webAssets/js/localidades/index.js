@@ -5,6 +5,9 @@ $(document).ready(function(){
         template: function template(options) {
             return '<div class="' + options.classes.base + ' ' + options.classes.base + '-' + options.direction + '">\n                  <div class="' + options.classes.base + '-scrollable">\n                    <div><div class="' + options.classes.content + '"></div></div>\n                  </div>\n                  <div class="' + options.classes.base + '-handler"></div>\n                </div>';
         },
+        pointerDrag: false,
+        mouseDrag:false,
+        
         afterLoad: function(options){
             $('.slidePanel-scrollable').asScrollable({
                 namespace: 'scrollable',
@@ -32,6 +35,30 @@ $(document).ready(function(){
         }
     },'.submit_tarea');
 
+
+    $(document).on({'change': function(){
+        var padre = $(this).parents("form");
+        var boton = padre.find(".submit_tarea");
+        boton.show();
+
+        if($(this).val()==""){
+            boton.hide();
+        }
+    }
+},"#wrktareas-txt_tarea");
+
+$(document).on({'change': function(){
+    var padre = $(this).parents("form");
+    var boton = padre.find(".submit_tarea");
+    boton.show();
+
+    if($(this).val()==""){
+        boton.hide();
+    }
+}
+},"#wrktareas-file");
+
+    
 
     $(document).on({'submit': function(e){
             e.preventDefault();
@@ -84,9 +111,8 @@ $(window).on('load', function() {
 
 function generarSelected(){
     
-    $("input, textarea").click(function() {
-        $(this).focus();
-      });
+        
+
         $('.plugin-selective-tareas').each(function () {
             
             var elemento = $(this);
@@ -199,7 +225,7 @@ $(document).on({
                     $("#modal-crear-tarea").modal("hide");
                     document.getElementById("form-guardar-tarea").reset();
                     //message();
-
+                    $(".js-tareas-contenedor-"+$("#wrktareas-id_localidad").val()+" h2").remove();
                     $(".js-tareas-contenedor-"+$("#wrktareas-id_localidad").val()).append(r.result);
                     generarSelected();
                 }else{
