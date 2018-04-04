@@ -212,19 +212,32 @@ class LocalidadesController extends Controller
         if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())) {
             
             $estatus->id_localidad = $model->id_localidad;
-            if($nombreOriginal!=$model->txt_nombre){
-                // @TODO
-                //Esto debe de renombrar la carpeta y no crear un nuevo folder marca error si tiene el mismo nombre
-                $dropbox = Dropbox::crearFolder("raul/".$_POST["EntLocalidades"]["txt_nombre"]);
-            }
-            
-           $decodeDropbox = json_decode(trim($dropbox), TRUE);
-            
-            if(isset($decodeDropbox['metadata'])){
-                if($model->save() && $estatus->save()){
+            if($model->validate()){
+                if($nombreOriginal!=$model->txt_nombre){
+                    // @TODO
+                    //Esto debe de renombrar la carpeta y no crear un nuevo folder marca error si tiene el mismo nombre
+                    $dropbox = Dropbox::moverArchivo("/raul/".$nombreOriginal,"/raul/".$_POST["EntLocalidades"]["txt_nombre"]);
+    
+                    $decodeDropbox = json_decode(trim($dropbox), TRUE);
+                
+                    if(isset($decodeDropbox['metadata'])){
+                        $model->save() && $estatus->save();
+                        
+                        
+                        return $this->redirect(['index']);
+                    }else{
+                        Yii::$app->session->setFlash('error', "Ocurrió un problema con la comunicación de dropbox. Si el problema persiste contacté a soporteœ2gom.com.mx.");
+                        
+                    }
+                }else{
+                    $model->save() && $estatus->save();
                     return $this->redirect(['index']);
                 }
+
+
+                
             }
+            
         }
         $tareas = true;
         $flag = true;

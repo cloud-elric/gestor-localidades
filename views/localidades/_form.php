@@ -28,6 +28,14 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
 
 <?php if($flag/*$model->isNewRecord*/){ ?>
     <div class="ent-localidades-form">
+    <?php if (Yii::$app->session->hasFlash('error')): ?>
+			<div class="alert alert-danger alert-dismissable dark">
+			<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+			<h4><i class="icon fa fa-warning"></i>Espera</h4>
+			<?= Yii::$app->session->getFlash('error') ?>
+			</div>
+		<?php endif; ?>
+
 
         <?php $form = ActiveForm::begin([
             'id' => 'form-crear-localidad'
