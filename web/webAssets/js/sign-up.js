@@ -62,11 +62,7 @@ function colocarImagen(jsfile) {
     reader.onload = function (e) {
         console.log('colocar imagenbb');
 
-<<<<<<< HEAD
         $('.js-image-preview').on("load", function(){
-=======
-        $('.js-image-preview').on("load", function () {
->>>>>>> dev
 
         }).attr('src', e.target.result);
     }
