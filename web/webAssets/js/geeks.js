@@ -1,21 +1,5 @@
-// animisition: http://git.blivesta.com/animsition/
-// ladda: http://msurguy.github.io/ladda-bootstrap/
 
 $(document).ready(function () {
-    // Animación entre pantallas
-    // $(".animsition").animsition({
-    //     transition: function(url){},
-    //     loading : false
-    //   });
-
-    //   $('.animsition').on('animsition.inStart', function() {
-    //     $(".animsition-loading").hide();
-    //   });
-
-    //   $('.animsition').on('animsition.outStart', function() {
-    //     $(".animsition-loading").show();
-    //   });
-
 
     //   // Cargador en todos los botones con la clase ladda
     $("#form-ajax .ladda-button").on("click", function (e) {
@@ -51,6 +35,42 @@ $(document).ready(function () {
 
 });
 
+function showToastr(mensaje, tipo) {
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-full-width",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+
+    if (tipo == "success") {
+        toastr.success(mensaje);
+    }
+
+    if (tipo == "info") {
+        toastr.info(mensaje);
+    }
+
+    if (tipo == "warning") {
+        toastr.warning(mensaje);
+    }
+
+    if (tipo == "error") {
+        toastr.error(mensaje);
+    }
+
+}
 
 function resetForm(form) {
     // clearing inputs

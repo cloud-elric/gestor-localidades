@@ -224,7 +224,7 @@ $this->registerCssFile(
                     'format'=>'raw',
                     'value'=>function($data){
                         return '<div class="panel-listado-acctions">
-                            <a  href="'.Url::base().'/localidades/view/'.$data->id_localidad.'" class="btn btn-icon btn-success btn-outline panel-listado-acction acction-detail no-pjax run-slide-panel"><i class="icon wb-eye" aria-hidden="true"></i></a>
+                            <a href="'.Url::base().'/localidades/view/'.$data->id_localidad.'" class="btn btn-icon btn-success btn-outline panel-listado-acction acction-detail no-pjax run-slide-panel"><i class="icon wb-eye" aria-hidden="true"></i></a>
                             <a href="'.Url::base().'/localidades/ver-tareas-localidad?id='.$data->id_localidad.'" id="js_ver_localidades_'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel"><i class="icon wb-list" aria-hidden="true"></i></a>
                             <button data-mouseDrag="false" data-url="localidades/archivar-localidad?id='.$data->id_localidad.'" id="js_archivar_localidad" class="btn btn-icon btn-info btn-outline panel-listado-acction acction-archive no-pjax" data-toggle="modal" data-target="#myModal"><i class="icon wb-inbox" aria-hidden="true"></i></button>            </div>
                         ';
@@ -308,7 +308,7 @@ $(document).ready(function(){
                         console.log('Asignacion correcta');
                         // swal('Good job!', 'You clicked the button!', 'success');
                         // Display a success toast, with a title
-                        toastr.success('Se mando un email de notificacion');
+                        showToastr('Se asigno al director jurídico y se le ha enviado una notificación', 'success');
                     }
                 }
             });
@@ -331,7 +331,8 @@ $(document).ready(function(){
                         console.log('Eliminacion correcta');
                         //wal('Deleted!', 'Your imaginary file has been deleted.', 'success');
                         // Display a success toast, with a title
-                        toastr.success('Se elimino correctamente al usuario');
+                        showToastr('Se removio la asignación del director jurídico', 'success');
+                        
                     }
                 }
             });

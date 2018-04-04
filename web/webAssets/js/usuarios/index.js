@@ -53,7 +53,8 @@ $(document).on({
             url:baseUrl+"usuarios/reenviar-email-bienvenida?token="+token,
             success: function(r){
                 if(r.status=="success"){
-                    toastr.success('Email enviado')
+                    showToastr('Email enviado', "success");
+                    
                 }else{
                     swal("Problema al guardar","No se pudo enviar el email al usuario: "+ r.message, "error");
                 }

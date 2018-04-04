@@ -69,7 +69,7 @@ $(document).on({'change': function(){
             l.start();
             $.ajax({
                 type:'POST',
-                url: $(this).attr('action'),
+                url: baseUrl+$(this).attr('action'),
                 data:formData,
                 cache:false,
                 contentType: false,
@@ -242,27 +242,6 @@ $(document).on({
     }
    }, '#form-guardar-tarea');
 
-   function message(){
-    toastr.options = {
-        "closeButton": false,
-        "debug": false,
-        "newestOnTop": false,
-        "progressBar": false,
-        "positionClass": "toast-top-full-width",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-      }
-
-      toastr.success('Tarea guardada');
-   }
 
 
 $(document).on({'change': function(e){
