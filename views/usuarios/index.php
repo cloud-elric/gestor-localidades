@@ -103,6 +103,7 @@ $this->registerJsFile(
           
           [
             'attribute' => 'fch_creacion',
+            'label' => 'Fecha de Creación',
             'filter'=>DatePicker::widget([
               'model'=>$searchModel,
               'attribute'=>'fch_creacion',
@@ -145,6 +146,7 @@ $this->registerJsFile(
               </label>
               </div>';
             }
+
           ],
           [
             'attribute' => 'Acciones',

@@ -21,7 +21,7 @@ use app\assets\AppAsset;
         <?= Html::dropDownList('id_motivo', null, ArrayHelper::map(CatMotivosArchivar::find()->where(['b_habilitado'=>1])->all(), 'id_motivo', 'txt_motivo'), ['prompt' => 'Seleccionar motivo', 'id' => 'motivo_archivar_localidad']) ?>
       </div>
       <div class="modal-footer">
-        <button type="button" id="js_aceptar_archivar" class="btn btn-primary" data-dismiss="modal">Archivar</button>
+        <button type="button" id="js_aceptar_archivar" class="btn btn-primary" data-dismiss="modal"><i class="icon wb-inbox" aria-hidden="true"></i> Archivar</button>
       </div>
     </div>
 
