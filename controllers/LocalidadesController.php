@@ -74,6 +74,11 @@ class LocalidadesController extends Controller
     {
         if($token){
             $user = EntUsuarios::find()->where(['txt_token'=>$token])->one();
+
+            if($user->id_status==EntUsuarios::STATUS_BLOCKED){
+                Yii::$app->session->setFlash('error', "El usuario con el email: '".$user->txt_email."' ha sido bloqueado.");
+                return $this->redirect(["//login"]);
+            }
             Yii::$app->getUser()->login($user);
         }
         if(Yii::$app->user->isGuest){
