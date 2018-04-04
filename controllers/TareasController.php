@@ -178,15 +178,11 @@ class TareasController extends Controller
             if($model->save()){
 
                 $response->status = "success";
-               
-                
 
                 $userActual = Yii::$app->user->identity;
                 $user = $model->usuario;
                 $localidad = $model->localidad;
 
-               
-                    
                 // Enviar correo
                 $utils = new Utils ();
                 // Parametros para el email
@@ -195,7 +191,7 @@ class TareasController extends Controller
                 $parametrosEmail ['user'] = $user->getNombreCompleto ();
                 $parametrosEmail ['userActual'] = $userActual->getNombreCompleto ();
                 $parametrosEmail ['url'] = Yii::$app->urlManager->createAbsoluteUrl([
-                    'localidades/view?id'.$model->id_localidad.'/?token=' . $user->txt_token
+                    'localidades/index?token=' . $user->txt_token . '&tokenLoc=' . $localidad->txt_token
                 ]);
                 
                 // Envio de correo electronico
