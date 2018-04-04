@@ -98,7 +98,7 @@ $this->registerCssFile(
                                                         <?php
                                                         if($isAbogado){
                                                         ?>
-                                                            <div class="col-xs-2 col-sm-2 col-md-2 text-right addMember-cont">
+                                                            <div class="col-xs-2 col-sm-2 col-md-2 text-left addMember-cont">
                                                                 <select multiple='multiple' class='plugin-selective-tareas' data-localidad="<?=$localidad->id_localidad?>" data-id='<?=$tarea->id_tarea?>' data-json='<?=$tarea->colaboradoresAsignados?>'></select> 
                                                             </div>
                                                         <?php

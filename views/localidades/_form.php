@@ -28,6 +28,14 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
 
 <?php if($flag/*$model->isNewRecord*/){ ?>
     <div class="ent-localidades-form">
+    <?php if (Yii::$app->session->hasFlash('error')): ?>
+			<div class="alert alert-danger alert-dismissable dark">
+			<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+			<h4><i class="icon fa fa-warning"></i>Espera</h4>
+			<?= Yii::$app->session->getFlash('error') ?>
+			</div>
+		<?php endif; ?>
+
 
         <?php $form = ActiveForm::begin([
             'id' => 'form-crear-localidad'
@@ -131,8 +139,14 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                         <?= $form->field($model, 'txt_municipio')->hiddenInput(['maxlength' => true])->label(false) ?>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">
+                        <?php
+                        $estado = $model->estado;
+                        if($estado){
+                            $estado = $estado->txt_nombre;
+                        }
+                        ?>
                         <?=Html::label("Estado", "txt_estado", ['class'=>'control-label'])?>
-                        <?=Html::textInput("txt_estado", $model->id_estado, ['class'=>'form-control','disabled'=>'disabled', 'id'=>'txt_estado' ])?>
+                        <?=Html::textInput("txt_estado", $estado, ['class'=>'form-control','disabled'=>'disabled', 'id'=>'txt_estado' ])?>
                         <?= $form->field($model, 'id_estado')->hiddenInput()->label(false) ?>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">
@@ -169,8 +183,10 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                         ]);?>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">
-                        <?= $form->field($model, 'b_status_localidad')->radioList(ArrayHelper::map(CatRegularizacionRenovacion::find()->all(), 'id_catalogo','txt_nombre'), ['item' => function($index, $label, $name, $checked, $value) {  
-                            $return = '<div class="list-inline-item"><input type="radio" id="tipo_contrato_' . $value . '" name="' . $name . '" value="' . $value . '" onClick="statusLocalidad($(this));" disabled>';
+                        <?= $form->field($model, 'b_status_localidad')->radioList(ArrayHelper::map(CatRegularizacionRenovacion::find()->all(), 'id_catalogo','txt_nombre'), [
+                            'item' => function($index, $label, $name, $checked, $value) {  
+                            $checked = $checked?"checked":"";
+                            $return = '<div class="list-inline-item"><input '.$checked.' type="radio" id="tipo_contrato_' . $value . '" name="' . $name . '" value="' . $value . '" onClick="statusLocalidad($(this));" disabled>';
                             $return .= '<label>' . ucwords($label) . '</label></div>';
                             return $return;
                         },

@@ -10,6 +10,7 @@ use yii\widgets\ActiveForm;
 $this->title = 'Cambiar contraseña';
 $this->params['classBody'] = "site-navbar-small page-user ryg-body";
 ?>
+<div class="page-login">
 <div class="row">
     <div class="col-md-6 offset-md-3">
         <div class="panel">
@@ -48,3 +49,4 @@ $this->params['classBody'] = "site-navbar-small page-user ryg-body";
         
     </div>
 </div>    
+</div>

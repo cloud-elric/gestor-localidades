@@ -44,4 +44,5 @@ use yii\helpers\Url;
     <script>
         var baseUrl = "<?= Yii::$app->urlManager->createAbsoluteUrl(['']) ?>";
     </script>
+    
 </head>

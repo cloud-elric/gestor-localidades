@@ -92,7 +92,7 @@ class EntLocalidades extends \yii\db\ActiveRecord
             'txt_calle' => 'Calle',
             'txt_colonia' => 'Colonia',
             'txt_municipio' => 'Municipio',
-            'txt_cp' => 'Codigo postal',
+            'txt_cp' => 'Código postal',
             'txt_estatus' => 'Estatus',
             'txt_antecedentes' => 'Antecedentes',
             'num_renta_actual' => 'Renta Actual',

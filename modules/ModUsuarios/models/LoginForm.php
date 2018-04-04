@@ -68,6 +68,7 @@ class LoginForm extends Model {
 						'trim' 
 				],
 				['username','email', 'message'=>'Debe agregar un email válido'],
+				['username','validateBlocked'],
 				
 				// rememberMe must be a boolean value
 				[ 
@@ -98,6 +99,25 @@ class LoginForm extends Model {
 			
 			if (! $user || ! $user->validatePassword ( $this->password )) {
 				$this->addError ( $attribute, 'Usuario o contraseña incorrectos.' );
+			}
+		}
+	}
+
+	/**
+	 * Validates the password.
+	 * This method serves as the inline validation for password.
+	 *
+	 * @param string $attribute
+	 *        	the attribute currently being validated
+	 * @param array $params
+	 *        	the additional name-value pairs given in the rule
+	 */
+	public function validateBlocked($attribute, $params) {
+		if (! $this->hasErrors ()) {
+			$user = $this->getUser ();
+			
+			if ($user->id_status == EntUsuarios::STATUS_BLOCKED) {
+				$this->addError ( $attribute, 'El usuario ha sido bloqueado.' );
 			}
 		}
 	}
