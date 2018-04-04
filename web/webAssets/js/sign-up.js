@@ -60,8 +60,13 @@ function colocarImagen(jsfile) {
 
     // Set preview image into the popover data-content
     reader.onload = function (e) {
+        console.log('colocar imagenbb');
 
+<<<<<<< HEAD
+        $('.js-image-preview').on("load", function(){
+=======
         $('.js-image-preview').on("load", function () {
+>>>>>>> dev
 
         }).attr('src', e.target.result);
     }
