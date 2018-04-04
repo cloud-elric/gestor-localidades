@@ -341,7 +341,7 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 	public static function findByEmail($username) {
 		return static::findOne ( [ 
 				'txt_email' => $username,
-				'id_status' => self::STATUS_ACTIVED
+				//'id_status' => self::STATUS_ACTIVED
 		] );
 	}
 
