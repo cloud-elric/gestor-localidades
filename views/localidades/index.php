@@ -131,14 +131,15 @@ $this->registerCssFile(
                                     $punto = 'cat-red';
                                     break;
                                 }
-                                if(!$tarea->txt_tarea || !$tarea->txt_path){
+                                if((!$tarea->txt_tarea && $tarea->id_tipo == ConstantesWeb::TAREA_ABIERTO) || (!$tarea->txt_path && $tarea->id_tipo == ConstantesWeb::TAREA_ARCHIVO)){
 
                                         $punto = 'cat-yellow';
                                         break;                                    
                                     
                                 }
-                                if($tarea->b_completa == 1){
+                                if($tarea->txt_tarea || $tarea->txt_path){
                                     $punto = 'cat-green';
+                                    break;
                                 }
                             }
                         }

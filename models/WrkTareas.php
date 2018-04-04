@@ -67,8 +67,8 @@ class WrkTareas extends \yii\db\ActiveRecord
             'id_tarea_padre' => 'Id Tarea Padre',
             'id_localidad' => 'Localidad',
             'txt_nombre' => 'Nombre',
-            'txt_descripcion' => 'Descripcion',
-            'fch_creacion' => 'Fecha Creacion',
+            'txt_descripcion' => 'Descripción',
+            'fch_creacion' => 'Fecha creación',
             'fch_due_date' => 'Fecha Due Date',
             'b_completa' => 'B Completa',
             'id_tipo'=>'Tipo de tarea'
