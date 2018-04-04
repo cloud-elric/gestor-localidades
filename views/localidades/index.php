@@ -233,9 +233,9 @@ $this->registerCssFile(
                     'value'=>function($data){
                         return '<div class="panel-listado-acctions">
 
-                            <a data-template="<div class=\'tooltip tooltip-success\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>" href="'.Url::base().'/localidades/view/'.$data->id_localidad.'" class="btn btn-icon btn-success btn-outline panel-listado-acction acction-detail no-pjax run-slide-panel" data-toggle="tooltip" data-original-title="Detalles"><i class="icon wb-eye" aria-hidden="true"></i></a>
-                            <a data-template="<div class=\'tooltip tooltip-warning\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>" href="'.Url::base().'/localidades/ver-tareas-localidad?id='.$data->id_localidad.'" id="js_ver_localidades_'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel" data-toggle="tooltip" data-original-title="Tareas"><i class="icon wb-list" aria-hidden="true"></i></a>
-                            <button data-template="<div class=\'tooltip tooltip-info\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>" data-url="localidades/archivar-localidad?id='.$data->id_localidad.'" id="js_archivar_localidad" class="btn btn-icon btn-info btn-outline panel-listado-acction acction-archive no-pjax" data-toggle="modal" data-target="#myModal" data-original-title="Archivar"><i class="icon wb-inbox" aria-hidden="true"></i></button></div>
+                            <a  href="'.Url::base().'/localidades/view/'.$data->id_localidad.'"  class="btn btn-icon btn-success btn-outline panel-listado-acction acction-detail no-pjax run-slide-panel" data-toggle="tooltip" data-original-title="Detalles"><i class="icon wb-eye" aria-hidden="true"></i></a>
+                            <a href="'.Url::base().'/localidades/ver-tareas-localidad?id='.$data->id_localidad.'" id="js_ver_localidades_'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel" data-toggle="tooltip" data-original-title="Tareas"><i class="icon wb-list" aria-hidden="true"></i></a>
+                            <button  data-url="localidades/archivar-localidad?id='.$data->id_localidad.'" id="js_archivar_localidad" class="btn btn-icon btn-info btn-outline panel-listado-acction acction-archive no-pjax" data-toggle="modal" data-target="#myModal" data-original-title="Archivar"><i class="icon wb-inbox" aria-hidden="true"></i></button></div>
                         ';
                     }
                     
@@ -365,10 +365,10 @@ $(document).ready(function(){
               return '<div style=\"display:'+isAsignado+'\" class=\"' + this.namespace + '-trigger-button\"><i class=\"wb-plus\"></i></div>';
             },
             listItem: function listItem(data) {
-              return '<li class=\"' + this.namespace + '-list-item\"><img class=\"avatar\" src=\"' + data.avatar + '\">' + data.name + '</li>';
+              return '<li class=\"' + this.namespace + '-list-item\"><img  class=\"avatar\" src=\"' + data.avatar + '\">' + data.name + '</li>';
             },
             item: function item(data) {
-              return '<li class=\"' + this.namespace + '-item\"><img class=\"avatar\" src=\"' + data.avatar + '\" title=\"' + data.name + '\">' + this.options.tpl.itemRemove.call(this) + '</li>';
+              return '<li class=\"' + this.namespace + '-item\"><img data-toggle=\"tooltip\" data-original-title=\"' + data.name + '\" class=\"avatar\" src=\"' + data.avatar + '\" >' + this.options.tpl.itemRemove.call(this) + '</li>';
             },
             itemRemove: function itemRemove() {
               return '<span class=\"' + this.namespace + '-remove\"><i class=\"wb-minus-circle\"></i></span>';

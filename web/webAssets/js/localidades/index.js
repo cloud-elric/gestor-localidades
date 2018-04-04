@@ -185,7 +185,7 @@ function generarSelected(){
                   return '<li class=\"' + this.namespace + '-list-item\"><img class=\"avatar\" src=\"' + data.avatar + '\">' + data.name + '</li>';
                 },
                 item: function item(data) {
-                  return '<li class=\"' + this.namespace + '-item\"><img class=\"avatar\" src=\"' + data.avatar + '\" title=\"' + data.name + '\">' + this.options.tpl.itemRemove.call(this) + '</li>';
+                  return '<li class=\"' + this.namespace + '-item\"><img class=\"avatar\" src=\"' + data.avatar + '\" data-toggle=\"tooltip\" data-original-title=\"' + data.name + '\">' + this.options.tpl.itemRemove.call(this) + '</li>';
                 },
                 itemRemove: function itemRemove() {
                   return '<span class=\"' + this.namespace + '-remove\"><i class=\"wb-minus-circle\"></i></span>';
@@ -195,6 +195,10 @@ function generarSelected(){
                 }
               }
             });
+        });
+
+        $('body').tooltip({
+            selector: '[data-toggle=tooltip]'
         });
    
 }
