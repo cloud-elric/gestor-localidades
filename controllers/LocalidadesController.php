@@ -28,6 +28,7 @@ use app\models\WrkTareasArchivadas;
 use app\models\WrkUsuariosLocalidadesArchivadas;
 use app\models\WrkUsuariosTareasArchivadas;
 use app\models\Calendario;
+use app\models\EntLocalidadesArchivadasSearch;
 
 
 /**
@@ -136,12 +137,8 @@ class LocalidadesController extends Controller
             Yii::$app->getUser()->login($user);
         }
 
-       
-        
-
         return $this->renderAjax('view', [
             'model' => $this->findModel($id),
-            
             //'relUserLoc' => $relUserLoc,
             //'idUsersRel' => $idUsersRel
         ]);
