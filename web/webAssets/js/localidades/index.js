@@ -69,7 +69,7 @@ $(document).on({'change': function(){
             l.start();
             $.ajax({
                 type:'POST',
-                url: $(this).attr('action'),
+                url: baseUrl+$(this).attr('action'),
                 data:formData,
                 cache:false,
                 contentType: false,
@@ -185,7 +185,7 @@ function generarSelected(){
                   return '<li class=\"' + this.namespace + '-list-item\"><img class=\"avatar\" src=\"' + data.avatar + '\">' + data.name + '</li>';
                 },
                 item: function item(data) {
-                  return '<li class=\"' + this.namespace + '-item\"><img class=\"avatar\" src=\"' + data.avatar + '\" title=\"' + data.name + '\">' + this.options.tpl.itemRemove.call(this) + '</li>';
+                  return '<li class=\"' + this.namespace + '-item\"><img class=\"avatar\" src=\"' + data.avatar + '\" data-toggle=\"tooltip\" data-original-title=\"' + data.name + '\">' + this.options.tpl.itemRemove.call(this) + '</li>';
                 },
                 itemRemove: function itemRemove() {
                   return '<span class=\"' + this.namespace + '-remove\"><i class=\"wb-minus-circle\"></i></span>';
@@ -195,6 +195,10 @@ function generarSelected(){
                 }
               }
             });
+        });
+
+        $('body').tooltip({
+            selector: '[data-toggle=tooltip]'
         });
    
 }
@@ -242,27 +246,6 @@ $(document).on({
     }
    }, '#form-guardar-tarea');
 
-   function message(){
-    toastr.options = {
-        "closeButton": false,
-        "debug": false,
-        "newestOnTop": false,
-        "progressBar": false,
-        "positionClass": "toast-top-full-width",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-      }
-
-      toastr.success('Tarea guardada');
-   }
 
 
 $(document).on({'change': function(e){

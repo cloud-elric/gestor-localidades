@@ -203,21 +203,29 @@ class LocalidadesController extends Controller
         $model = $this->findModel($id);
         $estatus = new EntEstatus();
         $historial = EntEstatus::find()->where(['id_localidad'=>$id])->all();
-
+        $nombreOriginal = $model->txt_nombre;
         if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())) {
             
             $estatus->id_localidad = $model->id_localidad;
-            $dropbox = Dropbox::crearFolder("raul/".$_POST["EntLocalidades"]["txt_nombre"]);
-            $decodeDropbox = json_decode(trim($dropbox), TRUE);
+            if($nombreOriginal!=$model->txt_nombre){
+                // @TODO
+                //Esto debe de renombrar la carpeta y no crear un nuevo folder marca error si tiene el mismo nombre
+                $dropbox = Dropbox::crearFolder("raul/".$_POST["EntLocalidades"]["txt_nombre"]);
+            }
             
-            if($decodeDropbox['metadata']){
+           $decodeDropbox = json_decode(trim($dropbox), TRUE);
+            
+            if(isset($decodeDropbox['metadata'])){
                 if($model->save() && $estatus->save()){
-                    return $this->redirect(['view', 'id' => $model->id_localidad]);
+                    return $this->redirect(['index']);
                 }
             }
         }
         $tareas = true;
         $flag = true;
+
+        $model->fch_vencimiento_contratro = Utils::changeFormatDate($model->fch_vencimiento_contratro);
+        $model->fch_asignacion = Utils::changeFormatDate($model->fch_asignacion);
 
         return $this->render('update', [
             'model' => $model,

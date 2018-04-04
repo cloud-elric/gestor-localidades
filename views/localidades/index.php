@@ -85,7 +85,7 @@ $this->registerCssFile(
                 //'estatus' => $estatus            
             ]); ?>
 
-            <div class="row mt-30">
+            <!-- <div class="row mt-30">
                 <div class="col-md-3 offset-md-9">
                 
                     <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
@@ -94,7 +94,7 @@ $this->registerCssFile(
 
                 </div>
 
-            </div>
+            </div> -->
 
         </div>
 
@@ -124,7 +124,7 @@ $this->registerCssFile(
                 [
                     'attribute'=>'txt_nombre',
                     'headerOptions' => [
-                        'class' => 'text-center'
+                        'class' => 'pl-10'
                     ],
                     'format'=>'raw',
                     'value'=>function($data){
@@ -170,6 +170,7 @@ $this->registerCssFile(
 
                 [
                     'attribute'=>'fch_asignacion',
+                    'label' => 'Fecha de Asignación',
                     'filter'=>DatePicker::widget([
                         'model'=>$searchModel,
                         'attribute'=>'fch_creacion',
@@ -217,6 +218,13 @@ $this->registerCssFile(
                                     <select multiple='multiple' class='plugin-selective' data-id='".$data->id_localidad ."' data-json='". $seleccionados ."'></select> 
                                 </div>";
                             }
+                            return '
+                            <ul class="addMember-items">
+                                <li class="addMember-item">
+                                    <img class="avatar" src="'.Url::base().'/webAssets/images/site/user.png" title="Humberto Director ">
+                                </li>
+                            </ul>
+                            ';
                     }
                 ],
 
@@ -225,9 +233,17 @@ $this->registerCssFile(
                     'format'=>'raw',
                     'value'=>function($data){
                         return '<div class="panel-listado-acctions">
-                            <a  href="'.Url::base().'/localidades/view/'.$data->id_localidad.'" class="btn btn-icon btn-success btn-outline panel-listado-acction acction-detail no-pjax run-slide-panel"><i class="icon wb-eye" aria-hidden="true"></i></a>
-                            <a href="'.Url::base().'/localidades/ver-tareas-localidad?id='.$data->id_localidad.'" id="js_ver_localidades_'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel"><i class="icon wb-list" aria-hidden="true"></i></a>
-                            <button data-mouseDrag="false" data-url="localidades/archivar-localidad?id='.$data->id_localidad.'" id="js_archivar_localidad" class="btn btn-icon btn-info btn-outline panel-listado-acction acction-archive no-pjax" data-toggle="modal" data-target="#myModal"><i class="icon wb-inbox" aria-hidden="true"></i></button>            </div>
+                                <span data-toggle="tooltip" data-original-title="Detalles" data-template="<div class=\'tooltip tooltip-success\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>">
+                                    <a  href="'.Url::base().'/localidades/view/'.$data->id_localidad.'"  class="btn btn-icon btn-success btn-outline panel-listado-acction acction-detail no-pjax run-slide-panel" >
+                                    <i class="icon wb-eye" aria-hidden="true"></i>
+                                    </a>
+                                </span>
+                                <span data-toggle="tooltip" data-original-title="Tareas" data-template="<div class=\'tooltip tooltip-warning\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>">
+                                    <a href="'.Url::base().'/localidades/ver-tareas-localidad?id='.$data->id_localidad.'" id="js_ver_localidades_'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel"><i class="icon wb-list" aria-hidden="true"></i></a>
+                                </span>
+                                <span data-toggle="modal" data-target="#myModal">
+                                    <button data-template="<div class=\'tooltip tooltip-info\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>" data-url="localidades/archivar-localidad?id='.$data->id_localidad.'" id="js_archivar_localidad" class="btn btn-icon btn-info btn-outline panel-listado-acction acction-archive no-pjax" data-toggle="tooltip" data-original-title="Archivar"><i class="icon wb-inbox" aria-hidden="true"></i></button></div>
+                                </span>
                         ';
                     }
                     
@@ -309,7 +325,7 @@ $(document).ready(function(){
                         console.log('Asignacion correcta');
                         // swal('Good job!', 'You clicked the button!', 'success');
                         // Display a success toast, with a title
-                        toastr.success('Se mando un email de notificacion');
+                        showToastr('Se asigno al director jurídico y se le ha enviado una notificación', 'success');
                     }
                 }
             });
@@ -332,7 +348,8 @@ $(document).ready(function(){
                         console.log('Eliminacion correcta');
                         //wal('Deleted!', 'Your imaginary file has been deleted.', 'success');
                         // Display a success toast, with a title
-                        toastr.success('Se elimino correctamente al usuario');
+                        showToastr('Se removio la asignación del director jurídico', 'success');
+                        
                     }
                 }
             });
@@ -356,10 +373,10 @@ $(document).ready(function(){
               return '<div style=\"display:'+isAsignado+'\" class=\"' + this.namespace + '-trigger-button\"><i class=\"wb-plus\"></i></div>';
             },
             listItem: function listItem(data) {
-              return '<li class=\"' + this.namespace + '-list-item\"><img class=\"avatar\" src=\"' + data.avatar + '\">' + data.name + '</li>';
+              return '<li class=\"' + this.namespace + '-list-item\"><img  class=\"avatar\" src=\"' + data.avatar + '\">' + data.name + '</li>';
             },
             item: function item(data) {
-              return '<li class=\"' + this.namespace + '-item\"><img class=\"avatar\" src=\"' + data.avatar + '\" title=\"' + data.name + '\">' + this.options.tpl.itemRemove.call(this) + '</li>';
+              return '<li class=\"' + this.namespace + '-item\"><img data-toggle=\"tooltip\" data-original-title=\"' + data.name + '\" class=\"avatar\" src=\"' + data.avatar + '\" >' + this.options.tpl.itemRemove.call(this) + '</li>';
             },
             itemRemove: function itemRemove() {
               return '<span class=\"' + this.namespace + '-remove\"><i class=\"wb-minus-circle\"></i></span>';
