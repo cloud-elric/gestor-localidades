@@ -292,6 +292,13 @@ $(document).on({'click': function(e){
 }
 }, '#js_aceptar_archivar');
 
+$(document).on({'click': function(){
+    //console.log($(this).data("url"));
+    $("#myModal").modal("show");
+    $("#url_loc").val($(this).data("url"));
+}
+}, ".js_archivar_localidad");
+
 function completarTarea(token, elemento){
     swal({
         title: "Confirmación",
