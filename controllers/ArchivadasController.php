@@ -202,6 +202,8 @@ class ArchivadasController extends Controller
 
         $localidad = new EntLocalidades();
         $localidad->attributes = $archivada->attributes;
+        $localidad->b_archivada = 0;
+
         $transaction = EntLocalidades::getDb()->beginTransaction();
         try{
             if($localidad->save()){
@@ -210,6 +212,8 @@ class ArchivadasController extends Controller
                     $tarea = new WrkTareas();
                     $tarea->attributes = $tareaArchivada->attributes;
                     $tarea->id_localidad = $localidad->id_localidad;
+                    $tarea->txt_path = $tareaArchivada->txt_path;
+                    $tarea->txt_tarea = $tareaArchivada->txt_tarea;
 
                     if(!$tarea->save()){
                         $transaction->rollBack ();
