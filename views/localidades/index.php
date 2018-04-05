@@ -130,7 +130,7 @@ $this->registerCssFile(
                     'value'=>function($data){
                         $hoy = time();//date("Y-m-d");
                         $fch_creacion = strtotime($data->fch_creacion);
-                        $punto = 'cat-yellow';
+                        $punto = 'cat-green';
                         
                         $tareas = $data->wrkTareas;
                         if($tareas){
