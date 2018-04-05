@@ -156,10 +156,27 @@ $this->registerCssFile(
                     'label'=>'Acciones',
                     'format'=>'raw',
                     'value'=>function($data){
-                        return '<div class="panel-listado-acctions">
-                            <a  href="'.Url::base().'/archivadas/view/'.$data->id_localidad.'" class="btn btn-icon btn-success btn-outline panel-listado-acction acction-detail no-pjax run-slide-panel"><i class="icon wb-eye" aria-hidden="true"></i></a>
-                            <button data-mouseDrag="false" data-url="localidades/archivar-localidad?id='.$data->id_localidad.'" id="js_archivar_localidad" class="btn btn-icon btn-info btn-outline panel-listado-acction acction-archive no-pjax" data-toggle="modal" data-target="#myModal"><i class="icon wb-inbox" aria-hidden="true"></i></button>            </div>
-                        ';
+
+                        $botones =  '<div class="panel-listado-acctions-tooltip" data-toggle="tooltip" data-original-title="Detalles" data-template="<div class=\'tooltip tooltip-2 tooltip-success\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>">
+                                        <a  href="'.Url::base().'/archivadas/view/'.$data->id_localidad.'"  class="btn btn-icon btn-success btn-outline panel-listado-acction acction-detail no-pjax run-slide-panel" >
+                                        <i class="icon wb-eye" aria-hidden="true"></i>
+                                        </a>
+                                    </div>';
+                        $botones .= '<div class="panel-listado-acctions-tooltip" data-toggle="tooltip" data-original-title="Tareas" data-template="<div class=\'tooltip tooltip-2 tooltip-warning\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>">
+                                        <a href="'.Url::base().'/archivadas/ver-tareas-localidad?id='.$data->id_localidad.'" id="js_ver_tareas_archivadas_'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel"><i class="icon wb-list" aria-hidden="true"></i></a>
+                                    </div>';  
+                        if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){
+                           // if(false){
+                            $botones .= '<div class="panel-listado-acctions-tooltip">
+                                            <button data-template="<div class=\'tooltip tooltip-2 tooltip-info\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>" data-url="archivadas/desarchivar-localidad?id='.$data->id_localidad.'" class="btn btn-icon btn-info btn-outline panel-listado-acction acction-archive no-pjax js_desarchivar_localidad" data-toggle="tooltip" data-original-title="Desarchivar"><i class="icon wb-inbox" aria-hidden="true"></i></button>
+                                        </div>'; 
+                        }   
+
+                        return '<div class="panel-listado-acctions">'
+                            //<a  href="'.Url::base().'/archivadas/view/'.$data->id_localidad.'" class="btn btn-icon btn-success btn-outline panel-listado-acction acction-detail no-pjax run-slide-panel"><i class="icon wb-eye" aria-hidden="true"></i></a>
+                            //<button data-mouseDrag="false" data-url="localidades/archivar-localidad?id='.$data->id_localidad.'" id="js_archivar_localidad" class="btn btn-icon btn-info btn-outline panel-listado-acction acction-archive no-pjax" data-toggle="modal" data-target="#myModal"><i class="icon wb-inbox" aria-hidden="true"></i></button>
+                            .$botones.
+                        '</div>';
                     }
                     
                 ]

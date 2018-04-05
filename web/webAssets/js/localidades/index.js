@@ -117,7 +117,7 @@ function generarSelected(){
             
             var elemento = $(this);
             var token = elemento.data("localidad");
-            console.log($("#json-colaboradores-"+token).data("colaboradores"));
+            //console.log($("#json-colaboradores-"+token).data("colaboradores"));
             //console.log(elemento.data('json'));
             elemento.selective({
               closeOnSelect: true , 
@@ -262,8 +262,8 @@ $(document).on({'change': function(e){
 $(document).on({'click': function(e){
     e.preventDefault();
     var motivo = $('#motivo_archivar_localidad').val();
-    var data = $('#js_archivar_localidad').data('url');
-    console.log(data + "&mot=" + motivo);
+    var data = $("#url_loc").val()//$('#js_archivar_localidad').data('url');
+    //console.log(data + "&mot=" + motivo);
 
     swal({
         title: "Confirmación",
@@ -360,3 +360,28 @@ function noCompletarTarea(token,  elemento){
         elemento.prop("checked", true);
         return false;
 }
+
+
+/*
+*JS para desarchivar localidad 
+*
+*/
+
+$(document).on({'click': function(){
+    var url = $(this).data("url");
+    $.ajax({
+        url: baseUrl+url,
+        success: function(resp){
+            if(resp.status=="success"){
+                $('tr[data-key="'+resp.message+'"]').remove();
+            }else{
+                swal("Espera", "Ocurrio un problema", "error");
+            }
+            
+        },
+        error:function (){
+            swal("Espera", "Ocurrio un problema", "error");
+        }
+    });
+}
+}, ".js_desarchivar_localidad");

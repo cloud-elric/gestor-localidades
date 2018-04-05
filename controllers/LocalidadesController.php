@@ -568,6 +568,7 @@ class LocalidadesController extends Controller
                                     $userTareaArchivada->id_tarea = $userTarea->id_tarea;
                                     
                                     if(!$userTareaArchivada->save()){
+                                        $transaction->rollBack ();
                                         return $response;
                                     }
                                     $userTarea->delete();
@@ -581,11 +582,15 @@ class LocalidadesController extends Controller
                                     $userLocArchivada->attributes = $userLoc->attributes;
 
                                     if(!$userLocArchivada->save()){
+                                        $transaction->rollBack ();
                                         return $response;
                                     }
                                     $userLoc->delete();
                                 }
                             }
+                        }else{
+                            $transaction->rollBack ();
+                            return $response;
                         }
                         $tarea->delete();
                     }

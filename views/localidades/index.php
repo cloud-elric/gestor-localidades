@@ -239,8 +239,8 @@ $this->registerCssFile(
                                     </div>';  
                         if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){
                            // if(false){
-                            $botones .= '<div class="panel-listado-acctions-tooltip" data-toggle="modal" data-target="#myModal">
-                                            <button data-template="<div class=\'tooltip tooltip-2 tooltip-info\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>" data-url="localidades/archivar-localidad?id='.$data->id_localidad.'" id="js_archivar_localidad" class="btn btn-icon btn-info btn-outline panel-listado-acction acction-archive no-pjax" data-toggle="tooltip" data-original-title="Archivar"><i class="icon wb-inbox" aria-hidden="true"></i></button>
+                            $botones .= '<div class="panel-listado-acctions-tooltip">
+                                            <button data-template="<div class=\'tooltip tooltip-2 tooltip-info\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>" data-url="localidades/archivar-localidad?id='.$data->id_localidad.'" class="btn btn-icon btn-info btn-outline panel-listado-acction acction-archive no-pjax js_archivar_localidad" data-toggle="tooltip" data-original-title="Archivar"><i class="icon wb-inbox" aria-hidden="true"></i></button>
                                         </div>'; 
                         }                     
                         return '<div class="panel-listado-acctions">
