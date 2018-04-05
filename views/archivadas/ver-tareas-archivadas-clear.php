@@ -83,7 +83,7 @@ $isColaborador = $usuario->txt_auth_item == ConstantesWeb::COLABORADOR;
                                                         ?>
                                                                 
                                                                     <?= Html::a(' <i class="icon wb-attach-file" aria-hidden="true"></i>
-                                                                                    ', ['tareas/descargar', 'id' => $tarea->id_tarea,], ['target' => '_blank', 'class' => 'btn no-pjax btn-success btn-outline']);?>
+                                                                                    ', ['tareas/descargar-desde-archivada', 'id' => $tarea->id_tarea,], ['target' => '_blank', 'class' => 'btn no-pjax btn-success btn-outline']);?>
                                                                
                                                         <?php
                                                             }
