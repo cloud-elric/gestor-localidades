@@ -70,6 +70,11 @@ use app\models\ConstantesWeb;
                           <span class="site-menu-title">Agregar localidad</span>
                         </a>
                       </li>
+                      <li class="site-menu-item">
+                        <a class="animsition-link" href="<?=Url::base()?>/archivadas">
+                          <span class="site-menu-title">Localidades archivadas</span>
+                        </a>
+                      </li>
                     </ul>
                   </div>
                 </div>
