@@ -30,6 +30,8 @@ use app\modules\ModUsuarios\models\EntUsuarios;
  */
 class WrkTareasArchivadas extends \yii\db\ActiveRecord
 {
+    public $colaboradoresAsignados;
+    
     /**
      * @inheritdoc
      */

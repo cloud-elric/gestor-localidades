@@ -117,7 +117,7 @@ function generarSelected(){
             
             var elemento = $(this);
             var token = elemento.data("localidad");
-            console.log($("#json-colaboradores-"+token).data("colaboradores"));
+            //console.log($("#json-colaboradores-"+token).data("colaboradores"));
             //console.log(elemento.data('json'));
             elemento.selective({
               closeOnSelect: true , 
@@ -292,13 +292,6 @@ $(document).on({'click': function(e){
 }
 }, '#js_aceptar_archivar');
 
-$(document).on({'click': function(){
-    //console.log($(this).data("url"));
-    $("#myModal").modal("show");
-    $("#url_loc").val($(this).data("url"));
-}
-}, ".js_archivar_localidad");
-
 function completarTarea(token, elemento){
     swal({
         title: "Confirmación",
@@ -367,3 +360,28 @@ function noCompletarTarea(token,  elemento){
         elemento.prop("checked", true);
         return false;
 }
+
+
+/*
+*JS para desarchivar localidad 
+*
+*/
+
+$(document).on({'click': function(){
+    var url = $(this).data("url");
+    $.ajax({
+        url: baseUrl+url,
+        success: function(resp){
+            if(resp.status=="success"){
+                $('tr[data-key="'+resp.message+'"]').remove();
+            }else{
+                swal("Espera", "Ocurrio un problema", "error");
+            }
+            
+        },
+        error:function (){
+            swal("Espera", "Ocurrio un problema", "error");
+        }
+    });
+}
+}, ".js_desarchivar_localidad");
