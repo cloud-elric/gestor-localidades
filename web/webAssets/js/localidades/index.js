@@ -262,8 +262,8 @@ $(document).on({'change': function(e){
 $(document).on({'click': function(e){
     e.preventDefault();
     var motivo = $('#motivo_archivar_localidad').val();
-    var data = $('#js_archivar_localidad').data('url');
-    console.log(data + "&mot=" + motivo);
+    var data = $("#url_loc").val()//$('#js_archivar_localidad').data('url');
+    //console.log(data + "&mot=" + motivo);
 
     swal({
         title: "Confirmación",
@@ -291,6 +291,13 @@ $(document).on({'click': function(e){
     });
 }
 }, '#js_aceptar_archivar');
+
+$(document).on({'click': function(){
+    //console.log($(this).data("url"));
+    $("#myModal").modal("show");
+    $("#url_loc").val($(this).data("url"));
+}
+}, ".js_archivar_localidad");
 
 function completarTarea(token, elemento){
     swal({
