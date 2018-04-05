@@ -17,6 +17,7 @@ use app\modules\ModUsuarios\models\EntUsuarios;
 use yii\helpers\Url;
 use yii\helpers\Html;
 use app\models\ConstantesWeb;
+use app\models\WrkTareasArchivadas;
 
 /**
  * TareasController implements the CRUD actions for WrkTareas model.
@@ -242,6 +243,15 @@ class TareasController extends Controller
 
     public function actionDescargar($id){
         $tarea = WrkTareas::find()->where(['id_tarea'=>$id])->one();
+
+        $dropbox = Dropbox::descargarArchivo($tarea->txt_path);
+        $decodeDropbox = json_decode(trim($dropbox), TRUE);
+
+        return $this->redirect($decodeDropbox['link']);
+    }
+    
+    public function actionDescargarDesdeArchivada($id){
+        $tarea = WrkTareasArchivadas::find()->where(['id_tarea'=>$id])->one();
 
         $dropbox = Dropbox::descargarArchivo($tarea->txt_path);
         $decodeDropbox = json_decode(trim($dropbox), TRUE);

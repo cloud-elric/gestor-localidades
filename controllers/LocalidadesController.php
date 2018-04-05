@@ -446,7 +446,7 @@ class LocalidadesController extends Controller
 
     public function actionNotificaciones(){
         $hoy = date("Y-m-d 00:00:00");
-        $tareas = WrkTareas::find()->where(['>', 'fch_due_date', $hoy])->orderBy('fch_due_date')->all();//var_dump($tareas);exit;
+        $tareas = WrkTareas::find()->where(['<', 'fch_creacion', $hoy])->orderBy('fch_creacion')->all();//var_dump($tareas);exit;
         $arr = [];
         
         foreach($tareas as $tarea){
