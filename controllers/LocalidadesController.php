@@ -446,15 +446,14 @@ class LocalidadesController extends Controller
 
     public function actionNotificaciones(){
         $hoy = date("Y-m-d 00:00:00");
-        $tareas = WrkTareas::find()->where(['<', 'fch_creacion', $hoy])->orderBy('fch_creacion')->all();//var_dump($tareas);exit;
+        $tareas = WrkTareas::find()->where(['<', 'fch_creacion', $hoy])->andWhere(['txt_path'=>null])->andWhere(['txt_tarea'=>null])->orderBy('fch_creacion')->all();
+        print_r($tareas);exit;
         $arr = [];
         
         foreach($tareas as $tarea){
-            $tareaUser = $tarea->usuarios;//WrkUsuariosTareas::find()->where(['id_tarea'=>$tarea->id_tarea])->one();
-            //$user = EntUsuarios::find()->where(['id_usuario'=>$tareaUser->id_usuario])->one();
+            $tareaUser = $tarea->usuarios;
+            $localidad = $tarea->localidad;
 
-            //$arr[$user->id_usuario]['correo'] = $user->txt_email;
-            //$arr[$user->id_usuario][$tarea->id_tarea] = $tarea;
             foreach($tareaUser as $user){
                 $arr[$user->id_usuario]['tareas'][] = $tarea;
                 if(!isset($arr[$user->id_usuario]['correo'])){
