@@ -464,12 +464,14 @@ class LocalidadesController extends Controller
             $colaboradores = $tarea->usuarios;
             $localidad = $tarea->localidad;
             $arr[$localidad->id_localidad]["nombreLocalidad"] = $localidad->txt_nombre;
+            $arr[$localidad->id_localidad]["token"]=$localidad->txt_token;
             $colaboradoresArr = [];
 
             foreach ($colaboradores as $colaboradorRel) {
                 $colaborador = $colaboradorRel->idUsuario;
                 $arr[$localidad->id_localidad]["colaboradores"][$colaborador->id_usuario]["nombre"] = $colaborador->nombreCompleto;
                 $arr[$localidad->id_localidad]["colaboradores"][$colaborador->id_usuario]["email"] = $colaborador->txt_email;
+                $arr[$localidad->id_localidad]["colaboradores"][$colaborador->id_usuario]["token"] = $colaborador->txt_token;
                 $arr[$localidad->id_localidad]["colaboradores"][$colaborador->id_usuario]["tareas"][$tarea->id_tarea] = $tarea ;
             }
 
@@ -490,6 +492,9 @@ class LocalidadesController extends Controller
               $parametrosEmail ['localidad'] = $tar["nombreLocalidad"];
               foreach($tar["colaboradores"] as $cola){// colaboradores
                     $parametrosEmail ['user'] = $cola['nombre'];
+                    $parametrosEmail['url'] = Yii::$app->urlManager->createAbsoluteUrl([
+                        'localidades/index/?token=' . $cola["token"] . '&tokenLoc=' . $tar["token"]
+                    ]);
                   foreach($cola["tareas"] as $key=>$tareas){// tareas
                     $parametrosEmail ['tareas'][$key] = $tareas["txt_nombre"];
                   }
@@ -499,6 +504,9 @@ class LocalidadesController extends Controller
               foreach($tar["directores"] as $director){// colaboradores
                 $parametrosEmail ['user'] = $director['txt_username']." ".$director['txt_apellido_paterno'];
                 $parametrosEmail['localidad'] = $tar;
+                $parametrosEmail['url'] = Yii::$app->urlManager->createAbsoluteUrl([
+                    'localidades/index/?token=' . $director["txt_token"] . '&tokenLoc=' . $tar["token"]
+                ]);
               $utils->sendEmailNotificacionesTareasDirector( $director['txt_email'], $parametrosEmail );
             }
          
