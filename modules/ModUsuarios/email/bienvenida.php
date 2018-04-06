@@ -294,7 +294,7 @@ a[x-apple-data-detectors=true] {
                 Este correo es para notificarte que 
                   <strong style="font-family: Verdana; font-size: 14px; font-style: italic; font-weight: bold;">
                     has sido agregado
-                  </strong> a la plataforma “Regalado y galindo - Gestor de localidades”, para poder 
+                  </strong> a la plataforma “Regalado y Galindo - Gestor de localidades”, para poder 
                   <strong style="font-family: Verdana; font-size: 14px; font-style: italic; font-weight: bold;">
                     acceder
                   </strong> 

@@ -295,7 +295,7 @@ a[x-apple-data-detectors=true] {
                 <strong style="font-family: Verdana; font-size: 14px; font-style: italic; font-weight: bold;">
                 <?=$localidad?> 
                 </strong>
-                dentro de la plataforma “Regalado y galindo - Gestor de localidades”, 
+                dentro de la plataforma “Regalado y Galindo - Gestor de localidades”, 
                 para poder <strong style="font-family: Verdana; font-size: 14px; font-style: italic; font-weight: bold;">acceder</strong>
                  al sistema da click en la siguiente liga:</span></p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
