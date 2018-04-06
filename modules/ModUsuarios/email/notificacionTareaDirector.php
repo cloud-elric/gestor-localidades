@@ -298,18 +298,24 @@ a[x-apple-data-detectors=true] {
               Hola <?= $user ?>:</span></p>
             <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">
               Este correo es para notificarte que: <strong style="font-family: Verdana; font-size: 14px; font-weight: bold;"> 
-                tienes tareas sin atender</strong> en la localidad - <strong style="font-family: Verdana; font-size: 14px; font-weight: bold;"> 
-                <?=$localidad?></strong>
+                tus colaboradores tienen tareas sin atender</strong> en la localidad - <strong style="font-family: Verdana; font-size: 14px; font-weight: bold;"> 
+                <?=$localidad["nombreLocalidad"]?></strong>
                 Las tareas son:
-                <ol>
+                <ul>
                   <?php
-                  foreach($tareas as $tarea){?>
+                  foreach($localidad["colaboradores"] as $colaborador){?>
                     
-                    <li><?=$tarea?></li>
-                     
+                    <li>Colaborador: <?=$colaborador["nombre"]?></li>
+                     <ol>
+                     <?php
+                      foreach($colaborador["tareas"] as $tarea){?>
+                        <li><?=$tarea["txt_nombre"]?></li>
+                    <?php
+                    }?>
+                     </ol>
                   <?php
                   }?>
-                </ol>
+                </ul>
                    </span></p>
 
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>

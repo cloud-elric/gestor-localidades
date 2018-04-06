@@ -79,6 +79,12 @@ class Utils {
 		return $this->sendEmail ( '@app/modules/ModUsuarios/email/notificacionTarea', '@app/modules/ModUsuarios/email/layouts/text', Yii::$app->params ['modUsuarios'] ['email'] ['emailActivacion'],$email, "Notificacion", $parametrosEmail );
 	}
 
+	public function sendEmailNotificacionesTareasDirector($email,$parametrosEmail) {
+		
+		// Envia el correo electronico
+		return $this->sendEmail ( '@app/modules/ModUsuarios/email/notificacionTareaDirector', '@app/modules/ModUsuarios/email/layouts/text', Yii::$app->params ['modUsuarios'] ['email'] ['emailActivacion'],$email, "Notificacion", $parametrosEmail );
+	}
+
 	public function sendEmailCargaTareas($email,$parametrosEmail) {
 		
 		// Envia el correo electronico

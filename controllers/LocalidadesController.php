@@ -39,25 +39,29 @@ class LocalidadesController extends Controller
     /**
      * @inheritdoc
      */
-     public function behaviors()
-     {
-         return [
-             'access' => [
-                 'class' => AccessControlExtend::className(),
-                 'only' => ['create', 'view', 'update', 'delete', 'asignar-usuario', 'asignar-usuario-eliminar', 'remover-asignacion-usuario',
-                    'asignar-usuario-tarea', 'notificaciones', 'ver-tareas-localidad', 'archivar-localidad'],
-                 'rules' => [
-                     [
-                         'actions' => ['create', 'view', 'update', 'delete', 'asignar-usuario', 'asignar-usuario-eliminar', 'remover-asignacion-usuario',
-                            'asignar-usuario-tarea', 'notificaciones', 'ver-tareas-localidad', 'archivar-localidad'],
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControlExtend::className(),
+                'only' => [
+                    'create', 'view', 'update', 'delete', 'asignar-usuario', 'asignar-usuario-eliminar', 'remover-asignacion-usuario',
+                    'asignar-usuario-tarea', 'notificaciones', 'ver-tareas-localidad', 'archivar-localidad'
+                ],
+                'rules' => [
+                    [
+                        'actions' => [
+                            'create', 'view', 'update', 'delete', 'asignar-usuario', 'asignar-usuario-eliminar', 'remover-asignacion-usuario',
+                            'asignar-usuario-tarea', 'notificaciones', 'ver-tareas-localidad', 'archivar-localidad'
+                        ],
                         'allow' => true,
-                         'roles' => [ConstantesWeb::ABOGADO, ConstantesWeb::COLABORADOR, ConstantesWeb::CLIENTE],
+                        'roles' => [ConstantesWeb::ABOGADO, ConstantesWeb::COLABORADOR, ConstantesWeb::CLIENTE],
 
-                         
-                     ],
-                     
-                 ],
-             ],
+
+                    ],
+
+                ],
+            ],
             // 'verbs' => [
             //     'class' => VerbFilter::className(),
             //     'actions' => [
@@ -73,43 +77,43 @@ class LocalidadesController extends Controller
      */
     public function actionIndex($token = null, $tokenLoc = null)
     {
-        if($token){
-            $user = EntUsuarios::find()->where(['txt_token'=>$token])->one();
+        if ($token) {
+            $user = EntUsuarios::find()->where(['txt_token' => $token])->one();
 
-            if($user->id_status==EntUsuarios::STATUS_BLOCKED){
-                Yii::$app->session->setFlash('error', "El usuario con el email: '".$user->txt_email."' ha sido bloqueado.");
+            if ($user->id_status == EntUsuarios::STATUS_BLOCKED) {
+                Yii::$app->session->setFlash('error', "El usuario con el email: '" . $user->txt_email . "' ha sido bloqueado.");
                 return $this->redirect(["//login"]);
             }
             Yii::$app->getUser()->login($user);
         }
-        if(Yii::$app->user->isGuest){
+        if (Yii::$app->user->isGuest) {
             return $this->redirect(["//login"]);
         }
 
         $idUser = Yii::$app->user->identity->id_usuario;
-        
+
         $searchModel = new EntLocalidadesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         
         //LISTA DE USUARIOA PARA AGREGAR
         $selected = [];
-        $directoresJuridicos = EntUsuarios::find()->where(['txt_auth_item'=>ConstantesWeb::CLIENTE,'id_status'=>2])->all();
-        $i=0;
-        foreach($directoresJuridicos as $directorJuridico){
+        $directoresJuridicos = EntUsuarios::find()->where(['txt_auth_item' => ConstantesWeb::CLIENTE, 'id_status' => 2])->all();
+        $i = 0;
+        foreach ($directoresJuridicos as $directorJuridico) {
             $selected[$i]['id'] = $directorJuridico->id_usuario;
             $selected[$i]['name'] = $directorJuridico->getNombreCompleto();
             $selected[$i]['avatar'] = $directorJuridico->getImageProfile();
             $i++;
         }
-        
+
         $jsonAgregar = json_encode($selected);
 
         $model = new EntLocalidades();
         $flag = false;
         $estatus = new EntEstatus();
         $historial = null;
-        
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -130,10 +134,10 @@ class LocalidadesController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id, $token=null)
+    public function actionView($id, $token = null)
     {
-        if($token){
-            $user = EntUsuarios::find()->where(['txt_token'=>$token])->one();
+        if ($token) {
+            $user = EntUsuarios::find()->where(['txt_token' => $token])->one();
             Yii::$app->getUser()->login($user);
         }
 
@@ -158,36 +162,36 @@ class LocalidadesController extends Controller
         $model->fch_asignacion = Utils::changeFormatDate($hoy);
 
         $estatus = new EntEstatus();
-        
+
         $historial = null;
 
-        if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())){
+        if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())) {
             //var_dump($_POST);exit;
-            $model->id_usuario = Yii::$app->user->identity->id_usuario; 
+            $model->id_usuario = Yii::$app->user->identity->id_usuario;
             $model->txt_token = Utils::generateToken('tok');
             //$model->id_moneda = $_POST['group2'];
 
             $model->fch_vencimiento_contratro = Utils::changeFormatDateInput($model->fch_vencimiento_contratro);
             $model->fch_asignacion = Utils::changeFormatDateInput($model->fch_asignacion);
-            
-            $dropbox = Dropbox::crearFolder("raul/".$_POST["EntLocalidades"]["txt_nombre"]);
-            $decodeDropbox = json_decode(trim($dropbox), TRUE);
 
-            if($decodeDropbox['metadata']){
-                if($model->save()){
+            $dropbox = Dropbox::crearFolder("raul/" . $_POST["EntLocalidades"]["txt_nombre"]);
+            $decodeDropbox = json_decode(trim($dropbox), true);
+
+            if ($decodeDropbox['metadata']) {
+                if ($model->save()) {
                     $estatus->id_localidad = $model->id_localidad;
-                    if($estatus->save()){     
+                    if ($estatus->save()) {
                         return $this->redirect(['index']);
                     }
                 }
             }
         }
         $flag = true;
-        
+
         return $this->render('create', [
             'model' => $model,
             'estatus' => $estatus,
-            'flag' => $flag,        
+            'flag' => $flag,
             'historial' => $historial,
             //'monedas' => $monedas
         ]);
@@ -204,37 +208,37 @@ class LocalidadesController extends Controller
     {
         $model = $this->findModel($id);
         $estatus = new EntEstatus();
-        $historial = EntEstatus::find()->where(['id_localidad'=>$id])->all();
+        $historial = EntEstatus::find()->where(['id_localidad' => $id])->all();
         $nombreOriginal = $model->txt_nombre;
         if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())) {
-            
+
             $estatus->id_localidad = $model->id_localidad;
-            if($model->validate()){
-                if($nombreOriginal!=$model->txt_nombre){
+            if ($model->validate()) {
+                if ($nombreOriginal != $model->txt_nombre) {
                     // @TODO
                     //Esto debe de renombrar la carpeta y no crear un nuevo folder marca error si tiene el mismo nombre
-                    $dropbox = Dropbox::moverArchivo("/raul/".$nombreOriginal,"/raul/".$_POST["EntLocalidades"]["txt_nombre"]);
-    
-                    $decodeDropbox = json_decode(trim($dropbox), TRUE);
-                
-                    if(isset($decodeDropbox['metadata'])){
+                    $dropbox = Dropbox::moverArchivo("/raul/" . $nombreOriginal, "/raul/" . $_POST["EntLocalidades"]["txt_nombre"]);
+
+                    $decodeDropbox = json_decode(trim($dropbox), true);
+
+                    if (isset($decodeDropbox['metadata'])) {
                         $model->save() && $estatus->save();
-                        
-                        
+
+
                         return $this->redirect(['index']);
-                    }else{
+                    } else {
                         Yii::$app->session->setFlash('error', "Ocurrió un problema con la comunicación de dropbox. Si el problema persiste contacté a soporteœ2gom.com.mx.");
-                        
+
                     }
-                }else{
+                } else {
                     $model->save() && $estatus->save();
                     return $this->redirect(['index']);
                 }
 
 
-                
+
             }
-            
+
         }
         $tareas = true;
         $flag = true;
@@ -281,231 +285,254 @@ class LocalidadesController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionAsignarUsuarios(){
+    public function actionAsignarUsuarios()
+    {
         Yii::$app->response->format = Response::FORMAT_JSON;
 
-        if(isset($_POST['idL']) && isset($_POST['idU']) ){
+        if (isset($_POST['idL']) && isset($_POST['idU'])) {
             $longArray = sizeOf($_POST['idU']);
             $idUser = null;
-            for($i = $longArray - 1; $i >= 0; $i--){
+            for ($i = $longArray - 1; $i >= 0; $i--) {
                 $idUser = $_POST['idU'][$i];
                 break;
             }
-            
-            $relacion = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$_POST['idL']])->one();
-            if($relacion){
+
+            $relacion = WrkUsuariosLocalidades::find()->where(['id_localidad' => $_POST['idL']])->one();
+            if ($relacion) {
                 //$relacion->delete();
             }
             $relUserLoc = new WrkUsuariosLocalidades();
             $relUserLoc->id_usuario = $idUser;
             $relUserLoc->id_localidad = $_POST['idL'];
 
-            if($relUserLoc->save()){
+            if ($relUserLoc->save()) {
                 $user = EntUsuarios::findIdentity($relUserLoc->id_usuario);
-                if (Yii::$app->params ['modUsuarios'] ['mandarCorreoActivacion']) {
+                if (Yii::$app->params['modUsuarios']['mandarCorreoActivacion']) {
                     $localidad = EntLocalidades::findOne($relUserLoc->id_localidad);
 
 					// Enviar correo
-					$utils = new Utils ();
+                    $utils = new Utils();
 					// Parametros para el email
-					$parametrosEmail ['localidad'] = $localidad->txt_nombre;
-                    $parametrosEmail ['user'] = $user->getNombreCompleto ();
-                    $parametrosEmail ['url'] = Yii::$app->urlManager->createAbsoluteUrl([
+                    $parametrosEmail['localidad'] = $localidad->txt_nombre;
+                    $parametrosEmail['user'] = $user->getNombreCompleto();
+                    $parametrosEmail['url'] = Yii::$app->urlManager->createAbsoluteUrl([
                         'localidades/index/?token=' . $user->txt_token
                     ]);
 					
 					// Envio de correo electronico
-                    $utils->sendEmailAsignacion( $user->txt_email,$parametrosEmail );
-                    				
+                    $utils->sendEmailAsignacion($user->txt_email, $parametrosEmail);
+
                 }
                 
                 //return $this->redirect(['view', 'id'=>$relUserLoc->id_localidad]);
                 return [
                     'status' => 'success'
-                ];	
+                ];
             }
 
-            return ['status'=>'error'];	            
+            return ['status' => 'error'];
         }
-        return ['status'=>'error'];
+        return ['status' => 'error'];
     }
 
-    public function actionAsignarUsuariosEliminar(){
+    public function actionAsignarUsuariosEliminar()
+    {
         Yii::$app->response->format = Response::FORMAT_JSON;
 
-        if(isset($_POST['idL']) && isset($_POST['idU']) ){
-            
-            $idUser =  $_POST['idU'];
-            $relacion = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$_POST['idL']])->andWhere(['not in', 'id_usuario', $_POST['idU']])->one();
-            if($relacion){
-                if($relacion->delete()){
+        if (isset($_POST['idL']) && isset($_POST['idU'])) {
+
+            $idUser = $_POST['idU'];
+            $relacion = WrkUsuariosLocalidades::find()->where(['id_localidad' => $_POST['idL']])->andWhere(['not in', 'id_usuario', $_POST['idU']])->one();
+            if ($relacion) {
+                if ($relacion->delete()) {
                     return [
                         'status' => 'success'
-                    ];	
+                    ];
                 }
-                return ['status'=>'error'];
-            
+                return ['status' => 'error'];
+
             }
-            return ['status'=>'error'];	            
-        }else{
-            if(isset($_POST['idL'])){
-                $relacion = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$_POST['idL']])->one();
-                if($relacion){
-                    if($relacion->delete()){
+            return ['status' => 'error'];
+        } else {
+            if (isset($_POST['idL'])) {
+                $relacion = WrkUsuariosLocalidades::find()->where(['id_localidad' => $_POST['idL']])->one();
+                if ($relacion) {
+                    if ($relacion->delete()) {
                         return [
                             'status' => 'success'
-                        ];	
+                        ];
                     }
 
-                    return ['status'=>'error'];
+                    return ['status' => 'error'];
                 }
             }
         }
 
-        return ['status'=>'error post'];
+        return ['status' => 'error post'];
     }
 
-    public function actionRemoverAsignacionTarea(){
+    public function actionRemoverAsignacionTarea()
+    {
         $respuesta = new ResponseServices();
-        if(isset($_POST['idT']) && isset($_POST['idU']) ){
+        if (isset($_POST['idT']) && isset($_POST['idU'])) {
             $longArray = sizeOf($_POST['idU']);
             $idUser = null;
-            for($i = $longArray - 1; $i >= 0; $i--){
+            for ($i = $longArray - 1; $i >= 0; $i--) {
                 $idUser = $_POST['idU'][$i];
                 break;
             }
 
-            $relacion = WrkUsuariosTareas::find()->where(['id_tarea'=>$_POST['idT']])->one();
-            if($relacion){
+            $relacion = WrkUsuariosTareas::find()->where(['id_tarea' => $_POST['idT']])->one();
+            if ($relacion) {
                 $respuesta->status = "success";
                 $respuesta->message = "Se ha eliminado la asignacion a la tarea";
                 $relacion->delete();
-            }    
-        }else{
-            $respuesta->message= "No se enviaron los datos por post";
+            }
+        } else {
+            $respuesta->message = "No se enviaron los datos por post";
         }
 
 
         return $respuesta;
     }
 
-    public function actionAsignarUsuariosTareas(){
+    public function actionAsignarUsuariosTareas()
+    {
         Yii::$app->response->format = Response::FORMAT_JSON;
 
-        if(isset($_POST['idT']) && isset($_POST['idU']) ){
+        if (isset($_POST['idT']) && isset($_POST['idU'])) {
             $longArray = sizeOf($_POST['idU']);
             $idUser = null;
-            for($i = $longArray - 1; $i >= 0; $i--){
+            for ($i = $longArray - 1; $i >= 0; $i--) {
                 $idUser = $_POST['idU'][$i];
                 break;
             }
 
-            $relacion = WrkUsuariosTareas::find()->where(['id_tarea'=>$_POST['idT']])->one();
-            if($relacion)
+            $relacion = WrkUsuariosTareas::find()->where(['id_tarea' => $_POST['idT']])->one();
+            if ($relacion)
                 $relacion->delete();
 
             $relUserLoc = new WrkUsuariosTareas();
             $relUserLoc->id_usuario = $idUser;
             $relUserLoc->id_tarea = $_POST['idT'];
 
-            if($relUserLoc->save()){
+            if ($relUserLoc->save()) {
 
-                if (Yii::$app->params ['modUsuarios'] ['mandarCorreoActivacion']) {
+                if (Yii::$app->params['modUsuarios']['mandarCorreoActivacion']) {
                     $user = EntUsuarios::findIdentity($_POST['idU']);
-                    $tarea = WrkTareas::find()->where(['id_tarea'=>$_POST['idT']])->one();
+                    $tarea = WrkTareas::find()->where(['id_tarea' => $_POST['idT']])->one();
                     $loc = $tarea->localidad;
                     $abogado = $tarea->usuario;
                     //$tarea = WrkTareas::findOne($model->id_localidad);
 
 					// Enviar correo
-					$utils = new Utils ();
+                    $utils = new Utils();
 					// Parametros para el email
-					$parametrosEmail ['tarea'] = $tarea->txt_nombre;
-					$parametrosEmail ['loc'] = $loc->txt_nombre;
-					$parametrosEmail ['user'] = $user->getNombreCompleto();
-					$parametrosEmail ['abogado'] = $abogado->getNombreCompleto();
-					$parametrosEmail ['url'] = Yii::$app->urlManager->createAbsoluteUrl([ 
+                    $parametrosEmail['tarea'] = $tarea->txt_nombre;
+                    $parametrosEmail['loc'] = $loc->txt_nombre;
+                    $parametrosEmail['user'] = $user->getNombreCompleto();
+                    $parametrosEmail['abogado'] = $abogado->getNombreCompleto();
+                    $parametrosEmail['url'] = Yii::$app->urlManager->createAbsoluteUrl([
                         'localidades/index/?token=' . $user->txt_token . '&tokenLoc=' . $loc->txt_token
                     ]);
 					
 					// Envio de correo electronico
-                    $utils->sendEmailAsignacionTarea( $user->txt_email,$parametrosEmail );
+                    $utils->sendEmailAsignacionTarea($user->txt_email, $parametrosEmail);
                     
                     //return $this->redirect(['view', 'id'=>$relUserLoc->id_localidad]);
-                    return ['status'=>'success'];					
+                    return ['status' => 'success'];
                 }
 
-                return ['status'=>'error mandar correo'];	            
+                return ['status' => 'error mandar correo'];
             }
 
-            return ['status'=>'error guardar relacion'];
+            return ['status' => 'error guardar relacion'];
         }
 
-        return ['status'=>'error post data'];
+        return ['status' => 'error post data'];
     }
 
-    public function actionNotificaciones(){
+    public function actionNotificaciones()
+    {
+        $respuesta = new ResponseServices();
         $hoy = date("Y-m-d 00:00:00");
-        $tareas = WrkTareas::find()->where(['<', 'fch_creacion', $hoy])->orderBy('fch_creacion')->all();//var_dump($tareas);exit;
+        $hoy = date("Y-m-d 00:00:00", strtotime($hoy . '-7 day'));
+        $tareas = WrkTareas::find()->where(['<', 'fch_creacion', $hoy])->andWhere(['txt_path'=>null])->andWhere(['txt_tarea'=>null])->orderBy('fch_creacion')->all();
         $arr = [];
+
+        foreach ($tareas as $tarea) {
+            $colaboradores = $tarea->usuarios;
+            $localidad = $tarea->localidad;
+            $arr[$localidad->id_localidad]["nombreLocalidad"] = $localidad->txt_nombre;
+            $colaboradoresArr = [];
+
+            foreach ($colaboradores as $colaboradorRel) {
+                $colaborador = $colaboradorRel->idUsuario;
+                $arr[$localidad->id_localidad]["colaboradores"][$colaborador->id_usuario]["nombre"] = $colaborador->nombreCompleto;
+                $arr[$localidad->id_localidad]["colaboradores"][$colaborador->id_usuario]["email"] = $colaborador->txt_email;
+                $arr[$localidad->id_localidad]["colaboradores"][$colaborador->id_usuario]["tareas"][$tarea->id_tarea] = $tarea ;
+            }
+
+           
+
+            $directores = $localidad->wrkUsuariosLocalidades;
+            foreach ($directores as $director) {
+                $usuarioDirector = $director->usuario;
+                $arr[$localidad->id_localidad]["directores"][$usuarioDirector->id_usuario] = $usuarioDirector;
+            }
+
+        }
+
+        foreach($arr as $tar){// localidad
+        //     // Enviar correo
+             $utils = new Utils ();
+              $parametrosEmail = [];
+              $parametrosEmail ['localidad'] = $tar["nombreLocalidad"];
+              foreach($tar["colaboradores"] as $cola){// colaboradores
+                    $parametrosEmail ['user'] = $cola['nombre'];
+                  foreach($cola["tareas"] as $key=>$tareas){// tareas
+                    $parametrosEmail ['tareas'][$key] = $tareas["txt_nombre"];
+                  }
+                  $utils->sendEmailNotificacionesTareas( $cola['email'], $parametrosEmail );
+              }
+
+              foreach($tar["directores"] as $director){// colaboradores
+                $parametrosEmail ['user'] = $director['txt_username']." ".$director['txt_apellido_paterno'];
+                $parametrosEmail['localidad'] = $tar;
+              $utils->sendEmailNotificacionesTareasDirector( $director['txt_email'], $parametrosEmail );
+            }
+         
+          }
+
         
-        foreach($tareas as $tarea){
-            $tareaUser = $tarea->usuarios;//WrkUsuariosTareas::find()->where(['id_tarea'=>$tarea->id_tarea])->one();
-            //$user = EntUsuarios::find()->where(['id_usuario'=>$tareaUser->id_usuario])->one();
 
-            //$arr[$user->id_usuario]['correo'] = $user->txt_email;
-            //$arr[$user->id_usuario][$tarea->id_tarea] = $tarea;
-            foreach($tareaUser as $user){
-                $arr[$user->id_usuario]['tareas'][] = $tarea;
-                if(!isset($arr[$user->id_usuario]['correo'])){
-                    $arr[$user->id_usuario]['correo'] = $user->idUsuario->txt_email;
-                }
-                if(!isset($arr[$user->id_usuario]['nombre'])){
-                    $arr[$user->id_usuario]['nombre'] = $user->idUsuario->nombreCompleto;
-                }
-            }            
-        }
-
-        foreach($arr as $tar){
-            // Enviar correo
-            $utils = new Utils ();
-            $parametrosEmail = [];
-            $parametrosEmail ['tareas'] = null;
-            // Parametros para el email
-            foreach($tar['tareas'] as $t){
-                $parametrosEmail ['tareas'] .= $t->txt_nombre . "<br/><br/>";
-            } 
-            $parametrosEmail ['user'] = $tar['nombre'];
-            
-            
-            // Envio de correo electronico
-            $utils->sendEmailNotificacionesTareas( $tar['correo'], $parametrosEmail );
-        }
-
-        exit;
+        $respuesta->result = $arr;
+        return $respuesta;
+        
     }
 
-    public function actionVerTareasLocalidad($id){
+    public function actionVerTareasLocalidad($id)
+    {
 
         $localidad = $this->findModel($id);
         $usuarioLogueado = EntUsuarios::getUsuarioLogueado();
         // Obtiene las tareas del colaborador si no seran todas
-        if($usuarioLogueado->txt_auth_item==ConstantesWeb::COLABORADOR){
-            $tareasColaborador = WrkUsuariosTareas::find()->where(['id_usuario'=>$usuarioLogueado->id_usuario])->select('id_tarea')->asArray()->all();
+        if ($usuarioLogueado->txt_auth_item == ConstantesWeb::COLABORADOR) {
+            $tareasColaborador = WrkUsuariosTareas::find()->where(['id_usuario' => $usuarioLogueado->id_usuario])->select('id_tarea')->asArray()->all();
             $tareas = WrkTareas::find()->where(["in", 'id_tarea', $tareasColaborador])->andWhere(['id_localidad' => $localidad->id_localidad])->all();
-        }else{
+        } else {
             $tareas = $localidad->wrkTareas;
         }
         
         // Obtiene al director asigando a la localidad para conseguir a sus colaboradores
-        $directorAsignado = WrkUsuariosLocalidades::find()->where(["id_localidad"=>$id])->one();
+        $directorAsignado = WrkUsuariosLocalidades::find()->where(["id_localidad" => $id])->one();
         $colaboradores = [];
-        if($directorAsignado){
-            $colaboradores = WrkUsuarioUsuarios::find()->where(["id_usuario_padre"=>$directorAsignado->id_usuario])->all();
+        if ($directorAsignado) {
+            $colaboradores = WrkUsuarioUsuarios::find()->where(["id_usuario_padre" => $directorAsignado->id_usuario])->all();
         }
         $selected = [];
         $i = 0;
-        foreach($colaboradores as $colaborador){
+        foreach ($colaboradores as $colaborador) {
             $colaborador = $colaborador->usuarioHijo;
             $selected[$i]['id'] = $colaborador->id_usuario;
             $selected[$i]['name'] = $colaborador->nombreCompleto;
@@ -515,30 +542,31 @@ class LocalidadesController extends Controller
         $jsonAgregar = json_encode($selected);
 
         // Obtiene a los usuarios asignados a la tarea
-        if(!($usuarioLogueado->txt_auth_item==ConstantesWeb::COLABORADOR)){
+        if (!($usuarioLogueado->txt_auth_item == ConstantesWeb::COLABORADOR)) {
             $tareasA = [];
-            foreach($tareas as $tarea){
-                $idUsuarios = WrkUsuariosTareas::find()->where(['id_tarea'=>$tarea->id_tarea])->select('id_usuario')->asArray()->all();
+            foreach ($tareas as $tarea) {
+                $idUsuarios = WrkUsuariosTareas::find()->where(['id_tarea' => $tarea->id_tarea])->select('id_usuario')->asArray()->all();
                 $usersSeleccionados = EntUsuarios::find()->where(['in', 'id_usuario', $idUsuarios])->all();
                 $colaboradoresTarea = [];
-                $i=0;
-                foreach($usersSeleccionados as $userSeleccionado){
+                $i = 0;
+                foreach ($usersSeleccionados as $userSeleccionado) {
                     $colaboradoresTarea[$i]['id'] = $userSeleccionado->id_usuario;
                     $colaboradoresTarea[$i]['name'] = $userSeleccionado->getNombreCompleto();
                     $colaboradoresTarea[$i]['avatar'] = $userSeleccionado->getImageProfile();
                     $i++;
                 }
                 $tarea->colaboradoresAsignados = json_encode($colaboradoresTarea);
-                $tareasA[]=$tarea;
+                $tareasA[] = $tarea;
             }
 
             $tareas = $tareasA;
         }
-        
-        return $this->renderAjax("ver-tareas-localidad-clear", ["localidad"=>$localidad, "tareas"=>$tareas, "jsonAgregar"=>$jsonAgregar]);
+
+        return $this->renderAjax("ver-tareas-localidad-clear", ["localidad" => $localidad, "tareas" => $tareas, "jsonAgregar" => $jsonAgregar]);
     }
 
-    public function actionArchivarLocalidad($id, $mot){
+    public function actionArchivarLocalidad($id, $mot)
+    {
         $response = new ResponseServices();
 
         $localidad = $this->findModel($id);
@@ -549,65 +577,65 @@ class LocalidadesController extends Controller
         $archivada->b_archivada = $mot;
 
         $transaction = Yii::$app->db->beginTransaction();
-		try{
-            if($archivada->save()){
+        try {
+            if ($archivada->save()) {
                 $tareas = $localidad->wrkTareas;
-                if($tareas){
-                    foreach($tareas as $tarea){
+                if ($tareas) {
+                    foreach ($tareas as $tarea) {
                         $tareaArchivada = new WrkTareasArchivadas();
                         $tareaArchivada->attributes = $tarea->attributes;
                         $tareaArchivada->id_tarea = $tarea->id_tarea;
                         $tareaArchivada->id_localidad = $archivada->id_localidad;
-                        
-                        if ($tareaArchivada->save()){
-                            $usersTareas = WrkUsuariosTareas::find()->where(['id_tarea'=>$tarea->id_tarea])->all();
-                            if($usersTareas){
-                                foreach($usersTareas as $userTarea){
+
+                        if ($tareaArchivada->save()) {
+                            $usersTareas = WrkUsuariosTareas::find()->where(['id_tarea' => $tarea->id_tarea])->all();
+                            if ($usersTareas) {
+                                foreach ($usersTareas as $userTarea) {
                                     $userTareaArchivada = new WrkUsuariosTareasArchivadas();
                                     $userTareaArchivada->attributes = $userTarea->attributes;
                                     $userTareaArchivada->id_tarea = $userTarea->id_tarea;
-                                    
-                                    if(!$userTareaArchivada->save()){
-                                        $transaction->rollBack ();
+
+                                    if (!$userTareaArchivada->save()) {
+                                        $transaction->rollBack();
                                         return $response;
                                     }
                                     $userTarea->delete();
                                 }
                             }
 
-                            $usersLocs = WrkUsuariosLocalidades::find()->where(['id_localidad'=>$localidad->id_localidad])->all();
-                            if($usersLocs){
-                                foreach($usersLocs as $userLoc){
+                            $usersLocs = WrkUsuariosLocalidades::find()->where(['id_localidad' => $localidad->id_localidad])->all();
+                            if ($usersLocs) {
+                                foreach ($usersLocs as $userLoc) {
                                     $userLocArchivada = new WrkUsuariosLocalidadesArchivadas();
                                     $userLocArchivada->attributes = $userLoc->attributes;
 
-                                    if(!$userLocArchivada->save()){
-                                        $transaction->rollBack ();
+                                    if (!$userLocArchivada->save()) {
+                                        $transaction->rollBack();
                                         return $response;
                                     }
                                     $userLoc->delete();
                                 }
                             }
-                        }else{
-                            $transaction->rollBack ();
+                        } else {
+                            $transaction->rollBack();
                             return $response;
                         }
                         $tarea->delete();
                     }
                 }
                 $localidad->delete();
-                $transaction->commit ();
+                $transaction->commit();
                 $response->status = 'success';
                 $response->message = $id;
 
                 return $response;
-			}
-			$transaction->commit();
-		}catch ( \Exception $e ) {
-			$transaction->rollBack ();
-			throw $e;
-		}
-        
+            }
+            $transaction->commit();
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            throw $e;
+        }
+
         return $response;
     }
 }
