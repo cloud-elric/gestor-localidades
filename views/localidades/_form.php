@@ -296,9 +296,9 @@ $(document).ready(function(){
             
             porce = porcentaje / 100;
             incremento = rentaActual * porce;
-            total = parseInt(rentaActual) + parseInt(incremento);
+            total = parseFloat(rentaActual) + parseFloat(incremento);
 
-            $('#entlocalidades-num_pretencion_renta').val(total);
+            $('#entlocalidades-num_pretencion_renta').val(total.toFixed(2));
         }
         if($('#entlocalidades-num_incremento_cliente').val() > 1){
             $('#entlocalidades-num_incremento_cliente').change();
@@ -312,10 +312,10 @@ $(document).ready(function(){
             
             porce = porcentaje / 100;
             incremento = rentaActual * porce;
-            total = parseInt(rentaActual) + parseInt(incremento);
+            total = parseFloat(rentaActual) + parseFloat(incremento);
 
             if(porcentaje > 1){
-                $('#entlocalidades-num_pretencion_renta').val(total);
+                $('#entlocalidades-num_pretencion_renta').val(total.toFixed(2));
             }else{
                 $('#entlocalidades-num_pretencion_renta').val(0);
             }
@@ -341,10 +341,10 @@ $(document).ready(function(){
 
         porce = porcentaje / 100;
         incremento = rentaActual * porce;
-        total = parseInt(rentaActual) + parseInt(incremento);
+        total = parseFloat(rentaActual) + parseFloat(incremento);
 
         if(porcentaje > 1){
-            $('#entlocalidades-num_pretencion_renta_cliente').val(total);
+            $('#entlocalidades-num_pretencion_renta_cliente').val(total.toFixed(2));
         }else{
             $('#entlocalidades-num_pretencion_renta_cliente').val(0);
         }
