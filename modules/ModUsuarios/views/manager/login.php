@@ -30,16 +30,16 @@ $this->params['classBody'] = "page-login-v3 layout-full";
 			'enableAjaxValidation' => true,
 			'enableClientValidation'=>true,
 			'errorCssClass'=>"has-danger",
-			'fieldConfig' => [
-				"template" => "{input}{label}{error}",
-				"options" => [
-					"class" => "form-group form-material floating",
-					"data-plugin" => "formMaterial"
-				],
-				"labelOptions" => [
-					"class" => "form-control-label floating-label"
-				]
-			]
+			// 'fieldConfig' => [
+			// 	"template" => "{input}{label}{error}",
+			// 	"options" => [
+			// 		"class" => "form-group form-material floating",
+			// 		"data-plugin" => "formMaterial"
+			// 	],
+			// 	"labelOptions" => [
+			// 		"class" => "form-control-label floating-label"
+			// 	]
+			// ]
 		]); 
 		?>
 
