@@ -73,7 +73,7 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
 
         <div class="panel">
             <div class="panel-heading">
-                <h2 class="panel-title">Datos de ubicacion</h2>
+                <h2 class="panel-title">Datos de ubicación</h2>
             </div>
             <div class="panel-body">
                 <div class="row">
