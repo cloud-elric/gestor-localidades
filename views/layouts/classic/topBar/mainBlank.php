@@ -25,7 +25,7 @@ AppAssetClassicTopBarBlank::register($this);
 
   <div class="page vertical-align text-center page-login" data-animsition-in="fade-in" data-animsition-out="fade-out">
 
-    <div class="login-header"><img src="<?=Url::base()?>/webAssets/images/logo-ryg.png" alt=""></div>
+    <div class="login-header"><img src="<?=Url::base()?>/webAssets/images/overhaul.png" alt=""></div>
     
     <div class="page-content vertical-align-middle animation-slide-top animation-duration-1">
       <?=$content?>
