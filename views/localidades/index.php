@@ -82,7 +82,6 @@ $this->registerCssFile(
                 'model' => $searchModel,
                 //'estatus' => $estatus            
             ]); ?>
-            </div>
         </div>
     </div>
 
