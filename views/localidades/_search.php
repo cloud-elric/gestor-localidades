@@ -79,6 +79,7 @@ use app\models\ConstantesWeb;
                 
         <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
             <?= Html::a('<i class="icon wb-plus"></i> Crear Localidades', ['create'], ['class' => 'btn btn-add no-pjax']) ?>
+            <?= Html::a('<i class="icon wb-plus"></i> Exportar localidades', ['exportar-localidades'], ['class' => 'btn btn-add no-pjax', 'target'=>'_blank']) ?>
         <?php } ?>
 
     </div>
