@@ -146,6 +146,9 @@ $this->registerCssFile(
 
                 [
                     'attribute'=>'fch_asignacion',
+                    'contentOptions' => [
+                        'class'=>"td-fecha"
+                    ],
                     'label' => 'Fecha de Asignación',
                     'filter'=>DatePicker::widget([
                         'model'=>$searchModel,
@@ -212,7 +215,7 @@ $this->registerCssFile(
                     'label'=>'Acciones',
                     'contentOptions' => [
                         'class'=>"td-actions"
-                      ],
+                    ],
                     'format'=>'raw',
                     'value'=>function($data){
 
