@@ -97,9 +97,9 @@
 						background-color: $ryg-accent
 						border-color: $ryg-accent
 						color: $ryg-second
-						+respond-to(tl)
-							padding-left: 0
-							padding-right: 0
+						+respond-to(sl)
+							display: block
+							margin-bottom: 12px
 						&:active,
 						&:focus,
 						&:hover
@@ -109,14 +109,15 @@
 							color: $ryg-second
 					
 					.btn-search
-						background-color: $ryg-accent
+						background-color: transparent
 						border-color: $ryg-accent
-						color: $ryg-second
+						color: $white
 						width: 100%
 						&:active,
 						&:focus,
 						&:hover
 							background-color: rgba($ryg-accent,.85)
+							color: $ryg-second
 
 						+respond-to(md)
 							padding: .5rem .3rem

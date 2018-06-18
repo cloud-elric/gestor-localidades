@@ -25,11 +25,11 @@ use yii\helpers\Url;
 
     <?php // $form->field($model, 'id_localidad')->textInput(['maxlength' => true]) ?>
 
-    <div class="col-sm-12 col-md-3 col-lg-3">
+    <div class="col-sm-12 col-md-4 col-lg-4">
         <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true, "class"=>"panel-search-form-input", "placeholder"=>"Buscar por nombre"])->label(false) ?>    
     </div>
 
-    <div class="col-sm-12 col-md-3 col-lg-3">
+    <div class="col-sm-12 col-md-4 col-lg-4">
         <?= $form->field($model, 'id_estado')->dropDownList(ArrayHelper::map(CatEstados::find()->orderBy('txt_nombre')->asArray()->all(), 'id_estado', 'txt_nombre'),['prompt' => 'Seleccionar estado', "class"=>"panel-search-form-select"])->label(false) ?>
     </div>
 
@@ -37,7 +37,7 @@ use yii\helpers\Url;
 
     <?php // $form->field($model, 'txt_token')->textInput(['maxlength' => true]) ?>
 
-    <div class="col-sm-12 col-md-2 col-lg-2">
+    <div class="col-sm-12 col-md-3 col-lg-3">
         <?= $form->field($model, 'txt_arrendador')->textInput(['maxlength' => true, "class"=>"panel-search-form-input", "placeholder"=>"Cliente"])->label(false) ?>
     </div>
     
@@ -79,11 +79,16 @@ use yii\helpers\Url;
     <div class="col-sm-12 col-md-3 col-lg-3 text-right">
                 
         <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::SUPER_ADMIN){ ?>
-            <?= Html::a('<i class="icon wb-plus"></i> Crear Localidades', ['create'], ['class' => 'btn btn-add no-pjax']) ?>
-            <?= Html::a('<i class="icon wb-plus"></i> Exportar localidades', ['exportar-localidades'], ['class' => 'btn btn-add no-pjax', 'target'=>'_blank']) ?>
-            <?= Html::a('<i class="icon wb-inbox"></i> Localidades archivadas', Url::base().'/archivadas/index', ['class' => 'btn btn-default no-pjax']) ?>
         <?php } ?>
 
+    </div>
+
+    <div class="col-sm-12 mt-20 text-right">
+        <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::SUPER_ADMIN){ ?>
+            <?= Html::a('<i class="icon ion-md-trending-up" aria-hidden="true"></i> Agregar', ['create'], ['class' => 'btn btn-add no-pjax']) ?>
+            <?= Html::a('<i class="icon ion-md-download" aria-hidden="true"></i> Exportar', ['exportar-localidades'], ['class' => 'btn btn-add no-pjax', 'target'=>'_blank']) ?>
+            <?= Html::a('<i class="icon ion-md-archive" aria-hidden="true"></i> Archivar', Url::base().'/archivadas/index', ['class' => 'btn btn-add no-pjax']) ?>
+        <?php } ?>
     </div>
 
  </div>
