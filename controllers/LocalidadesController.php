@@ -166,7 +166,7 @@ class LocalidadesController extends Controller
         $historial = null;
 
         if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())) {
-            //var_dump($_POST);exit;
+            print_r($_POST['EntEstatus']['txt_estatus']);exit;
             $model->id_usuario = Yii::$app->user->identity->id_usuario;
             $model->txt_token = Utils::generateToken('tok');
             //$model->id_moneda = $_POST['group2'];
@@ -179,8 +179,12 @@ class LocalidadesController extends Controller
 
             if ($decodeDropbox['metadata']) {
                 if ($model->save()) {
-                    $estatus->id_localidad = $model->id_localidad;
-                    if ($estatus->save()) {
+                    if(!empty($_POST['EntEstatus']['txt_estatus'])){
+                        $estatus->id_localidad = $model->id_localidad;
+                        if ($estatus->save()) {
+                            return $this->redirect(['index']);
+                        }
+                    }else{
                         return $this->redirect(['index']);
                     }
                 }

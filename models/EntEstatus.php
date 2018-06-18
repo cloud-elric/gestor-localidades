@@ -30,7 +30,7 @@ class EntEstatus extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_localidad', 'txt_estatus'], 'required'],
+            [['id_localidad'], 'required'],
             [['id_localidad'], 'integer'],
             [['txt_estatus'], 'string'],
             [['fch_creacion'], 'safe'],

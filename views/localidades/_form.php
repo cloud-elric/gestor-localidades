@@ -199,7 +199,7 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                         <?= $form->field($model, 'num_incremento_autorizado')->textInput(['value'=>$porcentajeAbogado->num_porcentaje]) ?>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">
-                        <?= $form->field($model, 'num_pretencion_renta')->textInput(['disabled'=>true]) ?>
+                        <?= $form->field($model, 'num_pretencion_renta')->textInput(['disabled'=>false]) ?>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'num_incremento_cliente')->textInput() ?>
@@ -358,7 +358,18 @@ $(document).ready(function(){
         num2 = num1 * 100;
         porcentaje = num2 / rentaActual;
 
-        $('#entlocalidades-num_incremento_cliente').val(porcentaje.toFixed(2));
+        $('#entlocalidades-num_incremento_cliente').val(porcentaje);
+    });
+
+    $('#entlocalidades-num_pretencion_renta').on('change', function(){
+        rentaActual = $('#entlocalidades-num_renta_actual').val();
+        pretencion = $(this).val();
+
+        num1 = parseInt(pretencion) - parseInt(rentaActual);
+        num2 = num1 * 100;
+        porcentaje = num2 / rentaActual;
+
+        $('#entlocalidades-num_incremento_autorizado').val(porcentaje);
     });
 
     var regularizacion = $('#tipo_contrato_1');
@@ -395,6 +406,37 @@ $(document).ready(function(){
         return true;
     });
 });
+
+$(document).on({
+    'keypress': function(e){
+    
+        if(String.fromCharCode(event.which)=='.'){
+            var str = $(this).val();
+            var n = str.indexOf('.');
+
+            if(str.length==0 || n==0){
+                $(this).val('0.');
+                return false;
+            }
+
+            if(n>0){
+                return false;
+            }
+
+        }else if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        
+            return false;
+        }
+    }
+}, '#entlocalidades-num_renta_actual, #entlocalidades-num_pretencion_renta, #entlocalidades-num_pretencion_renta_cliente');
+
+$(document).on({
+    'keypress': function(e){
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            return false;
+        }
+    }
+}, '#entlocalidades-num_incremento_autorizado, #entlocalidades-num_incremento_cliente');
 
 function statusLocalidad(input){
     if(input.val() == 2){
