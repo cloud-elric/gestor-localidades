@@ -20,8 +20,10 @@ class AppAsset extends AssetBundle
     public $css = [
         'plugins/ladda/ladda.css',
         'https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css',
-        'css/site-extend.css',
-        'css/site-extend.css.map'
+        // 'css/site-extend.css',
+        // 'css/site-extend.css.map',
+        'css/site-dark.css',
+        'css/site-dark.css.map',
     ];
     public $js = [
         'plugins/ladda/spin.js',
