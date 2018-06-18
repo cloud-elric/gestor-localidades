@@ -89,7 +89,8 @@ $this->registerCssFile(
                 <div class="col-md-6 offset-md-6 text-right">
                     <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
                         <?= Html::a('<i class="icon wb-graph-up"></i> Crear Localidades', ['create'], ['class' => 'btn btn-add no-pjax']) ?>
-                        <?= Html::a('<i class="icon wb-inbox"></i> Localidades archivadas', Url::base().'/archivadas/index', ['class' => 'btn btn-add no-pjax']) ?>
+                        <?= Html::a('<i class="icon wb-plus"></i> Exportar localidades', ['create'], ['class' => 'btn btn-add no-pjax']) ?>
+                        <?= Html::a('<i class="icon wb-inbox"></i> Localidades archivadas', Url::base().'/archivadas/index', ['class' => 'btn btn-default no-pjax']) ?>
                     <?php } ?>
                 </div>
 
