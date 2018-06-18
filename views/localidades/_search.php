@@ -87,7 +87,7 @@ use yii\helpers\Url;
         <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::SUPER_ADMIN){ ?>
             <?= Html::a('<i class="icon ion-md-trending-up" aria-hidden="true"></i> Agregar', ['create'], ['class' => 'btn btn-add no-pjax']) ?>
             <?= Html::a('<i class="icon ion-md-download" aria-hidden="true"></i> Exportar', ['exportar-localidades'], ['class' => 'btn btn-add no-pjax', 'target'=>'_blank']) ?>
-            <?= Html::a('<i class="icon ion-md-archive" aria-hidden="true"></i> Archivar', Url::base().'/archivadas/index', ['class' => 'btn btn-add no-pjax']) ?>
+            <?php # Html::a('<i class="icon ion-md-archive" aria-hidden="true"></i> Archivar', Url::base().'/archivadas/index', ['class' => 'btn btn-add no-pjax']) ?>
         <?php } ?>
     </div>
 

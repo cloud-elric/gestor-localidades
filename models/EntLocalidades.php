@@ -99,7 +99,7 @@ class EntLocalidades extends \yii\db\ActiveRecord
             'num_incremento_autorizado' => 'Incremento autorizado',
             'num_pretencion_renta' => 'Pretensión de renta',
             'num_incremento_cliente' => 'Incremento del arrendador',
-           'num_pretencion_renta_cliente' => 'Pretensión de renta del arrendador',
+            'num_pretencion_renta_cliente' => 'Pretensión de renta del arrendador',
             'fch_vencimiento_contratro' => 'Fecha vencimiento contratro',
             'fch_creacion' => 'Fecha creacion',
             'fch_asignacion' => 'Fecha asignación',
