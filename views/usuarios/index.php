@@ -155,7 +155,7 @@ $this->registerJsFile(
             'value'=>function($data){
              
                $botonEditar =  '<a data-template="<div class=\'tooltip tooltip-success\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>" 
-                      data-toggle="tooltip" data-original-title="Editar" href="'.Url::base().'/usuarios/update/'.$data->id_usuario.'" class="btn btn-icon btn-success btn-outline panel-listado-acction acction-edit no-pjax"><i class="icon wb-edit"></i></a>';
+                      data-toggle="tooltip" data-original-title="Editar" href="'.Url::base().'/usuarios/update/'.$data->id_usuario.'" class="btn btn-icon btn-success btn-outline panel-listado-acction acction-edit no-pjax"><i class="icon ion-md-create" aria-hidden="true"></i></a>';
                $botonEnviarBienvenida = '<button data-template="<div class=\'tooltip tooltip-warning\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>" 
                       data-toggle="tooltip" data-original-title="Enviar contraseña" data-token="'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-mail js-reenviar-email"><i class="icon wb-envelope"></i></button>';
               // return $botonEditar.$botonEnviarBienvenida;

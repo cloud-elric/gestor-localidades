@@ -479,5 +479,25 @@ a
 	font-size: .85rem
 	text-align: right
 
-.tooltip-2
+// tooltip
+.tooltip,
+.tooltip.tooltip-2
+	// z-index: 1900
 	z-index: 2
+
+.tooltip.tooltip-2.tooltip-info,
+.tooltip.tooltip-2.tooltip-success,
+.tooltip.tooltip-2.tooltip-warning,
+.tooltip.tooltip-info,
+.tooltip.tooltip-success,
+.tooltip.tooltip-warning
+	display: block !important
+	.arrow
+		background-color: darken( $ryg-accent, 10% )
+		color: $ryg-second
+		
+	.tooltip-inner
+		background-color: darken( $ryg-accent, 10% )
+		color: $ryg-second
+		&:before
+			border-top-color: darken( $ryg-accent, 10% )

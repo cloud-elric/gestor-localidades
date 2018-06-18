@@ -30,6 +30,7 @@ class AppAssetClassicCore extends AssetBundle
         'vendor/bootstrap-sweetalert/sweetalert.css',
         "vendor/flag-icon-css/flag-icon.css",
         // Fonts
+        "fonts/ionicons/ionicons.css",
         "fonts/web-icons/web-icons.min.css",
         "fonts/brand-icons/brand-icons.min.css",
         "fonts/7-stroke/7-stroke.css",
