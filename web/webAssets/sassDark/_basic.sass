@@ -277,7 +277,8 @@ a
 // 	transform: translate(-50%, -100%)
 
 .panel
-	background-color: rgba($black,.65)
+	// background-color: rgba($black,.45)
+	background-color: rgba($ryg-panel,.45)
 
 .site-menubar
 	box-shadow: none
@@ -452,6 +453,38 @@ a
 	background-color: rgba($ryg-aqua,.2) !important
 	border-color: rgba($ryg-aqua,.2) !important
 
+.datepicker
+	.datepicker-switch:hover,
+	.prev:hover,
+	.next:hover
+		background-color: rgba($ryg-aqua,.2) !important
+		border-color: rgba($ryg-aqua,.2) !important
+	tfoot
+		tr
+			th:hover
+				background-color: rgba($ryg-aqua,.2) !important
+				border-color: rgba($ryg-aqua,.2) !important
+
+.datepicker
+	table
+		tr
+			td
+				span:hover,
+				span.focused
+					background-color: rgba($ryg-aqua,.2) !important
+					border-color: rgba($ryg-aqua,.2) !important
+
+.datepicker table tr td span.active:active,
+.datepicker table tr td span.active:hover:active,
+.datepicker table tr td span.active.disabled:active,
+.datepicker table tr td span.active.disabled:hover:active,
+.datepicker table tr td span.active.active,
+.datepicker table tr td span.active:hover.active,
+.datepicker table tr td span.active.disabled.active,
+.datepicker table tr td span.active.disabled:hover.active
+	background-color: rgba($ryg-aqua,.6) !important
+	border-color: rgba($ryg-aqua,.6) !important
+
 // Select con input
 .select2-container--krajee
 	.select2-search--dropdown
@@ -485,6 +518,8 @@ a
 	// z-index: 1900
 	z-index: 2
 
+.tooltip,
+.tooltip.tooltip-2,
 .tooltip.tooltip-2.tooltip-info,
 .tooltip.tooltip-2.tooltip-success,
 .tooltip.tooltip-2.tooltip-warning,
@@ -501,3 +536,13 @@ a
 		color: $ryg-second
 		&:before
 			border-top-color: darken( $ryg-accent, 10% )
+
+.tooltip-inner
+	background-color: green
+	.tooltip.tooltip-top
+		.tooltip-inner::before
+			border-top-color: darken( $ryg-accent, 10% )
+
+.tooltip.tooltip-top
+	.tooltip-inner::before
+		border-top-color: darken( $ryg-accent, 10% )

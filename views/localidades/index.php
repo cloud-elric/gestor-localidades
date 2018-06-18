@@ -87,14 +87,10 @@ $this->registerCssFile(
 
             <div class="row mt-30">
                 <div class="col-md-6 offset-md-6 text-right">
-                    <!--
                     <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
-                        <?= Html::a('<i class="icon wb-plus"></i> Crear Localidades', ['create'], ['class' => 'btn btn-add no-pjax']) ?>
+                        <?= Html::a('<i class="icon wb-graph-up"></i> Crear Localidades', ['create'], ['class' => 'btn btn-add no-pjax']) ?>
                         <?= Html::a('<i class="icon wb-inbox"></i> Localidades archivadas', Url::base().'/archivadas/index', ['class' => 'btn btn-add no-pjax']) ?>
                     <?php } ?>
-                    -->
-                    <?= Html::a('<i class="icon wb-graph-up" aria-hidden="true"></i> Crear Localidades', ['create'], ['class' => 'btn btn-add no-pjax']) ?>
-                        <?= Html::a('<i class="icon wb-inbox"></i> Localidades archivadas', Url::base().'/archivadas/index', ['class' => 'btn btn-add no-pjax']) ?>
                 </div>
 
             </div>
@@ -219,7 +215,7 @@ $this->registerCssFile(
                             return '
                             <ul class="addMember-items">
                                 <li class="addMember-item">
-                                    <img class="avatar" src="'.$usuarioDefault->imageProfile.'" data-toggle="tooltip" data-original-title="'.$usuarioDefault->nombreCompleto.'"">
+                                    <img class="avatar tooltip-success" src="'.$usuarioDefault->imageProfile.'" data-toggle="tooltip" data-original-title="'.$usuarioDefault->nombreCompleto.'"">
                                 </li>
                             </ul>
                             ';
@@ -233,11 +229,11 @@ $this->registerCssFile(
 
                         $botones =  '<div class="panel-listado-acctions-tooltip" data-toggle="tooltip" data-original-title="Detalles" data-template="<div class=\'tooltip tooltip-2 tooltip-success\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>">
                                         <a  href="'.Url::base().'/localidades/view/'.$data->id_localidad.'"  class="btn btn-icon btn-success btn-outline panel-listado-acction acction-detail no-pjax run-slide-panel" >
-                                        <i class="icon ion-md-create" aria-hidden="true"></i>
+                                        <i class="icon ion-md-list" aria-hidden="true"></i>
                                         </a>
                                     </div>';
                         $botones .= '<div class="panel-listado-acctions-tooltip" data-toggle="tooltip" data-original-title="Tareas" data-template="<div class=\'tooltip tooltip-2 tooltip-warning\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>">
-                                        <a href="'.Url::base().'/localidades/ver-tareas-localidad?id='.$data->id_localidad.'" id="js_ver_localidades_'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel"><i class="icon ion-ios-hand" aria-hidden="true"></i></a>
+                                        <a href="'.Url::base().'/localidades/ver-tareas-localidad?id='.$data->id_localidad.'" id="js_ver_localidades_'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel"><i class="icon ion-md-hand" aria-hidden="true"></i></a>
                                     </div>';  
                         if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){
                            // if(false){

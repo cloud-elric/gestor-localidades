@@ -75,10 +75,10 @@ use app\models\ConstantesWeb;
         </div>
     </div>
 
-    <div class="col-sm-12 col-md-3 col-lg-3">
+    <div class="col-sm-12 col-md-3 col-lg-3 text-right">
                 
         <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
-            <?= Html::a('<i class="icon wb-plus"></i> Crear Localidades', ['create'], ['class' => 'btn btn-add no-pjax']) ?>
+            <?= Html::a('<i class="icon wb-graph-up"></i> Crear Localidades', ['create'], ['class' => 'btn btn-add no-pjax']) ?>
         <?php } ?>
 
     </div>
