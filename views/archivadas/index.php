@@ -106,7 +106,7 @@ $this->registerCssFile(
                 [
                     'attribute'=>'txt_nombre',
                     'headerOptions' => [
-                        'class' => 'text-center'
+                        'class' => 'text-left'
                     ],
                     'format'=>'raw',
                     'value'=>function($data){
@@ -118,7 +118,7 @@ $this->registerCssFile(
                 ],
 
                 [
-                    'label'=>'Ultima',
+                    'label'=>'Última',
                     'format'=>'raw',
                     'value'=>function($data){
                         return 'Hoy';

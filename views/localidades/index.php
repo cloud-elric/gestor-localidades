@@ -210,6 +210,9 @@ $this->registerCssFile(
 
                 [
                     'label'=>'Acciones',
+                    'contentOptions' => [
+                        'class'=>"td-actions"
+                      ],
                     'format'=>'raw',
                     'value'=>function($data){
 

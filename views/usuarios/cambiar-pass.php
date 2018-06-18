@@ -15,7 +15,7 @@ $this->params['classBody'] = "site-navbar-small page-user ryg-body";
     <div class="col-md-6 offset-md-3">
         <div class="panel">
             <div class="panel-heading">
-                <h2 class="panel-title">Cambiar contraseña</h2>
+                <h2 class="panel-title white">Cambiar contraseña</h2>
             </div>
             <div class="panel-body">
                 <?php 

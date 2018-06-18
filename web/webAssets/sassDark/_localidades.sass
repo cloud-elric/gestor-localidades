@@ -138,15 +138,15 @@
 						tr
 							th
 								color: $ryg-gray
-								font-size: .85rem
+								font-size: .9rem
 								font-weight: $bold
-								padding: 8px 0
+								padding: 8px 4px
 								text-transform: uppercase
 								a
 									color: $ryg-gray
-									font-size: .85rem
+									font-size: .9rem
 									font-weight: $bold
-									padding: 8px 0
+									padding: 8px 4px
 									text-decoration: none
 									text-transform: uppercase
 
@@ -181,13 +181,14 @@
 							td
 								border-top: 1px solid $ryg-second
 								color: $ryg-aqua
-								font-size: .8rem
+								font-size: .87rem
 								font-weight: $thin
 								line-height: 3
 								padding: 10px 0 8px
 								vertical-align: middle
 
 								.empty
+									font-size: .9rem
 									padding: 0 12px
 									text-align: center
 								
@@ -233,11 +234,16 @@
 											&.cat-red
 												background-color: $error
 								
+								&.td-actions
+									width: 120px
+
 								.panel-listado-acctions
 									align-items: center
 									display: flex
 									flex-wrap: wrap
-									justify-content: flex-start
+									justify-content: flex-end
+									padding-right: 4px
+									width: 120px
 									+respond-to(xs)
 										flex-direction: column
 									+respond-to(sl)
