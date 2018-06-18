@@ -17,7 +17,10 @@ $this->params['classBody'] = "page-login-v3 layout-full";
 
 <div class="panel">
 	<div class="panel-body">
-	<?php if (Yii::$app->session->hasFlash('error')): ?>
+
+		<h3 class="title-datos">Porfavor Ingresa tus datos</h3>
+
+		<?php if (Yii::$app->session->hasFlash('error')): ?>
 			<div class="alert alert-danger alert-dismissable dark">
 			<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
 			<h4><i class="icon fa fa-warning"></i>Espera</h4>
@@ -30,22 +33,22 @@ $this->params['classBody'] = "page-login-v3 layout-full";
 			'enableAjaxValidation' => true,
 			'enableClientValidation'=>true,
 			'errorCssClass'=>"has-danger",
-			'fieldConfig' => [
-				"template" => "{input}{label}{error}",
-				"options" => [
-					"class" => "form-group form-material floating",
-					"data-plugin" => "formMaterial"
-				],
-				"labelOptions" => [
-					"class" => "form-control-label floating-label"
-				]
-			]
+			// 'fieldConfig' => [
+			// 	"template" => "{input}{label}{error}",
+			// 	"options" => [
+			// 		"class" => "form-group form-material floating",
+			// 		"data-plugin" => "formMaterial"
+			// 	],
+			// 	"labelOptions" => [
+			// 		"class" => "form-control-label floating-label"
+			// 	]
+			// ]
 		]); 
 		?>
 
-		<?= $form->field($model, 'username')->textInput(["class"=>"form-control"]) ?>
+		<?= $form->field($model, 'username')->textInput(["class"=>"form-control", 'placeholder'=>'Correo electrónico'])->label(false) ?>
 
-		<?= $form->field($model, 'password')->passwordInput(["class"=>"form-control"])?>
+		<?= $form->field($model, 'password')->passwordInput(["class"=>"form-control", 'placeholder'=>'Contraseña'])->label(false) ?>
 
 		<div class="form-group clearfix">
 			<a class="float-right login-link-gray" href="<?=Url::base()?>/peticion-pass">¿Olvidaste tu contraseña?</a>
