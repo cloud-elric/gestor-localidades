@@ -23,7 +23,7 @@
 
 		.panel-localidades-cont
 			// background-color: rgba($ryg-second,.45)
-			background-color: rgba($ryg-panel,.45)
+			background-color: rgba($ryg-panel,.65)
 			
 			.panel-localidades,
 			.panel-table
@@ -97,9 +97,9 @@
 						background-color: $ryg-accent
 						border-color: $ryg-accent
 						color: $ryg-second
-						+respond-to(tl)
-							padding-left: 0
-							padding-right: 0
+						+respond-to(sl)
+							display: block
+							margin-bottom: 12px
 						&:active,
 						&:focus,
 						&:hover
@@ -109,14 +109,15 @@
 							color: $ryg-second
 					
 					.btn-search
-						background-color: $ryg-accent
+						background-color: transparent
 						border-color: $ryg-accent
-						color: $ryg-second
+						color: $white
 						width: 100%
 						&:active,
 						&:focus,
 						&:hover
 							background-color: rgba($ryg-accent,.85)
+							color: $ryg-second
 
 						+respond-to(md)
 							padding: .5rem .3rem
@@ -138,13 +139,13 @@
 							th
 								color: $ryg-gray
 								font-size: .85rem
-								font-weight: $medium
+								font-weight: $bold
 								padding: 8px 0
 								text-transform: uppercase
 								a
 									color: $ryg-gray
 									font-size: .85rem
-									font-weight: $regular
+									font-weight: $bold
 									padding: 8px 0
 									text-decoration: none
 									text-transform: uppercase
@@ -174,11 +175,11 @@
 					tbody
 						tr
 							&:last-child
-								border-bottom: 1px solid $ryg-green
+								border-bottom: 1px solid $ryg-second
 							&:hover
-								background-color: rgba($ryg-second, .8)
+								background-color: rgba($ryg-second, .3)
 							td
-								border-top: 1px solid $ryg-green
+								border-top: 1px solid $ryg-second
 								color: $ryg-aqua
 								font-size: .8rem
 								font-weight: $thin
