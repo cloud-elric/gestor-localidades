@@ -646,4 +646,41 @@ class LocalidadesController extends Controller
 
         return $response;
     }
+
+    public function actionExportarLocalidades(){
+        $nuevoFichero = fopen('Localidades.csv', 'w+');
+        fputs($nuevoFichero, $bom = (chr(0xEF) . chr(0xBB) . chr(0xBF)));
+
+        if($nuevoFichero){
+            $localidades = EntLocalidades::find()->all();
+            
+            $delimiter = ",";
+            $campos = ['Estado', 'Usuario', 'Moneda', 'Token', 'Nombre', 'Arrendador', 'Beneficiario', 'Calle', 'Colonia', 'Municipio', 'CP',
+            'Antecedentes', 'Renta actual', 'Incremento', 'Pretencion renta', 'Incremento cliente', 'Pretencion renta cliente', 'Vencimiento contrato',
+            'Fecha creacion', 'Fecha asignacion', 'Status localidad'];
+
+            fputcsv($nuevoFichero, $campos, $delimiter);
+
+            foreach($localidades as $localidad){
+                $estado = $localidad->estado;
+                $usuario = $localidad->usuario;
+                $moneda = $localidad->moneda;
+                $status = $localidad->bStatusLocalidad;
+                
+                $datos = [$estado->txt_nombre, $usuario->txt_username . ' ' . $usuario->txt_apellido_paterno, $moneda->txt_moneda, $localidad->txt_token,
+                $localidad->txt_nombre, $localidad->txt_arrendador, $localidad->txt_beneficiario, $localidad->txt_calle, $localidad->txt_colonia,
+                $localidad->txt_municipio, $localidad->txt_cp, $localidad->txt_antecedentes, $localidad->num_renta_actual,
+                $localidad->num_incremento_autorizado, $localidad->num_pretencion_renta, $localidad->num_incremento_cliente,
+                $localidad->num_pretencion_renta_cliente, $localidad->fch_vencimiento_contratro, $localidad->fch_creacion, $localidad->fch_asignacion,
+                $status->txt_nombre];
+
+                fputcsv($nuevoFichero, $datos, $delimiter);
+            }
+            fseek($nuevoFichero, 0);
+            header('Content-Type: text/csv');
+            header("Content-disposition: attachment; filename=\"Localidades.csv\"");
+
+            fpassthru($nuevoFichero);
+        }
+    }
 }
