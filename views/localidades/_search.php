@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use app\models\CatEstados;
 use app\models\ConstantesWeb;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\EntLocalidadesSearch */
@@ -77,9 +78,10 @@ use app\models\ConstantesWeb;
 
     <div class="col-sm-12 col-md-3 col-lg-3 text-right">
                 
-        <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
-            <?= Html::a('<i class="icon wb-graph-up"></i> Crear Localidades', ['create'], ['class' => 'btn btn-add no-pjax']) ?>
+        <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::SUPER_ADMIN){ ?>
+            <?= Html::a('<i class="icon wb-plus"></i> Crear Localidades', ['create'], ['class' => 'btn btn-add no-pjax']) ?>
             <?= Html::a('<i class="icon wb-plus"></i> Exportar localidades', ['exportar-localidades'], ['class' => 'btn btn-add no-pjax', 'target'=>'_blank']) ?>
+            <?= Html::a('<i class="icon wb-inbox"></i> Localidades archivadas', Url::base().'/archivadas/index', ['class' => 'btn btn-default no-pjax']) ?>
         <?php } ?>
 
     </div>
