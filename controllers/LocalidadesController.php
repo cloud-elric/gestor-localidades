@@ -187,6 +187,9 @@ class LocalidadesController extends Controller
                     }else{
                         return $this->redirect(['index']);
                     }
+                }else{
+                    print_r($model->errors);
+                    exit;
                 }
             }
         }
