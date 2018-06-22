@@ -235,7 +235,7 @@ a[x-apple-data-detectors=true] {
                   
                     <div align="center" class="img-container center  autowidth  fullwidth " style="padding-right: 0px;  padding-left: 0px;">
 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr style="line-height:0px;line-height:0px;"><td style="padding-right: 0px; padding-left: 0px;" align="center"><![endif]-->
-  <img class="center  autowidth  fullwidth" align="center" border="0" src="http://dev.2geeksonemonkey.com/ryg/gestor-localidades/web/webAssets/images/logo-ryg.png" alt="Abogados RYG" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: 0;height: auto;float: none;width: 160px;max-width: 100%" width="160">
+  <img class="center  autowidth  fullwidth" align="center" border="0" src="http://dev.2geeksonemonkey.com/ryg/gestor-localidades/web/webAssets/images/overhaul.png" alt="Abogados RYG" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: 0;height: auto;float: none;width: 160px;max-width: 100%" width="160">
 <!--[if mso]></td></tr></table><![endif]-->
 </div>
 

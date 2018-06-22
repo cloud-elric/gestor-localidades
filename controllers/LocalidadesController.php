@@ -166,7 +166,7 @@ class LocalidadesController extends Controller
         $historial = null;
 
         if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())) {
-            print_r($_POST['EntEstatus']['txt_estatus']);exit;
+            
             $model->id_usuario = Yii::$app->user->identity->id_usuario;
             $model->txt_token = Utils::generateToken('tok');
             //$model->id_moneda = $_POST['group2'];
@@ -187,6 +187,9 @@ class LocalidadesController extends Controller
                     }else{
                         return $this->redirect(['index']);
                     }
+                }else{
+                    print_r($model->errors);
+                    exit;
                 }
             }
         }

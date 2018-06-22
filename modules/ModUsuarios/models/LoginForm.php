@@ -116,7 +116,7 @@ class LoginForm extends Model {
 		if (! $this->hasErrors ()) {
 			$user = $this->getUser ();
 			
-			if ($user->id_status == EntUsuarios::STATUS_BLOCKED) {
+			if ($user && $user->id_status == EntUsuarios::STATUS_BLOCKED) {
 				$this->addError ( $attribute, 'El usuario ha sido bloqueado.' );
 			}
 		}
