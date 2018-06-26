@@ -192,6 +192,7 @@ class LocalidadesController extends Controller
                     exit;
                 }
             }
+            exit;
         }
         $flag = true;
 
