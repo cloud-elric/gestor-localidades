@@ -86,7 +86,11 @@ $this->registerCssFile(
                                                             ?>
                                                                 <div class="checkbox-custom checkbox-warning">
                                                                     <input type="checkbox" class="js-completar-tarea" data-token="<?=$tarea->id_tarea?>" name="checkbox" <?=$tarea->b_completa?"checked":""?>>
-                                                                    <label class="task-title"><?=$tarea->txt_nombre?></label>
+                                                                    <?php
+                                                                    $form1 = ActiveForm::begin(['id'=>'form-tarea-nombre'.$tarea->id_tarea,]);
+                                                                    ?>                                                           
+                                                                        <label class="task-title"><?= $form1->field($tarea, 'txt_nombre')->textInput(['data-id'=>$tarea->id_tarea])->label() ?></label>
+                                                                    <?php Html::submitButton('Guardar')?>
                                                                 </div>
                                                             <?php
                                                             }else{?>
@@ -120,7 +124,7 @@ $this->registerCssFile(
 
                                                     
                                                     <?php
-                                                    if($isColaborador && !$tarea->b_completa){
+                                                    if(($isColaborador || $isAbogado) && !$tarea->b_completa){
                                                     ?>    
                                                     <div class="row row-no-border">
                                                         <div class="col-md-12">
@@ -134,7 +138,8 @@ $this->registerCssFile(
                                                                     'enctype' => 'multipart/form-data'
                                                                 ]
                                                             ]); 
-                                                            
+                                                            ?>
+                                                            <?php
                                                             $textoGuardar = "";
                                                             if($tarea->id_tipo==ConstantesWeb::TAREA_ARCHIVO){
                                                                 $textoGuardar = "Guardar archivo";

@@ -48,6 +48,28 @@ $(document).ready(function(){
 },"#wrktareas-txt_tarea");
 
 $(document).on({'change': function(){
+    var id = $(this).data("id");
+    var nombre = $(this).val();
+
+    $.ajax({
+        type: 'POST',
+        url: baseUrl+'tareas/cambiar-nombre?id='+id,
+        data:{nombre: nombre},
+        success: function(r){
+            //console.log("Se guardo");
+            if(r.status == "error"){
+                swal('Espera', 'Ocurrio un error, intenta de nuevo', 'warning');
+            }
+        },
+        error: function(){
+            //console.log("No se guardo");
+            swal('Espera', 'Ocurrio un error, intenta de nuevo', 'warning');
+        }
+    });
+}
+},"#wrktareas-txt_nombre");
+
+$(document).on({'change': function(){
     var padre = $(this).parents("form");
     var boton = padre.find(".submit_tarea");
     boton.show();

@@ -281,5 +281,25 @@ class TareasController extends Controller
         return $response;
     }
 
-   
+    public function actionCambiarNombre($id = null){
+        $response = new ResponseServices();
+        $tarea = $this->findModel($id);
+
+        if(isset($_POST['nombre'])){
+            if(!empty($_POST['nombre'])){
+                if($tarea){
+                    $tarea->txt_nombre = $_POST['nombre'];
+
+                    if($tarea->save()){
+                        $response->status = "success";
+                        $response->message = "Estatus de la tarea guardado";
+                    }else{
+                        $response->result = $tarea->errors;
+                    }
+                }
+            }
+        }
+
+        return $response;
+    }
 }
