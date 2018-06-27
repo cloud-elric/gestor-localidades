@@ -248,7 +248,7 @@
 									align-items: center
 									display: flex
 									flex-wrap: wrap
-									justify-content: flex-end
+									justify-content: center
 									padding-right: 4px
 									width: 120px
 									+respond-to(xs)
@@ -380,6 +380,11 @@
 				.select2-container--krajee .select2-selection:focus
 					box-shadow: none
 
+				.select2-container--krajee
+					.select2-selection--single
+						.select2-selection__rendered
+							color: $white
+
 			.radio-custom label::before
 				background-color: $ryg-gray
 				border-color: $ryg-gray
@@ -421,6 +426,10 @@
 				.panel-body
 					.list-inline-item:not(:last-child)
 						margin-right: 30px
+					.list-inline-item
+						label
+							// background-color: red
+							color: rgba($ryg-aqua,.48)
 
 /*  Page Actualizar
 	======================================= */
