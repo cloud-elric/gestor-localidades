@@ -37,6 +37,10 @@ role="navigation">
               </i>
           </a>
         </li>
+        <a class="navbar-brand navbar-brand-center navbar-logo-center" href="<?=Url::base()?>">
+          <img class="navbar-brand-logo navbar-brand-logo-normal" src="<?=Url::base()?>/webAssets/images/overhaul.png"
+          title="Remark">
+        </a>
       </ul>
       <!-- End Navbar Toolbar -->
       <!-- Navbar Toolbar Right -->

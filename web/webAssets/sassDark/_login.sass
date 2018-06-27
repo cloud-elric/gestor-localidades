@@ -13,37 +13,80 @@
 
 /*  Page Login
 	======================================= */
-.page-login-v3
+.page-login-v2
 	position: relative
 	z-index: 1
 	&:before
-		background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+)
-		background-image: -webkit-gradient(linear, left top, left bottom, from($bg-primary), to(#3583ca))
-		background-image: -webkit-linear-gradient(top, $bg-primary 0%, #3583ca 100%)
-		background-image: -o-linear-gradient(top, $bg-primary 0%, #3583ca 100%)
+		background-image: none !important
+
+	.page-login-main
+		align-items: center
 		background-image: url('../images/login-screen.jpg')
-	.page-login-v3-mask
-		background-color: rgba($black,.78)
-		bottom: 0
-		height: 100%
-		left: 0
-		position: absolute
-		right: 0
-		top: 0
-		width: 100%
+		background-position: 50%
+		background-repeat: no-repeat
+		background-size: cover
+		display: flex
+		justify-content: center
+		padding: 60px
+		width: 50%
+		+respond-to(md)
+			padding: 60px
+		+respond-to(tl)
+			padding: 60px
+		+respond-to(xs)
+			padding: 60px 24px
+			width: 100%
+		
+	.page-content
+		align-items: center
+		display: flex
+		justify-content: center
+		min-height: 100vh
+		padding-right: 52%
+		// +respond-to(md)
+		// 	padding-right: 58%
+		// +respond-to(tl)
+		// 	padding-right: 60%
+		.page-brand-info
+			margin: 0
+			img.logo-login
+				max-width: 100%
+				width: 400px
 
 .page.page-login,
 .page-login
 	position: relative
 	z-index: 3
-	.panel
-		background-color: transparent
-		.panel-body
+	.page-login-main
+
+		.page-login-v2-mask
+			background-color: rgba($black,.6)
+			bottom: 0
+			height: 100%
+			left: 0
+			position: absolute
+			right: 0
+			top: 0
+			width: 100%
+			z-index: 1
+
+		.page-login-main-cont
+			margin: 0 auto
+			max-width: 90%
+			position: relative
+			width: 320px
+			z-index: 4
+			+respond-to(xs)
+				max-width: 100%
+
 			h3.title-datos
 				color: $white
 				font-size: 1.35rem
 				font-weight: 300
+				text-align: center
+
 			form
+				width: 100%
 				.form-group
 					.help-block-error
 						color: $error
@@ -69,9 +112,16 @@
 					font-weight: 100
 					margin-top: 40px
 
-			p
+				.olvidaste-pass
+					text-align: right
+					a
+						color: $white
+						font-size: 1rem
+
+			p.soporteTxt
 				color: $white
-				font-size: .95rem
+				font-size: .98rem
+				text-align: center
 				.login-link-white
 					color: $white
 					font-size: .95rem
@@ -95,34 +145,61 @@
 
 .login-footer
 	align-items: center
-	background-color: rgba($ryg-primary, .5)
 	bottom: 0
 	display: flex
+	flex-wrap: wrap
 	justify-content: space-between
 	left: 0
-	padding: 8px 24px
+	padding: 0
 	position: fixed
 	right: 0
 	width: 100%
 	z-index: 2
-	+respond-to(tl)
-		flex-direction: column
-		justify-content: center
-	+respond-to(tp)
-		flex-direction: column
-		justify-content: center
+	// +respond-to(tl)
+	// 	flex-direction: column
+	// 	justify-content: center
+	// +respond-to(tp)
+	// 	flex-direction: column
+	// 	justify-content: center
 	+respond-to(sl)
-		flex-direction: column
 		justify-content: center
 	+respond-to(sp)
-		flex-direction: column
 		justify-content: center
 	.login-footer-copyright
+		background-color: transparent
+		padding: 8px 4px 8px 8px
+		width: 50%
+		+respond-to(xs)
+			width: auto
+		+respond-to(sl)
+			width: 100%
+		+respond-to(sp)
+			width: 100%
 		p
 			color: #AAB1AB
 			font-size: .9rem
 			margin-bottom: 0
+			+respond-to(sl)
+				text-align: center
+			+respond-to(sp)
+				text-align: center
 	.login-footer-author
+		background-color: rgba($ryg-primary, .5)
+		display: flex
+		justify-content: flex-end
+		padding: 6px 8px 6px 4px
+		width: 50%
+		+respond-to(xs)
+			background-color: transparent
+			width: auto
+		+respond-to(sl)
+			background-color: transparent
+			justify-content: center
+			width: 100%
+		+respond-to(sp)
+			background-color: transparent
+			justify-content: center
+			width: 100%
 		img
 			display: flex
 			height: 26px
