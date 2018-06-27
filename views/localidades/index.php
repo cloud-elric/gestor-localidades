@@ -122,7 +122,7 @@ $this->registerCssFile(
                                 $fch_creacion = strtotime($tarea->fch_creacion);
                                 $res = $hoy - $fch_creacion;
                                 $res1 = round($res / (60*60*24));
-                                if($res1 > 7 && $tarea->b_completa == 0){
+                                if($res1 > 15 && $tarea->b_completa == 0){
                                     $punto = 'cat-red';
                                     break;
                                 }

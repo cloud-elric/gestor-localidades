@@ -60,6 +60,9 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                         <?= $form->field($model, 'txt_beneficiario')->textInput(['maxlength' => true]) ?>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">
+                        <?= $form->field($model, 'txt_contacto')->textInput(['maxlength' => true]) ?>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'txt_antecedentes')->textarea(['rows' => 6]) ?>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">

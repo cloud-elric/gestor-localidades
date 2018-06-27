@@ -94,6 +94,14 @@ $user = Yii::$app->user->identity;
                                             <span>Beneficiario: </span>
                                             <p><?= $model->txt_beneficiario ?></p>
                                         </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>CMS: </span>
+                                            <p><?= $model->cms ?></p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Contacto: </span>
+                                            <p><?= $model->txt_contacto ?></p>
+                                        </div>
                                     </div>
 
                                     <div class="row">
@@ -134,7 +142,7 @@ $user = Yii::$app->user->identity;
                                             foreach ($estatus as $est){
                                                 $arr .= '<span class="badge badge-outline badge-success badge-round ml-5 vertical-align-middle">'.$est->txt_estatus.'</span>';
                                             }
-                                            echo $arr;
+                                            echo "<p>".$arr."</p>";
                                             ?>
                                             </p>
                                         </div>
@@ -146,15 +154,34 @@ $user = Yii::$app->user->identity;
 
                                     <div class="row">
                                         <div class="col-sm-12 col-md-12">
-                                            <span>Num. Renta Actual: </span>
+                                            <span>Moneda: </span>
+                                            <?php
+                                            $moneda = $model->moneda;
+                                            echo "<p>".$moneda->txt_moneda."</p>";
+                                            ?>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Renta Actual: </span>
                                             <p><?= $model->num_renta_actual ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
-                                            <span>Num. Incremento Autotizado: </span>
+                                            <span>Autorizado: </span>
                                             <p><?= $model->num_incremento_autorizado ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
-                                            <span>Fecha Vencimiento Contratado: </span>
+                                            <span>Pretensión de renta: </span>
+                                            <p><?= $model->num_pretencion_renta ?></p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Porcentaje de incremento solicitado por arrendador: </span>
+                                            <p><?= $model->num_incremento_cliente ?></p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Pretensión de renta del arrendador: </span>
+                                            <p><?= $model->num_pretencion_renta_cliente ?></p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Fecha Vencimiento Contrato: </span>
                                             <p><?= Utils::changeFormatDate($model->fch_vencimiento_contratro); ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
