@@ -23,7 +23,7 @@ $this->registerCssFile(
     <button type="button" class="btn btn-pure btn-inverse slidePanel-close actions-top icon wb-close"
       aria-hidden="true"></button>
   </div>
-  <h1>Tareas: <?=$model->txt_nombre?></h1>
+  <h1>E Tareas: <?=$model->txt_nombre?></h1>
 </header>
 
 <div class="page ryg-page">

@@ -256,8 +256,9 @@
 									+respond-to(sl)
 										flex-direction: row
 										justify-content: center
-									.tooltip-2
-										z-index: 2
+									.tooltip-2,
+									.tooltip.tooltip-2
+										z-index: 2 !important
 									.panel-listado-acctions-tooltip
 										display: flex
 										margin-right: .8rem
@@ -630,6 +631,11 @@
 			border-top: 1px solid $ryg-gray
 			margin-top: 12px
 			padding: 8px
+
+	.tooltip-2,
+	.tooltip.tooltip-2
+		background-color: blue !important
+		z-index: 2 !important
 
 	.addMember
 		margin-top: 6px
