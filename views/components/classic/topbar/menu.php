@@ -12,7 +12,7 @@ use app\models\ConstantesWeb;
           <li class="site-menu-category">General</li>
 
           <?php
-          if(\Yii::$app->user->can(ConstantesWeb::SUPER_ADMIN) || \Yii::$app->user->can(ConstantesWeb::ABOGADO) || \Yii::$app->user->can(ConstantesWeb::CLIENTE)){?>
+          if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::SUPER_ADMIN || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::CLIENTE){?>
 
           <li class="dropdown site-menu-item has-sub">
             <a data-toggle="dropdown" href="javascript:void(0)" data-dropdown-toggle="false">
@@ -47,7 +47,7 @@ use app\models\ConstantesWeb;
           ?>
 
           <?php
-          if(\Yii::$app->user->can(ConstantesWeb::SUPER_ADMIN) || \Yii::$app->user->can(ConstantesWeb::ABOGADO) ){?>
+          if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::SUPER_ADMIN || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){?>
 
           <li class="dropdown site-menu-item has-sub">
             <a data-toggle="dropdown" href="javascript:void(0)" data-dropdown-toggle="false">
@@ -65,11 +65,13 @@ use app\models\ConstantesWeb;
                           <span class="site-menu-title">Listado de localidades</span>
                         </a>
                       </li>
-                      <li class="site-menu-item">
-                        <a class="animsition-link" href="<?=Url::base()?>/localidades/create">
-                          <span class="site-menu-title">Agregar localidad</span>
-                        </a>
-                      </li>
+                      <?php if(Yii::$app->user->identity->txt_auth_item != ConstantesWeb::SUPER_ADMIN){ ?>
+                        <li class="site-menu-item">
+                          <a class="animsition-link" href="<?=Url::base()?>/localidades/create">
+                            <span class="site-menu-title">Agregar localidad</span>
+                          </a>
+                        </li>
+                      <?php } ?>
                       <li class="site-menu-item">
                         <a class="animsition-link" href="<?=Url::base()?>/archivadas">
                           <span class="site-menu-title">Localidades archivadas</span>

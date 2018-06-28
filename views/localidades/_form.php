@@ -60,6 +60,9 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                         <?= $form->field($model, 'txt_beneficiario')->textInput(['maxlength' => true]) ?>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">
+                        <?= $form->field($model, 'txt_contacto')->textInput(['maxlength' => true]) ?>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'txt_antecedentes')->textarea(['rows' => 6]) ?>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">
@@ -440,13 +443,15 @@ $(document).on({
 
 function statusLocalidad(input){
     if(input.val() == 2){
-        $('#entlocalidades-num_pretencion_renta').val('0');
-        $('.field-entlocalidades-num_incremento_autorizado').css('display', 'none');
-        $('.field-entlocalidades-num_pretencion_renta').css('display', 'none');
-        $('#entlocalidades-b_status_localidad').val('2');
-    }else{
+        // $('#entlocalidades-num_pretencion_renta').val('0');
+        // $('.field-entlocalidades-num_incremento_autorizado').css('display', 'none');
+        // $('.field-entlocalidades-num_pretencion_renta').css('display', 'none');
+        // $('#entlocalidades-b_status_localidad').val('2');
+
         $('.field-entlocalidades-num_incremento_autorizado').css('display', 'block');
         $('.field-entlocalidades-num_pretencion_renta').css('display', 'block');
+        $('.field-entlocalidades-num_incremento_cliente').css('display', 'block');
+        $('.field-entlocalidades-num_pretencion_renta_cliente').css('display', 'block');
         $('#entlocalidades-b_status_localidad').val('1');
 
         rentaActual = $('#entlocalidades-num_renta_actual').val();
@@ -461,6 +466,31 @@ function statusLocalidad(input){
         }else{
             $('#entlocalidades-num_pretencion_renta').val(0);
         }
+    }else{
+        $('#entlocalidades-num_pretencion_renta').val('0');
+        $('.field-entlocalidades-num_incremento_autorizado').css('display', 'none');
+        $('.field-entlocalidades-num_pretencion_renta').css('display', 'none');
+        $('.field-entlocalidades-num_incremento_cliente').css('display', 'none');
+        $('.field-entlocalidades-num_pretencion_renta_cliente').css('display', 'none');
+        $('#entlocalidades-b_status_localidad').val('2');
+
+
+        // $('.field-entlocalidades-num_incremento_autorizado').css('display', 'block');
+        // $('.field-entlocalidades-num_pretencion_renta').css('display', 'block');
+        // $('#entlocalidades-b_status_localidad').val('1');
+
+        // rentaActual = $('#entlocalidades-num_renta_actual').val();
+        // porcentaje = $('#entlocalidades-num_incremento_autorizado').val();
+        
+        // porce = porcentaje / 100;
+        // incremento = rentaActual * porce;
+        // total = parseInt(rentaActual) + parseInt(incremento);
+
+        // if(rentaActual > 1){
+        //     $('#entlocalidades-num_pretencion_renta').val(total);
+        // }else{
+        //     $('#entlocalidades-num_pretencion_renta').val(0);
+        // }
     }
 }
 

@@ -54,6 +54,28 @@ $(document).ready(function(){
 },"#wrktareas-txt_tarea");
 
 $(document).on({'change': function(){
+    var id = $(this).data("id");
+    var nombre = $(this).val();
+
+    $.ajax({
+        type: 'POST',
+        url: baseUrl+'tareas/cambiar-nombre?id='+id,
+        data:{nombre: nombre},
+        success: function(r){
+            //console.log("Se guardo");
+            if(r.status == "error"){
+                swal('Espera', 'Ocurrio un error, intenta de nuevo', 'warning');
+            }
+        },
+        error: function(){
+            //console.log("No se guardo");
+            swal('Espera', 'Ocurrio un error, intenta de nuevo', 'warning');
+        }
+    });
+}
+},".js-editar-nombre-tarea");
+
+$(document).on({'change': function(){
     var padre = $(this).parents("form");
     var boton = padre.find(".submit_tarea");
     boton.show();
@@ -83,7 +105,7 @@ $(document).on({'change': function(){
                 success:function(data){
                     if(data.status=="success"){
                         swal("Perfecto", data.message, "success");
-                        console.log(data.message);
+                        console.log(data);
 
                         if(data.result.url){
                             $('.js_descargar_archivo-'+data.result.idT+" .url_documento").html(data.result.url);
@@ -144,6 +166,7 @@ function generarSelected(){
                     type: 'POST',
                     success: function(resp){
                         if(resp.status == 'success'){
+                            $('.js_btn_eliminar_tarea-'+idTar).remove();
                             console.log('Asignacion de tarea correcta');
                         }
                     }
@@ -398,3 +421,25 @@ $(document).on({'click': function(){
     });
 }
 }, ".js_desarchivar_localidad");
+
+$(document).on({'change': function(){
+    $('.js_eliminar_tarea').remove();
+}
+}, ".plugin-selective-tareas");
+
+$(document).on({'click': function(){
+    var id = $(this).data('id');
+
+    $.ajax({
+        url: baseUrl+"tareas/eliminar-tarea?id="+id,
+        success: function(resp){
+            if(resp.status=="success"){
+                $('.js-tarea-'+id).remove();
+            }
+        },
+        error: function(){
+
+        }
+    });
+}
+}, ".js_btn_eliminar_tarea");

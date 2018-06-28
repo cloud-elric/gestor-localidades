@@ -9,5 +9,7 @@ class ConstantesWeb{
 
     const TAREA_ARCHIVO = 1;
     const TAREA_ABIERTO = 2;
+
+    const DIAS_RESTANTES = 15;
 }
 ?>

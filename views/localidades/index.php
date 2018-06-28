@@ -114,7 +114,7 @@ $this->registerCssFile(
                     'value'=>function($data){
                         $hoy = time();//date("Y-m-d");
                         $fch_creacion = strtotime($data->fch_creacion);
-                        $punto = 'cat-green';
+                        $punto = 'cat-yellow';
                         
                         $tareas = $data->wrkTareas;
                         if($tareas){
@@ -122,7 +122,8 @@ $this->registerCssFile(
                                 $fch_creacion = strtotime($tarea->fch_creacion);
                                 $res = $hoy - $fch_creacion;
                                 $res1 = round($res / (60*60*24));
-                                if($res1 > 7 && $tarea->b_completa == 0){
+                                
+                                if($res1 > ConstantesWeb::DIAS_RESTANTES && $tarea->b_completa == 0){
                                     $punto = 'cat-red';
                                     break;
                                 }
@@ -138,7 +139,9 @@ $this->registerCssFile(
                                 }
                             }
                         }
-                
+                        if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::SUPER_ADMIN){
+                            return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat '.$punto.'"></span></div>' .$data->txt_nombre.'</div>';
+                        }
                         return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat '.$punto.'"></span></div>
                         <a  class="panel-listado-user-link no-pjax run-slide-panel" href="'.Url::base().'/localidades/view/'.$data->id_localidad.'">' .$data->txt_nombre.'</a></div>';
                     }
@@ -218,6 +221,8 @@ $this->registerCssFile(
                     ],
                     'format'=>'raw',
                     'value'=>function($data){
+                        $botones = '';
+                        if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){
 
                         $botones =  '<div class="panel-listado-acctions-tooltip" data-toggle="tooltip" data-original-title="Detalles" data-template="<div class=\'tooltip tooltip-2 tooltip-success\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>">
                                         <a  href="'.Url::base().'/localidades/view/'.$data->id_localidad.'"  class="btn btn-icon btn-success btn-outline panel-listado-acction acction-detail no-pjax run-slide-panel" >
@@ -227,12 +232,24 @@ $this->registerCssFile(
                         $botones .= '<div class="panel-listado-acctions-tooltip" data-toggle="tooltip" data-original-title="Tareas" data-template="<div class=\'tooltip tooltip-2 tooltip-warning\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>">
                                         <a href="'.Url::base().'/localidades/ver-tareas-localidad?id='.$data->id_localidad.'" id="js_ver_localidades_'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel"><i class="icon ion-md-hand" aria-hidden="true"></i></a>
                                     </div>';  
-                        if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){
+                        
                            // if(false){
                             $botones .= '<div class="panel-listado-acctions-tooltip">
                                             <button data-template="<div class=\'tooltip tooltip-2 tooltip-info\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>" data-url="localidades/archivar-localidad?id='.$data->id_localidad.'" class="btn btn-icon btn-info btn-outline panel-listado-acction acction-archive no-pjax js_archivar_localidad" data-toggle="tooltip" data-original-title="Archivar"><i class="icon ion-md-archive" aria-hidden="true"></i></button>
                                         </div>'; 
-                        }                     
+                        }
+                        
+                        if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::COLABORADOR){
+                            $botones =  '<div class="panel-listado-acctions-tooltip" data-toggle="tooltip" data-original-title="Detalles" data-template="<div class=\'tooltip tooltip-2 tooltip-success\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>">
+                                <a  href="'.Url::base().'/localidades/view/'.$data->id_localidad.'"  class="btn btn-icon btn-success btn-outline panel-listado-acction acction-detail no-pjax run-slide-panel" >
+                                <i class="icon ion-md-list" aria-hidden="true"></i>
+                                </a>
+                            </div>';
+                            $botones .= '<div class="panel-listado-acctions-tooltip" data-toggle="tooltip" data-original-title="Tareas" data-template="<div class=\'tooltip tooltip-2 tooltip-warning\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>">
+                                <a href="'.Url::base().'/localidades/ver-tareas-localidad?id='.$data->id_localidad.'" id="js_ver_localidades_'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel"><i class="icon ion-md-hand" aria-hidden="true"></i></a>
+                            </div>'; 
+                        }
+                        
                         return '<div class="panel-listado-acctions">
                                     '.$botones.'
                                 </div>
