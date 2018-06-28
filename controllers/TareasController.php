@@ -302,4 +302,18 @@ class TareasController extends Controller
 
         return $response;
     }
+
+    public function actionEliminarTarea($id = null){
+        $response = new ResponseServices();
+        $tarea = $this->findModel($id);
+
+        if($tarea->delete()){
+            $response->status = "success";
+            $response->message = "Estatus de la tarea guardado";
+        }else{
+            $response->result = $tarea->errors;
+        }
+
+        return $response;
+    }
 }

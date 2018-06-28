@@ -67,7 +67,7 @@ $(document).on({'change': function(){
         }
     });
 }
-},"#wrktareas-txt_nombre");
+},".js-editar-nombre-tarea");
 
 $(document).on({'change': function(){
     var padre = $(this).parents("form");
@@ -99,7 +99,7 @@ $(document).on({'change': function(){
                 success:function(data){
                     if(data.status=="success"){
                         swal("Perfecto", data.message, "success");
-                        console.log(data.message);
+                        console.log(data);
 
                         if(data.result.url){
                             $('.js_descargar_archivo-'+data.result.idT+" .url_documento").html(data.result.url);
@@ -160,6 +160,7 @@ function generarSelected(){
                     type: 'POST',
                     success: function(resp){
                         if(resp.status == 'success'){
+                            $('.js_btn_eliminar_tarea-'+idTar).remove();
                             console.log('Asignacion de tarea correcta');
                         }
                     }
@@ -414,3 +415,25 @@ $(document).on({'click': function(){
     });
 }
 }, ".js_desarchivar_localidad");
+
+$(document).on({'change': function(){
+    $('.js_eliminar_tarea').remove();
+}
+}, ".plugin-selective-tareas");
+
+$(document).on({'click': function(){
+    var id = $(this).data('id');
+
+    $.ajax({
+        url: baseUrl+"tareas/eliminar-tarea?id="+id,
+        success: function(resp){
+            if(resp.status=="success"){
+                $('.js-tarea-'+id).remove();
+            }
+        },
+        error: function(){
+
+        }
+    });
+}
+}, ".js_btn_eliminar_tarea");

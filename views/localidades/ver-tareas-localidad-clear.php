@@ -6,6 +6,7 @@ use app\modules\ModUsuarios\models\EntUsuarios;
 use yii\bootstrap\Html;
 
 use app\assets\AppAsset;
+use yii\helpers\Url;
 
 use yii\widgets\ActiveForm;
 use yii\web\View;
@@ -74,7 +75,7 @@ $this->registerCssFile(
                                             
                                             $hasArchivo = $tarea->id_tipo==ConstantesWeb::TAREA_ARCHIVO && $tarea->txt_path;
                                             ?>
-                                            <li class="list-group-item" data-tareakey="<?=$tarea->id_tarea?>">
+                                            <li class="list-group-item js-tarea-<?=$tarea->id_tarea?>" data-tareakey="<?=$tarea->id_tarea?>">
                                                 
                                                 <div class="w-full">
 
@@ -83,13 +84,20 @@ $this->registerCssFile(
                                                         <div class="col-xs-8 col-sm-8 col-md-8">
                                                             <?php
                                                             if($isAbogado){
+                                                                $relTareaUsuario = WrkUsuariosTareas::find()->where(['id_tarea'=>$tarea->id_tarea])->all();
+                                                                if(!$relTareaUsuario && $tarea->txt_tarea == null && $tarea->txt_path == null){
                                                             ?>
+                                                                    <button class="btn btn_warning js_btn_eliminar_tarea js_btn_eliminar_tarea-<?= $tarea->id_tarea ?>" data-id="<?= $tarea->id_tarea ?>">Eliminar tarea</button>
+                                                                <?php
+                                                                }
+                                                                ?>
+
                                                                 <div class="checkbox-custom checkbox-warning">
                                                                     <input type="checkbox" class="js-completar-tarea" data-token="<?=$tarea->id_tarea?>" name="checkbox" <?=$tarea->b_completa?"checked":""?>>
                                                                     <?php
-                                                                    $form1 = ActiveForm::begin(['id'=>'form-tarea-nombre'.$tarea->id_tarea,]);
+                                                                    $form1 = ActiveForm::begin(['id'=>'form-tarea-nombre'.$tarea->id_tarea]);
                                                                     ?>                                                           
-                                                                        <label class="task-title"><?= $form1->field($tarea, 'txt_nombre')->textInput(['data-id'=>$tarea->id_tarea])->label() ?></label>
+                                                                        <label class="task-title"><?= $form1->field($tarea, 'txt_nombre')->textInput(['data-id'=>$tarea->id_tarea, 'class'=>'js-editar-nombre-tarea'])->label() ?></label>
                                                                     <?php Html::submitButton('Guardar')?>
                                                                 </div>
                                                             <?php
@@ -177,18 +185,7 @@ $this->registerCssFile(
                                                     </div> 
                                                     <?php
                                                     }
-                                                    ?> 
-                                                    
-                                                    <?php
-                                                    if($isAbogado && $tarea->txt_tarea){?>
-                                                    <div class="row row-no-border">
-                                                        <div class="col-md-12">
-                                                            <p><?=$tarea->txt_tarea?></p>
-                                                            </div>
-                                                    </div>         
-                                                    <?php
-                                                    }
-                                                    ?>
+                                                    ?>  
                                                 </div>
                                                 
                                             </li>
