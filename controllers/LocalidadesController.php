@@ -613,37 +613,53 @@ class LocalidadesController extends Controller
 
                                     if (!$userTareaArchivada->save()) {
                                         $transaction->rollBack();
+                                        echo "wqwq";
                                         return $response;
                                     }
                                     $userTarea->delete();
                                 }
+                            }else{
+                                $transaction->rollBack();
+                                echo "ffgfg";
+                                return $response;
                             }
-
-                            $usersLocs = WrkUsuariosLocalidades::find()->where(['id_localidad' => $localidad->id_localidad])->all();
+                            
+                            $usersLocs = WrkUsuariosLocalidades::find()->where(['id_localidad' => $localidad->id_localidad])->one();
+                            //print_r($usersLocs);exit;
                             if ($usersLocs) {
-                                foreach ($usersLocs as $userLoc) {
+                                // foreach ($usersLocs as $userLoc) {
                                     $userLocArchivada = new WrkUsuariosLocalidadesArchivadas();
-                                    $userLocArchivada->attributes = $userLoc->attributes;
+                                    $userLocArchivada->attributes = $usersLocs->attributes;
 
                                     if (!$userLocArchivada->save()) {
                                         $transaction->rollBack();
+                                        echo "rttrrt";
                                         return $response;
                                     }
-                                    $userLoc->delete();
-                                }
+                                    $usersLocs->delete();
+                                // }
                             }
                         } else {
                             $transaction->rollBack();
+                            echo "xdxddd";
                             return $response;
                         }
                         $tarea->delete();
                     }
+                }else{
+                    $transaction->rollBack();
+                    echo "ioioio";
+                    return $response;
                 }
                 $localidad->delete();
                 $transaction->commit();
                 $response->status = 'success';
                 $response->message = $id;
 
+                return $response;
+            }else{
+                $transaction->rollBack();
+                echo "hyhyhyhy";
                 return $response;
             }
             $transaction->commit();
@@ -652,6 +668,7 @@ class LocalidadesController extends Controller
             throw $e;
         }
 
+        echo "cdfvbghn";
         return $response;
     }
 

@@ -217,7 +217,7 @@ class ArchivadasController extends Controller
 
                     if(!$tarea->save()){
                         $transaction->rollBack ();
-                        print_r($tarea);exit;
+                        //print_r($tarea);exit;
                         return $response;
                     }else{
                         $userTareaArchivada = WrkUsuariosTareasArchivadas::find()->where(['id_tarea'=>$tareaArchivada->id_tarea])->one();
@@ -227,25 +227,27 @@ class ArchivadasController extends Controller
 
                         if(!$userTarea->save()){
                             $transaction->rollBack ();
-                            print_r($userTarea);exit;                            
+                            //print_r($userTarea);exit;                            
                             return $response;
                         }
                     }
                     $tareaArchivada->delete();
                 }
                 $userLocArchivada = WrkUsuariosLocalidadesArchivadas::find()->where(['id_localidad'=>$archivada->id_localidad])->one();
-                $userLoc = new WrkUsuariosLocalidades();
-                $userLoc->id_localidad = $localidad->id_localidad;
-                $userLoc->id_usuario = $userLocArchivada->id_usuario;
-                
-                if(!$userLoc->save()){
-                    $transaction->rollBack ();
-                    print_r($userLoc);exit;
-                    return $response;
+                if($userLocArchivada){
+                    $userLoc = new WrkUsuariosLocalidades();
+                    $userLoc->id_localidad = $localidad->id_localidad;
+                    $userLoc->id_usuario = $userLocArchivada->id_usuario;
+                    
+                    if(!$userLoc->save()){
+                        $transaction->rollBack ();
+                        //print_r($userLoc);exit;
+                        return $response;
+                    }
                 }
             }else{
                 $transaction->rollBack();
-                print_r($localidad);exit;
+                //print_r($localidad);exit;
                 return respuesta;
             }
             $archivada->delete();
