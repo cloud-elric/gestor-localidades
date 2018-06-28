@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\models\CatEstados;
+use app\models\CatColonias;
 use app\modules\ModUsuarios\models\EntUsuarios;
 use app\modules\ModUsuarios\models\Utils;
 use yii\widgets\ActiveForm;
@@ -111,7 +112,10 @@ $user = Yii::$app->user->identity;
                                         </div>
                                         <div class="col-sm-12 col-md-12">
                                             <span>Colonia: </span>
-                                            <p><?= $model->txt_colonia ?></p>
+                                            <?php
+                                            $colonia = CatColonias::find()->where(['id_colonia'=>$model->txt_colonia])->one();
+                                            ?>
+                                            <p><?= $colonia->txt_nombre ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
                                             <span>Municipio: </span>
