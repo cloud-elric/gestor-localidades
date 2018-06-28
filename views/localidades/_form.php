@@ -196,6 +196,17 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                         <?= $form->field($model, 'num_renta_actual')->textInput() ?>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">
+                        <div class="form-group">
+                            <label class="control-label" for="">Frecuencia de Pago</label>
+                            <select class="form-control" aria-invalid="false">
+                                <option value="">Mensual</option>
+                                <option value="">Trimestral</option>
+                                <option value="">Semestral</option>
+                                <option value="">Anual</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'num_incremento_autorizado')->textInput(['value'=>$porcentajeAbogado->num_porcentaje]) ?>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">
@@ -208,6 +219,9 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                         <?= $form->field($model, 'num_pretencion_renta_cliente')->textInput() ?>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">
+                        <?= $form->field($model, 'b_problemas_acceso')->dropDownList([ '0'=>"No", '1'=>'Sí']) ?>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'id_moneda')->radioList(ArrayHelper::map(CatTiposMonedas::find()->where(['b_habilitado'=>1])->all(), 'id_moneda', 'txt_siglas'), [
                             'item' => function($index, $label, $name, $checked, $value) {  
                                 $checked = $checked?"checked":"";
@@ -216,9 +230,6 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                                 return $return;
                             }
                         ,'class'=>'radio-custom radio-warning list-inline']) ?>
-                    </div>
-                    <div class="col-sm-12 col-md-6 col-lg-4">
-                    <?= $form->field($model, 'b_problemas_acceso')->dropDownList([ '0'=>"No", '1'=>'Sí']) ?>
                     </div>
                 </div>
             </div>
