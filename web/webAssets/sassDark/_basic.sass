@@ -513,8 +513,8 @@ a
 // tooltip
 .tooltip,
 .tooltip.tooltip-2
-	// z-index: 1900
-	z-index: 2
+	z-index: 1900
+	// z-index: 2
 
 .tooltip,
 .tooltip.tooltip-2,
@@ -526,21 +526,11 @@ a
 .tooltip.tooltip-warning
 	display: block !important
 	.arrow
-		background-color: darken( $ryg-accent, 10% )
+		background-color: darken( $ryg-accent, 10% ) !important
 		color: $ryg-second
 		
 	.tooltip-inner
-		background-color: darken( $ryg-accent, 10% )
+		background-color: darken( $ryg-accent, 10% ) !important
 		color: $ryg-second
 		&:before
-			border-top-color: darken( $ryg-accent, 10% )
-
-.tooltip-inner
-	background-color: green
-	.tooltip.tooltip-top
-		.tooltip-inner::before
-			border-top-color: darken( $ryg-accent, 10% )
-
-.tooltip.tooltip-top
-	.tooltip-inner::before
-		border-top-color: darken( $ryg-accent, 10% )
+			border-top-color: darken( $ryg-accent, 10% ) !important

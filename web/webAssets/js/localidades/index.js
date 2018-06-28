@@ -1,4 +1,10 @@
 $(document).ready(function(){
+
+    $(".panel-listado-acctions a").on("click", function(){
+        $(this).trigger('blur');
+    });
+
+    $( ".img.avatar" ).tooltip( "option", "classes.algo", "highlight" );
     
     $('.run-slide-panel').slidePanel({
         closeSelector:".slidePanel-close",

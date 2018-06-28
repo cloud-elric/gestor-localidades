@@ -516,14 +516,16 @@
 								color: $white
 								font-size: .87rem
 								font-weight: $thin
-								line-height: 5
+								line-height: 3
 								padding: 10px 4px 8px
 								vertical-align: middle
+								+respond-to(xs)
+									line-height: 2
 
 								&.flex
-									align-items: center
-									display: flex
-									justify-content: flex-start
+									// align-items: center
+									// display: flex
+									// justify-content: flex-start
 									+respond-to(sl)
 										display: block
 
@@ -576,14 +578,19 @@
 									display: flex
 									flex-wrap: wrap
 									justify-content: center
+									width: 80px
 									+respond-to(md)
 										flex-direction: column
+										width: 64px
 									+respond-to(tl)
 										flex-direction: column
+										width: 64px
 									+respond-to(xs)
 										flex-direction: column
+										width: 64px
 									+respond-to(sl)
 										flex-direction: row
+										width: 100%
 									.panel-listado-acction
 
 										align-items: center
@@ -680,9 +687,11 @@
 											width: 100%
 										+respond-to(tl)
 											border-radius: 0
+											margin-left: 0
 											width: 100%
 										+respond-to(xs)
 											border-radius: 0
+											margin-left: 0
 											width: 100%
 										&.btn-active
 											&.active
