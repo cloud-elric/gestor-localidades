@@ -613,15 +613,11 @@ class LocalidadesController extends Controller
 
                                     if (!$userTareaArchivada->save()) {
                                         $transaction->rollBack();
-                                        echo "wqwq";
+                                        //echo "wqwq";
                                         return $response;
                                     }
                                     $userTarea->delete();
                                 }
-                            }else{
-                                $transaction->rollBack();
-                                echo "ffgfg";
-                                return $response;
                             }
                             
                             $usersLocs = WrkUsuariosLocalidades::find()->where(['id_localidad' => $localidad->id_localidad])->one();
@@ -633,7 +629,7 @@ class LocalidadesController extends Controller
 
                                     if (!$userLocArchivada->save()) {
                                         $transaction->rollBack();
-                                        echo "rttrrt";
+                                        
                                         return $response;
                                     }
                                     $usersLocs->delete();
@@ -641,7 +637,7 @@ class LocalidadesController extends Controller
                             }
                         } else {
                             $transaction->rollBack();
-                            echo "xdxddd";
+                            //echo "xdxddd";
                             return $response;
                         }
                         $tarea->delete();
@@ -655,7 +651,7 @@ class LocalidadesController extends Controller
                 return $response;
             }else{
                 $transaction->rollBack();
-                echo "hyhyhyhy";
+                //echo "hyhyhyhy";
                 return $response;
             }
             $transaction->commit();
@@ -664,7 +660,7 @@ class LocalidadesController extends Controller
             throw $e;
         }
 
-        echo "cdfvbghn";
+        //echo "cdfvbghn";
         return $response;
     }
 
