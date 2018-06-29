@@ -647,37 +647,41 @@
 				margin-bottom: 4px
 				width: 100%
 
-			.checkbox-custom.checkbox-warning
+			.form-tareas
+				// background-color: rgba(red,.1)
 
-				input[type="text"].form-control
-					background-color: $ryg-second
-					border: none
-					color: $ryg-aqua
-					font-size: 1rem
-					font-weight: $light
-					margin-right: 20px
-					+placeholder
-						color: rgba($ryg-aqua,.6)
+				.checkbox-custom.checkbox-warning
+
+					input[type="text"].form-control
+						background-color: $ryg-second
+						border: none
+						color: $ryg-aqua
 						font-size: 1rem
 						font-weight: $light
-					&:focus
-						box-shadow: none
-						outline: none
-				label
-					&::before
-						background-color: $ryg-second
-						border-color: $ryg-second
-						top: 8px
-					
-				input[type=checkbox]:checked+input[type=hidden]+label::before,
-				input[type=checkbox]:checked+label::before
-					background-color: $ryg-accent
-					border-color: $ryg-accent
+						margin-right: 20px
+						+placeholder
+							color: rgba($ryg-aqua,.6)
+							font-size: 1rem
+							font-weight: $light
+						&:focus
+							box-shadow: none
+							outline: none
 
-				input[type=checkbox]:checked+input[type=hidden]+label::after,
-				input[type=checkbox]:checked+label::after
-					background-color: $ryg-second
-					border-color: $ryg-second
+					label
+						&::before
+							background-color: $ryg-second
+							border-color: $ryg-second
+							
+						&::after,
+						&::before
+							background-color: $ryg-second
+							border-color: $ryg-second
+							top: 8px
+
+					input[type="checkbox"]:checked + label::after
+						background-color: $ryg-accent
+						border-color: $ryg-accent
+						border-radius: .215rem
 
 	.tooltip-2,
 	.tooltip.tooltip-2
