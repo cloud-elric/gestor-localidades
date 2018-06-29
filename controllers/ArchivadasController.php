@@ -221,14 +221,16 @@ class ArchivadasController extends Controller
                         return $response;
                     }else{
                         $userTareaArchivada = WrkUsuariosTareasArchivadas::find()->where(['id_tarea'=>$tareaArchivada->id_tarea])->one();
-                        $userTarea = new WrkUsuariosTareas();
-                        $userTarea->id_usuario = $userTareaArchivada->id_usuario;
-                        $userTarea->id_tarea = $tarea->id_tarea;
+                        if($userTareaArchivada){
+                            $userTarea = new WrkUsuariosTareas();
+                            $userTarea->id_usuario = $userTareaArchivada->id_usuario;
+                            $userTarea->id_tarea = $tarea->id_tarea;
 
-                        if(!$userTarea->save()){
-                            $transaction->rollBack ();
-                            //print_r($userTarea);exit;                            
-                            return $response;
+                            if(!$userTarea->save()){
+                                $transaction->rollBack ();
+                                //print_r($userTarea);exit;                            
+                                return $response;
+                            }
                         }
                     }
                     $tareaArchivada->delete();
