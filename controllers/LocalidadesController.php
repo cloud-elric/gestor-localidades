@@ -646,10 +646,6 @@ class LocalidadesController extends Controller
                         }
                         $tarea->delete();
                     }
-                }else{
-                    $transaction->rollBack();
-                    echo "ioioio";
-                    return $response;
                 }
                 $localidad->delete();
                 $transaction->commit();

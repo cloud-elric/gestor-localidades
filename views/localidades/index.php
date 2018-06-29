@@ -104,7 +104,10 @@ $this->registerCssFile(
             ],
             'layout' => '{items}{summary}{pager}',
             'columns' =>[
-                
+                [
+                    'attribute'=>'cms',
+                    'format'=>'raw'
+                ],
                 [
                     'attribute'=>'txt_nombre',
                     'headerOptions' => [
@@ -146,7 +149,7 @@ $this->registerCssFile(
                         <a  class="panel-listado-user-link no-pjax run-slide-panel" href="'.Url::base().'/localidades/view/'.$data->id_localidad.'">' .$data->txt_nombre.'</a></div>';
                     }
                 ],
-
+                
                 [
                     'attribute'=>'fch_asignacion',
                     'contentOptions' => [
@@ -177,11 +180,6 @@ $this->registerCssFile(
                     'attribute'=>'txt_arrendador',
                     'format'=>'raw'
                 ],
-                [
-                    'attribute'=>'cms',
-                    'format'=>'raw'
-                ],
-
                 [
                     'label'=>'Responsable',
                     'format'=>'raw',

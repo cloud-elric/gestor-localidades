@@ -101,7 +101,7 @@ class EntLocalidades extends \yii\db\ActiveRecord
             'num_pretencion_renta' => 'Pretensión de renta',
             'num_incremento_cliente' => 'Porcentaje de incremento solicitado por arrendador',
             'num_pretencion_renta_cliente' => 'Pretensión de renta del arrendador',
-            'fch_vencimiento_contratro' => 'Fecha vencimiento contratro',
+            'fch_vencimiento_contratro' => 'Fecha vencimiento contrato',
             'fch_creacion' => 'Fecha creacion',
             'fch_asignacion' => 'Fecha asignación',
             'b_problemas_acceso' => 'Problemas acceso',
