@@ -90,22 +90,20 @@ $this->registerCssFile(
                                                                 
                                                                 <div class="label-check">Nombre</div>
 
-                                                                <div class="checkbox-custom checkbox-warning">
-                                                                    
-                                                                    <input type="checkbox" class="js-completar-tarea" data-token="<?=$tarea->id_tarea?>" name="checkbox" <?=$tarea->b_completa?"checked":""?>>
-                                                                    <?php
-                                                                    $form1 = ActiveForm::begin(['id'=>'form-tarea-nombre'.$tarea->id_tarea]);
-                                                                    ?>                                                           
-                                                                        <label class="task-title">
+                                                                <?php
+                                                                $form1 = ActiveForm::begin(['id'=>'form-tarea-nombre'.$tarea->id_tarea, 'options' => ['class' => 'form-tareas']]);
+                                                                ?>
+                                                                    <div class="checkbox-custom checkbox-warning">                                                    
+                                                                        <input type="checkbox" id="check-nombre" class="js-completar-tarea" data-token="<?=$tarea->id_tarea?>" name="checkbox" <?=$tarea->b_completa?"checked":""?>>
+                                                                        <label for="check-nombre" class="task-title">
                                                                             <?= $form1->field($tarea, 'txt_nombre')->textInput(['data-id'=>$tarea->id_tarea, 'class'=>'form-control js-editar-nombre-tarea'])->label(false) ?>
                                                                         </label>
+                                                                    </div>
                                                                     <?php Html::submitButton('Guardar')?>
-                                                                    <?php
-                                                                    ActiveForm::end();
-                                                                    ?>
+                                                                <?php
+                                                                ActiveForm::end();
+                                                                ?>
 
-                                                                    
-                                                                </div>
                                                             <?php
                                                             }else{?>
                                                                 <p><?=$tarea->txt_nombre?></p>

@@ -79,15 +79,19 @@ class TareasController extends Controller
                                             <div class="col-xs-8 col-sm-8 col-md-8">
 
                                                 <div class="label-check">Nombre</div>
-                                                
-                                                <div class="checkbox-custom checkbox-warning">
-                                                    <input type="checkbox" name="checkbox">
-                                                    <form>
-                                                        <label class="task-title"><input type="text" class="form-control js-editar-nombre-tarea" data-id="'.$model->id_tarea.'"value='.$model->txt_nombre.'></label>
-                                                    </form>
-                                                </div>
 
-                                                <button class="btn btn-delete-tarea js_btn_eliminar_tarea js_btn_eliminar_tarea-'.$model->id_tarea.'" data-id="'.$model->id_tarea.'">Eliminar tarea</button>
+                                                <form action="" class="form-tareas">
+                                                
+                                                    <div class="checkbox-custom checkbox-warning">
+                                                        <input type="checkbox" id="check-nombre" name="checkbox">
+                                                        <label for="check-nombre" class="task-title">
+                                                            <input type="text" class="form-control js-editar-nombre-tarea" data-id="'.$model->id_tarea.'"value='.$model->txt_nombre.'>
+                                                        </label>
+                                                    </div>
+
+                                                    <button class="btn btn-delete-tarea js_btn_eliminar_tarea js_btn_eliminar_tarea-'.$model->id_tarea.'" data-id="'.$model->id_tarea.'">Eliminar tarea</button>
+
+                                                </form>
 
                                             </div>
                                             <div class="col-xs-2 col-sm-2 col-md-2 text-left">
