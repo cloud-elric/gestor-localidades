@@ -107,6 +107,14 @@ $this->registerCssFile(
                                                                     
                                                                 </div>
                                                                 <?php
+<<<<<<< HEAD
+=======
+                                                                if(!$relTareaUsuario && $tarea->txt_tarea == null && $tarea->txt_path == null){
+                                                            ?>
+                                                                    <button class="btn btn-delete-tarea js_btn_eliminar_tarea js_btn_eliminar_tarea-<?= $tarea->id_tarea ?>" data-id="<?= $tarea->id_tarea ?>">Eliminar tarea</button>
+                                                                <?php
+                                                                }
+>>>>>>> c9e285a067a3b7748633d42e010e0be5563da0c7
                                                             }else{?>
                                                                 <p><?=$tarea->txt_nombre?></p>
                                                             <?php
@@ -173,7 +181,7 @@ $this->registerCssFile(
                                                             <?= $form->field($tarea, 'id_tipo')->hiddenInput(['class'=>'tipo-'.$tarea->id_tarea])->label(false) ?>
 
                                                             <div class="form-group text-right">
-                                                                <?=Html::submitButton("<span class='ladda-label'><i class='icon wb-file' aria-hidden='true'></i>".$textoGuardar."</span>", ["data-id"=>$tarea->id_tarea, "style"=>"display:none;", "data-style"=>'zoom-in', "class"=>"btn ladda-button btn-warning mt-20 submit_tarea"]);?>
+                                                                <?=Html::submitButton("<span class='ladda-label'><i class='icon wb-file' aria-hidden='true'></i>".$textoGuardar."</span>", ["data-id"=>$tarea->id_tarea, "style"=>"display:none;", "data-style"=>'zoom-in', "class"=>"btn ladda-button btn-save-texto mt-20 submit_tarea"]);?>
                                                             </div>
                                                             
                                                             <?php
