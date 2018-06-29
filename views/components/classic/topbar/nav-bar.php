@@ -49,7 +49,11 @@ role="navigation">
         <li class="nav-item dropdown">
           <a class="nav-link navbar-avatar" data-toggle="dropdown" href="#" aria-expanded="false"
           data-animation="scale-up" role="button">
-            <span class="user-name"><?=EntUsuarios::getUsuarioLogueado()->nombreCompleto?></span>
+            <?php
+            $usuario = EntUsuarios::getUsuarioLogueado();
+            $auth = $usuario->txtAuthItem;
+            ?>
+            <span class="user-name"><?=$auth->description?></span>
             <span class="avatar avatar-online">
               <img src="<?=EntUsuarios::getUsuarioLogueado()->imageProfile?>" alt="...">
               <i></i>
