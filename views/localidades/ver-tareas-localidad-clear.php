@@ -107,14 +107,11 @@ $this->registerCssFile(
                                                                     
                                                                 </div>
                                                                 <?php
-<<<<<<< HEAD
-=======
                                                                 if(!$relTareaUsuario && $tarea->txt_tarea == null && $tarea->txt_path == null){
                                                             ?>
                                                                     <button class="btn btn-delete-tarea js_btn_eliminar_tarea js_btn_eliminar_tarea-<?= $tarea->id_tarea ?>" data-id="<?= $tarea->id_tarea ?>">Eliminar tarea</button>
                                                                 <?php
                                                                 }
->>>>>>> c9e285a067a3b7748633d42e010e0be5563da0c7
                                                             }else{?>
                                                                 <p><?=$tarea->txt_nombre?></p>
                                                             <?php
