@@ -73,7 +73,7 @@ class TareasController extends Controller
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())){
             $model->id_usuario = EntUsuarios::getUsuarioLogueado()->id_usuario;
             if($model->save()){ 
-                $templateItem = '<li class="list-group-item js-tarea-'.$model->id_tarea.' data-tareakey="'.$model->id_tarea.'">                        
+                $templateItem = '<li class="list-group-item js-tarea-'.$model->id_tarea.'" data-tareakey="'.$model->id_tarea.'">                        
                                     <div class="w-full">
                                         <div class="row row-no-border">
                                             <div class="col-xs-8 col-sm-8 col-md-8">
@@ -85,7 +85,7 @@ class TareasController extends Controller
                                                     <div class="checkbox-custom checkbox-warning">
                                                         <input type="checkbox" id="check-nombre" name="checkbox">
                                                         <label for="check-nombre" class="task-title">
-                                                            <input type="text" class="form-control js-editar-nombre-tarea" data-id="'.$model->id_tarea.'"value='.$model->txt_nombre.'>
+                                                            <input type="text" class="form-control js-editar-nombre-tarea" data-id="'.$model->id_tarea.'"value="'.$model->txt_nombre.'">
                                                         </label>
                                                     </div>
 
@@ -94,7 +94,7 @@ class TareasController extends Controller
                                                 </form>
 
                                             </div>
-                                            <div class="col-xs-2 col-sm-2 col-md-2 text-left">
+                                            <div class="col-xs-2 col-sm-2 col-md-2 text-left addMember-cont">
                                                 <select multiple="multiple" class="plugin-selective-tareas" data-localidad="'.$model->id_localidad.'" data-id="'.$model->id_tarea.'" data-json="[]"/>
                                             </div>                                       
                                         </div>
