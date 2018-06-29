@@ -84,7 +84,7 @@ $user = Yii::$app->user->identity;
                                 <div class="ent-localidades-view-panel-int">
                                     <div class="row">
                                         <div class="col-sm-12 col-md-12">
-                                            <span>Nombre: </span>
+                                            <span>Nombre localidad: </span>
                                             <p><?= $model->txt_nombre ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
@@ -96,7 +96,7 @@ $user = Yii::$app->user->identity;
                                             <p><?= $model->txt_beneficiario ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
-                                            <span>CMS: </span>
+                                            <span>Cms: </span>
                                             <p><?= $model->cms ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
@@ -158,7 +158,7 @@ $user = Yii::$app->user->identity;
 
                                     <div class="row">
                                         <div class="col-sm-12 col-md-12">
-                                            <span>Moneda: </span>
+                                            <span>Tipo de moneda: </span>
                                             <?php
                                             $moneda = $model->moneda;
                                             echo "<p>".$moneda->txt_moneda."</p>";
@@ -169,7 +169,7 @@ $user = Yii::$app->user->identity;
                                             <p><?= $model->num_renta_actual ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
-                                            <span>Autorizado: </span>
+                                            <span>Porcentaje de incremento preautorizado: </span>
                                             <p><?= $model->num_incremento_autorizado ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
