@@ -33,7 +33,7 @@ $this->registerCssFile(
     <button type="button" class="btn btn-pure btn-inverse slidePanel-close actions-top icon wb-close"
       aria-hidden="true"></button>
   </div>
-  <h1>W Tareas: <?=$localidad->txt_nombre?></h1>
+  <h1>Tareas: <?=$localidad->txt_nombre?></h1>
 </header>
 
 <div class="page ryg-page">
@@ -85,25 +85,33 @@ $this->registerCssFile(
                                                             <?php
                                                             if($isAbogado){
                                                                 $relTareaUsuario = WrkUsuariosTareas::find()->where(['id_tarea'=>$tarea->id_tarea])->all();
+
+                                                            ?>
+                                                                
+                                                                <div class="label-check">Nombre</div>
+
+                                                                <div class="checkbox-custom checkbox-warning">
+                                                                    
+                                                                    <input type="checkbox" class="js-completar-tarea" data-token="<?=$tarea->id_tarea?>" name="checkbox" <?=$tarea->b_completa?"checked":""?>>
+                                                                    <?php
+                                                                    $form1 = ActiveForm::begin(['id'=>'form-tarea-nombre'.$tarea->id_tarea]);
+                                                                    ?>                                                           
+                                                                        <label class="task-title">
+                                                                            <?= $form1->field($tarea, 'txt_nombre')->textInput(['data-id'=>$tarea->id_tarea, 'class'=>'form-control js-editar-nombre-tarea'])->label(false) ?>
+                                                                        </label>
+                                                                    <?php Html::submitButton('Guardar')?>
+                                                                    <?php
+                                                                    ActiveForm::end();
+                                                                    ?>
+
+                                                                    
+                                                                </div>
+                                                                <?php
                                                                 if(!$relTareaUsuario && $tarea->txt_tarea == null && $tarea->txt_path == null){
                                                             ?>
                                                                     <button class="btn btn_warning js_btn_eliminar_tarea js_btn_eliminar_tarea-<?= $tarea->id_tarea ?>" data-id="<?= $tarea->id_tarea ?>">Eliminar tarea</button>
                                                                 <?php
                                                                 }
-                                                                ?>
-
-                                                                <div class="checkbox-custom checkbox-warning">
-                                                                    <input type="checkbox" class="js-completar-tarea" data-token="<?=$tarea->id_tarea?>" name="checkbox" <?=$tarea->b_completa?"checked":""?>>
-                                                                    <?php
-                                                                    $form1 = ActiveForm::begin(['id'=>'form-tarea-nombre'.$tarea->id_tarea]);
-                                                                    ?>                                                           
-                                                                        <label class="task-title"><?= $form1->field($tarea, 'txt_nombre')->textInput(['data-id'=>$tarea->id_tarea, 'class'=>'js-editar-nombre-tarea'])->label() ?></label>
-                                                                    <?php Html::submitButton('Guardar')?>
-                                                                    <?php
-                                                                    ActiveForm::end();
-                                                                    ?>
-                                                                </div>
-                                                            <?php
                                                             }else{?>
                                                                 <p><?=$tarea->txt_nombre?></p>
                                                             <?php

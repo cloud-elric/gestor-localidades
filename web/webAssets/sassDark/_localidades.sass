@@ -576,7 +576,7 @@
 	.page-content
 		padding: 0 30px
 	.ent-localidades-view-panel-int
-		background-color: rgba($ryg-primary,.35)!important
+		background-color: rgba($ryg-primary,.85)!important
 	.row-padding
 		padding: 4px 38px
 	.list-group-item
@@ -631,6 +631,49 @@
 			border-top: 1px solid $ryg-gray
 			margin-top: 12px
 			padding: 8px
+
+			button.btn
+				background-color: $error
+				border-color: $error
+				color: $white
+
+			.label-check
+				color: $white
+				font-size: 1rem
+				margin-bottom: 4px
+				width: 100%
+
+			.checkbox-custom.checkbox-warning
+
+				input[type="text"].form-control
+					background-color: $ryg-second
+					border: none
+					color: $ryg-aqua
+					font-size: 1rem
+					font-weight: $light
+					margin-right: 20px
+					+placeholder
+						color: rgba($ryg-aqua,.6)
+						font-size: 1rem
+						font-weight: $light
+					&:focus
+						box-shadow: none
+						outline: none
+				label
+					&::before
+						background-color: $ryg-second
+						border-color: $ryg-second
+						top: 8px
+					
+				input[type=checkbox]:checked+input[type=hidden]+label::before,
+				input[type=checkbox]:checked+label::before
+					background-color: $ryg-accent
+					border-color: $ryg-accent
+
+				input[type=checkbox]:checked+input[type=hidden]+label::after,
+				input[type=checkbox]:checked+label::after
+					background-color: $ryg-second
+					border-color: $ryg-second
 
 	.tooltip-2,
 	.tooltip.tooltip-2

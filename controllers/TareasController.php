@@ -77,14 +77,18 @@ class TareasController extends Controller
                                     <div class="w-full">
                                         <div class="row row-no-border">
                                             <div class="col-xs-8 col-sm-8 col-md-8">
-                                            <button class="btn btn_warning js_btn_eliminar_tarea js_btn_eliminar_tarea-'.$model->id_tarea.'" data-id="'.$model->id_tarea.'">Eliminar tarea</button>
+
+                                                <div class="label-check">Nombre</div>
+                                                
                                                 <div class="checkbox-custom checkbox-warning">
                                                     <input type="checkbox" name="checkbox">
-                                                        <form>
-                                                            <label class="task-title"><input type="text" class="js-editar-nombre-tarea" data-id="'.$model->id_tarea.'"value='.$model->txt_nombre.'></label>
-                                                            
-                                                        </form>
+                                                    <form>
+                                                        <label class="task-title"><input type="text" class="form-control js-editar-nombre-tarea" data-id="'.$model->id_tarea.'"value='.$model->txt_nombre.'></label>
+                                                    </form>
                                                 </div>
+
+                                                <button class="btn btn_warning js_btn_eliminar_tarea js_btn_eliminar_tarea-'.$model->id_tarea.'" data-id="'.$model->id_tarea.'">Eliminar tarea</button>
+
                                             </div>
                                             <div class="col-xs-2 col-sm-2 col-md-2 text-left">
                                                 <select multiple="multiple" class="plugin-selective-tareas" data-localidad="'.$model->id_localidad.'" data-id="'.$model->id_tarea.'" data-json="[]"/>
