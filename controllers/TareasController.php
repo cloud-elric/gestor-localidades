@@ -87,7 +87,7 @@ class TareasController extends Controller
                                                     </form>
                                                 </div>
 
-                                                <button class="btn btn_warning js_btn_eliminar_tarea js_btn_eliminar_tarea-'.$model->id_tarea.'" data-id="'.$model->id_tarea.'">Eliminar tarea</button>
+                                                <button class="btn btn-delete-tarea js_btn_eliminar_tarea js_btn_eliminar_tarea-'.$model->id_tarea.'" data-id="'.$model->id_tarea.'">Eliminar tarea</button>
 
                                             </div>
                                             <div class="col-xs-2 col-sm-2 col-md-2 text-left">
