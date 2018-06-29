@@ -73,13 +73,17 @@ class TareasController extends Controller
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())){
             $model->id_usuario = EntUsuarios::getUsuarioLogueado()->id_usuario;
             if($model->save()){ 
-                $templateItem = '<li class="list-group-item" data-tareakey="'.$model->id_tarea.'">                        
+                $templateItem = '<li class="list-group-item js-tarea-'.$model->id_tarea.' data-tareakey="'.$model->id_tarea.'">                        
                                     <div class="w-full">
                                         <div class="row row-no-border">
                                             <div class="col-xs-8 col-sm-8 col-md-8">
+                                            <button class="btn btn_warning js_btn_eliminar_tarea js_btn_eliminar_tarea-'.$model->id_tarea.'" data-id="'.$model->id_tarea.'">Eliminar tarea</button>
                                                 <div class="checkbox-custom checkbox-warning">
                                                     <input type="checkbox" name="checkbox">
-                                                        <label class="task-title">'.$model->txt_nombre.'</label>
+                                                        <form>
+                                                            <label class="task-title"><input type="text" class="js-editar-nombre-tarea" data-id="'.$model->id_tarea.'"value='.$model->txt_nombre.'></label>
+                                                            
+                                                        </form>
                                                 </div>
                                             </div>
                                             <div class="col-xs-2 col-sm-2 col-md-2 text-left">
@@ -309,7 +313,7 @@ class TareasController extends Controller
 
         if($tarea->delete()){
             $response->status = "success";
-            $response->message = "Estatus de la tarea guardado";
+            $response->message = "Tarea eliminada correctamente";
         }else{
             $response->result = $tarea->errors;
         }
