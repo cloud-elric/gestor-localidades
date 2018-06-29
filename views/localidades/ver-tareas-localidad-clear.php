@@ -97,7 +97,7 @@ $this->registerCssFile(
                                                                     <?php
                                                                     $form1 = ActiveForm::begin(['id'=>'form-tarea-nombre'.$tarea->id_tarea]);
                                                                     ?>                                                           
-                                                                        <label class="task-title"><?= $form1->field($tarea, 'txt_nombre')->textInput(['data-id'=>$tarea->id_tarea, 'class'=>'js-editar-nombre-tarea'])->label() ?></label>
+                                                                        <label class="task-title"><?= $form1->field($tarea, 'txt_nombre')->textInput(['data-id'=>$tarea->id_tarea, 'class'=>'js-editar-nombre-tarea'])->label(false) ?></label>
                                                                     <?php Html::submitButton('Guardar')?>
                                                                     <?php
                                                                     ActiveForm::end();
