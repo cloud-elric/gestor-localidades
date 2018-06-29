@@ -106,12 +106,7 @@ $this->registerCssFile(
 
                                                                     
                                                                 </div>
-                                                                <?php
-                                                                if(!$relTareaUsuario && $tarea->txt_tarea == null && $tarea->txt_path == null){
-                                                            ?>
-                                                                    <button class="btn btn-delete-tarea js_btn_eliminar_tarea js_btn_eliminar_tarea-<?= $tarea->id_tarea ?>" data-id="<?= $tarea->id_tarea ?>">Eliminar tarea</button>
-                                                                <?php
-                                                                }
+                                                            <?php
                                                             }else{?>
                                                                 <p><?=$tarea->txt_nombre?></p>
                                                             <?php
@@ -201,7 +196,7 @@ $this->registerCssFile(
                                                 <?php
                                                 if(!$relTareaUsuario && $tarea->txt_tarea == null && $tarea->txt_path == null){
                                                 ?>
-                                                    <button class="btn btn_warning js_btn_eliminar_tarea js_btn_eliminar_tarea-<?= $tarea->id_tarea ?>" data-id="<?= $tarea->id_tarea ?>">Eliminar tarea</button>
+                                                    <button class="btn btn-delete-tarea js_btn_eliminar_tarea js_btn_eliminar_tarea-<?= $tarea->id_tarea ?>" data-id="<?= $tarea->id_tarea ?>">Eliminar tarea</button>
                                                 <?php
                                                 }
                                                 ?>                
