@@ -177,6 +177,10 @@ $this->registerCssFile(
                     'attribute'=>'txt_arrendador',
                     'format'=>'raw'
                 ],
+                [
+                    'attribute'=>'cms',
+                    'format'=>'raw'
+                ],
 
                 [
                     'label'=>'Responsable',
