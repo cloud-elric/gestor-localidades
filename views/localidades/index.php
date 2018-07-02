@@ -106,7 +106,7 @@ $this->registerCssFile(
             'columns' =>[
                 [
                     'attribute'=>'cms',
-                    'format'=>'raw'
+                    'format'=>'raw',
                     'value'=>function(){
                         $hoy = time();//date("Y-m-d");
                         $fch_creacion = strtotime($data->fch_creacion);
