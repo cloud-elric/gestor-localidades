@@ -136,10 +136,9 @@ $this->registerCssFile(
                             }
                         }
                         if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::SUPER_ADMIN){
-                            return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat '.$punto.'"></span></div>' .$data->cms.'</div>'.$data->cms;
-                        }else{
-                            return $data->cms;
+                            return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat '.$punto.'"></span></div>' .$data->cms.'</div>';
                         }
+                        return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat '.$punto.'"></span></div>' .$data->cms.'</div>';
                     }
                 ],
                 [
@@ -149,7 +148,38 @@ $this->registerCssFile(
                     ],
                     'format'=>'raw',
                     'value'=>function($data){
+
+                        return $data->txt_nombre;
+                        $hoy = time();//date("Y-m-d");
+                        $fch_creacion = strtotime($data->fch_creacion);
+                        $punto = 'cat-yellow';
                         
+                        $tareas = $data->wrkTareas;
+                        if($tareas){
+                            foreach($tareas as $tarea){
+                                $fch_creacion = strtotime($tarea->fch_creacion);
+                                $res = $hoy - $fch_creacion;
+                                $res1 = round($res / (60*60*24));
+                                
+                                if($res1 > ConstantesWeb::DIAS_RESTANTES && $tarea->b_completa == 0){
+                                    $punto = 'cat-red';
+                                    break;
+                                }
+                                if((!$tarea->txt_tarea && $tarea->id_tipo == ConstantesWeb::TAREA_ABIERTO) || (!$tarea->txt_path && $tarea->id_tipo == ConstantesWeb::TAREA_ARCHIVO)){
+
+                                        $punto = 'cat-yellow';
+                                        break;                                    
+                                    
+                                }
+                                if($tarea->txt_tarea || $tarea->txt_path){
+                                    $punto = 'cat-green';
+                                    break;
+                                }
+                            }
+                        }
+                        if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::SUPER_ADMIN){
+                            return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat '.$punto.'"></span></div>' .$data->txt_nombre.'</div>';
+                        }
                         return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat '.$punto.'"></span></div>
                         <a  class="panel-listado-user-link no-pjax run-slide-panel" href="'.Url::base().'/localidades/view/'.$data->id_localidad.'">' .$data->txt_nombre.'</a></div>';
                     }
