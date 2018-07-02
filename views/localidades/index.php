@@ -138,8 +138,7 @@ $this->registerCssFile(
                         if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::SUPER_ADMIN){
                             return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat '.$punto.'"></span></div>' .$data->cms.'</div>';
                         }else{
-                            return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat '.$punto.'"></span></div>
-                            <a  class="panel-listado-user-link no-pjax run-slide-panel" href="'.Url::base().'/localidades/view/'.$data->id_localidad.'">' .$data->cms.'</a></div>';
+                            return $data->cms;
                         }
                     }
                 ],
