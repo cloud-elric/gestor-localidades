@@ -136,7 +136,7 @@ $this->registerCssFile(
                             }
                         }
                         if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::SUPER_ADMIN){
-                            return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat '.$punto.'"></span></div>' .$data->cms.'</div>';
+                            return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat '.$punto.'"></span></div>' .$data->cms.'</div>'.$data->cms;
                         }else{
                             return $data->cms;
                         }
