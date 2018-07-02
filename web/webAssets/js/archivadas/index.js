@@ -158,7 +158,7 @@ function generarSelected(){
               onAfterItemAdd: function(e){
                 var idTar = elemento.data('id');
                 var idUser = elemento.val();
-                $('*[data-tareakey=\"'+idTar+'\"] .addMember-trigger-button').hide();
+                //$('*[data-tareakey=\"'+idTar+'\"] .addMember-trigger-button').hide();
                 $.ajax({
                     url: baseUrl+'localidades/asignar-usuarios-tareas',
                     data: {idT: idTar, idU: idUser},
