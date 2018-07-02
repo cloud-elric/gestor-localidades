@@ -169,7 +169,6 @@ class LocalidadesController extends Controller
             
             $model->id_usuario = Yii::$app->user->identity->id_usuario;
             $model->txt_token = Utils::generateToken('tok');
-            //$model->id_moneda = $_POST['group2'];
 
             $model->fch_vencimiento_contratro = Utils::changeFormatDateInput($model->fch_vencimiento_contratro);
             $model->fch_asignacion = Utils::changeFormatDateInput($model->fch_asignacion);

@@ -165,6 +165,10 @@ $user = Yii::$app->user->identity;
                                             ?>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
+                                            <span>Frecuencia de pago: </span>
+                                            <p><?= $model->txt_frecuencia ?></p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12">
                                             <span>Renta Actual: </span>
                                             <p><?= $model->num_renta_actual ?></p>
                                         </div>
@@ -173,7 +177,7 @@ $user = Yii::$app->user->identity;
                                             <p><?= $model->num_incremento_autorizado ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
-                                            <span>Pretensión de renta: </span>
+                                            <span>Renta pre-autorizada: </span>
                                             <p><?= $model->num_pretencion_renta ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">

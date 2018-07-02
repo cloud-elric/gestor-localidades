@@ -200,13 +200,7 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">
                         <div class="form-group">
-                            <label class="control-label" for="">Frecuencia de Pago</label>
-                            <select class="form-control" aria-invalid="false">
-                                <option value="">Mensual</option>
-                                <option value="">Trimestral</option>
-                                <option value="">Semestral</option>
-                                <option value="">Anual</option>
-                            </select>
+                            <?= $form->field($model, 'txt_frecuencia')->dropDownList(['semanal'=>'Semanal', 'mensual'=>'Mensual', 'trimestral'=>'Trimestral', 'anual'=>'Anual'], ['prompt'=>'Seleccionar opcion']) ?>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">
