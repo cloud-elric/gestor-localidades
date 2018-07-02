@@ -391,6 +391,10 @@ class LocalidadesController extends Controller
 
             $relacion = WrkUsuariosTareas::find()->where(['id_tarea' => $_POST['idT']])->one();
             if ($relacion) {
+                $tar = $relacion->tarea;
+                $tar->fch_asignacion = null;
+                $tar->save();
+
                 $respuesta->status = "success";
                 $respuesta->message = "Se ha eliminado la asignacion a la tarea";
                 $relacion->delete();
@@ -413,7 +417,7 @@ class LocalidadesController extends Controller
             for ($i = $longArray - 1; $i >= 0; $i--) {
                 $idUser = $_POST['idU'][$i];
                 break;
-            }
+            }            
 
             $relacion = WrkUsuariosTareas::find()->where(['id_tarea' => $_POST['idT']])->one();
             if ($relacion)
@@ -431,6 +435,9 @@ class LocalidadesController extends Controller
                     $loc = $tarea->localidad;
                     $abogado = $tarea->usuario;
                     //$tarea = WrkTareas::findOne($model->id_localidad);
+
+                    $tarea->fch_asignacion = date("Y-m-d H:i:s");
+                    $tarea->save();
 
 					// Enviar correo
                     $utils = new Utils();
