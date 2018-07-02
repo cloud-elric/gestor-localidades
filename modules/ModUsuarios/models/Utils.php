@@ -8,7 +8,7 @@ class Utils {
 
 	public static function changeFormatDate($string) {
 		$date = date_create ( $string );
-		return date_format ( $date, "d-m-Y" );
+		return date_format ( $date, "d-m-Y H:i" );
     }
     
     public static function changeFormatDateInput($string) {

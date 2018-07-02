@@ -11,11 +11,12 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\web\View;
 use app\models\WrkUsuariosTareas;
+use app\modules\ModUsuarios\models\Utils;
 
 $usuario = EntUsuarios::getUsuarioLogueado();
 $isAbogado = $usuario->txt_auth_item == ConstantesWeb::ABOGADO;
 $isColaborador = $usuario->txt_auth_item == ConstantesWeb::COLABORADOR;
-
+$relTareaUsuario = null;
 $this->registerCssFile(
     '@web/webAssets/templates/classic/global/vendor/dropify/dropify.css',
     ['depends' => [AppAsset::className()]]
@@ -171,7 +172,13 @@ $this->registerCssFile(
                                                             <?= $form->field($tarea, 'id_tipo')->hiddenInput(['class'=>'tipo-'.$tarea->id_tarea])->label(false) ?>
 
                                                             <div class="form-group text-right">
-                                                                <?=Html::submitButton("<span class='ladda-label'><i class='icon wb-file' aria-hidden='true'></i>".$textoGuardar."</span>", ["data-id"=>$tarea->id_tarea, "style"=>"display:none;", "data-style"=>'zoom-in', "class"=>"btn ladda-button btn-save-texto mt-20 submit_tarea"]);?>
+                                                            <?php
+                                                                if($isColaborador){
+                                                            ?>
+                                                                <?=Html::submitButton("<span class='ladda-label'><i class='icon wb-file' aria-hidden='true'></i>".$textoGuardar."</span>", ["data-id"=>$tarea->id_tarea, "style"=>"display:block;", "data-style"=>'zoom-in', "class"=>"btn ladda-button btn-save-texto mt-20 submit_tarea"]);?>
+                                                            <?php
+                                                                }
+                                                            ?>
                                                             </div>
                                                             
                                                             <?php
@@ -197,7 +204,14 @@ $this->registerCssFile(
                                                     <button class="btn btn-delete-tarea js_btn_eliminar_tarea js_btn_eliminar_tarea-<?= $tarea->id_tarea ?>" data-id="<?= $tarea->id_tarea ?>">Eliminar tarea</button>
                                                 <?php
                                                 }
-                                                ?>                
+                                                ?>
+                                                <span>Fecha de creación: <?= Utils::changeFormatDate($tarea->fch_creacion) ?></span><br>
+                                                <?php if($tarea->fch_asignacion){ ?>
+                                                    <span>Fecha de asignación: <?= Utils::changeFormatDate($tarea->fch_asignacion) ?></span><br>
+                                                <?php } ?> 
+                                                <?php if($tarea->fch_actualizacion){ ?>
+                                                    <span>Fecha de actualización: <?= Utils::changeFormatDate($tarea->fch_actualizacion) ?></span>
+                                                <?php } ?>            
                                             </li>
                                             <?php
                                             }

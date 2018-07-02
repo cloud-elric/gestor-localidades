@@ -249,8 +249,8 @@ class ArchivadasController extends Controller
                 }
             }else{
                 $transaction->rollBack();
-                //print_r($localidad);exit;
-                return respuesta;
+                //print_r($localidad->errors);exit;
+                return $response;
             }
             $archivada->delete();
             $transaction->commit ();

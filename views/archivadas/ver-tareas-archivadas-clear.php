@@ -9,6 +9,7 @@ use app\assets\AppAsset;
 
 use yii\widgets\ActiveForm;
 use yii\web\View;
+use app\models\WrkUsuariosTareasArchivadas;
 
 $usuario = EntUsuarios::getUsuarioLogueado();
 $isAbogado = $usuario->txt_auth_item == ConstantesWeb::ABOGADO;
@@ -72,7 +73,11 @@ $isColaborador = $usuario->txt_auth_item == ConstantesWeb::COLABORADOR;
                                                         if($isAbogado){
                                                         ?>
                                                             <div class="col-xs-2 col-sm-2 col-md-2 text-left addMember-cont">
-                                                                <select multiple='multiple' class='plugin-selective-tareas' data-json='<?=$tarea->colaboradoresAsignados?>'></select> 
+                                                                <?php
+                                                                $useRel = WrkUsuariosTareasArchivadas::find()->where(['id_tarea'=>$tarea->id_tarea])->one();
+                                                                if($useRel){?>
+                                                                    <select multiple='multiple' class='plugin-selective-tareas' data-json='<?=$tarea->colaboradoresAsignados?>'></select>
+                                                                <?php } ?>
                                                             </div>
                                                         <?php
                                                         }

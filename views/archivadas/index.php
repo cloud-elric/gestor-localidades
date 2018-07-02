@@ -48,7 +48,7 @@ $this->registerJsFile(
 );
 
 $this->registerJsFile(
-    '@web/webAssets/js/localidades/index.js',
+    '@web/webAssets/js/archivadas/index.js',
     ['depends' => [AppAsset::className()]]
 );
 
@@ -112,11 +112,11 @@ $this->registerCssFile(
                     'value'=>function($data){
                         $punto = 'cat-yellow';
                 
-                        return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat '.$punto.'"></span></div>
-                        <a  class="panel-listado-user-link no-pjax run-slide-panel" href="'.Url::base().'/archivadas/view/'.$data->id_localidad.'">' .$data->txt_nombre.'</a></div>';
+                        return '<div class="panel-listado-user">
+                        <a class="panel-listado-user-link no-pjax run-slide-panel" href="'.Url::base().'/archivadas/view/'.$data->id_localidad.'">' .$data->txt_nombre.'</a></div>';
                     }
                 ],
-
+                'cms',
                 [
                     'label'=>'Última',
                     'format'=>'raw',

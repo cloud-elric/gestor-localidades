@@ -62,7 +62,7 @@ class EntLocalidadesArchivadas extends \yii\db\ActiveRecord
         return [
             [['id_estado', 'id_usuario', 'cms', 'txt_token', 'txt_nombre', 'txt_arrendador', 'txt_beneficiario'], 'required'],
             [['id_estado', 'id_usuario', 'id_moneda', 'b_problemas_acceso', 'b_archivada', 'b_status_localidad'], 'integer'],
-            [['txt_estatus', 'txt_antecedentes'], 'string'],
+            [['txt_estatus', 'txt_antecedentes', 'txt_contacto', 'txt_frecuencia'], 'string'],
             [['num_renta_actual', 'num_incremento_autorizado', 'num_pretencion_renta', 'num_incremento_cliente', 'num_pretencion_renta_cliente'], 'number'],
             [['fch_vencimiento_contratro', 'fch_creacion', 'fch_asignacion'], 'safe'],
             [['cms'], 'string', 'max' => 50],
