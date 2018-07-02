@@ -111,7 +111,7 @@ $this->registerCssFile(
 
                         $hoy = time();//date("Y-m-d");
                         $fch_creacion = strtotime($data->fch_creacion);
-                        $punto = 'cat-yellow';
+                        $punto = 'cat-green';
                         
                         $tareas = $data->wrkTareas;
                         if($tareas){
@@ -120,22 +120,23 @@ $this->registerCssFile(
                                 $res = $hoy - $fch_creacion;
                                 $res1 = round($res / (60*60*24));
                                 
-                                if($res1 > ConstantesWeb::DIAS_RESTANTES && $tarea->b_completa == 0){
+                                if($res1 > ConstantesWeb::DIAS_RESTANTES && (!$tarea->txt_tarea && !$tarea->txt_path) && $tarea->b_completa == 0){
                                     $punto = 'cat-red';
                                     break;
                                 }
-                                if((!$tarea->txt_tarea && $tarea->id_tipo == ConstantesWeb::TAREA_ABIERTO) || (!$tarea->txt_path && $tarea->id_tipo == ConstantesWeb::TAREA_ARCHIVO)){
-
-                                        $punto = 'cat-yellow';
-                                        break;                                    
-                                    
+                                // //if((!$tarea->txt_tarea && $tarea->id_tipo == ConstantesWeb::TAREA_ABIERTO) || (!$tarea->txt_path && $tarea->id_tipo == ConstantesWeb::TAREA_ARCHIVO)){
+                                if(($tarea->txt_tarea || $tarea->txt_path) && $tarea->b_completa == 0){
+                                    $punto = 'cat-yellow';
+                                    //break;
                                 }
-                                if($tarea->txt_tarea || $tarea->txt_path){
-                                    $punto = 'cat-green';
-                                    break;
+                                if($res1 < ConstantesWeb::DIAS_RESTANTES && (!$tarea->txt_tarea && !$tarea->txt_path) && $tarea->b_completa == 0){
+                                    $punto = 'cat-yellow';
                                 }
                             }
+                        }else{
+                            $punto = 'cat-yellow';
                         }
+
                         if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::SUPER_ADMIN){
                             return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat '.$punto.'"></span></div>' .$data->cms.'</div>';
                         }
