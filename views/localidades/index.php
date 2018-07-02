@@ -107,7 +107,8 @@ $this->registerCssFile(
                 [
                     'attribute'=>'cms',
                     'format'=>'raw',
-                    'value'=>function(){
+                    'value'=>function($data){
+
                         $hoy = time();//date("Y-m-d");
                         $fch_creacion = strtotime($data->fch_creacion);
                         $punto = 'cat-yellow';
