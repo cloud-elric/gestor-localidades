@@ -19,8 +19,8 @@ class EntLocalidadesSearch extends EntLocalidades
     public function rules()
     {
         return [
-            [['id_localidad', 'id_estado', 'id_usuario', 'b_problemas_acceso', 'b_archivada'], 'integer'],
-            [['txt_token', 'txt_nombre', 'txt_arrendador', 'txt_beneficiario', 'txt_calle', 'txt_colonia', 'txt_municipio', 'txt_cp', 'txt_estatus', 'txt_antecedentes', 'fch_vencimiento_contratro', 'fch_creacion', 'fch_asignacion'], 'safe'],
+            [['id_localidad', 'id_estado', 'id_usuario', 'b_problemas_acceso', 'b_archivada', 'b_status_localidad'], 'integer'],
+            [['txt_token', 'cms', 'txt_nombre', 'txt_arrendador', 'txt_beneficiario', 'txt_calle', 'txt_colonia', 'txt_municipio', 'txt_cp', 'txt_estatus', 'txt_antecedentes', 'fch_vencimiento_contratro', 'fch_creacion', 'fch_asignacion'], 'safe'],
             [['num_renta_actual', 'num_incremento_autorizado'], 'number'],
         ];
     }
@@ -90,6 +90,7 @@ class EntLocalidadesSearch extends EntLocalidades
             'fch_asignacion' => $this->fch_asignacion,
             'b_problemas_acceso' => $this->b_problemas_acceso,
             'b_archivada' => $this->b_archivada,
+            'b_status_localidad' => $this->b_status_localidad,
         ]);
 
         $query->andFilterWhere(['like', 'txt_token', $this->txt_token])
@@ -101,7 +102,8 @@ class EntLocalidadesSearch extends EntLocalidades
             ->andFilterWhere(['like', 'txt_municipio', $this->txt_municipio])
             ->andFilterWhere(['like', 'txt_cp', $this->txt_cp])
             ->andFilterWhere(['like', 'txt_estatus', $this->txt_estatus])
-            ->andFilterWhere(['like', 'txt_antecedentes', $this->txt_antecedentes]);
+            ->andFilterWhere(['like', 'txt_antecedentes', $this->txt_antecedentes])
+            ->andFilterWhere(['like', 'cms', $this->cms]);
 
         return $dataProvider;
     }
