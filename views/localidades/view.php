@@ -76,7 +76,6 @@ $user = Yii::$app->user->identity;
                 <div class="ent-localidades-view-body">
 
                     <div class="ent-localidades-view-panel">
-                        
 
                         <div class="row">
                             <div class="col-md-12 col">
@@ -137,18 +136,43 @@ $user = Yii::$app->user->identity;
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-sm-12 col-md-12">
-                                            <span>Estatus: </span>
-                                            <p>
-                                            <?php
-                                            $estatus = EntEstatus::find()->where(['id_localidad'=>$model->id_localidad])->orderBy('fch_creacion')->all();
-                                            $arr = "";
-                                            foreach ($estatus as $est){
-                                                $arr .= '<span class="badge badge-outline badge-success badge-round ml-5 vertical-align-middle">'.$est->txt_estatus.'</span>';
-                                            }
-                                            echo "<p>".$arr."</p>";
-                                            ?>
-                                            </p>
+
+                                        <!-- <div class="col-sm-12 col-md-12">
+                                            <form action="" class="form-detalle-localidad">
+                                                <h6>Datos</h6>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control form-input" placeholder="Algo">
+                                                    <p class="form-p form-label">Algo de lorem ipsum</p>
+                                                    <div class="form-edit">
+                                                        <i class="icon wb-pencil icon-edit js-icon-edit" aria-hidden="true"></i>
+                                                        <i class="icon wb-check icon-save js-icon-save" aria-hidden="true"></i>
+                                                    </div>
+                                                </div>
+                                            
+                                        </div> -->
+
+                                        <div class="col-sm-12 col-md-12 ">
+                                            <form action="" class="form-detalle-localidad">
+                                                <span>Estatus: </span>
+
+                                                <div class="form-group">
+                                                    <?php
+                                                    $estatus = EntEstatus::find()->where(['id_localidad'=>$model->id_localidad])->orderBy('fch_creacion')->all();
+                                                    $arr = "";
+                                                    foreach ($estatus as $est){
+                                                        $arr .= $est->txt_estatus;
+                                                    }
+                                                    ?>
+                                                        <textarea class="form-control form-input" placeholder="Estatus"><?=$est->txt_estatus?></textarea>
+                                                    <?php
+                                                        echo '<p class="form-p form-label"><span class="badge badge-outline badge-success badge-round ml-5 vertical-align-middle">'.$arr.'</span></p>';
+                                                    ?>
+                                                    <div class="form-edit">
+                                                        <i class="icon wb-pencil icon-edit js-icon-edit" aria-hidden="true"></i>
+                                                        <i class="icon wb-check icon-save js-icon-save" aria-hidden="true"></i>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
                                             <span>Antecedentes: </span>
@@ -228,3 +252,32 @@ $user = Yii::$app->user->identity;
             </div>
         </div>    
     </div>
+
+<?php
+$this->registerJs('
+
+$(document).ready(function(){
+
+    $(".js-icon-edit").on("click", function(){
+        $(".form-label").hide();
+        $(".form-input").show();
+
+        $(".form-edit").addClass("edit-visible");
+
+        // $(this).hide();
+        // $(".js-icon-save").show().css({"display": "-webkit-box", "display": "-ms-flexbox", "display": "-webkit-flex", "display": "flex"});
+    });
+
+    $(".js-icon-save").on("click", function(){
+        $(".form-input").hide();
+        $(".form-label").show();
+        
+        $(".form-edit").removeClass("edit-visible");
+
+    });
+
+});
+
+', View::POS_END );
+
+?>

@@ -517,6 +517,66 @@
 			&:last-child
 				margin-bottom: 0
 
+			form.form-detalle-localidad
+				background-color: rgba($black,.2)
+				padding: 24px 4px
+				.form-group
+					position: relative
+					.form-control,
+					p.form-p
+						position: relative
+						z-index: 9
+
+					.form-control
+						background-color: transparent
+						border-color: $ryg-accent
+						// color: $black
+
+					.form-input
+						display: none
+						min-height: 40px
+						width: calc(100% - 40px)
+
+					.form-label
+						display: block
+						width: calc(100% - 40px)
+
+					.form-edit
+						bottom: 0
+						display: flex
+						position: absolute
+						right: 0
+						top: 0
+						z-index: 12
+						i.icon
+							align-items: center
+							background-color: $ryg-accent
+							border-radius: 50%
+							color: $font-color
+							cursor: pointer
+							display: flex
+							height: 36px
+							justify-content: center
+							width: 36px
+							&.icon-save
+								display: none
+						&.edit-visible
+							display: flex
+							i.icon
+								&.icon-edit
+									display: none
+								&.icon-save
+									display: flex
+
+					&:hover
+						.form-edit
+							display: block
+						.form-edit
+							&.edit-visible
+								display: flex
+
+
+
 			h2,
 			h3
 				background-color: rgba($ryg-second,.9)
