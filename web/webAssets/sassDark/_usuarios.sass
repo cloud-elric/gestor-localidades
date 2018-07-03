@@ -788,13 +788,13 @@
 						select,
 						textarea,
 						.form-control
-							background-color: $ryg-seconds
-							border-color: $ryg-seconds
+							background-color: $ryg-second
+							border-color: $ryg-second
 							font-weight: $light
 							&:active,
 							&:focus,
 							&:hover
-								border-color: $ryg-seconds
+								border-color: $ryg-second
 								box-shadow: none
 								outline: none
 
@@ -824,12 +824,17 @@
 								font-size: .9rem
 								line-height: 1.2
 
+
+						.select2-container--krajee .select2-selection--single .select2-selection__placeholder
+							color: rgba($white,.7)
+							font-weight: $regular
+
 						.select2,
 						.select2-container--krajee
 							position: relative
 							.select2-selection
-								background-color: $ryg-seconds
-								border-color: $ryg-seconds
+								background-color: $ryg-second
+								border-color: $ryg-second
 								color: $ryg-aqua
 								font-weight: $light
 								position: relative
@@ -842,11 +847,16 @@
 
 							.select2-selection--single
 								.select2-selection__arrow	
-									border-left-color: $ryg-seconds
+									border-left-color: $ryg-second
 
 						.select2-container--krajee.select2-container--open .select2-selection,
 						.select2-container--krajee .select2-selection:focus
 							box-shadow: none
+
+						.select2-container--krajee
+						.select2-selection--single
+							.select2-selection__rendered
+								color: $white
 
 						.help-block
 							color: $error

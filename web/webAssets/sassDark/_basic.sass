@@ -275,7 +275,7 @@ a
 
 .panel
 	// background-color: rgba($black,.45)
-	background-color: rgba($ryg-panel,.65)
+	background-color: rgba($ryg-second,.45)
 
 .site-menubar
 	box-shadow: none
@@ -534,3 +534,51 @@ a
 		color: $ryg-second
 		&:before
 			border-top-color: darken( $ryg-accent, 10% ) !important
+
+/*  Pagination
+	======================================= */
+.pagination
+	display: flex
+	justify-content: flex-end
+	margin-top: 12px
+	li,
+	.page-item
+		display: flex
+		a,
+		span,
+		.page-link
+			align-items: center
+			background-color: transparent
+			// background-color: red
+			border: 1px solid rgba($ryg-primary,.4)
+			color: $primary
+			display: flex
+			font-weight: $regular
+			height: 32px
+			justify-content: center
+			margin: 0 2px
+			padding: 4px 2px
+			text-decoration: none
+			width: 40px
+			&:hover
+				background-color: rgba($ryg-primary,.65)
+				border-color: rgba($ryg-primary,.86)
+				color: rgba($white,.95)
+		&.prev,
+		&.next
+			a
+				color: $ryg-primary
+		&.disabled
+			span
+				background-color: rgba($ryg-primary,.16)
+				border-color: rgba($ryg-primary,.16)
+				color: rgba($ryg-primary,.1)
+		&.active
+			a
+				background-color: $ryg-primary
+				border-color: $ryg-primary
+				color: $white
+				&:hover
+					background-color: rgba($ryg-primary,.25)
+					border-color: rgba($ryg-primary,.65)
+					color: rgba($white,.85)
