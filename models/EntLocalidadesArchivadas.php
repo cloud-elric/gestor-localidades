@@ -108,7 +108,7 @@ class EntLocalidadesArchivadas extends \yii\db\ActiveRecord
             'fch_asignacion' => 'Fecha  de Asignación',
             'b_problemas_acceso' => 'B Problemas Acceso',
             'b_archivada' => 'B Archivada',
-            'b_status_localidad' => 'B Status Localidad',
+            'b_status_localidad' => 'B Status Localidad NO',
         ];
     }
 

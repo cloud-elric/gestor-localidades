@@ -107,6 +107,12 @@ $this->registerCssFile(
                 [
                     'attribute'=>'cms',
                     'format'=>'raw',
+                    'headerOptions' => [
+                        'class' => 'text-center'
+                    ],
+                    'contentOptions' => [
+                        'class'=>"td-cms"
+                    ],
                     'value'=>function($data){
 
                         $hoy = time();//date("Y-m-d");
@@ -147,6 +153,9 @@ $this->registerCssFile(
                     'attribute'=>'txt_nombre',
                     'headerOptions' => [
                         'class' => 'pl-10'
+                    ],
+                    'contentOptions' => [
+                        'class'=>"td-nombre"
                     ],
                     'format'=>'raw',
                     'value'=>function($data){
@@ -192,6 +201,9 @@ $this->registerCssFile(
                     'contentOptions' => [
                         'class'=>"td-fecha"
                     ],
+                    'headerOptions' => [
+                        'class' => 'text-center'
+                    ],
                     'label' => 'Fecha de Asignación',
                     'filter'=>DatePicker::widget([
                         'model'=>$searchModel,
@@ -220,6 +232,12 @@ $this->registerCssFile(
                 [
                     'label'=>'Responsable',
                     'format'=>'raw',
+                    'headerOptions' => [
+                        'class' => 'text-center'
+                    ],
+                    'contentOptions' => [
+                        'class'=>"td-responsable"
+                    ],
                     'value'=>function($data){
 
                         //LISTA DE USUARIOS AGREGADOS
@@ -257,6 +275,9 @@ $this->registerCssFile(
                     'label'=>'Acciones',
                     'contentOptions' => [
                         'class'=>"td-actions"
+                    ],
+                    'headerOptions' => [
+                        'class' => 'text-center'
                     ],
                     'format'=>'raw',
                     'value'=>function($data){
