@@ -214,9 +214,16 @@ class LocalidadesController extends Controller
         $estatus = new EntEstatus();
         $historial = EntEstatus::find()->where(['id_localidad' => $id])->all();
         $nombreOriginal = $model->txt_nombre;
-        if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())) {
+        
+        if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())) { //print_r($model->fch_asignacion);print_r($model->fch_vencimiento_contratro);exit;
 
-            $estatus->id_localidad = $model->id_localidad;
+            $model->fch_vencimiento_contratro = Utils::changeFormatDateInput($model->fch_vencimiento_contratro);
+            $model->fch_asignacion = Utils::changeFormatDateInput($model->fch_asignacion);print_r($model->fch_asignacion);//print_r($model->fch_vencimiento_contratro);exit;
+
+            if(!empty($_POST['EntEstatus']['txt_estatus'])){
+                $estatus->id_localidad = $model->id_localidad;
+            }
+            
             if ($model->validate()) {
                 if ($nombreOriginal != $model->txt_nombre) {
                     // @TODO
@@ -226,7 +233,10 @@ class LocalidadesController extends Controller
                     $decodeDropbox = json_decode(trim($dropbox), true);
 
                     if (isset($decodeDropbox['metadata'])) {
-                        $model->save() && $estatus->save();
+                        $model->save();
+                        if(!empty($_POST['EntEstatus']['txt_estatus'])){
+                            $estatus->save();
+                        }
 
 
                         return $this->redirect(['index']);
@@ -235,7 +245,11 @@ class LocalidadesController extends Controller
 
                     }
                 } else {
-                    $model->save() && $estatus->save();
+                    $model->save();
+                    if(!empty($_POST['EntEstatus']['txt_estatus'])){
+                        $estatus->save();
+                    }
+
                     return $this->redirect(['index']);
                 }
 

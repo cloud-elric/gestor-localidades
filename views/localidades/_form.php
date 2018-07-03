@@ -193,7 +193,7 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                             $return .= '<label>' . ucwords($label) . '</label></div>';
                             return $return;
                         },
-                        'class'=>'radio-custom radio-warning list-inline'])->label(false) ?>
+                        'class'=>'radio-custom radio-warning list-inline'])->label() ?>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'num_renta_actual')->textInput() ?>
@@ -382,6 +382,13 @@ $(document).ready(function(){
 
     var regularizacion = $('#tipo_contrato_1');
     var renovacion = $('#tipo_contrato_2');
+
+    if(regularizacion.attr('checked')){
+        statusLocalidad(regularizacion);
+    }
+    if(renovacion.attr('checked')){
+        statusLocalidad(renovacion);
+    }
 
     $('#entlocalidades-fch_vencimiento_contratro').on('change', function(){
         var fechaActual = new Date();
