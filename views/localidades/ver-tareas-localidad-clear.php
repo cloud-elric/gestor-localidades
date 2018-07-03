@@ -90,21 +90,21 @@ $this->registerCssFile(
                                                             ?>
                                                                 
                                                                 <div class="label-check">Nombre</div>
-
-                                                                <?php
-                                                                $form1 = ActiveForm::begin(['id'=>'form-tarea-nombre'.$tarea->id_tarea, 'options' => ['class' => 'form-tareas']]);
-                                                                ?>
-                                                                    <div class="checkbox-custom checkbox-warning">                                                    
-                                                                        <input type="checkbox" id="check-nombre" class="js-completar-tarea" data-token="<?=$tarea->id_tarea?>" name="checkbox" <?=$tarea->b_completa?"checked":""?>>
-                                                                        <label for="check-nombre" class="task-title">
-                                                                            <?= $form1->field($tarea, 'txt_nombre')->textInput(['data-id'=>$tarea->id_tarea, 'class'=>'form-control js-editar-nombre-tarea'])->label(false) ?>
-                                                                        </label>
+                                                                    <div class="col-md-12">
+                                                                        <?php
+                                                                        $form1 = ActiveForm::begin(['id'=>'form-tarea-nombre'.$tarea->id_tarea, 'options' => ['class' => 'form-tareas']]);
+                                                                        ?>
+                                                                            <div class="checkbox-custom checkbox-warning">                                                    
+                                                                                <input type="checkbox" id="check-nombre" class="js-completar-tarea" data-token="<?=$tarea->id_tarea?>" name="checkbox" <?=$tarea->b_completa?"checked":""?>>
+                                                                                <label for="check-nombre" class="task-title" style="width:100%">
+                                                                                    <?= $form1->field($tarea, 'txt_nombre')->textarea(['data-id'=>$tarea->id_tarea, 'class'=>'form-control js-editar-nombre-tarea', 'rows'=>5])->label(false) ?>
+                                                                                </label>
+                                                                            </div>
+                                                                            <?php Html::submitButton('Guardar')?>
+                                                                        <?php
+                                                                        ActiveForm::end();
+                                                                        ?>
                                                                     </div>
-                                                                    <?php Html::submitButton('Guardar')?>
-                                                                <?php
-                                                                ActiveForm::end();
-                                                                ?>
-
                                                             <?php
                                                             }else{?>
                                                                 <p><?=$tarea->txt_nombre?></p>
