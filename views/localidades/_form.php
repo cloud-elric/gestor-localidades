@@ -62,10 +62,12 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                     <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'txt_contacto')->textInput(['maxlength' => true]) ?>
                     </div>
-                    <div class="col-sm-12 col-md-6 col-lg-4">
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
                         <?= $form->field($model, 'txt_antecedentes')->textarea(['rows' => 6]) ?>
                     </div>
-                    <div class="col-sm-12 col-md-6 col-lg-4">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
                         <?= $form->field($estatus, 'txt_estatus')->textarea(['rows' => 6]) ?>
                     </div>
                 </div>
@@ -193,30 +195,32 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                             $return .= '<label>' . ucwords($label) . '</label></div>';
                             return $return;
                         },
-                        'class'=>'radio-custom radio-warning list-inline'])->label(false) ?>
+                        'class'=>'radio-custom radio-warning list-inline'])->label() ?>
                     </div>
+                    
                     <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'num_renta_actual')->textInput() ?>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-4">
+                        <?= $form->field($model, 'num_incremento_cliente')->textInput() ?>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4">
+                        <?= $form->field($model, 'num_pretencion_renta')->textInput(['disabled'=>false]) ?>
+                    </div>
+                    
+                    <div class="col-sm-12 col-md-6 col-lg-4">
+                        <?= $form->field($model, 'num_incremento_autorizado')->textInput(['value'=>$porcentajeAbogado->num_porcentaje]) ?>
+                    </div>
+                    
+                    
+                    <div class="col-sm-12 col-md-6 col-lg-4">
+                        <?= $form->field($model, 'num_pretencion_renta_cliente')->textInput() ?>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">
                         <div class="form-group">
                             <?= $form->field($model, 'txt_frecuencia')->dropDownList(['semanal'=>'Semanal', 'mensual'=>'Mensual', 'trimestral'=>'Trimestral', 'anual'=>'Anual'], ['prompt'=>'Seleccionar opcion']) ?>
                         </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6 col-lg-4">
-                        <?= $form->field($model, 'num_incremento_autorizado')->textInput(['value'=>$porcentajeAbogado->num_porcentaje]) ?>
-                    </div>
-                    <div class="col-sm-12 col-md-6 col-lg-4">
-                        <?= $form->field($model, 'num_pretencion_renta')->textInput(['disabled'=>false]) ?>
-                    </div>
-                    <div class="col-sm-12 col-md-6 col-lg-4">
-                        <?= $form->field($model, 'num_incremento_cliente')->textInput() ?>
-                    </div>
-                    <div class="col-sm-12 col-md-6 col-lg-4">
-                        <?= $form->field($model, 'num_pretencion_renta_cliente')->textInput() ?>
-                    </div>
-                    <div class="col-sm-12 col-md-6 col-lg-4">
-                        <?= $form->field($model, 'b_problemas_acceso')->dropDownList([ '0'=>"No", '1'=>'Sí']) ?>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'id_moneda')->radioList(ArrayHelper::map(CatTiposMonedas::find()->where(['b_habilitado'=>1])->all(), 'id_moneda', 'txt_siglas'), [
@@ -229,8 +233,15 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                         ,'class'=>'radio-custom radio-warning list-inline']) ?>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
+                        <?= $form->field($model, 'b_problemas_acceso')->dropDownList([ '0'=>"No", '1'=>'Sí']) ?>
+                    </div>
+                </div>
             </div>
         </div>
+
+                
 
         <div class="row">
             <div class="col-sm-10 offset-sm-1 col-md-6 offset-md-3 col-lg-4 offset-lg-4">

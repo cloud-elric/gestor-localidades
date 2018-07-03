@@ -97,7 +97,7 @@ class EntLocalidades extends \yii\db\ActiveRecord
             'txt_antecedentes' => 'Antecedentes',
             'txt_contacto' => 'Contacto',
             'txt_frecuencia' => 'Frecuencia de pago',
-            'num_renta_actual' => 'Renta Actual',
+            'num_renta_actual' => 'Renta actual',
             'num_incremento_autorizado' => 'Porcentaje de incremento preautorizado',
             'num_pretencion_renta' => 'Renta pre-autorizada',
             'num_incremento_cliente' => 'Porcentaje de incremento solicitado por arrendador',
@@ -106,6 +106,7 @@ class EntLocalidades extends \yii\db\ActiveRecord
             'fch_creacion' => 'Fecha creacion',
             'fch_asignacion' => 'Fecha asignación',
             'b_problemas_acceso' => 'Problemas acceso',
+            'b_status_localidad' => 'Tipo de Contrato',
             'b_archivada' => 'Archivada',
         ];
     }
