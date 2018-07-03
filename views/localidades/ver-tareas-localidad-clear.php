@@ -173,7 +173,7 @@ $this->registerCssFile(
 
                                                             <div class="form-group text-right">
                                                             <?php
-                                                                if($isColaborador){
+                                                                if($isColaborador || $isAbogado){
                                                             ?>
                                                                 <?=Html::submitButton("<span class='ladda-label'><i class='icon wb-file' aria-hidden='true'></i>".$textoGuardar."</span>", ["data-id"=>$tarea->id_tarea, "style"=>"display:block;", "data-style"=>'zoom-in', "class"=>"btn ladda-button btn-save-texto mt-20 submit_tarea"]);?>
                                                             <?php
