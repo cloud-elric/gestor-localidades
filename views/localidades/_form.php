@@ -407,14 +407,14 @@ $(document).ready(function(){
         var diferencia = fechaActual - fechaVencimiento;
         var dif = Math.floor((diferencia) / (1000*60*60*24));
 
-        //console.log(fechaActual);
-        //console.log(fechaVencimiento);
-        //console.log( Math.floor((diferencia) / (1000*60*60*24)) );
+        // console.log(fechaActual);
+        // console.log(fechaVencimiento);
+        // console.log( Math.floor((diferencia) / (1000*60*60*24)) );
 
         if(dif == 0){
             regularizacion.prop('checked', false);
             renovacion.prop('checked', false);
-        }else if(dif < 0){
+        }else if(dif > 0){
             regularizacion.prop('checked', true);
             statusLocalidad(regularizacion);
             //console.log('Regularizacion');
