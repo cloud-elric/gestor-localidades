@@ -4,6 +4,20 @@ $(document).ready(function(){
         $(this).trigger('blur');
     });
 
+
+    $(".js-icon-edit").on("click", function(){
+        $(".form-label").hide();
+        $(".form-input").show();
+        alert();
+    });
+
+    $(".js-icon-save").on("click", function(){
+        $(".form-input").hide();
+        $(".form-label").show();
+        alert();
+    });
+
+
     $( ".img.avatar" ).tooltip( "option", "classes.algo", "highlight" );
     
     $('.run-slide-panel').slidePanel({

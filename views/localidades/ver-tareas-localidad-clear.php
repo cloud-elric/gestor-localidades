@@ -112,6 +112,7 @@ $this->registerCssFile(
                                                             }
                                                             ?>
                                                         </div>
+                                                        
                                                         <?php
                                                         if($isAbogado){
                                                         ?>
