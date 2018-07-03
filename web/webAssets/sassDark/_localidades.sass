@@ -149,6 +149,8 @@
 									padding: 8px 4px
 									text-decoration: none
 									text-transform: uppercase
+								&.th-cms
+									background-color: red
 
 							td
 								input[type="text"],
@@ -233,12 +235,21 @@
 												background-color: $success
 											&.cat-red
 												background-color: $error
-								
+
+								&.td-cms
+									width: 16%
+
+								&.td-nombre
+									width: 20%
+
+								&.td-responsable
+									width: 160px
+
 								&.td-actions
 									width: 120px
 
 								&.td-fecha
-									width: 190px
+									width: 160px
 									+respond-to(tl)
 										width: auto
 									+respond-to(xs)
@@ -339,13 +350,13 @@
 				.form-control,
 				.form-control:disabled,
 				.form-control[readonly]
-					background-color: $ryg-seconds
+					background-color: $ryg-second
 					border-color: $ryg-seconds
 					font-weight: $light
 					&:active,
 					&:focus,
 					&:hover
-						border-color: $ryg-seconds
+						border-color: $ryg-second
 						box-shadow: none
 						outline: none
 				textarea
@@ -361,8 +372,8 @@
 				.select2-container--krajee
 					position: relative
 					.select2-selection
-						background-color: $ryg-seconds
-						border-color: $ryg-seconds
+						background-color: $ryg-second
+						border-color: $ryg-second
 						color: $ryg-aqua
 						font-weight: $light
 						position: relative
@@ -375,7 +386,7 @@
 
 					.select2-selection--single
 						.select2-selection__arrow	
-							border-left-color: $ryg-seconds
+							border-left-color: $ryg-second
 
 				.select2-container--krajee.select2-container--open .select2-selection,
 				.select2-container--krajee .select2-selection:focus
@@ -387,8 +398,8 @@
 							color: $white
 
 			.radio-custom label::before
-				background-color: $ryg-gray
-				border-color: $ryg-gray
+				background-color: $ryg-second
+				border-color: $ryg-second
 				
 			.radio-warning
 				input[type=radio]:checked+input[type=hidden]+label::before,
@@ -398,8 +409,8 @@
 
 				input[type=radio]:checked+input[type=hidden]+label::after,
 				input[type=radio]:checked+label::after
-					background-color: $ryg-gray
-					border-color: $ryg-gray
+					background-color: $ryg-second
+					border-color: $ryg-second
 
 			.btn-form-save
 				background-color: $ryg-accent
@@ -416,8 +427,8 @@
 			.form-control,
 			.form-control:disabled,
 			.form-control[readonly]
-				background-color: $ryg-seconds
-				border-color: $ryg-seconds
+				background-color: $ryg-second
+				border-color: $ryg-second
 
 			.panel
 				.panel-heading
