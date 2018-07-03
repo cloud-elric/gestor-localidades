@@ -45,21 +45,18 @@ class LocalidadesController extends Controller
             'access' => [
                 'class' => AccessControlExtend::className(),
                 'only' => [
-                    'create', 'view', 'update', 'delete', 'asignar-usuario', 'asignar-usuario-eliminar', 'remover-asignacion-usuario',
+                    'create', 'update', 'delete', 'asignar-usuario', 'asignar-usuario-eliminar', 'remover-asignacion-usuario',
                     'asignar-usuario-tarea',  'ver-tareas-localidad', 'archivar-localidad'
                 ],
                 'rules' => [
                     [
                         'actions' => [
-                            'create', 'view', 'update', 'delete', 'asignar-usuario', 'asignar-usuario-eliminar', 'remover-asignacion-usuario',
+                            'create', 'update', 'delete', 'asignar-usuario', 'asignar-usuario-eliminar', 'remover-asignacion-usuario',
                             'asignar-usuario-tarea',  'ver-tareas-localidad', 'archivar-localidad'
                         ],
                         'allow' => true,
                         'roles' => [ConstantesWeb::ABOGADO, ConstantesWeb::COLABORADOR, ConstantesWeb::CLIENTE],
-
-
                     ],
-
                 ],
             ],
             // 'verbs' => [
