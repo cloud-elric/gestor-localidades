@@ -394,20 +394,27 @@ $(document).ready(function(){
     var regularizacion = $('#tipo_contrato_1');
     var renovacion = $('#tipo_contrato_2');
 
+    if(regularizacion.attr('checked')){
+        statusLocalidad(regularizacion);
+    }
+    if(renovacion.attr('checked')){
+        statusLocalidad(renovacion);
+    }
+
     $('#entlocalidades-fch_vencimiento_contratro').on('change', function(){
         var fechaActual = new Date();
         var fechaVencimiento = new Date($(this).val());
         var diferencia = fechaActual - fechaVencimiento;
         var dif = Math.floor((diferencia) / (1000*60*60*24));
 
-        //console.log(fechaActual);
-        //console.log(fechaVencimiento);
-        //console.log( Math.floor((diferencia) / (1000*60*60*24)) );
+        // console.log(fechaActual);
+        // console.log(fechaVencimiento);
+        // console.log( Math.floor((diferencia) / (1000*60*60*24)) );
 
         if(dif == 0){
             regularizacion.prop('checked', false);
             renovacion.prop('checked', false);
-        }else if(dif < 0){
+        }else if(dif > 0){
             regularizacion.prop('checked', true);
             statusLocalidad(regularizacion);
             //console.log('Regularizacion');

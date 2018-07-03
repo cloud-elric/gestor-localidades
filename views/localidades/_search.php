@@ -26,11 +26,13 @@ use yii\helpers\Url;
     <?php // $form->field($model, 'id_localidad')->textInput(['maxlength' => true]) ?>
 
     <div class="col-sm-12 col-md-4 col-lg-4">
-        <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true, "class"=>"panel-search-form-input", "placeholder"=>"Buscar por nombre"])->label(false) ?>    
+        <?php // $form->field($model, 'txt_nombre')->textInput(['maxlength' => true, "class"=>"panel-search-form-input", "placeholder"=>"Buscar por nombre"])->label(false) ?>    
+        <?= $form->field($model, 'txt_arrendador')->textInput(['maxlength' => true, "class"=>"panel-search-form-input", "placeholder"=>"Buscar por Arrendador"])->label(false) ?>
     </div>
 
     <div class="col-sm-12 col-md-4 col-lg-4">
-        <?= $form->field($model, 'id_estado')->dropDownList(ArrayHelper::map(CatEstados::find()->orderBy('txt_nombre')->asArray()->all(), 'id_estado', 'txt_nombre'),['prompt' => 'Seleccionar estado', "class"=>"panel-search-form-select"])->label(false) ?>
+        <?php // $form->field($model, 'id_estado')->dropDownList(ArrayHelper::map(CatEstados::find()->orderBy('txt_nombre')->asArray()->all(), 'id_estado', 'txt_nombre'),['prompt' => 'Seleccionar estado', "class"=>"panel-search-form-select"])->label(false) ?>
+        <?= $form->field($model, 'cms')->textInput(['maxlength' => true, "class"=>"panel-search-form-input", "placeholder"=>"Buscar por CMS"])->label(false) ?>    
     </div>
 
     <?php // $form->field($model, 'id_usuario')->textInput(['maxlength' => true]) ?>
@@ -38,7 +40,8 @@ use yii\helpers\Url;
     <?php // $form->field($model, 'txt_token')->textInput(['maxlength' => true]) ?>
 
     <div class="col-sm-12 col-md-3 col-lg-3">
-        <?= $form->field($model, 'txt_arrendador')->textInput(['maxlength' => true, "class"=>"panel-search-form-input", "placeholder"=>"Cliente"])->label(false) ?>
+        <?php // $form->field($model, 'txt_arrendador')->textInput(['maxlength' => true, "class"=>"panel-search-form-input", "placeholder"=>"Arrendador"])->label(false) ?>
+        <?= $form->field($model, 'b_status_localidad')->dropDownList(['1'=>'Regularización', '2'=>'Renovación'], ["prompt"=>"Buscar por nombre"])->label(false) ?>    
     </div>
     
     <?php // echo $form->field($model, 'txt_beneficiario') ?>

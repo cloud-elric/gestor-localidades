@@ -63,7 +63,8 @@ class LoginForm extends Model {
 				],
 				[ 
 						[ 
-								'username' 
+								'username',
+								'password' 
 						],
 						'trim' 
 				],
