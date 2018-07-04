@@ -624,11 +624,14 @@
 						font-weight: $light
 
 					.tarea-fechas
-						align-items: center
+						align-items: flex-start
 						display: flex
 						justify-content: space-between
+						margin-bottom: 16px
 						.tarea-creada,
 						.tarea-actualizacion
+							p
+								margin-bottom: 2px
 							p.item
 								color: rgba($white,.6)
 								font-size: .85rem
@@ -638,10 +641,16 @@
 								font-size: 1rem
 								margin-left: 12px
 
+						.tarea-creada
+							display: flex
+							flex-direction: column
+
 					.col-separacion
-						border-bottom: 1px solid $ryg-second
+						// border-bottom: 1px solid $ryg-second
 						padding-bottom: 12px
 						padding-top: 12px
+						// &:last-child
+						// 	background-color: red
 
 					.tarea-actions
 						align-items: center
@@ -748,6 +757,89 @@
 										display: block
 									.form-tarea-edit
 										&.edit-tarea-visible
+											display: flex
+
+
+					.tarea-colaborador-actions
+						align-items: center
+						display: flex
+						justify-content: flex-start
+
+						.form-tarea-colaborador-texto
+							// padding: 24px 4px
+							width: 100%
+							.form-groupes
+								align-items: center
+								display: flex
+								justify-content: flex-start
+								margin-bottom: 0
+								min-height: 36px
+								position: relative
+								.form-control,
+								p.form-p
+									position: relative
+									z-index: 9
+
+								.form-group-colaborador-row
+									display: none
+									margin-bottom: 0
+									width: calc(100% - 50px)
+
+									.form-control
+										background-color: transparent
+										border-color: $ryg-accent
+										&:active,
+										&:hover,
+										&:focus
+											box-shadow: none
+											outline: none
+
+									.form-colaborador-input
+										height: 60px
+										min-height: 60px
+										width: 100%
+
+								.form-colaborador-label
+									display: block
+									margin-bottom: 0
+									padding-left: 12px
+									width: calc(100% - 50px)
+
+								.form-colaborador-edit
+									bottom: 0
+									display: flex
+									min-height: 36px
+									position: absolute
+									right: 0
+									top: 0
+									z-index: 12
+									i.icon
+										align-items: center
+										background-color: $ryg-accent
+										border-radius: 50%
+										color: $font-color
+										cursor: pointer
+										display: flex
+										height: 36px
+										justify-content: center
+										margin-right: 0
+										width: 36px
+										&.icon-save
+											display: none
+									&.edit-colaborador-visible
+										align-items: center
+										display: flex
+										i.icon
+											&.icon-edit
+												display: none
+											&.icon-save
+												display: flex
+
+								&:hover
+									.form-colaborador-edit
+										display: block
+									.form-colaborador-edit
+										&.edit-colaborador-visible
 											display: flex
 
 					.tarea-nombre
