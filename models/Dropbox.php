@@ -3,10 +3,12 @@
 namespace app\models;
 
 use Yii;
+use app\models\ConstantesWeb;
+use app\config\ConstantesDropbox;
 
 class Dropbox{
     
-    const AUTHORIZATION = "Authorization: Bearer 6TsdADSQeHAAAAAAAAAACUCqbK-iCJRNM1U0LoenyscJPCan9__nmpQQjckvl_dg";    
+    const AUTHORIZATION = "Authorization: Bearer ".ConstantesDropbox::AUTORIZACION;    
 
     public static function curlSetopt($ch, $url, $header, $fields){
         //set the url, number of POST vars, POST data
@@ -31,7 +33,7 @@ class Dropbox{
             self::AUTHORIZATION
         );
         $fields = array(
-            "path" => "/raul/".$path,
+            "path" => "/". ConstantesDropbox::NOMBRE_CARPETA . $path,
             "recursive" => false,
             "include_media_info" => false,
             "include_deleted" => false,
@@ -82,7 +84,7 @@ class Dropbox{
     public static function subirArchivo($folder, $path){
         $url = 'https://content.dropboxapi.com/2/files/upload';
         $args = array(
-            'path' => '/raul/' . $folder . '/' . $path->name,
+            'path' => '/'. ConstantesDropbox::NOMBRE_CARPETA . $folder . '/' . $path->name,
             'mode' => 'add'
         );
         $args = json_encode($args);

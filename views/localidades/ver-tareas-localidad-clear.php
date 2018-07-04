@@ -82,12 +82,171 @@ $this->registerCssFile(
 
                                                     <div class="row row-no-border js_descargar_archivo-<?=$tarea->id_tarea?>">
 
+                                                        <div class="col-sm-12 col-md-12 col-separacion">
+
+                                                            <div class="tarea-fechas">
+                                                                <div class="tarea-creada">
+                                                                    <p class="item">Creada: 24 - JUNIO - 2018</p>
+                                                                </div>
+                                                                <div class="tarea-actualizacion">
+                                                                    <p class="item">Última actualización: 26 - JUNIO - 2018</p>
+                                                                    <p class="borrar">Borrar</p>
+                                                                </div>
+                                                            </div>
+
+                                                            <?php
+                                                            $form1 = ActiveForm::begin(['id'=>'form-tarea-nombre'.$tarea->id_tarea, 'options' => ['class' => 'tarea-actions form-tareas']]);
+                                                            ?>
+                                                                <div class="tarea-check">
+                                                                    <?php
+                                                                    if($isAbogado){
+                                                                        $relTareaUsuario = WrkUsuariosTareas::find()->where(['id_tarea'=>$tarea->id_tarea])->all();
+
+                                                                    ?>
+                                                                        <div class="checkbox-custom checkbox-warning">                                                    
+                                                                            <input type="checkbox" id="check-nombre" class="js-completar-tarea" data-token="<?=$tarea->id_tarea?>" name="checkbox" <?=$tarea->b_completa?"checked":""?>>
+                                                                            <label for="check-nombre" class="task-title" style="width:100%"></label>
+                                                                        </div>
+                                                                    <?php
+                                                                    }else{?>
+                                                                        <p class="tarea-check-p" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="<?=$tarea->txt_nombre?>" title="" aria-describedby="tooltip476700">
+                                                                            <i class="icon fa-at" aria-hidden="true"></i>
+                                                                        </p>
+                                                                    <?php
+                                                                    }
+                                                                    ?>
+                                                                </div>
+
+                                                                <?php
+                                                                if($isAbogado){
+                                                                ?>
+                                                                    <div class="tarea-member addMember-cont">
+                                                                        <select multiple='multiple' class='plugin-selective-tareas' data-localidad="<?=$localidad->id_localidad?>" data-id='<?=$tarea->id_tarea?>' data-json='<?=$tarea->colaboradoresAsignados?>'></select> 
+                                                                    </div>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            
+
+                                                                <div class="form-tarea-abogado">
+                                                                    <div class="form-group">
+                                                                        <?= $form1->field($tarea, 'txt_nombre')->textarea(['data-id'=>$tarea->id_tarea, 'class'=>'form-control form-tarea-input js-editar-nombre-tarea'])->label(false) ?>
+                                                                        <p class="form-p form-tarea-label">Algo de lorem ipsum</p>
+                                                                        <div class="form-tarea-edit">
+                                                                            <i class="icon wb-pencil icon-edit js-tarea-icon-edit" aria-hidden="true"></i>
+                                                                            <i class="icon wb-check icon-save js-tarea-icon-save" aria-hidden="true"></i>
+                                                                            <?php # Html::submitButton('Guardar')?>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            <?php
+                                                            ActiveForm::end();
+                                                            ?>
+
+                                                            <div class="tarea-nombre">
+                                                                <h4>Nombre del archivo</h4>
+                                                                <?php
+                                                                if($hasArchivo){
+                                                                ?>
+
+                                                                    <?= Html::a(' <i class="icon fa-download" aria-hidden="true"></i>
+                                                                    ', ['tareas/descargar', 'id' => $tarea->id_tarea,], ['target' => '_blank', 'class' => 'btn no-pjax btn-default btn-down-archive']);?>
+
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </div>
+
+
+                                                            <?php
+                                                            if(($isColaborador || $isAbogado) && !$tarea->b_completa){
+                                                            ?> 
+
+                                                                <div class="tarea-fechas">
+                                                                    <div class="tarea-creada">
+                                                                        <p class="item">Creada: 24 - JUNIO - 2018</p>
+                                                                    </div>
+                                                                    <div class="tarea-actualizacion">
+                                                                        <p class="item">Última actualización: 26 - JUNIO - 2018</p>
+                                                                        <p class="borrar">Borrar</p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <?php
+                                                                $tarea->scenario = 'update';
+                                                                $form = ActiveForm::begin([
+                                                                    'id'=>'form-tarea-'.$tarea->id_tarea,
+                                                                    'action'=>'tareas/update?id='.$tarea->id_tarea,
+                                                                    'options' =>[
+                                                                        'class' => 'formClass form-tarea-archive',
+                                                                        'enctype' => 'multipart/form-data'
+                                                                    ]
+                                                                ]); 
+                                                                ?>
+                                                                <?php
+                                                                $textoGuardar = "";
+                                                                if($tarea->id_tipo==ConstantesWeb::TAREA_ARCHIVO){
+                                                                    $textoGuardar = "Guardar archivo";
+                                                                ?>
+                                                                    <?= $form->field($tarea, 'file')->fileInput(['data-id'=>$tarea->id_tarea, 'data-plugin'=>"dropify", 'class'=>"file_tarea"]) ?>
+                                                                <?php
+                                                                }else if($tarea->id_tipo==ConstantesWeb::TAREA_ABIERTO){
+                                                                    $textoGuardar = "Guardar";
+                                                                ?>
+
+                                                                        <?= $form->field($tarea, 'txt_tarea')->textarea(['rows' => 6, 'data-id'=>$tarea->id_tarea, 'style'=>"resize:none", 'placeholder'=>"Descripción"])->label(false) ?>  
+                                                                    
+
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                                <?= $form->field($tarea, 'id_tipo')->hiddenInput(['class'=>'tipo-'.$tarea->id_tarea])->label(false) ?>
+
+                                                                <div class="form-group text-right">
+                                                                <?php
+                                                                    if($isColaborador || $isAbogado){
+                                                                ?>
+                                                                    <?=Html::submitButton("<span class='ladda-label'><i class='icon wb-file' aria-hidden='true'></i>".$textoGuardar."</span>", ["data-id"=>$tarea->id_tarea, "style"=>"display:block;", "data-style"=>'zoom-in', "class"=>"btn ladda-button btn-save-texto btn-block mt-20 submit_tarea"]);?>
+                                                                <?php
+                                                                    }
+                                                                ?>
+                                                                </div>
+
+                                                                <div class="form-archive">
+                                                                    <p>Nombre del archivo.PDF</p>
+                                                                </div>
+                                                                
+                                                                <?php
+                                                                ActiveForm::end();
+                                                                ?>
+                                                        
+                                                            <?php
+                                                            }else if($tarea->b_completa){
+                                                            ?>
+                                                                <div class="tarea-completada-text">
+                                                                    <p>Tarea completa</p>
+                                                                </div>
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                    
+                                                        </div>
+                                                        
+                                                        
+
+
+
+
+                                                        <!-- CODIGO DE ANTES -->
                                                         <div class="col-xs-8 col-sm-8 col-md-8">
                                                             <?php
                                                             if($isAbogado){
                                                                 $relTareaUsuario = WrkUsuariosTareas::find()->where(['id_tarea'=>$tarea->id_tarea])->all();
 
                                                             ?>
+
+                                                                
                                                                 
                                                                 <div class="label-check">Nombre</div>
                                                                     <div class="col-md-12">
@@ -229,3 +388,33 @@ $this->registerCssFile(
         </div>
     </div>
 </div>
+
+
+<?php
+$this->registerJs('
+
+$(document).ready(function(){
+
+    $(".js-tarea-icon-edit").on("click", function(){
+        $(".form-tarea-label").hide();
+        $(".form-tarea-input").show();
+
+        $(".form-tarea-edit").addClass("edit-tarea-visible");
+
+        // $(this).hide();
+        // $(".js-tarea-icon-save").show().css({"display": "-webkit-box", "display": "-ms-flexbox", "display": "-webkit-flex", "display": "flex"});
+    });
+
+    $(".js-tarea-icon-save").on("click", function(){
+        $(".form-tarea-input").hide();
+        $(".form-tarea-label").show();
+        
+        $(".form-tarea-edit").removeClass("edit-tarea-visible");
+
+    });
+
+});
+
+', View::POS_END );
+
+?>

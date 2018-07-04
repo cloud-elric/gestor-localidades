@@ -594,11 +594,11 @@
 				background-color: rgba($ryg-primary,.75)
 				padding: 16px 38px
 				.row
-					border-bottom: 1px solid $ryg-second
-					padding-bottom: 8px
-					padding-top: 8px
-					&:last-child
-						border-bottom: none
+					// border-bottom: 1px solid $ryg-second
+					// padding-bottom: 8px
+					// padding-top: 8px
+					// &:last-child
+					// 	border-bottom: none
 					span,
 					p
 						display: inline-block
@@ -623,6 +623,180 @@
 						color: $ryg-second
 						font-weight: $light
 
+					.tarea-fechas
+						align-items: center
+						display: flex
+						justify-content: space-between
+						.tarea-creada,
+						.tarea-actualizacion
+							p.item
+								color: rgba($white,.6)
+								font-size: .85rem
+							p.borrar
+								color: $white
+								cursor: pointer
+								font-size: 1rem
+								margin-left: 12px
+
+					.col-separacion
+						border-bottom: 1px solid $ryg-second
+						padding-bottom: 8px
+						padding-top: 8px
+
+					.tarea-actions
+						align-items: center
+						display: flex
+						justify-content: flex-start
+						.tarea-check
+							width: 30px
+							.checkbox-custom.checkbox-warning
+								margin-bottom: 12px
+								margin-top: 0
+							.tarea-check-p
+								align-items: center
+								border: 1px solid $ryg-accent
+								border-radius: 4px
+								color: $white
+								display: flex
+								font-size: 1.15rem
+								justify-content: center
+								margin-bottom: 0
+								padding: 6px 2px
+								text-align: left
+								width: 100%
+								i.icon
+									margin-right: 0
+								
+						.tarea-member
+							width: 40px
+							.addMember
+								display: flex
+								margin-top: 0
+
+						.form-tarea-abogado
+							padding: 24px 4px
+							width: calc(100% - 70px)
+							.form-group
+								margin-bottom: 0
+								position: relative
+								.form-control,
+								p.form-p
+									position: relative
+									z-index: 9
+
+								.form-control
+									background-color: transparent
+									border-color: $ryg-accent
+									&:active,
+									&:hover,
+									&:focus
+										box-shadow: none
+										outline: none
+
+								.form-tarea-input
+									display: none
+									height: 60px
+									min-height: 60px
+									width: calc(100% - 58px)
+
+								.form-tarea-label
+									display: block
+									margin-bottom: 0
+									padding-left: 12px
+									width: calc(100% - 58px)
+
+								.form-tarea-edit
+									bottom: 0
+									display: flex
+									position: absolute
+									right: 0
+									top: 0
+									z-index: 12
+									i.icon
+										align-items: center
+										background-color: $ryg-accent
+										border-radius: 50%
+										color: $font-color
+										cursor: pointer
+										display: flex
+										height: 36px
+										justify-content: center
+										width: 36px
+										&.icon-save
+											display: none
+									&.edit-tarea-visible
+										align-items: center
+										display: flex
+										i.icon
+											&.icon-edit
+												display: none
+											&.icon-save
+												display: flex
+
+								&:hover
+									.form-tarea-edit
+										display: block
+									.form-tarea-edit
+										&.edit-tarea-visible
+											display: flex
+
+					.tarea-nombre
+						align-items: center
+						display: flex
+						justify-content: space-between
+						padding: 12px 14px 12px 0
+						width: 100%
+						h4
+							color: $white
+							font-size: 1.125rem
+							font-weight: 300
+						a.btn-down-archive
+							align-items: center
+							background-color: $ryg-accent
+							border-color: $ryg-accent
+							border-radius: 50%
+							color: $font-color
+							cursor: pointer
+							display: flex
+							height: 36px
+							justify-content: center
+							padding: 0
+							text-align: center
+							width: 36px
+							i.icon
+								margin-right: 3px
+
+					.form-tarea-archive
+						.form-archive
+							align-items: center
+							display: flex
+							justify-content: space-between
+							margin-top: 16px
+							width: 100%
+							p
+								color: $white
+								font-size: 1.15rem
+								text-align: left
+							i.icon
+								align-items: center
+								background-color: $ryg-accent
+								border-radius: 50%
+								color: $font-color
+								cursor: pointer
+								display: flex
+								height: 36px
+								justify-content: center
+								width: 36px
+
+					.tarea-completada-text
+						display: block
+						p
+							color: $white
+							font-size: 1.15rem
+							margin-bottom: 0
+							padding: 8px 0
+							text-align: left
+							text-transform: uppercase
 
 /*  Slide Paneles
 	======================================= */	
