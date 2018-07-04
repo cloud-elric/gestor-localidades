@@ -109,7 +109,9 @@ $this->registerCssFile(
                                                                         </div>
                                                                     <?php
                                                                     }else{?>
-                                                                        <p><?=$tarea->txt_nombre?></p>
+                                                                        <div class="tarea-check-p" data-toggle="tooltip" data-original-title="<?=$tarea->txt_nombre?>" data-template="<div class=\'tooltip tooltip-2 tooltip-warning\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>">
+                                                                            <i class="icon fa-at" aria-hidden="true"></i>
+                                                                        </div>
                                                                     <?php
                                                                     }
                                                                     ?>
@@ -156,12 +158,6 @@ $this->registerCssFile(
                                                                 ?>
                                                             </div>
 
-                                                        </div>
-
-                                                        
-                                                        
-
-                                                        <div class="col-sm-12 col-md-12 col-separacion">
 
                                                             <?php
                                                             if(($isColaborador || $isAbogado) && !$tarea->b_completa){
