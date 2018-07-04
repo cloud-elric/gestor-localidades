@@ -129,13 +129,14 @@ $this->registerCssFile(
                                                             
 
                                                                 <div class="form-tarea-abogado">
-                                                                    <div class="form-group">
-                                                                        <?= $form1->field($tarea, 'txt_nombre')->textarea(['data-id'=>$tarea->id_tarea, 'class'=>'form-control form-tarea-input js-editar-nombre-tarea'])->label(false) ?>
-                                                                        <p class="form-p form-tarea-label">Algo de lorem ipsum</p>
+                                                                    <div class="form-groupes"> 
+                                                                        <?= $form1->field($tarea, 'txt_nombre', ["options" => ["class" => "form-group form-group-row"]])->textarea(['data-id'=>$tarea->id_tarea, 'class'=>'form-control form-tarea-input js-editar-nombre-tarea'])->label(false) ?>
+
+                       
+                                                                        <p class="form-p form-tarea-label"><?=$tarea->txt_nombre?></p>
                                                                         <div class="form-tarea-edit">
                                                                             <i class="icon wb-pencil icon-edit js-tarea-icon-edit" aria-hidden="true"></i>
                                                                             <i class="icon wb-check icon-save js-tarea-icon-save" aria-hidden="true"></i>
-                                                                            <?php # Html::submitButton('Guardar')?>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -203,11 +204,11 @@ $this->registerCssFile(
                                                                 ?>
                                                                 <?= $form->field($tarea, 'id_tipo')->hiddenInput(['class'=>'tipo-'.$tarea->id_tarea])->label(false) ?>
 
-                                                                <div class="form-group text-right">
+                                                                <div class="form-group">
                                                                 <?php
                                                                     if($isColaborador || $isAbogado){
                                                                 ?>
-                                                                    <?=Html::submitButton("<span class='ladda-label'><i class='icon wb-file' aria-hidden='true'></i>".$textoGuardar."</span>", ["data-id"=>$tarea->id_tarea, "style"=>"display:block;", "data-style"=>'zoom-in', "class"=>"btn ladda-button btn-save-texto btn-block mt-20 submit_tarea"]);?>
+                                                                    <?=Html::submitButton("<span class='ladda-label'><i class='icon wb-file' aria-hidden='true'></i>".$textoGuardar."</span>", ["data-id"=>$tarea->id_tarea, "style"=>"display:block;", "data-style"=>'zoom-in', "class"=>"btn ladda-button btn-save-texto btn-block btn-round mt-20 submit_tarea"]);?>
                                                                 <?php
                                                                     }
                                                                 ?>
@@ -215,6 +216,9 @@ $this->registerCssFile(
 
                                                                 <div class="form-archive">
                                                                     <p>Nombre del archivo.PDF</p>
+                                                                    <?= Html::a(' <i class="icon fa-download" aria-hidden="true"></i>
+                                                                    ', ['tareas/descargar', 'id' => "id",], ['target' => '_blank', 'class' => 'btn no-pjax btn-default btn-down-doc']);?>
+
                                                                 </div>
                                                                 
                                                                 <?php
@@ -397,7 +401,7 @@ $(document).ready(function(){
 
     $(".js-tarea-icon-edit").on("click", function(){
         $(".form-tarea-label").hide();
-        $(".form-tarea-input").show();
+        $(".form-group-row").show();
 
         $(".form-tarea-edit").addClass("edit-tarea-visible");
 
@@ -406,7 +410,7 @@ $(document).ready(function(){
     });
 
     $(".js-tarea-icon-save").on("click", function(){
-        $(".form-tarea-input").hide();
+        $(".form-group-row").hide();
         $(".form-tarea-label").show();
         
         $(".form-tarea-edit").removeClass("edit-tarea-visible");
