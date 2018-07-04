@@ -123,7 +123,11 @@ $this->registerCssFile(
                                                             </div>
                                                         </div>
                                                         <?php
-                                                        }else{
+                                                        }else{?>
+                                                        <div class="tarea-check tarea-check-completada">
+                                                            Ya
+                                                        </div>
+                                                        <?php
                                                         }
                                                         ?>
                                                         
