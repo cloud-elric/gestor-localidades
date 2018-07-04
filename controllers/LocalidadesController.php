@@ -29,6 +29,7 @@ use app\models\WrkUsuariosLocalidadesArchivadas;
 use app\models\WrkUsuariosTareasArchivadas;
 use app\models\Calendario;
 use app\models\EntLocalidadesArchivadasSearch;
+use app\config\ConstantesDropbox;
 
 
 /**
@@ -170,7 +171,7 @@ class LocalidadesController extends Controller
             $model->fch_vencimiento_contratro = Utils::changeFormatDateInput($model->fch_vencimiento_contratro);
             $model->fch_asignacion = Utils::changeFormatDateInput($model->fch_asignacion);
 
-            $dropbox = Dropbox::crearFolder("raul/" . $_POST["EntLocalidades"]["txt_nombre"]);
+            $dropbox = Dropbox::crearFolder(ConstantesDropbox::NOMBRE_CARPETA . $_POST["EntLocalidades"]["txt_nombre"]);
             $decodeDropbox = json_decode(trim($dropbox), true);
 
             if ($decodeDropbox['metadata']) {
@@ -228,7 +229,7 @@ class LocalidadesController extends Controller
                 if ($nombreOriginal != $model->txt_nombre) {
                     // @TODO
                     //Esto debe de renombrar la carpeta y no crear un nuevo folder marca error si tiene el mismo nombre
-                    $dropbox = Dropbox::moverArchivo("/raul/" . $nombreOriginal, "/raul/" . $_POST["EntLocalidades"]["txt_nombre"]);
+                    $dropbox = Dropbox::moverArchivo("/". ConstantesDropbox::NOMBRE_CARPETA . $nombreOriginal, "/". ConstantesDropbox::NOMBRE_CARPETA . $_POST["EntLocalidades"]["txt_nombre"]);
 
                     $decodeDropbox = json_decode(trim($dropbox), true);
 
