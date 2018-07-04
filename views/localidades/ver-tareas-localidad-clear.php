@@ -124,9 +124,7 @@ $this->registerCssFile(
                                                         </div>
                                                         <?php
                                                         }else{?>
-                                                        <div class="tarea-check tarea-check-completada">
-                                                            Ya
-                                                        </div>
+                                                        <div class="tarea-check tarea-check-completada"></div>
                                                         <?php
                                                         }
                                                         ?>
