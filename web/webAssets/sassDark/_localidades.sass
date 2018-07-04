@@ -62,7 +62,9 @@
 								margin-bottom: 12px
 
 						.panel-search-form-input,
-						.panel-search-form-select
+						.panel-search-form-select,
+						select.form-control,
+						select.form-control:not([size]):not([multiple])
 							background-color: $ryg-seconds
 							border: none
 							+border-radius(3px)
@@ -77,7 +79,9 @@
 							&:focus
 								outline: none
 
-						.panel-search-form-select
+						.panel-search-form-select,
+						select.form-control,
+						select.form-control:not([size]):not([multiple])
 							-webkit-appearance: none
 							-moz-appearance: none
 							-ms-appearance: none
@@ -243,7 +247,11 @@
 									width: 20%
 
 								&.td-responsable
+									// background-color: red
 									width: 160px
+									.addMember
+										.addMember-items
+											display: block
 
 								&.td-actions
 									width: 120px
@@ -675,6 +683,10 @@
 								width: 100%
 								i.icon
 									margin-right: 0
+
+							.checkbox-warning
+								input[type="checkbox"]:checked + label::after
+									color: $ryg-primary
 								
 						.tarea-member
 							width: 40px

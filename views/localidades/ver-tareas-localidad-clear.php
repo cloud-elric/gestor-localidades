@@ -291,36 +291,61 @@ $this->registerJs('
 
 $(document).ready(function(){
 
+    // Editar tarea ABOGADO
     $(".js-tarea-icon-edit").on("click", function(){
-        $(".form-tarea-label").hide();
-        $(".form-group-row").show();
 
-        $(".form-tarea-edit").addClass("edit-tarea-visible");
+        padre = $(this).parent();
 
-        // $(this).hide();
-        // $(".js-tarea-icon-save").show().css({"display": "-webkit-box", "display": "-ms-flexbox", "display": "-webkit-flex", "display": "flex"});
+        hermano = padre.siblings(".form-group.form-group-row");
+        hermana = padre.siblings(".form-tarea-label");
+
+        hermano.show();
+        hermana.hide();
+
+        padre.addClass("edit-tarea-visible");
     });
 
+    // Guardar tarea ABOGADO
     $(".js-tarea-icon-save").on("click", function(){
-        $(".form-group-row").hide();
-        $(".form-tarea-label").show();
-        
-        $(".form-tarea-edit").removeClass("edit-tarea-visible");
+
+        padre = $(this).parent();
+
+        hermano = padre.siblings(".form-group.form-group-row");
+        hermana = padre.siblings(".form-tarea-label");
+
+        hermano.hide();
+        hermana.show();
+
+        padre.removeClass("edit-tarea-visible");
 
     });
 
+    // Editar texto COLABORADOR
     $(".js-colaborador-icon-edit").on("click", function(){
-        $(".form-colaborador-label").hide();
-        $(".form-group-colaborador-row").show();
 
-        $(".form-colaborador-edit").addClass("edit-colaborador-visible");
+        padre = $(this).parent();
+
+        hermano = padre.siblings(".form-group.form-group-colaborador-row");
+        hermana = padre.siblings(".form-colaborador-label");
+
+        hermano.show();
+        hermana.hide();
+
+        padre.addClass("edit-colaborador-visible");
+
     });
-
+    
+    // Guardar texto COLABORADOR
     $(".js-colaborador-icon-save").on("click", function(){
-        $(".form-group-colaborador-row").hide();
-        $(".form-colaborador-label").show();
-        
-        $(".form-colaborador-edit").removeClass("edit-colaborador-visible");
+        padre = $(this).parent();
+
+        hermano = padre.siblings(".form-group-colaborador-row");
+        hermana = padre.siblings(".form-colaborador-label");
+
+        hermano.hide();
+        hermana.show();
+
+        padre.removeClass("edit-colaborador-visible");
 
     });
 
