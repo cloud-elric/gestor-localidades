@@ -640,8 +640,8 @@
 
 					.col-separacion
 						border-bottom: 1px solid $ryg-second
-						padding-bottom: 8px
-						padding-top: 8px
+						padding-bottom: 12px
+						padding-top: 12px
 
 					.tarea-actions
 						align-items: center
@@ -674,40 +674,49 @@
 								margin-top: 0
 
 						.form-tarea-abogado
-							padding: 24px 4px
+							// padding: 24px 4px
 							width: calc(100% - 70px)
-							.form-group
+							.form-groupes
+								align-items: center
+								display: flex
+								justify-content: flex-start
 								margin-bottom: 0
+								min-height: 36px
 								position: relative
 								.form-control,
 								p.form-p
 									position: relative
 									z-index: 9
 
-								.form-control
-									background-color: transparent
-									border-color: $ryg-accent
-									&:active,
-									&:hover,
-									&:focus
-										box-shadow: none
-										outline: none
-
-								.form-tarea-input
+								.form-group-row
 									display: none
-									height: 60px
-									min-height: 60px
-									width: calc(100% - 58px)
+									margin-bottom: 0
+									width: calc(100% - 50px)
+
+									.form-control
+										background-color: transparent
+										border-color: $ryg-accent
+										&:active,
+										&:hover,
+										&:focus
+											box-shadow: none
+											outline: none
+
+									.form-tarea-input
+										height: 60px
+										min-height: 60px
+										width: 100%
 
 								.form-tarea-label
 									display: block
 									margin-bottom: 0
 									padding-left: 12px
-									width: calc(100% - 58px)
+									width: calc(100% - 50px)
 
 								.form-tarea-edit
 									bottom: 0
 									display: flex
+									min-height: 36px
 									position: absolute
 									right: 0
 									top: 0
@@ -721,6 +730,7 @@
 										display: flex
 										height: 36px
 										justify-content: center
+										margin-right: 0
 										width: 36px
 										&.icon-save
 											display: none
@@ -744,7 +754,7 @@
 						align-items: center
 						display: flex
 						justify-content: space-between
-						padding: 12px 14px 12px 0
+						padding: 12px 0
 						width: 100%
 						h4
 							color: $white
@@ -777,26 +787,32 @@
 								color: $white
 								font-size: 1.15rem
 								text-align: left
-							i.icon
+							a.btn-down-doc
 								align-items: center
 								background-color: $ryg-accent
+								border-color: $ryg-accent
 								border-radius: 50%
 								color: $font-color
 								cursor: pointer
 								display: flex
 								height: 36px
 								justify-content: center
+								padding: 0
+								text-align: center
 								width: 36px
+								i.icon
+									margin-right: 3px
 
 					.tarea-completada-text
 						display: block
 						p
-							color: $white
+							color: $success
 							font-size: 1.15rem
 							margin-bottom: 0
 							padding: 8px 0
 							text-align: left
 							text-transform: uppercase
+			
 
 /*  Slide Paneles
 	======================================= */	
