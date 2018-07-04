@@ -717,4 +717,26 @@ class LocalidadesController extends Controller
             fpassthru($nuevoFichero);
         }
     }
+
+    public function actionEditarEstatus($id = null){
+        $response = new ResponseServices();
+
+        if(isset($_POST['txt_estatus'])){
+            if(!empty($_POST['txt_estatus'])){
+                $estatus = EntEstatus::find()->where(['id_estatus'=>$id])->one();
+                
+                if($estatus){
+                    $estatus->txt_estatus = $_POST['txt_estatus'];
+                    if($estatus->save()){
+                        $response->status = 'success';
+                        $response->message = 'Estatus actualizado correctamente';
+                    }else{
+                        $response->result = $estatus->errors;
+                    }
+                }
+            }
+        }
+
+        return $response;
+    }
 }
