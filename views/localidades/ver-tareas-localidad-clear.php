@@ -109,9 +109,11 @@ $this->registerCssFile(
                                                                         </div>
                                                                     <?php
                                                                     }else{?>
-                                                                        <div class="tarea-check-p" data-toggle="tooltip" data-original-title="<?=$tarea->txt_nombre?>" data-template="<div class=\'tooltip tooltip-2 tooltip-warning\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>">
+                                                                        <p class="tarea-check-p" data-toggle="tooltip" data-placement="right" data-trigger="hover" data-original-title="Algo" title="" aria-describedby="tooltip476700">
                                                                             <i class="icon fa-at" aria-hidden="true"></i>
-                                                                        </div>
+                                                                        </p>
+
+                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" data-trigger="click" data-original-title="Click to tooltip" title="" aria-describedby="tooltip476700">Click to tooltip</button>
                                                                     <?php
                                                                     }
                                                                     ?>
