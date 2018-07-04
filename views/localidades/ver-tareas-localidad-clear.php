@@ -110,25 +110,29 @@ $this->registerCssFile(
                                                     <?php
                                                     $form1 = ActiveForm::begin(['id'=>'form-tarea-nombre'.$tarea->id_tarea, 'options' => ['class' => 'tarea-actions form-tareas']]);
                                                     ?>
-                                                        <div class="tarea-check">
-                                                            <?php
-                                                            if($isAbogado){
-                                                                $relTareaUsuario = WrkUsuariosTareas::find()->where(['id_tarea'=>$tarea->id_tarea])->all();
+                                                        
+                                                        <?php
+                                                        if($isAbogado){
+                                                            $relTareaUsuario = WrkUsuariosTareas::find()->where(['id_tarea'=>$tarea->id_tarea])->all();
 
-                                                            ?>
-                                                                <div class="checkbox-custom checkbox-warning">                                                    
-                                                                    <input type="checkbox" id="check-nombre" class="js-completar-tarea" data-token="<?=$tarea->id_tarea?>" name="checkbox" <?=$tarea->b_completa?"checked":""?>>
-                                                                    <label for="check-nombre" class="task-title" style="width:100%"></label>
-                                                                </div>
-                                                            <?php
-                                                            }else{?>
-                                                                <p class="tarea-check-p" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="<?=$tarea->txt_nombre?>" title="" aria-describedby="tooltip476700">
-                                                                    <i class="icon fa-at" aria-hidden="true"></i>
-                                                                </p>
-                                                            <?php
-                                                            }
-                                                            ?>
+                                                        ?>
+                                                        <div class="tarea-check">
+                                                            <div class="checkbox-custom checkbox-warning">                                                    
+                                                                <input type="checkbox" id="check-nombre" class="js-completar-tarea" data-token="<?=$tarea->id_tarea?>" name="checkbox" <?=$tarea->b_completa?"checked":""?>>
+                                                                <label for="check-nombre" class="task-title" style="width:100%"></label>
+                                                            </div>
                                                         </div>
+                                                        <?php
+                                                        }else{?>
+                                                        <div class="tarea-check tarea-check-completada">
+                                                            <p class="tarea-check-p" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="<?=$tarea->txt_nombre?>" title="" aria-describedby="tooltip476700">
+                                                                <i class="icon fa-at" aria-hidden="true"></i>
+                                                            </p>
+                                                        </div>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                        
 
                                                         <?php
                                                         if($isAbogado){
