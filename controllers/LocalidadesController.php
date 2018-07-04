@@ -163,7 +163,213 @@ class LocalidadesController extends Controller
 
         $historial = null;
 
-        if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())) { //print_r($_POST);exit;
+
+            /*
+             if(empty($_POST['EntLocalidades']['txt_cp']) && empty($_POST['EntLocalidades']['txt_municipio']) &&
+            empty($_POST['EntLocalidades']['id_estado']) && empty($_POST['EntLocalidades']['txt_calle'])){
+                
+                if($_POST['tipo_ubicacion'] == 0){
+                    $model->addErrors(['txt_cp', 'txt_colonia', 'txt_municipio', 'id_estado', 'txt_calle'], 'Este campo no pude quedar vacio');
+                    
+                    $flag = true;
+                    return $this->render('create', [
+                        'model' => $model,
+                        'estatus' => $estatus,
+                        'flag' => $flag,
+                        'historial' => $historial,
+                        //'monedas' => $monedas
+                    ]);
+                }
+            }
+            
+            if(empty($_POST['EntLocalidades']['txt_cp'])){
+                $model->addError('txt_cp', 'Este campo no pude quedar vacio');
+                
+                if($_POST['tipo_ubicacion'] == 0){
+                    $flag = true;
+                    return $this->render('create', [
+                        'model' => $model,
+                        'estatus' => $estatus,
+                        'flag' => $flag,
+                        'historial' => $historial,
+                        //'monedas' => $monedas
+                    ]);
+                }
+            }
+            if(empty($_POST['EntLocalidades']['txt_municipio'])){
+                $model->addError('txt_municipio', 'Este campo no pude quedar vacio');
+                
+                if($_POST['tipo_ubicacion'] == 0){
+                    $flag = true;
+                    return $this->render('create', [
+                        'model' => $model,
+                        'estatus' => $estatus,
+                        'flag' => $flag,
+                        'historial' => $historial,
+                        //'monedas' => $monedas
+                    ]);
+                }
+            }
+            if(empty($_POST['EntLocalidades']['id_estado'])){
+                $model->addError('id_estado', 'Este campo no pude quedar vacio');
+                
+                if($_POST['tipo_ubicacion'] == 0){
+                    $flag = true;
+                    return $this->render('create', [
+                        'model' => $model,
+                        'estatus' => $estatus,
+                        'flag' => $flag,
+                        'historial' => $historial,
+                        //'monedas' => $monedas
+                    ]);
+                }
+            }
+            if(empty($_POST['EntLocalidades']['txt_calle'])){
+                $model->addError('txt_calle', 'Este campo no pude quedar vacio');
+                
+                if($_POST['tipo_ubicacion'] == 0){
+                    $flag = true;
+                    return $this->render('create', [
+                        'model' => $model,
+                        'estatus' => $estatus,
+                        'flag' => $flag,
+                        'historial' => $historial,
+                        //'monedas' => $monedas
+                    ]);
+                }
+            }
+             */
+
+            /**
+             * Mandar errores si esta en automatico
+             */
+            if(empty($_POST['EntLocalidades']['txt_cp']) &&  empty($_POST['EntLocalidades']['txt_calle'])){
+                
+                if($_POST['tipo_ubicacion'] == 0){
+                    $model->addErrors(['txt_cp', 'txt_colonia', 'txt_municipio', 'id_estado', 'txt_calle'], 'Este campo no pude quedar vacio');
+                    
+                    $flag = true;
+                    return $this->render('create', [
+                        'model' => $model,
+                        'estatus' => $estatus,
+                        'flag' => $flag,
+                        'historial' => $historial,
+                        //'monedas' => $monedas
+                    ]);
+                }
+            }
+            
+            if(empty($_POST['EntLocalidades']['txt_cp'])){
+                
+                if($_POST['tipo_ubicacion'] == 0){
+                    $model->addError('txt_cp', 'Este campo no pude quedar vacio');
+
+                    $flag = true;
+                    return $this->render('create', [
+                        'model' => $model,
+                        'estatus' => $estatus,
+                        'flag' => $flag,
+                        'historial' => $historial,
+                        //'monedas' => $monedas
+                    ]);
+                }
+            }
+            
+            if(empty($_POST['EntLocalidades']['txt_calle'])){
+                
+                if($_POST['tipo_ubicacion'] == 0){
+                    $model->addError('txt_calle', 'Este campo no pude quedar vacio');
+
+                    $flag = true;
+                    return $this->render('create', [
+                        'model' => $model,
+                        'estatus' => $estatus,
+                        'flag' => $flag,
+                        'historial' => $historial,
+                        //'monedas' => $monedas
+                    ]);
+                }
+            }
+
+            /**
+             * Mandar errores si esta en manual
+             */
+            if(empty($_POST['EntLocalidades']['textoCP'])){
+                if($_POST['tipo_ubicacion'] == 1){
+                    /**
+                     * TODO: Hacer esto en los otros errores
+                     */
+                    $model->addError('textoCP', 'Este campo no pude quedar vacio');
+                    $model->textoColonia = $_POST['EntLocalidades']['textoColonia'];
+                    $model->textoMun = $_POST['EntLocalidades']['textoMun'];
+                    $model->textoEstado = $_POST['EntLocalidades']['textoEstado'];
+                    $model->textoCalle = $_POST['EntLocalidades']['textoCalle'];
+
+
+                    $flag = true;
+                    return $this->render('create', [
+                        'model' => $model,
+                        'estatus' => $estatus,
+                        'flag' => $flag,
+                        'historial' => $historial,
+                        //'monedas' => $monedas
+                    ]);
+                }
+            }
+            if(empty($_POST['EntLocalidades']['textoColonia'])){
+                if($_POST['tipo_ubicacion'] == 1){
+                    $model->addError('textoColonia', 'Este campo no pude quedar vacio');
+                    $flag = true;
+                    return $this->render('create', [
+                        'model' => $model,
+                        'estatus' => $estatus,
+                        'flag' => $flag,
+                        'historial' => $historial,
+                        //'monedas' => $monedas
+                    ]);
+                }
+            }
+            if(empty($_POST['EntLocalidades']['textoMun'])){
+                if($_POST['tipo_ubicacion'] == 1){
+                    $model->addError('textoMun', 'Este campo no pude quedar vacio');
+                    $flag = true;
+                    return $this->render('create', [
+                        'model' => $model,
+                        'estatus' => $estatus,
+                        'flag' => $flag,
+                        'historial' => $historial,
+                        //'monedas' => $monedas
+                    ]);
+                }
+            }
+            if(empty($_POST['EntLocalidades']['textoEstado'])){
+                if($_POST['tipo_ubicacion'] == 1){
+                    $model->addError('textoEstado', 'Este campo no pude quedar vacio');
+                    $flag = true;
+                    return $this->render('create', [
+                        'model' => $model,
+                        'estatus' => $estatus,
+                        'flag' => $flag,
+                        'historial' => $historial,
+                        //'monedas' => $monedas
+                    ]);
+                }
+            }
+            if(empty($_POST['EntLocalidades']['textoCalle'])){
+                if($_POST['tipo_ubicacion'] == 1){
+                    $model->addError('textoCalle', 'Este campo no pude quedar vacio');
+                    $flag = true;
+                    return $this->render('create', [
+                        'model' => $model,
+                        'estatus' => $estatus,
+                        'flag' => $flag,
+                        'historial' => $historial,
+                        //'monedas' => $monedas
+                    ]);
+                }
+            }
+
             
             $model->id_usuario = Yii::$app->user->identity->id_usuario;
             $model->txt_token = Utils::generateToken('tok');
@@ -173,8 +379,11 @@ class LocalidadesController extends Controller
 
             $dropbox = Dropbox::crearFolder(ConstantesDropbox::NOMBRE_CARPETA . $_POST["EntLocalidades"]["txt_nombre"]);
             $decodeDropbox = json_decode(trim($dropbox), true);
-
+            
             if ($decodeDropbox['metadata']) {
+                if($model->validate()){
+                    echo "Validado";exit;
+                }echo "no validado";exit;
                 if ($model->save()) {
                     if(!empty($_POST['EntEstatus']['txt_estatus'])){
                         $estatus->id_localidad = $model->id_localidad;
