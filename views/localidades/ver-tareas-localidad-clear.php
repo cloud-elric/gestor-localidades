@@ -109,7 +109,7 @@ $this->registerCssFile(
                                                                         </div>
                                                                     <?php
                                                                     }else{?>
-                                                                        <p class="tarea-check-p" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Algo" title="" aria-describedby="tooltip476700">
+                                                                        <p class="tarea-check-p" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="<?=$tarea->txt_nombre?>" title="" aria-describedby="tooltip476700">
                                                                             <i class="icon fa-at" aria-hidden="true"></i>
                                                                         </p>
                                                                     <?php
