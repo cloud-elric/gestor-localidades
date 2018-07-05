@@ -165,7 +165,7 @@ class LocalidadesController extends Controller
         $model->id_moneda = 1;
         $hoy = Utils::getFechaActual();
 
-        $model->fch_asignacion = Utils::changeFormatDate($hoy);
+        $model->fch_asignacion = Utils::changeFormatDateNormal($hoy);
 
         $estatus = new EntEstatus();
 
@@ -303,8 +303,8 @@ class LocalidadesController extends Controller
         $tareas = true;
         $flag = true;
 
-        $model->fch_vencimiento_contratro = Utils::changeFormatDate($model->fch_vencimiento_contratro);
-        $model->fch_asignacion = Utils::changeFormatDate($model->fch_asignacion);
+        $model->fch_vencimiento_contratro = Utils::changeFormatDateNormal($model->fch_vencimiento_contratro);
+        $model->fch_asignacion = Utils::changeFormatDateNormal($model->fch_asignacion);
         
         if($model->txt_colonia){
             $model->tipoUbicacion = 0;
