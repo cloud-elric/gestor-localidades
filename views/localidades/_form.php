@@ -255,17 +255,20 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                     <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'num_renta_actual')->textInput() ?>
                     </div>
+                    
                     <div class="col-sm-12 col-md-6 col-lg-4">
-                        <?= $form->field($model, 'num_incremento_cliente')->textInput() ?>
+                        <?= $form->field($model, 'num_incremento_autorizado')->textInput(['value'=>$porcentajeAbogado->num_porcentaje]) ?>
                     </div>
 
                     <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'num_pretencion_renta')->textInput(['disabled'=>false]) ?>
                     </div>
-                    
+
                     <div class="col-sm-12 col-md-6 col-lg-4">
-                        <?= $form->field($model, 'num_incremento_autorizado')->textInput(['value'=>$porcentajeAbogado->num_porcentaje]) ?>
+                        <?= $form->field($model, 'num_incremento_cliente')->textInput() ?>
                     </div>
+                    
+                    
                     
                     
                     <div class="col-sm-12 col-md-6 col-lg-4">
@@ -477,9 +480,9 @@ $(document).ready(function(){
         var diferencia = fechaActual - fechaVencimiento;
         var dif = Math.floor((diferencia) / (1000*60*60*24));
 
-        // console.log(fechaActual);
-        // console.log(fechaVencimiento);
-        // console.log( Math.floor((diferencia) / (1000*60*60*24)) );
+        console.log(fechaActual);
+        console.log(fechaVencimiento);
+        console.log( Math.floor((diferencia) / (1000*60*60*24)) );
 
         if(dif == 0){
             regularizacion.prop('checked', false);
@@ -541,10 +544,15 @@ function statusLocalidad(input){
         // $('.field-entlocalidades-num_pretencion_renta').css('display', 'none');
         // $('#entlocalidades-b_status_localidad').val('2');
 
-        $('.field-entlocalidades-num_incremento_autorizado').css('display', 'block');
-        $('.field-entlocalidades-num_pretencion_renta').css('display', 'block');
-        $('.field-entlocalidades-num_incremento_cliente').css('display', 'block');
-        $('.field-entlocalidades-num_pretencion_renta_cliente').css('display', 'block');
+        var padreIncrementoAutorizado = $('.field-entlocalidades-num_incremento_autorizado').parent();
+        var padrePretencionRenta = $('.field-entlocalidades-num_pretencion_renta').parent();
+        var padreIncrementoCliente = $('.field-entlocalidades-num_incremento_cliente').parent();
+        var padrePretencionRentaCliente = $('.field-entlocalidades-num_pretencion_renta_cliente').parent();
+
+        padreIncrementoAutorizado.css('display', 'block');
+        padrePretencionRenta.css('display', 'block');
+        padreIncrementoCliente.css('display', 'block');
+        padrePretencionRentaCliente.css('display', 'block');
         $('#entlocalidades-b_status_localidad').val('1');
 
         rentaActual = $('#entlocalidades-num_renta_actual').val();
@@ -561,12 +569,18 @@ function statusLocalidad(input){
         }
     }else{
         $('#entlocalidades-num_pretencion_renta').val('0');
-        $('.field-entlocalidades-num_incremento_autorizado').css('display', 'none');
-        $('.field-entlocalidades-num_pretencion_renta').css('display', 'none');
-        $('.field-entlocalidades-num_incremento_cliente').css('display', 'none');
-        $('.field-entlocalidades-num_pretencion_renta_cliente').css('display', 'none');
-        $('#entlocalidades-b_status_localidad').val('2');
 
+        var padreIncrementoAutorizado = $('.field-entlocalidades-num_incremento_autorizado').parent();
+        var padrePretencionRenta = $('.field-entlocalidades-num_pretencion_renta').parent();
+        var padreIncrementoCliente = $('.field-entlocalidades-num_incremento_cliente').parent();
+        var padrePretencionRentaCliente = $('.field-entlocalidades-num_pretencion_renta_cliente').parent();
+
+        padreIncrementoAutorizado.css('display', 'none');
+        padrePretencionRenta.css('display', 'none');
+        padreIncrementoCliente.css('display', 'none');
+        padrePretencionRentaCliente.css('display', 'none');
+
+        $('#entlocalidades-b_status_localidad').val('2');
 
         // $('.field-entlocalidades-num_incremento_autorizado').css('display', 'block');
         // $('.field-entlocalidades-num_pretencion_renta').css('display', 'block');
