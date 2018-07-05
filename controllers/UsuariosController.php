@@ -15,6 +15,7 @@ use app\models\ConstantesWeb;
 use app\models\CatPorcentajeRentaAbogados;
 use app\models\ResponseServices;
 use yii\web\UploadedFile;
+use app\components\AccessControlExtend;
 
 /**
  * UsuariosController implements the CRUD actions for EntUsuarios model.

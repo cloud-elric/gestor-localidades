@@ -19,6 +19,7 @@ use app\models\ResponseServices;
 use app\models\EntLocalidades;
 use app\models\WrkTareas;
 use app\models\WrkUsuariosTareas;
+use app\components\AccessControlExtend;
 
 /**
  * ArchivadasController implements the CRUD actions for EntLocalidadesArchivadas model.
@@ -31,6 +32,21 @@ class ArchivadasController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControlExtend::className(),
+                'only' => [
+                    'index', 'create', 'update', 'delete', 'desarchivar-localidad'
+                ],
+                'rules' => [
+                    [
+                        'actions' => [
+                            'index', 'create', 'update', 'delete', 'desarchivar-localidad'                            
+                        ],
+                        'allow' => true,
+                        'roles' => [ConstantesWeb::ABOGADO],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
