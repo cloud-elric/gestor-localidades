@@ -15,6 +15,7 @@ use kartik\depdrop\DepDrop;
 use app\models\CatColonias;
 use app\models\CatTiposMonedas;
 use app\models\CatRegularizacionRenovacion;
+use app\assets\AppAsset;
 
 
 /* @var $this yii\web\View */
@@ -24,6 +25,10 @@ use app\models\CatRegularizacionRenovacion;
 $estado = $model->estado;
 $idUser = Yii::$app->user->identity->id_usuario;
 $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$idUser])->one();
+$this->registerJsFile(
+    '@web/webAssets/plugins/moment/moment.js',
+    ['depends' => [AppAsset::className()]]
+);
 
 ?>
 
@@ -477,7 +482,7 @@ $(document).ready(function(){
     $('#entlocalidades-fch_vencimiento_contratro').on('change', function(){
         
         var fechaActual = new Date();
-        var fechaVencimiento = new Date($(this).val());
+        var fechaVencimiento = new Date(moment($(this).val(), 'DD-MM-YYYY'));
         var diferencia = fechaActual - fechaVencimiento;
         var dif = Math.floor((diferencia) / (1000*60*60*24));
 
