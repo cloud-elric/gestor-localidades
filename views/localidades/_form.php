@@ -24,6 +24,7 @@ use app\models\CatRegularizacionRenovacion;
 $estado = $model->estado;
 $idUser = Yii::$app->user->identity->id_usuario;
 $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$idUser])->one();
+
 ?>
 
 <?php if($flag/*$model->isNewRecord*/){ ?>
@@ -83,8 +84,8 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <input type="radio" name="tipo_ubicacion" id="js-automatico" value="0" checked>Automatico
-                        <input type="radio" name="tipo_ubicacion" id="js-manual" value="1">Manual
+                        <input type="radio" name="tipo_ubicacion" id="js-automatico" value="0" <?= !$model->tipoUbicacion ? 'checked':'' ?>>Automatico
+                        <input type="radio" name="tipo_ubicacion" id="js-manual" value="1" <?= $model->tipoUbicacion ? 'checked':'' ?>>Manual
                     </div>
 
                     <div class="col-md-12" id="js-div-automatico">
@@ -352,8 +353,10 @@ $(document).ready(function(){
         $('#js-div-automatico').css('display', 'none');
         $('#js-div-manual').css('display', 'block');
     });
-    if($('#radio').is(':checked')){
-        console.log('dddd');
+    if($('#js-manual').is(':checked')){
+        //console.log('dddd');
+        $('#js-div-automatico').css('display', 'none');
+        $('#js-div-manual').css('display', 'block');
     };
 
     $('#entlocalidades-num_renta_actual').on('change', function(){

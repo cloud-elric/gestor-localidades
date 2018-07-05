@@ -30,6 +30,7 @@ use app\models\WrkUsuariosTareasArchivadas;
 use app\models\Calendario;
 use app\models\EntLocalidadesArchivadasSearch;
 use app\config\ConstantesDropbox;
+use app\models\CatColonias;
 
 
 /**
@@ -165,211 +166,17 @@ class LocalidadesController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())) { //print_r($_POST);exit;
 
-            /*
-             if(empty($_POST['EntLocalidades']['txt_cp']) && empty($_POST['EntLocalidades']['txt_municipio']) &&
-            empty($_POST['EntLocalidades']['id_estado']) && empty($_POST['EntLocalidades']['txt_calle'])){
-                
-                if($_POST['tipo_ubicacion'] == 0){
-                    $model->addErrors(['txt_cp', 'txt_colonia', 'txt_municipio', 'id_estado', 'txt_calle'], 'Este campo no pude quedar vacio');
-                    
-                    $flag = true;
-                    return $this->render('create', [
-                        'model' => $model,
-                        'estatus' => $estatus,
-                        'flag' => $flag,
-                        'historial' => $historial,
-                        //'monedas' => $monedas
-                    ]);
-                }
-            }
-            
-            if(empty($_POST['EntLocalidades']['txt_cp'])){
-                $model->addError('txt_cp', 'Este campo no pude quedar vacio');
-                
-                if($_POST['tipo_ubicacion'] == 0){
-                    $flag = true;
-                    return $this->render('create', [
-                        'model' => $model,
-                        'estatus' => $estatus,
-                        'flag' => $flag,
-                        'historial' => $historial,
-                        //'monedas' => $monedas
-                    ]);
-                }
-            }
-            if(empty($_POST['EntLocalidades']['txt_municipio'])){
-                $model->addError('txt_municipio', 'Este campo no pude quedar vacio');
-                
-                if($_POST['tipo_ubicacion'] == 0){
-                    $flag = true;
-                    return $this->render('create', [
-                        'model' => $model,
-                        'estatus' => $estatus,
-                        'flag' => $flag,
-                        'historial' => $historial,
-                        //'monedas' => $monedas
-                    ]);
-                }
-            }
-            if(empty($_POST['EntLocalidades']['id_estado'])){
-                $model->addError('id_estado', 'Este campo no pude quedar vacio');
-                
-                if($_POST['tipo_ubicacion'] == 0){
-                    $flag = true;
-                    return $this->render('create', [
-                        'model' => $model,
-                        'estatus' => $estatus,
-                        'flag' => $flag,
-                        'historial' => $historial,
-                        //'monedas' => $monedas
-                    ]);
-                }
-            }
-            if(empty($_POST['EntLocalidades']['txt_calle'])){
-                $model->addError('txt_calle', 'Este campo no pude quedar vacio');
-                
-                if($_POST['tipo_ubicacion'] == 0){
-                    $flag = true;
-                    return $this->render('create', [
-                        'model' => $model,
-                        'estatus' => $estatus,
-                        'flag' => $flag,
-                        'historial' => $historial,
-                        //'monedas' => $monedas
-                    ]);
-                }
-            }
-             */
-
             /**
-             * Mandar errores si esta en automatico
+             * Guardar datos si vienen de forma manual
              */
-            if(empty($_POST['EntLocalidades']['txt_cp']) &&  empty($_POST['EntLocalidades']['txt_calle'])){
-                
-                if($_POST['tipo_ubicacion'] == 0){
-                    $model->addErrors(['txt_cp', 'txt_colonia', 'txt_municipio', 'id_estado', 'txt_calle'], 'Este campo no pude quedar vacio');
-                    
-                    $flag = true;
-                    return $this->render('create', [
-                        'model' => $model,
-                        'estatus' => $estatus,
-                        'flag' => $flag,
-                        'historial' => $historial,
-                        //'monedas' => $monedas
-                    ]);
-                }
+            if($_POST['tipo_ubicacion'] == 1){
+                $model->txt_cp = $_POST['EntLocalidades']['textoCP'];
+                $model->txt_calle = $_POST['EntLocalidades']['textoCalle'];
+                $model->texto_colonia = $_POST['EntLocalidades']['textoColonia'];
+                $model->texto_estado = $_POST['EntLocalidades']['textoEstado'];
+                $model->txt_municipio = $_POST['EntLocalidades']['textoMun'];
             }
-            
-            if(empty($_POST['EntLocalidades']['txt_cp'])){
-                
-                if($_POST['tipo_ubicacion'] == 0){
-                    $model->addError('txt_cp', 'Este campo no pude quedar vacio');
-
-                    $flag = true;
-                    return $this->render('create', [
-                        'model' => $model,
-                        'estatus' => $estatus,
-                        'flag' => $flag,
-                        'historial' => $historial,
-                        //'monedas' => $monedas
-                    ]);
-                }
-            }
-            
-            if(empty($_POST['EntLocalidades']['txt_calle'])){
-                
-                if($_POST['tipo_ubicacion'] == 0){
-                    $model->addError('txt_calle', 'Este campo no pude quedar vacio');
-
-                    $flag = true;
-                    return $this->render('create', [
-                        'model' => $model,
-                        'estatus' => $estatus,
-                        'flag' => $flag,
-                        'historial' => $historial,
-                        //'monedas' => $monedas
-                    ]);
-                }
-            }
-
-            /**
-             * Mandar errores si esta en manual
-             */
-            if(empty($_POST['EntLocalidades']['textoCP'])){
-                if($_POST['tipo_ubicacion'] == 1){
-                    /**
-                     * TODO: Hacer esto en los otros errores
-                     */
-                    $model->addError('textoCP', 'Este campo no pude quedar vacio');
-                    $model->textoColonia = $_POST['EntLocalidades']['textoColonia'];
-                    $model->textoMun = $_POST['EntLocalidades']['textoMun'];
-                    $model->textoEstado = $_POST['EntLocalidades']['textoEstado'];
-                    $model->textoCalle = $_POST['EntLocalidades']['textoCalle'];
-
-
-                    $flag = true;
-                    return $this->render('create', [
-                        'model' => $model,
-                        'estatus' => $estatus,
-                        'flag' => $flag,
-                        'historial' => $historial,
-                        //'monedas' => $monedas
-                    ]);
-                }
-            }
-            if(empty($_POST['EntLocalidades']['textoColonia'])){
-                if($_POST['tipo_ubicacion'] == 1){
-                    $model->addError('textoColonia', 'Este campo no pude quedar vacio');
-                    $flag = true;
-                    return $this->render('create', [
-                        'model' => $model,
-                        'estatus' => $estatus,
-                        'flag' => $flag,
-                        'historial' => $historial,
-                        //'monedas' => $monedas
-                    ]);
-                }
-            }
-            if(empty($_POST['EntLocalidades']['textoMun'])){
-                if($_POST['tipo_ubicacion'] == 1){
-                    $model->addError('textoMun', 'Este campo no pude quedar vacio');
-                    $flag = true;
-                    return $this->render('create', [
-                        'model' => $model,
-                        'estatus' => $estatus,
-                        'flag' => $flag,
-                        'historial' => $historial,
-                        //'monedas' => $monedas
-                    ]);
-                }
-            }
-            if(empty($_POST['EntLocalidades']['textoEstado'])){
-                if($_POST['tipo_ubicacion'] == 1){
-                    $model->addError('textoEstado', 'Este campo no pude quedar vacio');
-                    $flag = true;
-                    return $this->render('create', [
-                        'model' => $model,
-                        'estatus' => $estatus,
-                        'flag' => $flag,
-                        'historial' => $historial,
-                        //'monedas' => $monedas
-                    ]);
-                }
-            }
-            if(empty($_POST['EntLocalidades']['textoCalle'])){
-                if($_POST['tipo_ubicacion'] == 1){
-                    $model->addError('textoCalle', 'Este campo no pude quedar vacio');
-                    $flag = true;
-                    return $this->render('create', [
-                        'model' => $model,
-                        'estatus' => $estatus,
-                        'flag' => $flag,
-                        'historial' => $historial,
-                        //'monedas' => $monedas
-                    ]);
-                }
-            }
-
+            //exit;
             
             $model->id_usuario = Yii::$app->user->identity->id_usuario;
             $model->txt_token = Utils::generateToken('tok');
@@ -381,9 +188,9 @@ class LocalidadesController extends Controller
             $decodeDropbox = json_decode(trim($dropbox), true);
             
             if ($decodeDropbox['metadata']) {
-                if($model->validate()){
-                    echo "Validado";exit;
-                }echo "no validado";exit;
+                // if($model->validate()){
+                //     echo "Validado";exit;
+                // }echo "no validado";exit;
                 if ($model->save()) {
                     if(!empty($_POST['EntEstatus']['txt_estatus'])){
                         $estatus->id_localidad = $model->id_localidad;
@@ -427,6 +234,19 @@ class LocalidadesController extends Controller
         
         if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())) { //print_r($model->fch_asignacion);print_r($model->fch_vencimiento_contratro);exit;
 
+             /**
+             * Guardar datos si vienen de forma manual
+             */
+            if($_POST['tipo_ubicacion'] == 1){
+                $model->txt_cp = $_POST['EntLocalidades']['textoCP'];
+                $model->txt_calle = $_POST['EntLocalidades']['textoCalle'];
+                $model->texto_colonia = $_POST['EntLocalidades']['textoColonia'];
+                $model->txt_municipio = $_POST['EntLocalidades']['textoMun'];
+                $model->texto_estado = $_POST['EntLocalidades']['$textoEstado'];
+
+                $model->txt_colonia = null;
+            }
+
             $model->fch_vencimiento_contratro = Utils::changeFormatDateInput($model->fch_vencimiento_contratro);
             $model->fch_asignacion = Utils::changeFormatDateInput($model->fch_asignacion);print_r($model->fch_asignacion);//print_r($model->fch_vencimiento_contratro);exit;
 
@@ -443,36 +263,58 @@ class LocalidadesController extends Controller
                     $decodeDropbox = json_decode(trim($dropbox), true);
 
                     if (isset($decodeDropbox['metadata'])) {
-                        $model->save();
-                        if(!empty($_POST['EntEstatus']['txt_estatus'])){
-                            $estatus->save();
+                        if($model->save()){
+                            if(!empty($_POST['EntEstatus']['txt_estatus'])){
+                                if(!$estatus->save()){
+                                    print_r($estatus->errors);exit;
+                                }
+                            }
+                            return $this->redirect(['index']);                                    
+                        }else{
+                            print_r($model->errors);exit;
                         }
-
-
-                        return $this->redirect(['index']);
                     } else {
                         Yii::$app->session->setFlash('error', "Ocurrió un problema con la comunicación de dropbox. Si el problema persiste contacté a soporteœ2gom.com.mx.");
 
                     }
                 } else {
-                    $model->save();
-                    if(!empty($_POST['EntEstatus']['txt_estatus'])){
-                        $estatus->save();
+                    if($model->save()){
+                        if(!empty($_POST['EntEstatus']['txt_estatus'])){
+                            if(!$estatus->save()){
+                                print_r($estatus->errors);exit;                                
+                            }
+                        }
+                        return $this->redirect(['index']);
+                    }else{
+                        print_r($model->errors);exit;
                     }
-
-                    return $this->redirect(['index']);
                 }
-
-
-
             }
 
-        }
+        }//print_r($_POST);exit;
+
         $tareas = true;
         $flag = true;
 
         $model->fch_vencimiento_contratro = Utils::changeFormatDate($model->fch_vencimiento_contratro);
         $model->fch_asignacion = Utils::changeFormatDate($model->fch_asignacion);
+        
+        if($model->txt_colonia){
+            $model->tipoUbicacion = 0;
+        }else{
+            $model->tipoUbicacion = 1;
+            $model->textoCP = $model->txt_cp;
+            $model->textoColonia = $model->texto_colonia;
+            $model->textoEstado = $model->texto_estado;
+            $model->textoCalle = $model->txt_calle;
+            $model->textoMun = $model->txt_municipio;
+
+            $model->txt_cp = null;
+            $model->txt_municipio = null;
+            $model->id_estado = null;
+            $model->txt_calle = null;
+            $model->id_estado = null;
+        }
 
         return $this->render('update', [
             'model' => $model,
@@ -817,6 +659,7 @@ class LocalidadesController extends Controller
         $archivada = new EntLocalidadesArchivadas();
         $archivada->attributes = $localidad->attributes;
         $archivada->id_localidad = $localidad->id_localidad;
+        //print_r($archivada);exit;
         $archivada->b_archivada = $mot;
 
         $transaction = Yii::$app->db->beginTransaction();
@@ -840,7 +683,7 @@ class LocalidadesController extends Controller
 
                                     if (!$userTareaArchivada->save()) {
                                         $transaction->rollBack();
-                                        //echo "wqwq";
+                                        echo "wqwq";
                                         return $response;
                                     }
                                     $userTarea->delete();
@@ -864,7 +707,7 @@ class LocalidadesController extends Controller
                             }
                         } else {
                             $transaction->rollBack();
-                            //echo "xdxddd";
+                            echo "xdxddd";
                             return $response;
                         }
                         $tarea->delete();
@@ -878,7 +721,7 @@ class LocalidadesController extends Controller
                 return $response;
             }else{
                 $transaction->rollBack();
-                //echo "hyhyhyhy";
+                echo "hyhyhyhy";print_r($archivada->errors);exit;
                 return $response;
             }
             $transaction->commit();
@@ -887,7 +730,7 @@ class LocalidadesController extends Controller
             throw $e;
         }
 
-        //echo "cdfvbghn";
+        echo "cdfvbghn";
         return $response;
     }
 
