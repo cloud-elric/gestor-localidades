@@ -481,7 +481,7 @@ $(document).ready(function(){
     $('#entlocalidades-fch_vencimiento_contratro').on('change', function(){
         
         var fechaActual = new Date();
-        var fechaVencimiento = new Date(moment($(this).val(), 'DD-MM-YYYY');
+        var fechaVencimiento = new Date(moment($(this).val(), 'DD-MM-YYYY'));
         var diferencia = fechaActual - fechaVencimiento;
         var dif = Math.floor((diferencia) / (1000*60*60*24));
 
