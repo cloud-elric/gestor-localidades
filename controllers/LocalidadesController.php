@@ -30,6 +30,7 @@ use app\models\WrkUsuariosTareasArchivadas;
 use app\models\Calendario;
 use app\models\EntLocalidadesArchivadasSearch;
 use app\config\ConstantesDropbox;
+use app\models\CatColonias;
 
 
 /**
@@ -163,7 +164,19 @@ class LocalidadesController extends Controller
 
         $historial = null;
 
-        if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())) { //print_r($_POST);exit;
+
+            /**
+             * Guardar datos si vienen de forma manual
+             */
+            if($_POST['tipo_ubicacion'] == 1){
+                $model->txt_cp = $_POST['EntLocalidades']['textoCP'];
+                $model->txt_calle = $_POST['EntLocalidades']['textoCalle'];
+                $model->texto_colonia = $_POST['EntLocalidades']['textoColonia'];
+                $model->texto_estado = $_POST['EntLocalidades']['textoEstado'];
+                $model->txt_municipio = $_POST['EntLocalidades']['textoMun'];
+            }
+            //exit;
             
             $model->id_usuario = Yii::$app->user->identity->id_usuario;
             $model->txt_token = Utils::generateToken('tok');
@@ -173,8 +186,11 @@ class LocalidadesController extends Controller
 
             $dropbox = Dropbox::crearFolder(ConstantesDropbox::NOMBRE_CARPETA . $_POST["EntLocalidades"]["txt_nombre"]);
             $decodeDropbox = json_decode(trim($dropbox), true);
-
+            
             if ($decodeDropbox['metadata']) {
+                // if($model->validate()){
+                //     echo "Validado";exit;
+                // }echo "no validado";exit;
                 if ($model->save()) {
                     if(!empty($_POST['EntEstatus']['txt_estatus'])){
                         $estatus->id_localidad = $model->id_localidad;
@@ -218,6 +234,19 @@ class LocalidadesController extends Controller
         
         if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())) { //print_r($model->fch_asignacion);print_r($model->fch_vencimiento_contratro);exit;
 
+             /**
+             * Guardar datos si vienen de forma manual
+             */
+            if($_POST['tipo_ubicacion'] == 1){
+                $model->txt_cp = $_POST['EntLocalidades']['textoCP'];
+                $model->txt_calle = $_POST['EntLocalidades']['textoCalle'];
+                $model->texto_colonia = $_POST['EntLocalidades']['textoColonia'];
+                $model->txt_municipio = $_POST['EntLocalidades']['textoMun'];
+                $model->texto_estado = $_POST['EntLocalidades']['$textoEstado'];
+
+                $model->txt_colonia = null;
+            }
+
             $model->fch_vencimiento_contratro = Utils::changeFormatDateInput($model->fch_vencimiento_contratro);
             $model->fch_asignacion = Utils::changeFormatDateInput($model->fch_asignacion);print_r($model->fch_asignacion);//print_r($model->fch_vencimiento_contratro);exit;
 
@@ -234,36 +263,58 @@ class LocalidadesController extends Controller
                     $decodeDropbox = json_decode(trim($dropbox), true);
 
                     if (isset($decodeDropbox['metadata'])) {
-                        $model->save();
-                        if(!empty($_POST['EntEstatus']['txt_estatus'])){
-                            $estatus->save();
+                        if($model->save()){
+                            if(!empty($_POST['EntEstatus']['txt_estatus'])){
+                                if(!$estatus->save()){
+                                    print_r($estatus->errors);exit;
+                                }
+                            }
+                            return $this->redirect(['index']);                                    
+                        }else{
+                            print_r($model->errors);exit;
                         }
-
-
-                        return $this->redirect(['index']);
                     } else {
                         Yii::$app->session->setFlash('error', "Ocurrió un problema con la comunicación de dropbox. Si el problema persiste contacté a soporteœ2gom.com.mx.");
 
                     }
                 } else {
-                    $model->save();
-                    if(!empty($_POST['EntEstatus']['txt_estatus'])){
-                        $estatus->save();
+                    if($model->save()){
+                        if(!empty($_POST['EntEstatus']['txt_estatus'])){
+                            if(!$estatus->save()){
+                                print_r($estatus->errors);exit;                                
+                            }
+                        }
+                        return $this->redirect(['index']);
+                    }else{
+                        print_r($model->errors);exit;
                     }
-
-                    return $this->redirect(['index']);
                 }
-
-
-
             }
 
-        }
+        }//print_r($_POST);exit;
+
         $tareas = true;
         $flag = true;
 
         $model->fch_vencimiento_contratro = Utils::changeFormatDate($model->fch_vencimiento_contratro);
         $model->fch_asignacion = Utils::changeFormatDate($model->fch_asignacion);
+        
+        if($model->txt_colonia){
+            $model->tipoUbicacion = 0;
+        }else{
+            $model->tipoUbicacion = 1;
+            $model->textoCP = $model->txt_cp;
+            $model->textoColonia = $model->texto_colonia;
+            $model->textoEstado = $model->texto_estado;
+            $model->textoCalle = $model->txt_calle;
+            $model->textoMun = $model->txt_municipio;
+
+            $model->txt_cp = null;
+            $model->txt_municipio = null;
+            $model->id_estado = null;
+            $model->txt_calle = null;
+            $model->id_estado = null;
+        }
 
         return $this->render('update', [
             'model' => $model,
@@ -608,6 +659,7 @@ class LocalidadesController extends Controller
         $archivada = new EntLocalidadesArchivadas();
         $archivada->attributes = $localidad->attributes;
         $archivada->id_localidad = $localidad->id_localidad;
+        //print_r($archivada);exit;
         $archivada->b_archivada = $mot;
 
         $transaction = Yii::$app->db->beginTransaction();
@@ -631,7 +683,7 @@ class LocalidadesController extends Controller
 
                                     if (!$userTareaArchivada->save()) {
                                         $transaction->rollBack();
-                                        //echo "wqwq";
+                                        echo "wqwq";
                                         return $response;
                                     }
                                     $userTarea->delete();
@@ -655,7 +707,7 @@ class LocalidadesController extends Controller
                             }
                         } else {
                             $transaction->rollBack();
-                            //echo "xdxddd";
+                            echo "xdxddd";
                             return $response;
                         }
                         $tarea->delete();
@@ -669,7 +721,7 @@ class LocalidadesController extends Controller
                 return $response;
             }else{
                 $transaction->rollBack();
-                //echo "hyhyhyhy";
+                echo "hyhyhyhy";print_r($archivada->errors);exit;
                 return $response;
             }
             $transaction->commit();
@@ -678,7 +730,7 @@ class LocalidadesController extends Controller
             throw $e;
         }
 
-        //echo "cdfvbghn";
+        echo "cdfvbghn";
         return $response;
     }
 
@@ -697,13 +749,20 @@ class LocalidadesController extends Controller
             fputcsv($nuevoFichero, $campos, $delimiter);
 
             foreach($localidades as $localidad){
-                $estado = $localidad->estado;
+                $estado;
+                if($localidad->id_estado){
+                    $estado = $localidad->estado;
+                }
+                $colonia;
+                if($localidad->txt_colonia){
+                    $colonia = CatColonias::find()->where(['id_colonia'=>$localidad->txt_colonia])->one();
+                }
                 $usuario = $localidad->usuario;
                 $moneda = $localidad->moneda;
                 $status = $localidad->bStatusLocalidad;
                 
-                $datos = [$estado->txt_nombre, $usuario->txt_username . ' ' . $usuario->txt_apellido_paterno, $moneda->txt_moneda, $localidad->txt_token,
-                $localidad->txt_nombre, $localidad->txt_arrendador, $localidad->txt_beneficiario, $localidad->txt_calle, $localidad->txt_colonia,
+                $datos = [$localidad->id_estado ? $estado->txt_nombre : $localidad->texto_estado, $usuario->txt_username . ' ' . $usuario->txt_apellido_paterno, $moneda->txt_moneda, $localidad->txt_token,
+                $localidad->txt_nombre, $localidad->txt_arrendador, $localidad->txt_beneficiario, $localidad->txt_calle, $localidad->txt_colonia ? $colonia->txt_nombre : $localidad->texto_colonia,
                 $localidad->txt_municipio, $localidad->txt_cp, $localidad->txt_antecedentes, $localidad->num_renta_actual,
                 $localidad->num_incremento_autorizado, $localidad->num_pretencion_renta, $localidad->num_incremento_cliente,
                 $localidad->num_pretencion_renta_cliente, $localidad->fch_vencimiento_contratro, $localidad->fch_creacion, $localidad->fch_asignacion,

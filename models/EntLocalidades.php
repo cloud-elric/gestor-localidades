@@ -35,6 +35,12 @@ use app\modules\ModUsuarios\models\EntUsuarios;
  */
 class EntLocalidades extends \yii\db\ActiveRecord
 {
+    public $textoCP;
+    public $textoColonia;
+    public $textoMun;
+    public $textoEstado;
+    public $textoCalle;
+    public $tipoUbicacion;
     /**
      * @inheritdoc
      */
@@ -58,15 +64,33 @@ class EntLocalidades extends \yii\db\ActiveRecord
                     return $('#entusuarios-txt_auth_item').val()=='usuario-cliente';
                 }"*/
             ],
-            [['id_estado', 'id_usuario', 'cms', 'txt_token', 'txt_nombre', 'txt_arrendador', 'txt_beneficiario', 'txt_cp', 'txt_calle', 'txt_colonia', 'txt_municipio', 'num_renta_actual', 'fch_vencimiento_contratro', 'fch_asignacion', 'txt_frecuencia'], 'required'],
+            [
+                ['textoColonia', 'textoCP', 'textoMun', 'textoCalle', 'textoEstado'], 'required', 'message'=>'Campo requerido',
+                'when' => function ($model) {
+                    return $model->tipoUbicacion == 1;
+                }, 'whenClient' => "function (attribute, value) {
+                    
+                    return $('#js-manual').prop('checked');
+                }"
+            ],
+            [
+                ['txt_cp', 'txt_calle', 'txt_municipio'], 'required', 'message'=>'Campo requerido',
+                'when' => function ($model) {
+                    return $model->tipoUbicacion == 0;
+                }, 'whenClient' => "function (attribute, value) {
+                    
+                    return $('#js-automatico').prop('checked');
+                }"
+            ],
+            [[/*'id_estado',*/ 'id_usuario', 'cms', 'txt_token', 'txt_nombre', 'txt_arrendador', 'txt_beneficiario', /*'txt_cp', 'txt_calle', 'txt_colonia', 'txt_municipio',*/ 'num_renta_actual', 'fch_vencimiento_contratro', 'fch_asignacion', 'txt_frecuencia'], 'required'],
             [['id_estado', 'id_usuario', 'id_moneda', 'b_problemas_acceso', 'b_archivada', 'b_status_localidad'], 'integer'],
             [['txt_estatus', 'txt_antecedentes', 'txt_contacto', 'txt_frecuencia'], 'string'],
             [['num_renta_actual', 'num_incremento_autorizado', 'num_pretencion_renta', 'num_incremento_cliente', 'num_pretencion_renta_cliente'], 'number'],
-            [['fch_vencimiento_contratro', 'fch_creacion', 'fch_asignacion'], 'safe'],
+            [['fch_vencimiento_contratro', 'fch_creacion', 'fch_asignacion', 'tipoUbicacion'], 'safe'],
             [['cms'], 'string', 'max' => 50], 
             [['txt_token'], 'string', 'max' => 70],
-            [['txt_nombre', 'txt_arrendador', 'txt_beneficiario', 'txt_calle', 'txt_colonia', 'txt_municipio', 'txt_contacto'], 'string', 'max' => 150],
-            [['txt_cp'], 'string', 'max' => 5],
+            [['txt_nombre', 'txt_arrendador', 'txt_beneficiario', 'txt_calle', 'txt_colonia', 'txt_municipio', 'txt_contacto', 'texto_colonia', 'texto_estado'], 'string', 'max' => 150],
+            [['txt_cp', 'textoCP'], 'string', 'max' => 5],
             [['id_estado'], 'exist', 'skipOnError' => true, 'targetClass' => CatEstados::className(), 'targetAttribute' => ['id_estado' => 'id_estado']],
             [['id_usuario'], 'exist', 'skipOnError' => true, 'targetClass' => EntUsuarios::className(), 'targetAttribute' => ['id_usuario' => 'id_usuario']],
             [['b_status_localidad'], 'exist', 'skipOnError' => true, 'targetClass' => CatRegularizacionRenovacion::className(), 'targetAttribute' => ['b_status_localidad' => 'id_catalogo']],
@@ -108,6 +132,12 @@ class EntLocalidades extends \yii\db\ActiveRecord
             'b_problemas_acceso' => 'Problemas acceso',
             'b_status_localidad' => 'Tipo de Contrato',
             'b_archivada' => 'Archivada',
+
+            'textoCP' => 'Codigo postal',
+            'textoColonia' => 'Colonia',
+            'textoMun' => 'Municipio',
+            'textoEstado' => 'Estado',
+            'textoCalle' => 'Calle'
         ];
     }
 

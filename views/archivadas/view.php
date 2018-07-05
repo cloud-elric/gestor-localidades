@@ -100,9 +100,17 @@ $user = Yii::$app->user->identity;
                                         <div class="col-sm-12 col-md-12">
                                             <span>Colonia: </span>
                                             <?php
-                                            $colonia = CatColonias::find()->where(['id_colonia'=>$model->txt_colonia])->one();
+                                            if($model->txt_colonia){
+                                                $colonia = CatColonias::find()->where(['id_colonia'=>$model->txt_colonia])->one();
                                             ?>
-                                            <p><?= $colonia->txt_nombre ?></p>
+                                                <p><?= $colonia->txt_nombre ?></p>
+                                            <?php
+                                            }else{
+                                            ?>
+                                                <p><?= $model->texto_colonia ?></p>
+                                            <?php
+                                            }
+                                            ?>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
                                             <span>Municipio: </span>
@@ -115,10 +123,19 @@ $user = Yii::$app->user->identity;
                                         <div class="col-sm-12 col-md-12">
                                             <span>Estado: </span>
                                             <p>
-                                            <?php
-                                            $estado = CatEstados::find()->where(['id_estado'=>$model->id_estado])->one();
-                                            echo $estado->txt_nombre;
-                                            ?>
+                                                <?php
+                                                if($model->id_estado){
+                                                    $estado = CatEstados::find()->where(['id_estado'=>$model->id_estado])->one();
+                                                    echo $estado->txt_nombre;
+                                                ?>
+
+                                                <?php
+                                                }else{
+                                                ?>
+                                                    <?= $model->texto_estado ?>
+                                                <?php
+                                                }
+                                                ?>
                                             </p>
                                         </div>
                                     </div>
@@ -164,16 +181,22 @@ $user = Yii::$app->user->identity;
                                             <p><?= $model->num_incremento_autorizado ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
-                                            <span>Renta pre-autorizada: </span>
-                                            <p><?= $model->num_pretencion_renta ?></p>
+                                            <?php if($model->num_pretencion_renta){ ?>
+                                                <span>Renta pre-autorizada: </span>
+                                                <p><?= $model->num_pretencion_renta ?></p>
+                                            <?php } ?>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
-                                            <span>Porcentaje de incremento solicitado por arrendador: </span>
-                                            <p><?= $model->num_incremento_cliente ?></p>
+                                            <?php if($model->num_incremento_cliente){ ?>
+                                                <span>Porcentaje de incremento solicitado por arrendador: </span>
+                                                <p><?= $model->num_incremento_cliente ?></p>
+                                            <?php } ?>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
-                                            <span>Pretensión de renta del arrendador: </span>
-                                            <p><?= $model->num_pretencion_renta_cliente ?></p>
+                                            <?php if($model->num_pretencion_renta_cliente){ ?>
+                                                <span>Pretensión de renta del arrendador: </span>
+                                                <p><?= $model->num_pretencion_renta_cliente ?></p>
+                                            <?php } ?>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
                                             <span>Fecha Vencimiento Contrato: </span>

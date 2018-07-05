@@ -103,7 +103,7 @@ class UsuariosController extends Controller
 
         
         $padre = null;
-        if ($model->load(Yii::$app->request->post())){
+        if ($model->load(Yii::$app->request->post())){print_r($_POST);exit;
             
             $model->password = $model->randomPassword();
             $model->repeatPassword = $model->password;
@@ -178,10 +178,14 @@ class UsuariosController extends Controller
         $usuariosClientes = EntUsuarios::find()->where(['txt_auth_item'=>ConstantesWeb::CLIENTE])->all();
 
         if ($model->load(Yii::$app->request->post())){
+            $model->usuarioPadre = $usuario->id_usuario;
+            $model->txt_auth_item = $_POST['EntUsuarios']['txt_auth_item'];
             
             if($model->save()){
                 
                 return $this->redirect(['index']);
+            }else{
+                print_r($model->errors);exit;
             }
         }else{
             $model->scenario = 'updateModel';

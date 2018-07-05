@@ -24,6 +24,7 @@ use app\models\CatRegularizacionRenovacion;
 $estado = $model->estado;
 $idUser = Yii::$app->user->identity->id_usuario;
 $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$idUser])->one();
+
 ?>
 
 <?php if($flag/*$model->isNewRecord*/){ ?>
@@ -82,81 +83,115 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-sm-12 col-md-6 col-lg-4">
-                        <?php 
-                        require(__DIR__ . '/../components/select2.php');
-                        $url = Url::to(['codigos-postales/buscar-codigo']);
+                    <div class="col-md-12">
+                        <input type="radio" name="tipo_ubicacion" id="js-automatico" value="0" <?= !$model->tipoUbicacion ? 'checked':'' ?>>Automatico
+                        <input type="radio" name="tipo_ubicacion" id="js-manual" value="1" <?= $model->tipoUbicacion ? 'checked':'' ?>>Manual
+                    </div>
 
-                        echo $form->field($model, 'txt_cp')->widget(Select2::classname(), [
-                            //'initValueText' => empty($model->id_localidad) ? '' : $estado->txt_nombre,
-                            'options' => ['placeholder' => 'Seleccionar código postal'],
-                            'pluginOptions' => [
-                                'allowClear' => true,
-                                'minimumInputLength' => 3,
-                                'ajax' => [
-                                    'url' => $url,
-                                    'dataType' => 'json',
-                                    'delay' => 250,
-                                    'data' => new JsExpression('function(params) { return {q:params.term, page: params.page}; }'),
-                                    'processResults' => new JsExpression($resultsJs),
-                                    'cache' => true
-                                ],
-                                'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
-                                'templateResult' => new JsExpression('function(equipo) { return equipo.txt_nombre; }'),
-                                'templateSelection' => new JsExpression('function (equipo) { 
-                                    if(equipo.txt_nombre){
-                                        return equipo.txt_nombre;
-                                    }else{
-                                        return "'.$model->txt_cp.'"
-                                    }
-                                }'),
-                            ],
-                        ]); 
-                        ?>
+                    <div class="col-md-12" id="js-div-automatico">
+                        <div class="row">                        
+                            <div class="col-sm-12 col-md-6 col-lg-4">
+                                <?php 
+                                require(__DIR__ . '/../components/select2.php');
+                                $url = Url::to(['codigos-postales/buscar-codigo']);
+
+                                echo $form->field($model, 'txt_cp')->widget(Select2::classname(), [
+                                    //'initValueText' => empty($model->id_localidad) ? '' : $estado->txt_nombre,
+                                    'options' => ['placeholder' => 'Seleccionar código postal'],
+                                    'pluginOptions' => [
+                                        'allowClear' => true,
+                                        'minimumInputLength' => 3,
+                                        'ajax' => [
+                                            'url' => $url,
+                                            'dataType' => 'json',
+                                            'delay' => 250,
+                                            'data' => new JsExpression('function(params) { return {q:params.term, page: params.page}; }'),
+                                            'processResults' => new JsExpression($resultsJs),
+                                            'cache' => true
+                                        ],
+                                        'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
+                                        'templateResult' => new JsExpression('function(equipo) { return equipo.txt_nombre; }'),
+                                        'templateSelection' => new JsExpression('function (equipo) { 
+                                            if(equipo.txt_nombre){
+                                                return equipo.txt_nombre;
+                                            }else{
+                                                return "'.$model->txt_cp.'"
+                                            }
+                                        }'),
+                                    ],
+                                ]); 
+                                ?>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-4">
+                                <input id="texto_colonia" type="hidden" name="colonia" value="<?= $model->txt_colonia ?>">
+                                <?php
+                                echo $form->field($model, 'txt_colonia')->widget(DepDrop::classname(), [
+                                    'data'=> ArrayHelper::map(CatColonias::find()->where(['txt_codigo_postal'=>$model->txt_cp])->all(), 'id_colonia', 'txt_nombre'),
+                                    'options' => ['placeholder' => 'Seleccionar ...'],
+                                    'type' => DepDrop::TYPE_SELECT2,
+                                    'select2Options'=>[
+                                        'pluginOptions'=>[
+                                            
+                                            'allowClear'=>true,
+                                            'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
+                                            'templateResult' => new JsExpression('function(colonia) {return colonia.text; }'),
+                                            'templateSelection' => new JsExpression('function (colonia) { return colonia.text; }'),
+                                        ],
+                                        ],
+                                    'pluginOptions'=>[
+                                        'depends'=>['entlocalidades-txt_cp'],
+                                        'url' => Url::to(['/codigos-postales/get-colonias-by-codigo-postal?code='.$model->txt_cp]),
+                                        'loadingText' => 'Cargando colonias ...',
+                                    ]
+                                ]);
+                                ?>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-4">
+                                <?=Html::label("Municipio", "txt_municipio", ['class'=>'control-label'])?>
+                                <?=Html::textInput("txt_municipio", $model->txt_municipio, ['class'=>'form-control','disabled'=>'disabled', 'id'=>'txt_municipio' ])?>
+                                <?= $form->field($model, 'txt_municipio')->hiddenInput(['maxlength' => true])->label(false) ?>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-4">
+                                <?php
+                                $estado = $model->estado;
+                                if($estado){
+                                    $estado = $estado->txt_nombre;
+                                }
+                                ?>
+                                <?=Html::label("Estado", "txt_estado", ['class'=>'control-label'])?>
+                                <?=Html::textInput("txt_estado", $estado, ['class'=>'form-control','disabled'=>'disabled', 'id'=>'txt_estado' ])?>
+                                <?= $form->field($model, 'id_estado')->hiddenInput()->label(false) ?>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-4">
+                                <?= $form->field($model, 'txt_calle')->textInput(['maxlength' => true]) ?>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-sm-12 col-md-6 col-lg-4">
-                        <input id="texto_colonia" type="hidden" name="colonia" value="<?= $model->txt_colonia ?>">
-                        <?php
-                        echo $form->field($model, 'txt_colonia')->widget(DepDrop::classname(), [
-                            'data'=> ArrayHelper::map(CatColonias::find()->where(['txt_codigo_postal'=>$model->txt_cp])->all(), 'id_colonia', 'txt_nombre'),
-                            'options' => ['placeholder' => 'Seleccionar ...'],
-                            'type' => DepDrop::TYPE_SELECT2,
-                            'select2Options'=>[
-                                'pluginOptions'=>[
-                                    
-                                    'allowClear'=>true,
-                                    'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
-                                    'templateResult' => new JsExpression('function(colonia) {return colonia.text; }'),
-                                    'templateSelection' => new JsExpression('function (colonia) { return colonia.text; }'),
-                                ],
-                                ],
-                            'pluginOptions'=>[
-                                'depends'=>['entlocalidades-txt_cp'],
-                                'url' => Url::to(['/codigos-postales/get-colonias-by-codigo-postal?code='.$model->txt_cp]),
-                                'loadingText' => 'Cargando colonias ...',
-                            ]
-                        ]);
-                        ?>
+
+                    <div class="col-md-12" id='js-div-manual' style='display:none'>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6 col-lg-4">
+                                <?= $form->field($model, 'textoCP')->textInput(['maxlength' => true]) ?>
+                            </div>
+
+                            <div class="col-sm-12 col-md-6 col-lg-4">
+                                <?= $form->field($model, 'textoColonia')->textInput(['maxlength' => true]) ?>
+                            </div>
+                                
+                            <div class="col-sm-12 col-md-6 col-lg-4">
+                                <?= $form->field($model, 'textoMun')->textInput(['maxlength' => true]) ?>
+                            </div>
+                                
+                            <div class="col-sm-12 col-md-6 col-lg-4">
+                                <?= $form->field($model, 'textoEstado')->textInput(['maxlength' => true]) ?>
+                            </div>
+                                
+                            <div class="col-sm-12 col-md-6 col-lg-4">
+                                <?= $form->field($model, 'textoCalle')->textInput(['maxlength' => true]) ?>                                
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-sm-12 col-md-6 col-lg-4">
-                        <?=Html::label("Municipio", "txt_municipio", ['class'=>'control-label'])?>
-                        <?=Html::textInput("txt_municipio", $model->txt_municipio, ['class'=>'form-control','disabled'=>'disabled', 'id'=>'txt_municipio' ])?>
-                        <?= $form->field($model, 'txt_municipio')->hiddenInput(['maxlength' => true])->label(false) ?>
-                    </div>
-                    <div class="col-sm-12 col-md-6 col-lg-4">
-                        <?php
-                        $estado = $model->estado;
-                        if($estado){
-                            $estado = $estado->txt_nombre;
-                        }
-                        ?>
-                        <?=Html::label("Estado", "txt_estado", ['class'=>'control-label'])?>
-                        <?=Html::textInput("txt_estado", $estado, ['class'=>'form-control','disabled'=>'disabled', 'id'=>'txt_estado' ])?>
-                        <?= $form->field($model, 'id_estado')->hiddenInput()->label(false) ?>
-                    </div>
-                    <div class="col-sm-12 col-md-6 col-lg-4">
-                        <?= $form->field($model, 'txt_calle')->textInput(['maxlength' => true]) ?>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -219,7 +254,7 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">
                         <div class="form-group">
-                            <?= $form->field($model, 'txt_frecuencia')->dropDownList(['semanal'=>'Semanal', 'mensual'=>'Mensual', 'trimestral'=>'Trimestral', 'anual'=>'Anual'], ['prompt'=>'Seleccionar opcion']) ?>
+                            <?= $form->field($model, 'txt_frecuencia')->dropDownList(['mensual'=>'Mensual', 'trimestral'=>'Trimestral', 'semestral'=>'Semestral', 'anual'=>'Anual'], ['prompt'=>'Seleccionar opcion']) ?>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">
@@ -307,6 +342,22 @@ $this->registerJs("
 $(document).ready(function(){
 
     //$('#entlocalidades-b_status_localidad').val('1');
+
+    $('#js-automatico').on('click', function(){
+        //console.log('ddffdfdfdsfds');
+        $('#js-div-automatico').css('display', 'block');
+        $('#js-div-manual').css('display', 'none');
+    });
+    $('#js-manual').on('click', function(){
+        //console.log('nbnbbn');
+        $('#js-div-automatico').css('display', 'none');
+        $('#js-div-manual').css('display', 'block');
+    });
+    if($('#js-manual').is(':checked')){
+        //console.log('dddd');
+        $('#js-div-automatico').css('display', 'none');
+        $('#js-div-manual').css('display', 'block');
+    };
 
     $('#entlocalidades-num_renta_actual').on('change', function(){
         if( $('#entlocalidades-b_status_localidad').val() == '1' ){
