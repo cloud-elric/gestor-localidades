@@ -749,13 +749,20 @@ class LocalidadesController extends Controller
             fputcsv($nuevoFichero, $campos, $delimiter);
 
             foreach($localidades as $localidad){
-                $estado = $localidad->estado;
+                $estado;
+                if($localidad->id_estado){
+                    $estado = $localidad->estado;
+                }
+                $colonia;
+                if($localidad->txt_colonia){
+                    $colonia = CatColonias::find()->where(['id_colonia'=>$localidad->txt_colonia])->one();
+                }
                 $usuario = $localidad->usuario;
                 $moneda = $localidad->moneda;
                 $status = $localidad->bStatusLocalidad;
                 
-                $datos = [$estado->txt_nombre, $usuario->txt_username . ' ' . $usuario->txt_apellido_paterno, $moneda->txt_moneda, $localidad->txt_token,
-                $localidad->txt_nombre, $localidad->txt_arrendador, $localidad->txt_beneficiario, $localidad->txt_calle, $localidad->txt_colonia,
+                $datos = [$localidad->id_estado ? $estado->txt_nombre : $localidad->texto_estado, $usuario->txt_username . ' ' . $usuario->txt_apellido_paterno, $moneda->txt_moneda, $localidad->txt_token,
+                $localidad->txt_nombre, $localidad->txt_arrendador, $localidad->txt_beneficiario, $localidad->txt_calle, $localidad->txt_colonia ? $colonia->txt_nombre : $localidad->texto_colonia,
                 $localidad->txt_municipio, $localidad->txt_cp, $localidad->txt_antecedentes, $localidad->num_renta_actual,
                 $localidad->num_incremento_autorizado, $localidad->num_pretencion_renta, $localidad->num_incremento_cliente,
                 $localidad->num_pretencion_renta_cliente, $localidad->fch_vencimiento_contratro, $localidad->fch_creacion, $localidad->fch_asignacion,
