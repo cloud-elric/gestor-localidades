@@ -475,6 +475,7 @@ $(document).ready(function(){
     }
 
     $('#entlocalidades-fch_vencimiento_contratro').on('change', function(){
+        
         var fechaActual = new Date();
         var fechaVencimiento = new Date($(this).val());
         var diferencia = fechaActual - fechaVencimiento;

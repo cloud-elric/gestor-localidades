@@ -17,6 +17,7 @@ use app\models\WrkUsuarioUsuarios;
 use app\models\WrkUsuariosTareas;
 use yii\helpers\Url;
 use app\assets\AppAsset;
+use app\models\Calendario;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\EntLocalidades */
@@ -200,15 +201,15 @@ $user = Yii::$app->user->identity;
                                         </div>
                                         <div class="col-sm-12 col-md-12">
                                             <span>Fecha Vencimiento Contrato: </span>
-                                            <p><?= Utils::changeFormatDate($model->fch_vencimiento_contratro); ?></p>
+                                            <p><?= Calendario::getDateSimple(Utils::changeFormatDateNormal($model->fch_vencimiento_contratro)); ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
                                             <span>Fecha Creación: </span>
-                                            <p><?= Utils::changeFormatDate($model->fch_creacion); ?></p>
+                                            <p><?= Calendario::getDateSimple(Utils::changeFormatDateNormal($model->fch_creacion)); ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
                                             <span>Fecha Asignación: </span>
-                                            <p><?= Utils::changeFormatDate($model->fch_asignacion); ?></p>
+                                            <p><?= Calendario::getDateSimple(Utils::changeFormatDateNormal($model->fch_asignacion)); ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
                                             <span>Problemas Acceso: </span>

@@ -18,6 +18,7 @@ use app\models\Calendario;
 use kartik\date\DatePicker;
 use app\assets\AppAssetClassicCore;
 use app\models\WrkTareas;
+use app\modules\ModUsuarios\models\Utils;
 
 
 /* @var $this yii\web\View */
@@ -143,7 +144,7 @@ $this->registerCssFile(
                         if (!$data->fch_asignacion){
                             return "(no definido)";
                         }
-                        return Calendario::getDateSimple($data->fch_asignacion);
+                        return Calendario::getDateSimple(Utils::changeFormatDateNormal($data->fch_asignacion));
                     }
                 ],
 
