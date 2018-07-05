@@ -15,6 +15,7 @@ use kartik\depdrop\DepDrop;
 use app\models\CatColonias;
 use app\models\CatTiposMonedas;
 use app\models\CatRegularizacionRenovacion;
+use app\assets\AppAsset;
 
 
 /* @var $this yii\web\View */
