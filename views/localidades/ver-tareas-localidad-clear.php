@@ -16,6 +16,7 @@ use app\modules\ModUsuarios\models\Utils;
 $usuario = EntUsuarios::getUsuarioLogueado();
 $isAbogado = $usuario->txt_auth_item == ConstantesWeb::ABOGADO;
 $isColaborador = $usuario->txt_auth_item == ConstantesWeb::COLABORADOR;
+$isDirector = $usuario->txt_auth_item == ConstantesWeb::CLIENTE;
 $relTareaUsuario = null;
 $this->registerCssFile(
     '@web/webAssets/templates/classic/global/vendor/dropify/dropify.css',
@@ -112,7 +113,7 @@ $this->registerCssFile(
                                                     ?>
                                                         
                                                         <?php
-                                                        if($isAbogado){
+                                                        if($isAbogado || $isDirector){
                                                             $relTareaUsuario = WrkUsuariosTareas::find()->where(['id_tarea'=>$tarea->id_tarea])->all();
 
                                                         ?>
@@ -131,7 +132,7 @@ $this->registerCssFile(
                                                         
 
                                                         <?php
-                                                        if($isAbogado){
+                                                        if($isAbogado || $isDirector){
                                                         ?>
                                                             <div class="tarea-member addMember-cont">
                                                                 <select multiple='multiple' class='plugin-selective-tareas' data-localidad="<?=$localidad->id_localidad?>" data-id='<?=$tarea->id_tarea?>' data-json='<?=$tarea->colaboradoresAsignados?>'></select> 
