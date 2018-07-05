@@ -84,8 +84,27 @@ $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$i
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <input type="radio" name="tipo_ubicacion" id="js-automatico" value="0" <?= !$model->tipoUbicacion ? 'checked':'' ?>>Automatico
-                        <input type="radio" name="tipo_ubicacion" id="js-manual" value="1" <?= $model->tipoUbicacion ? 'checked':'' ?>>Manual
+
+                        <div class="list-unstyled list-inline">
+                            <li class="list-inline-item">
+                                <div class=" radio-custom radio-warning">
+                                    <!-- <input id="inputRadiosChecked" name="inputRadios" checked="" type="radio"> -->
+                                    <input type="radio" name="tipo_ubicacion" id="js-automatico" value="0" <?= !$model->tipoUbicacion ? 'checked':'' ?>>
+                                    <label for="js-automatico">Automatico</label>
+                                </div>
+                            </li>
+                            <li class="list-inline-item">
+                                <div class="list-inline-item radio-custom radio-warning">
+                                    <!-- <input id="inputRadiosChecked" name="inputRadios" type="radio"> -->
+                                    <input type="radio" name="tipo_ubicacion" id="js-manual" value="1" <?= $model->tipoUbicacion ? 'checked':'' ?>>
+                                    <label for="js-manual">Manual</label>
+                                </div>
+                            </li>
+
+                        </div>
+
+                        
+                        
                     </div>
 
                     <div class="col-md-12" id="js-div-automatico">
