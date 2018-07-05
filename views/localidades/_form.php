@@ -453,14 +453,15 @@ $(document).ready(function(){
     }
 
     $('#entlocalidades-fch_vencimiento_contratro').on('change', function(){
+        
         var fechaActual = new Date();
         var fechaVencimiento = new Date($(this).val());
         var diferencia = fechaActual - fechaVencimiento;
         var dif = Math.floor((diferencia) / (1000*60*60*24));
 
-        // console.log(fechaActual);
-        // console.log(fechaVencimiento);
-        // console.log( Math.floor((diferencia) / (1000*60*60*24)) );
+        console.log(fechaActual);
+        console.log(fechaVencimiento);
+        console.log( Math.floor((diferencia) / (1000*60*60*24)) );
 
         if(dif == 0){
             regularizacion.prop('checked', false);
