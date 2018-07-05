@@ -666,6 +666,17 @@
 		"oT": 1,
 		"q": 100
 		},
+	"\/images\/downarrowBK.png": {
+		"ft": 32768,
+		"iS": 52655,
+		"oA": 0,
+		"oAP": "\/images\/downarrowBK.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
 	"\/images\/login-screen.jpg": {
 		"ft": 16384,
 		"iS": 174654,

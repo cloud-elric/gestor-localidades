@@ -90,9 +90,12 @@
 							background-color: $ryg-seconds
 							background-position: 96% 50%
 							background-repeat: no-repeat
-							background-size: 10px
+							background-size: 8px
 							height: 34px
 							padding: 6px 20px
+							&:focus
+								box-shadow: none
+								outline: none
 
 						.panel-search-form-input
 							padding: 6px 16px
@@ -367,6 +370,18 @@
 						border-color: $ryg-second
 						box-shadow: none
 						outline: none
+
+				select
+					-webkit-appearance: none
+					-moz-appearance: none
+					-ms-appearance: none
+					appearance: none
+					background-image: url(../images/downarrow.png)
+					background-color: $ryg-seconds
+					background-position: 96% 50%
+					background-repeat: no-repeat
+					background-size: 8px
+
 				textarea
 					resize: none
 
