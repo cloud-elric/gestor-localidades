@@ -13,37 +13,6 @@ use app\components\AccessControlExtend;
 
 class SiteController extends Controller
 {
-    /**
-     * @inheritdoc
-     */
-     public function behaviors()
-     {
-         return [
-             'access' => [
-                 'class' => AccessControlExtend::className(),
-                 'only' => ['index', 'logout'],
-                 'rules' => [
-                     [
-                         'actions' => ['logout'],
-                     'allow' => true,
-                         'roles' => ['@'],
-                     ],
-                     [
-                        'allow' => true,
-                        'actions' => ['index'],
-                        'roles' => ['*'],
-                    ],
-                   
-                 ],
-             ],
-            // 'verbs' => [
-            //     'class' => VerbFilter::className(),
-            //     'actions' => [
-            //         'logout' => ['post'],
-            //     ],
-            // ],
-        ];
-    }
 
     /**
      * @inheritdoc
