@@ -14,6 +14,7 @@ use app\models\WrkUsuarioUsuarios;
 use app\models\ConstantesWeb;
 use app\models\CatPorcentajeRentaAbogados;
 use app\models\ResponseServices;
+use yii\web\UploadedFile;
 
 /**
  * UsuariosController implements the CRUD actions for EntUsuarios model.
@@ -103,7 +104,7 @@ class UsuariosController extends Controller
 
         
         $padre = null;
-        if ($model->load(Yii::$app->request->post())){print_r($_POST);exit;
+        if ($model->load(Yii::$app->request->post())){//print_r($_POST);exit;
             
             $model->password = $model->randomPassword();
             $model->repeatPassword = $model->password;
@@ -180,7 +181,15 @@ class UsuariosController extends Controller
         if ($model->load(Yii::$app->request->post())){
             $model->usuarioPadre = $usuario->id_usuario;
             $model->txt_auth_item = $_POST['EntUsuarios']['txt_auth_item'];
+            $model->image = UploadedFile::getInstance($model, 'image');
             
+            if($model->image){
+                $model->txt_imagen = $model->txt_token.".".$model->image->extension;
+                if(!$model->upload()){
+                    return false;
+                }
+            }
+
             if($model->save()){
                 
                 return $this->redirect(['index']);
