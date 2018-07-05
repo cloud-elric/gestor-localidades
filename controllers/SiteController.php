@@ -13,7 +13,6 @@ use app\components\AccessControlExtend;
 
 class SiteController extends Controller
 {
-   
 
     /**
      * @inheritdoc

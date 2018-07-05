@@ -28,12 +28,28 @@ class UsuariosController extends Controller
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
+            'access' => [
+                'class' => AccessControlExtend::className(),
+                'only' => [
+                    'create', 'update', "view", "bloquear-usuario", "activar-usuario"
+                ],
+                'rules' => [
+                    [
+                        'actions' => [
+                            'create', 'update', "view", "bloquear-usuario", "activar-usuario"
+                        ],
+                        'allow' => true,
+                        'roles' => [ConstantesWeb::ABOGADO],
+                    ],
+                    
                 ],
             ],
+            // 'verbs' => [
+            //     'class' => VerbFilter::className(),
+            //     'actions' => [
+            //         'logout' => ['post'],
+            //     ],
+            // ],
         ];
     }
 
