@@ -95,7 +95,7 @@ $this->registerJsFile(
                                 <div class=" radio-custom radio-warning">
                                     <!-- <input id="inputRadiosChecked" name="inputRadios" checked="" type="radio"> -->
                                     <input type="radio" name="tipo_ubicacion" id="js-automatico" value="0" <?= !$model->tipoUbicacion ? 'checked':'' ?>>
-                                    <label for="js-automatico">Automatico</label>
+                                    <label for="js-automatico">Automático</label>
                                 </div>
                             </li>
                             <li class="list-inline-item">
