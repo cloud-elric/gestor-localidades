@@ -70,7 +70,7 @@ $this->registerCssFile(
                                         <ul class="list-group taskboard-list ui-sortable js-tareas-contenedor-<?=$localidad->id_localidad?>">
                                             <?php 
                                             if(count($tareas)==0){
-                                                echo "<h2>No hay tareas</h2>";
+                                                echo "<h2 class='mt-20'>No hay tareas</h2>";
                                             }
 
                                             foreach($tareas as $tarea){
