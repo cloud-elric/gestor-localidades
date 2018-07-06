@@ -109,7 +109,7 @@ $this->registerCssFile(
                     'attribute'=>'cms',
                     'format'=>'raw',
                     'headerOptions' => [
-                        'class' => 'text-center'
+                        'class' => 'th-cms'
                     ],
                     'contentOptions' => [
                         'class'=>"td-cms"
@@ -233,9 +233,6 @@ $this->registerCssFile(
                 [
                     'label'=>'Responsable',
                     'format'=>'raw',
-                    'headerOptions' => [
-                        'class' => 'text-center'
-                    ],
                     'contentOptions' => [
                         'class'=>"td-responsable"
                     ],
