@@ -74,30 +74,38 @@ class TareasController extends Controller
             $model->id_usuario = EntUsuarios::getUsuarioLogueado()->id_usuario;
             if($model->save()){ 
                 $templateItem = '<li class="list-group-item js-tarea-'.$model->id_tarea.'" data-tareakey="'.$model->id_tarea.'">                        
-                                    <div class="w-full">
-                                        <div class="row row-no-border">
-                                            <div class="col-xs-8 col-sm-8 col-md-8">
-
-                                                <div class="label-check">Nombre</div>
-
-                                                <form action="" class="form-tareas">
-                                                
-                                                    <div class="checkbox-custom checkbox-warning">
-                                                        <input type="checkbox" id="check-nombre" name="checkbox">
-                                                        <label for="check-nombre" class="task-title">
-                                                            <input type="text" class="form-control js-editar-nombre-tarea" data-id="'.$model->id_tarea.'"value="'.$model->txt_nombre.'">
-                                                        </label>
-                                                    </div>
-
-                                                    <button class="btn btn-delete-tarea js_btn_eliminar_tarea js_btn_eliminar_tarea-'.$model->id_tarea.'" data-id="'.$model->id_tarea.'">Eliminar tarea</button>
-
-                                                </form>
-
+                                    <div class="col-sm-12 col-md-12 col-separacion js_descargar_archivo-'.$model->id_tarea.'">
+                                        <div class="tarea-fechas"> 
+                                            <div class="tarea-actualizacion">
+                                                <p class="borrar js_btn_eliminar_tarea js_btn_eliminar_tarea-'.$model->id_tarea.'" data-id="'.$model->id_tarea.'">Borrar</p>
                                             </div>
-                                            <div class="col-xs-2 col-sm-2 col-md-2 text-left addMember-cont">
-                                                <select multiple="multiple" class="plugin-selective-tareas" data-localidad="'.$model->id_localidad.'" data-id="'.$model->id_tarea.'" data-json="[]"/>
-                                            </div>                                       
                                         </div>
+                                        
+                                        <form id="form-tarea-nombre'.$model->id_tarea.'" class="tarea-actions form-tareas">
+                                            <div class="tarea-check">
+                                                <div class="checkbox-custom checkbox-warning">                                                    
+                                                    <input type="checkbox" id="check-nombre" class="js-completar-tarea" data-token="'.$model->id_tarea.'" name="checkbox">
+                                                    <label for="check-nombre" class="task-title" style="width:100%"></label>
+                                                </div>
+                                            </div>
+                                            <div class="tarea-member addMember-cont">
+                                                <select multiple="multiple" class="plugin-selective-tareas" data-localidad="'.$model->id_localidad.'" data-id="'.$model->id_tarea.'" data-json="[]"/>
+                                            </div>
+
+                                            <div class="form-tarea-abogado">
+                                                <div class="form-groupes"> 
+                                                    <div class="form-group form-group-row"> 
+                                                        <input type="textarea" class="form-control form-tarea-input js-editar-nombre-tarea" data-id="'.$model->id_tarea.'">
+                                                        <div class="help-block"></div>
+                                                    </div>
+                                                    <p class="form-p form-tarea-label">'.$model->txt_nombre.'</p>
+                                                    <div class="form-tarea-edit">
+                                                        <i class="icon wb-pencil icon-edit js-tarea-icon-edit" aria-hidden="true"></i>
+                                                        <i class="icon wb-check icon-save js-tarea-icon-save" aria-hidden="true"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                 </li>';
                 $respuesta->status = "success";

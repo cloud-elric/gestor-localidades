@@ -19,6 +19,7 @@ $isAbogado = $usuario->txt_auth_item == ConstantesWeb::ABOGADO;
 $isColaborador = $usuario->txt_auth_item == ConstantesWeb::COLABORADOR;
 $isDirector = $usuario->txt_auth_item == ConstantesWeb::CLIENTE;
 $relTareaUsuario = null;
+
 $this->registerCssFile(
     '@web/webAssets/templates/classic/global/vendor/dropify/dropify.css',
     ['depends' => [AppAsset::className()]]
@@ -28,8 +29,8 @@ $this->registerCssFile(
     '@web/webAssets/templates/classic/global/vendor/dropify/dropify.min.js',
     ['depends' => [AppAsset::className()]]
 );
-
 ?>
+
 <div style="display:none;" id="json-colaboradores-<?=$localidad->id_localidad?>" data-colaboradores='<?=$jsonAgregar?>'></div>
 <header class="slidePanel-header ryg-header">
   <div class="slidePanel-actions" aria-label="actions" role="group">
@@ -284,65 +285,95 @@ $this->registerJs('
 
 $(document).ready(function(){
 
-    // Editar tarea ABOGADO
-    $(".js-tarea-icon-edit").on("click", function(){
+    // // Editar tarea ABOGADO
+    // $(".js-tarea-icon-edit").on("click", function(){
 
-        padre = $(this).parent();
+    //     padre = $(this).parent();
 
-        hermano = padre.siblings(".form-group.form-group-row");
-        hermana = padre.siblings(".form-tarea-label");
+    //     hermano = padre.siblings(".form-group.form-group-row");
+    //     hermana = padre.siblings(".form-tarea-label");
 
-        hermano.show();
-        hermana.hide();
+    //     hermano.show();
+    //     hermana.hide();
 
-        padre.addClass("edit-tarea-visible");
-    });
+    //     padre.addClass("edit-tarea-visible");
+    // });
 
-    // Guardar tarea ABOGADO
-    $(".js-tarea-icon-save").on("click", function(){
+    // // Guardar tarea ABOGADO
+    // $(".js-tarea-icon-save").on("click", function(){
 
-        padre = $(this).parent();
+    //     padre = $(this).parent();
 
-        hermano = padre.siblings(".form-group.form-group-row");
-        hermana = padre.siblings(".form-tarea-label");
+    //     hermano = padre.siblings(".form-group.form-group-row");
+    //     hermana = padre.siblings(".form-tarea-label");
 
-        hermano.hide();
-        hermana.show();
+    //     hermano.hide();
+    //     hermana.show();
 
-        padre.removeClass("edit-tarea-visible");
+    //     padre.removeClass("edit-tarea-visible");
 
-    });
+    // });
 
-    // Editar texto COLABORADOR
-    $(".js-colaborador-icon-edit").on("click", function(){
+    // // Editar texto COLABORADOR
+    // $(".js-colaborador-icon-edit").on("click", function(){
 
-        padre = $(this).parent();
+    //     padre = $(this).parent();
 
-        hermano = padre.siblings(".form-group.form-group-colaborador-row");
-        hermana = padre.siblings(".form-colaborador-label");
+    //     hermano = padre.siblings(".form-group.form-group-colaborador-row");
+    //     hermana = padre.siblings(".form-colaborador-label");
 
-        hermano.show();
-        hermana.hide();
+    //     hermano.show();
+    //     hermana.hide();
 
-        padre.addClass("edit-colaborador-visible");
+    //     padre.addClass("edit-colaborador-visible");
 
-    });
+    // });
     
-    // Guardar texto COLABORADOR
-    $(".js-colaborador-icon-save").on("click", function(){
-        padre = $(this).parent();
+    // // Guardar texto COLABORADOR
+    // $(".js-colaborador-icon-save").on("click", function(){
+    //     padre = $(this).parent();
 
-        hermano = padre.siblings(".form-group-colaborador-row");
-        hermana = padre.siblings(".form-colaborador-label");
+    //     hermano = padre.siblings(".form-group-colaborador-row");
+    //     hermana = padre.siblings(".form-colaborador-label");
 
-        hermano.hide();
-        hermana.show();
+    //     hermano.hide();
+    //     hermana.show();
 
-        padre.removeClass("edit-colaborador-visible");
+    //     padre.removeClass("edit-colaborador-visible");
 
-    });
+    // });
 
 });
+
+// Editar tarea ABOGADO
+$(document).on("click": function(){
+
+    padre = $(this).parent();
+
+    hermano = padre.siblings(".form-group.form-group-row");
+    hermana = padre.siblings(".form-tarea-label");
+
+    hermano.show();
+    hermana.hide();
+
+    padre.addClass("edit-tarea-visible");
+}
+}, ".js-tarea-icon-edit");
+
+// Guardar tarea ABOGADO
+$(document).on("click": function(){
+
+    padre = $(this).parent();
+
+    hermano = padre.siblings(".form-group.form-group-row");
+    hermana = padre.siblings(".form-tarea-label");
+
+    hermano.hide();
+    hermana.show();
+
+    padre.removeClass("edit-tarea-visible");
+}
+}, ".js-tarea-icon-save");
 
 ', View::POS_END );
 
