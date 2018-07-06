@@ -92,13 +92,7 @@ $this->registerCssFile(
             // 'tableOptions' => [
             //     "class" => "table"
             // ],
-            'pjax'=>true,
-            'pjaxSettings'=>[
-                'options'=>[
-                    'linkSelector'=>"a:not(.no-pjax)",
-                    'id'=>'pjax-usuarios'
-                ]
-                ],
+            
             'dataProvider' => $dataProvider,
             'tableOptions' => [
                 'class'=>"table table-hover"
