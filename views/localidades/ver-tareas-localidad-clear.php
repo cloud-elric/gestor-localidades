@@ -12,6 +12,7 @@ use yii\widgets\ActiveForm;
 use yii\web\View;
 use app\models\WrkUsuariosTareas;
 use app\modules\ModUsuarios\models\Utils;
+use app\models\Calendario;
 
 $usuario = EntUsuarios::getUsuarioLogueado();
 $isAbogado = $usuario->txt_auth_item == ConstantesWeb::ABOGADO;
@@ -84,17 +85,7 @@ $this->registerCssFile(
 
                                                     <div class="tarea-fechas"> 
 
-                                                        <div class="tarea-creada">
-                                                            <p class="item">Creada: <?= Utils::changeFormatDate($tarea->fch_creacion) ?></p>
-                                                            <?php if($tarea->fch_asignacion){ ?>
-                                                                <p class="item">Asignada: <?= Utils::changeFormatDate($tarea->fch_asignacion) ?></p>
-                                                            <?php } ?> 
-                                                        </div>
                                                         <div class="tarea-actualizacion">
-                                                            <?php if($tarea->fch_actualizacion){ ?>
-                                                                <p class="item">Última actualización: <?= Utils::changeFormatDate($tarea->fch_actualizacion) ?></p>
-                                                            <?php } ?> 
-
                                                             <?php
                                                             if(!$relTareaUsuario && $tarea->txt_tarea == null && $tarea->txt_path == null){
                                                             ?>
@@ -159,11 +150,12 @@ $this->registerCssFile(
                                                     ?>
 
                                                     <div class="tarea-nombre">
-                                                        <h4>Nombre del archivo</h4>
                                                         <?php
                                                         if($hasArchivo){
+                                                            $arrayPath = explode("/", $tarea->txt_path);
+                                                            $count = count($arrayPath);
                                                         ?>
-
+                                                            <p><?= $arrayPath[$count-1] ?></p>                                                            
                                                             <?= Html::a(' <i class="icon fa-download" aria-hidden="true"></i>
                                                             ', ['tareas/descargar', 'id' => $tarea->id_tarea,], ['target' => '_blank', 'class' => 'btn no-pjax btn-default btn-down-archive']);?>
 
@@ -179,11 +171,17 @@ $this->registerCssFile(
 
                                                         <div class="tarea-fechas">
                                                             <div class="tarea-creada">
-                                                                <p class="item">Creada: 24 - JUNIO - 2018</p>
+                                                                <p class="item">Creada: <?= Calendario::getDateSimple(Utils::changeFormatDateNormal($tarea->fch_creacion)) ?></p>
                                                             </div>
                                                             <div class="tarea-actualizacion">
-                                                                <p class="item">Última actualización: 26 - JUNIO - 2018</p>
-                                                                <p class="borrar">Borrar</p>
+                                                                 <?php if($tarea->fch_actualizacion){ ?>
+                                                                    <p class="item">Última actualización: <?= Calendario::getDateSimple(Utils::changeFormatDateNormal($tarea->fch_actualizacion)) ?></p>
+                                                                <?php } ?> 
+                                                                <?php
+                                                                if(!$relTareaUsuario && $tarea->txt_tarea == null && $tarea->txt_path == null){
+                                                                ?>
+                                                                    <p class="borrar js_btn_eliminar_tarea js_btn_eliminar_tarea-<?= $tarea->id_tarea ?>" data-id="<?= $tarea->id_tarea ?>">Borrar</p>
+                                                                <?php } ?>                                                                
                                                             </div>
                                                         </div>
 
@@ -205,12 +203,7 @@ $this->registerCssFile(
                                                         ?>
                                                             <?= $form->field($tarea, 'file')->fileInput(['data-id'=>$tarea->id_tarea, 'data-plugin'=>"dropify", 'class'=>"file_tarea"]) ?>
 
-                                                            <div class="form-archive">
-                                                                <p>Nombre del archivo.PDF</p>
-                                                                <?= Html::a(' <i class="icon fa-download" aria-hidden="true"></i>
-                                                                ', ['tareas/descargar', 'id' => "id",], ['target' => '_blank', 'class' => 'btn no-pjax btn-default btn-down-doc']);?>
-
-                                                            </div>
+                                                            
 
                                                         <?php
                                                         }else if($tarea->id_tipo==ConstantesWeb::TAREA_ABIERTO){
