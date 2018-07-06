@@ -94,7 +94,6 @@ $this->registerCssFile(
                                                             <?php if($tarea->fch_actualizacion){ ?>
                                                                 <p class="item">Última actualización: <?= Utils::changeFormatDate($tarea->fch_actualizacion) ?></p>
                                                             <?php } ?> 
-                                                            <p class="borrar">Borrar</p>
 
                                                             <?php
                                                             if(!$relTareaUsuario && $tarea->txt_tarea == null && $tarea->txt_path == null){
