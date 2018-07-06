@@ -493,7 +493,7 @@ $(document).ready(function(){
         if(dif == 0){
             regularizacion.prop('checked', false);
             renovacion.prop('checked', false);
-        }else if(dif > 0){
+        }else if(dif < 0){
             regularizacion.prop('checked', true);
             statusLocalidad(regularizacion);
             //console.log('Regularizacion');
