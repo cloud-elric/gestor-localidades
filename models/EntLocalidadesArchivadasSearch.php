@@ -19,6 +19,12 @@ class EntLocalidadesArchivadasSearch extends EntLocalidadesArchivadas
     {
         return [
             [['id_localidad', 'id_estado', 'id_usuario', 'id_moneda', 'b_problemas_acceso', 'b_archivada', 'b_status_localidad'], 'integer'],
+            [
+                [
+                    'cms'
+                ],
+                'trim'
+            ],
             [['cms', 'txt_token', 'txt_nombre', 'txt_arrendador', 'txt_beneficiario', 'txt_calle', 'txt_colonia', 'txt_municipio', 'txt_cp', 'txt_estatus', 'txt_antecedentes', 'fch_vencimiento_contratro', 'fch_creacion', 'fch_asignacion'], 'safe'],
             [['num_renta_actual', 'num_incremento_autorizado', 'num_pretencion_renta', 'num_incremento_cliente', 'num_pretencion_renta_cliente'], 'number'],
         ];
@@ -77,9 +83,9 @@ class EntLocalidadesArchivadasSearch extends EntLocalidadesArchivadas
             'b_status_localidad' => $this->b_status_localidad,
         ]);
 
-        $query->andFilterWhere(['like', 'cms', $this->cms])
-            ->andFilterWhere(['like', 'txt_token', $this->txt_token])
+        $query->andFilterWhere(['like', 'txt_token', $this->txt_token])
             ->andFilterWhere(['like', 'txt_nombre', $this->txt_nombre])
+            ->orFilterWhere(['like', 'cms', $this->cms])
             ->andFilterWhere(['like', 'txt_arrendador', $this->txt_arrendador])
             ->andFilterWhere(['like', 'txt_beneficiario', $this->txt_beneficiario])
             ->andFilterWhere(['like', 'txt_calle', $this->txt_calle])

@@ -192,6 +192,7 @@ class UsuariosController extends Controller
 
         $model = $this->findModel($id);
         $model->scenario = "update";
+        $rol = $model->txt_auth_item;
 
         $usuariosClientes = EntUsuarios::find()->where(['txt_auth_item'=>ConstantesWeb::CLIENTE])->all();
 
@@ -208,7 +209,16 @@ class UsuariosController extends Controller
             }
 
             if($model->save()){
-                
+                $manager = Yii::$app->authManager;
+                $item = $manager->getRole($rol);
+                $item = $item ? : $manager->getPermission($rol);
+                $rev = $manager->revoke($item,$model->id_usuario);
+
+                if($rev){
+                    $authorRole = $manager->getRole($model->txt_auth_item);
+                    $manager->assign($authorRole, $model->id_usuario);
+                }
+
                 return $this->redirect(['index']);
             }else{
                 print_r($model->errors);exit;

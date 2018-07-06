@@ -194,7 +194,7 @@ class LocalidadesController extends Controller
             $dropbox = Dropbox::crearFolder(ConstantesDropbox::NOMBRE_CARPETA . $_POST["EntLocalidades"]["txt_nombre"]);
             $decodeDropbox = json_decode(trim($dropbox), true);
             
-            if ($decodeDropbox['metadata']) {
+            if(isset($decodeDropbox['metadata'])){
                 // if($model->validate()){
                 //     echo "Validado";exit;
                 // }echo "no validado";exit;
@@ -211,8 +211,9 @@ class LocalidadesController extends Controller
                     print_r($model->errors);
                     exit;
                 }
+            }else{
+                print_r($decodeDropbox);exit;
             }
-            exit;
         }
         $flag = true;
 
