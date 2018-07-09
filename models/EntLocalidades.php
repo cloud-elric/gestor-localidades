@@ -82,6 +82,10 @@ class EntLocalidades extends \yii\db\ActiveRecord
                     return $('#js-automatico').prop('checked');
                 }"
             ],
+            [
+                ['txt_nombre'],
+                'trim'
+            ],
             [[/*'id_estado',*/ 'id_usuario', 'cms', 'txt_token', 'txt_nombre', 'txt_arrendador', 'txt_beneficiario', /*'txt_cp', 'txt_calle', 'txt_colonia', 'txt_municipio',*/ 'num_renta_actual', 'fch_vencimiento_contratro', 'fch_asignacion', 'txt_frecuencia'], 'required'],
             [['id_estado', 'id_usuario', 'id_moneda', 'b_problemas_acceso', 'b_archivada', 'b_status_localidad'], 'integer'],
             [['txt_estatus', 'txt_antecedentes', 'txt_contacto', 'txt_frecuencia'], 'string'],
@@ -91,6 +95,7 @@ class EntLocalidades extends \yii\db\ActiveRecord
             [['txt_token'], 'string', 'max' => 70],
             [['txt_nombre', 'txt_arrendador', 'txt_beneficiario', 'txt_calle', 'txt_colonia', 'txt_municipio', 'txt_contacto', 'texto_colonia', 'texto_estado'], 'string', 'max' => 150],
             [['txt_cp', 'textoCP'], 'string', 'max' => 5],
+            [['txt_nombre'], 'unique', 'message'=>'El nombre de la localidad ya existe'],
             [['id_estado'], 'exist', 'skipOnError' => true, 'targetClass' => CatEstados::className(), 'targetAttribute' => ['id_estado' => 'id_estado']],
             [['id_usuario'], 'exist', 'skipOnError' => true, 'targetClass' => EntUsuarios::className(), 'targetAttribute' => ['id_usuario' => 'id_usuario']],
             [['b_status_localidad'], 'exist', 'skipOnError' => true, 'targetClass' => CatRegularizacionRenovacion::className(), 'targetAttribute' => ['b_status_localidad' => 'id_catalogo']],

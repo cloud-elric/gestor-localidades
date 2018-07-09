@@ -188,31 +188,35 @@ class LocalidadesController extends Controller
             $model->id_usuario = Yii::$app->user->identity->id_usuario;
             $model->txt_token = Utils::generateToken('tok');
             $model->fch_creacion = $hoy;
-            $model->fch_vencimiento_contratro = Utils::changeFormatDateInput($model->fch_vencimiento_contratro);
-            $model->fch_asignacion = Utils::changeFormatDateInput($model->fch_asignacion);
-
-            $dropbox = Dropbox::crearFolder(ConstantesDropbox::NOMBRE_CARPETA . $_POST["EntLocalidades"]["txt_nombre"]);
-            $decodeDropbox = json_decode(trim($dropbox), true);
             
-            if(isset($decodeDropbox['metadata'])){
-                // if($model->validate()){
-                //     echo "Validado";exit;
-                // }echo "no validado";exit;
-                if ($model->save()) {
-                    if(!empty($_POST['EntEstatus']['txt_estatus'])){
-                        $estatus->id_localidad = $model->id_localidad;
-                        if ($estatus->save()) {
+
+            if($model->validate()){
+                $model->fch_vencimiento_contratro = Utils::changeFormatDateInput($model->fch_vencimiento_contratro);
+                $model->fch_asignacion = Utils::changeFormatDateInput($model->fch_asignacion);
+
+                $dropbox = Dropbox::crearFolder(ConstantesDropbox::NOMBRE_CARPETA . $_POST["EntLocalidades"]["txt_nombre"]);
+                $decodeDropbox = json_decode(trim($dropbox), true);
+                
+                if(isset($decodeDropbox['metadata'])){
+                    // if($model->validate()){
+                    //     echo "Validado";exit;
+                    // }echo "no validado";exit;
+                    if ($model->save()) {
+                        if(!empty($_POST['EntEstatus']['txt_estatus'])){
+                            $estatus->id_localidad = $model->id_localidad;
+                            if ($estatus->save()) {
+                                return $this->redirect(['index']);
+                            }
+                        }else{
                             return $this->redirect(['index']);
                         }
                     }else{
-                        return $this->redirect(['index']);
+                        print_r($model->errors);
+                        exit;
                     }
                 }else{
-                    print_r($model->errors);
-                    exit;
+                    print_r($decodeDropbox);exit;
                 }
-            }else{
-                print_r($decodeDropbox);exit;
             }
         }
         $flag = true;
