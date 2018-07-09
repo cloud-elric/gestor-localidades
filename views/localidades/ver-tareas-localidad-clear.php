@@ -216,7 +216,7 @@ $this->registerCssFile(
                                                                 <div class="form-tarea-colaborador-texto">
                                                                     <div class="form-groupes"> 
                                                                         <?= $form1->field($tarea, 'txt_tarea', ["options" => ["class" => "form-group form-group-colaborador-row"]])->textarea(['rows' => 6, 'data-id'=>$tarea->id_tarea, 'style'=>"resize:none", 'placeholder'=>"Descripción", "class"=>"form-control form-colaborador-input"])->label(false) ?>
-                                                                        <p class="form-p form-colaborador-label"><?=$tarea->txt_nombre?></p>
+                                                                        <p class="form-p form-colaborador-label"><?=$tarea->txt_tarea?></p>
                                                                         <div class="form-colaborador-edit">
                                                                             <i class="icon wb-pencil icon-edit js-colaborador-icon-edit" aria-hidden="true"></i>
                                                                             <i class="icon wb-check icon-save js-colaborador-icon-save" aria-hidden="true"></i>
@@ -314,39 +314,39 @@ $(document).ready(function(){
 
     // });
 
-    // // Editar texto COLABORADOR
-    // $(".js-colaborador-icon-edit").on("click", function(){
+    // Editar texto COLABORADOR
+    $(".js-colaborador-icon-edit").on("click", function(){
 
-    //     padre = $(this).parent();
+        padre = $(this).parent();
 
-    //     hermano = padre.siblings(".form-group.form-group-colaborador-row");
-    //     hermana = padre.siblings(".form-colaborador-label");
+        hermano = padre.siblings(".form-group.form-group-colaborador-row");
+        hermana = padre.siblings(".form-colaborador-label");
 
-    //     hermano.show();
-    //     hermana.hide();
+        hermano.show();
+        hermana.hide();
 
-    //     padre.addClass("edit-colaborador-visible");
+        padre.addClass("edit-colaborador-visible");
 
-    // });
+    });
     
-    // // Guardar texto COLABORADOR
-    // $(".js-colaborador-icon-save").on("click", function(){
-    //     padre = $(this).parent();
+    // Guardar texto COLABORADOR
+    $(".js-colaborador-icon-save").on("click", function(){
+        padre = $(this).parent();
 
-    //     hermano = padre.siblings(".form-group-colaborador-row");
-    //     hermana = padre.siblings(".form-colaborador-label");
+        hermano = padre.siblings(".form-group-colaborador-row");
+        hermana = padre.siblings(".form-colaborador-label");
 
-    //     hermano.hide();
-    //     hermana.show();
+        hermano.hide();
+        hermana.show();
 
-    //     padre.removeClass("edit-colaborador-visible");
+        padre.removeClass("edit-colaborador-visible");
 
-    // });
+    });
 
 });
 
 // Editar tarea ABOGADO
-$(document).on("click": function(){
+$(document).on({"click": function(){
 
     padre = $(this).parent();
 
@@ -361,12 +361,15 @@ $(document).on("click": function(){
 }, ".js-tarea-icon-edit");
 
 // Guardar tarea ABOGADO
-$(document).on("click": function(){
+$(document).on({"click": function(){
 
     padre = $(this).parent();
 
     hermano = padre.siblings(".form-group.form-group-row");
     hermana = padre.siblings(".form-tarea-label");
+
+    var texto = $(hermano).children("textarea").val();
+    hermana.text(texto);
 
     hermano.hide();
     hermana.show();

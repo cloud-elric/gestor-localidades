@@ -95,7 +95,7 @@ class TareasController extends Controller
                                             <div class="form-tarea-abogado">
                                                 <div class="form-groupes"> 
                                                     <div class="form-group form-group-row"> 
-                                                        <input type="textarea" class="form-control form-tarea-input js-editar-nombre-tarea" data-id="'.$model->id_tarea.'">
+                                                        <textarea class="form-control form-tarea-input js-editar-nombre-tarea" data-id="'.$model->id_tarea.'">'.$model->txt_nombre.'</textarea>
                                                         <div class="help-block"></div>
                                                     </div>
                                                     <p class="form-p form-tarea-label">'.$model->txt_nombre.'</p>
