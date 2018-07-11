@@ -786,7 +786,7 @@ class LocalidadesController extends Controller
             header('Content-Type: text/csv');
             header("Content-disposition: attachment; filename=\"Localidades.csv\"");
 
-            fpassthru($nuevoFichero);
+            fpassthru($nuevoFichero);exit;
         }
     }
 
