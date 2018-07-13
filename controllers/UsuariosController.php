@@ -118,7 +118,6 @@ class UsuariosController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
-
         
         $padre = null;
         if ($model->load(Yii::$app->request->post())){//print_r($_POST);exit;
@@ -154,13 +153,17 @@ class UsuariosController extends Controller
                 if($model->txt_auth_item == ConstantesWeb::COLABORADOR){
                     $relUsuarios = new WrkUsuarioUsuarios();
                     $relUsuarios->id_usuario_hijo =$model->id_usuario;
-                    $relUsuarios->id_usuario_padre = $_POST['EntUsuarios']['usuarioPadre'];
+                    $relUsuarios->id_usuario_padre = $usuario->id_usuario;
                     $relUsuarios->save(); 
                 }
-
+                if($model->txt_auth_item == ConstantesWeb::CLIENTE || $model->txt_auth_item == ConstantesWeb::ASISTENTE){
+                    $relUsuarios = new WrkUsuarioUsuarios();
+                    $relUsuarios->id_usuario_hijo =$model->id_usuario;
+                    $relUsuarios->id_usuario_padre = $usuario->id_usuario;
+                    $relUsuarios->save(); 
+                }
               
                 return $this->redirect(['usuarios/index']);
-                
             }
         
         // return $this->redirect(['view', 'id' => $model->id_usuario]);

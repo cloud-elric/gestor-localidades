@@ -2,7 +2,9 @@
 namespace app\models;
 
 class ConstantesWeb{
-    const ABOGADO = "abogado";
+    //const ABOGADO = "abogado";
+    const ABOGADO = "asistente";
+
     const CLIENTE = "cliente";
     const COLABORADOR = "usuario-cliente";
     const SUPER_ADMIN = "super-admin";
