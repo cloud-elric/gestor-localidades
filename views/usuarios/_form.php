@@ -63,6 +63,26 @@ use app\models\WrkUsuarioUsuarios;
                         ])->label(false);
                     ?> 
                 </div>
+
+                <div id="select_abogados" class="col-md-6" style="display:none">
+                    <?php
+                    $usuarioAbogado = WrkUsuarioUsuarios::find(["id_usuario_hijo"=>$model->id_usuario])->one();
+                    if($usuarioAbogado){
+                        $model->usuarioPadre = $usuarioAbogado->id_usuario_padre;
+                    }
+                    ?>
+                    <?= $form->field($model, 'usuarioPadre')
+                        ->widget(Select2::classname(), [
+                            'data' => ArrayHelper::map($usuariosClientes, 'id_usuario', 'nombreCompleto'),
+                            'language' => 'es',
+                            'options' => ['placeholder' => 'Seleccionar grupo de trabajo'],
+                            'pluginOptions' => [
+                                'allowClear' => true
+                            ],
+                        ])->label(false);
+                    ?> 
+                </div>
+
             </div>
             <div class="row">
                 <div class="col-md-6">
@@ -107,8 +127,11 @@ function desplegarDirectores(elemento){
     if(elemento.val()=="'.ConstantesWeb::COLABORADOR.'"){
         $("#select_clientes").show();
 
+    }else if(elemento.val()=="'.ConstantesWeb::ASISTENTE.'"){
+        $("#select_abogados").show();
     }else{
         $("#select_clientes").hide();
+        $("#select_abogados").hide();
     }
 }
 ', View::POS_LOAD, 'user');

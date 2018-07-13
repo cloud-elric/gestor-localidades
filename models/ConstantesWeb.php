@@ -6,6 +6,7 @@ class ConstantesWeb{
     const CLIENTE = "cliente";
     const COLABORADOR = "usuario-cliente";
     const SUPER_ADMIN = "super-admin";
+    const ASISTENTE = "asistente";
 
     const TAREA_ARCHIVO = 1;
     const TAREA_ABIERTO = 2;

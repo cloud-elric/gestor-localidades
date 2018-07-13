@@ -754,7 +754,7 @@ class LocalidadesController extends Controller
             $localidades = EntLocalidades::find()->all();
             
             $delimiter = ",";
-            $campos = ['Estado', 'Usuario', 'Moneda', 'Token', 'Nombre', 'Arrendador', 'Beneficiario', 'Calle', 'Colonia', 'Municipio', 'CP',
+            $campos = ['Estado', 'Usuario', 'Moneda', 'Nombre', 'Arrendador', 'Beneficiario', 'Calle', 'Colonia', 'Municipio', 'CP',
             'Antecedentes', 'Renta actual', 'Incremento', 'Pretencion renta', 'Incremento cliente', 'Pretencion renta cliente', 'Vencimiento contrato',
             'Fecha creacion', 'Fecha asignacion', 'Status localidad'];
 
@@ -773,7 +773,7 @@ class LocalidadesController extends Controller
                 $moneda = $localidad->moneda;
                 $status = $localidad->bStatusLocalidad;
                 
-                $datos = [$localidad->id_estado ? $estado->txt_nombre : $localidad->texto_estado, $usuario->txt_username . ' ' . $usuario->txt_apellido_paterno, $moneda->txt_moneda, $localidad->txt_token,
+                $datos = [$localidad->id_estado ? $estado->txt_nombre : $localidad->texto_estado, $usuario->txt_username . ' ' . $usuario->txt_apellido_paterno, $moneda->txt_moneda,
                 $localidad->txt_nombre, $localidad->txt_arrendador, $localidad->txt_beneficiario, $localidad->txt_calle, $localidad->txt_colonia ? $colonia->txt_nombre : $localidad->texto_colonia,
                 $localidad->txt_municipio, $localidad->txt_cp, $localidad->txt_antecedentes, $localidad->num_renta_actual,
                 $localidad->num_incremento_autorizado, $localidad->num_pretencion_renta, $localidad->num_incremento_cliente,
