@@ -146,9 +146,6 @@ $this->registerCssFile(
                 ],
                 [
                     'attribute'=>'txt_nombre',
-                    'headerOptions' => [
-                        'class' => 'pl-10'
-                    ],
                     'contentOptions' => [
                         'class'=>"td-nombre"
                     ],
