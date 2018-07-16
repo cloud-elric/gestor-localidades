@@ -1553,6 +1553,19 @@
 		"oS": 0,
 		"uL": 1
 		},
+	"\/sassDark\/_localidades.sass": {
+		"aP": 0,
+		"bl": 0,
+		"dP": 10,
+		"dS": 0,
+		"ft": 2,
+		"ma": 0,
+		"oA": 1,
+		"oAP": "\/sassDark\/_localidades.css",
+		"oF": 0,
+		"oS": 0,
+		"uL": 1
+		},
 	"\/sassDark\/_login.sass": {
 		"aP": 0,
 		"bl": 0,
