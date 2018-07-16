@@ -22,7 +22,7 @@ $this->params['classBody'] = "page-login-v2 layout-full page-login";
 
 	<div class="page-login-main-cont">
 
-		<h3 class="title-datos">Porfavor Ingresa tus datos</h3>
+		<h3 class="title-datos">Porfavor Ingresa tus contraseñas</h3>
 
         <?php $form = ActiveForm::begin([
             'id' => 'login-form',
