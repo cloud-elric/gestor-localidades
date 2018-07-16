@@ -194,7 +194,7 @@ $this->registerCssFile(
                 [
                     'attribute'=>'fch_asignacion',
                     'contentOptions' => [
-                        'class'=>"td-fecha"
+                        'class'=>"td-fecha text-center"
                     ],
                     'headerOptions' => [
                         'class' => 'text-center'
@@ -227,6 +227,9 @@ $this->registerCssFile(
                 [
                     'label'=>'Responsable',
                     'format'=>'raw',
+                    'headerOptions' => [
+                        'class' => 'text-center'
+                    ],
                     'contentOptions' => [
                         'class'=>"td-responsable"
                     ],
