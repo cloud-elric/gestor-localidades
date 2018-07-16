@@ -41,9 +41,7 @@ use app\models\WrkUsuarioUsuarios;
                                 ],
                             ])->label(false);
                     ?>
-                </div>
-                
-                    
+                </div>   
             
                 <div id="select_clientes" class="col-md-6" style="display:none">
                     <?php
@@ -63,6 +61,7 @@ use app\models\WrkUsuarioUsuarios;
                         ])->label(false);
                     ?> 
                 </div>
+
             </div>
             <div class="row">
                 <div class="col-md-6">
@@ -106,7 +105,6 @@ $(document).ready(function(){
 function desplegarDirectores(elemento){
     if(elemento.val()=="'.ConstantesWeb::COLABORADOR.'"){
         $("#select_clientes").show();
-
     }else{
         $("#select_clientes").hide();
     }
