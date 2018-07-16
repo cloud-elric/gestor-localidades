@@ -101,7 +101,10 @@ $this->registerCssFile(
                 [
                     'attribute'=>'txt_nombre',
                     'headerOptions' => [
-                        'class' => 'text-left'
+                        'class' => 'text-center'
+                    ],
+                    'contentOptions' => [
+                        'class'=>"td-nombre"
                     ],
                     'format'=>'raw',
                     'value'=>function($data){
@@ -111,9 +114,24 @@ $this->registerCssFile(
                         <a class="panel-listado-user-link no-pjax run-slide-panel" href="'.Url::base().'/archivadas/view/'.$data->id_localidad.'">' .$data->txt_nombre.'</a></div>';
                     }
                 ],
-                'cms',
+                [
+                    'attribute'=>'cms',
+                    'contentOptions' => [
+                        'class'=>"text-center"
+                    ],
+                    'headerOptions' => [
+                        'class' => 'text-center'
+                    ],
+                    'format'=>'raw',
+                ],
                 [
                     'label'=>'Última',
+                    'contentOptions' => [
+                        'class'=>"text-center"
+                    ],
+                    'headerOptions' => [
+                        'class' => 'text-center'
+                    ],
                     'format'=>'raw',
                     'value'=>function($data){
                         return 'Hoy';
@@ -122,6 +140,12 @@ $this->registerCssFile(
 
                 [
                     'attribute'=>'fch_asignacion',
+                    'contentOptions' => [
+                        'class'=>"td-fecha text-center"
+                    ],
+                    'headerOptions' => [
+                        'class' => 'text-center'
+                    ],
                     'filter'=>DatePicker::widget([
                         'model'=>$searchModel,
                         'attribute'=>'fch_creacion',
@@ -144,11 +168,20 @@ $this->registerCssFile(
 
                 [
                     'attribute'=>'txt_arrendador',
+                    'contentOptions' => [
+                        'class'=>"td-arrendador"
+                    ],
                     'format'=>'raw'
                 ],
 
                 [
                     'label'=>'Acciones',
+                    'contentOptions' => [
+                        'class'=>"td-actions"
+                    ],
+                    'headerOptions' => [
+                        'class' => 'text-center'
+                    ],
                     'format'=>'raw',
                     'value'=>function($data){
 

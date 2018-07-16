@@ -8,11 +8,20 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 
 $this->title = 'Cambiar contraseña';
-$this->params['classBody'] = "page-login-v3 layout-full";
+$this->params['classBody'] = "page-login-v2 layout-full page-login";
 ?>
 
-<div class="panel">
-	<div class="panel-body">
+<div class="page-brand-info">
+	<img class="logo-login" src="<?=Url::base()?>/webAssets/images/overhaul-login.png" alt="Overhaul">
+</div>
+
+<div class="page-login-main animation-slide-right animation-duration-1">
+
+	<div class="page-login-v2-mask"></div>
+
+	<div class="page-login-main-cont">
+
+		<h3 class="title-datos">Porfavor Ingresa tus datos</h3>
 
         <?php $form = ActiveForm::begin([
             'id' => 'login-form',
@@ -38,6 +47,6 @@ $this->params['classBody'] = "page-login-v3 layout-full";
         </div>
 
         <?php ActiveForm::end(); ?>
-        <p class="soporteTxt">¿Necesitas ayuda? escribe a: <a class="no-redirect login-link-white" href="mailto:soporte@ovhaul.mx?Subject=Solicitud%de%Soporte">soporte@ovhaul.mx</a></p>
+        <p class="soporteTxt">¿Necesitas ayuda? escribe a: <a class="no-redirect login-link-white" href="mailto:soporte@ovhaul.mx?Subject=Solicitud%de%Soporte">soporte@ovhaul.mx E</a></p>
     </div>
 </div>    

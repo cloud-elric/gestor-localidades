@@ -276,6 +276,9 @@
 									+respond-to(xs)
 										width: auto
 
+								&.td-arrendador
+									width: 30%
+
 								.panel-listado-acctions
 									align-items: center
 									display: flex
@@ -333,6 +336,7 @@
 										// 	border-color: $ryg-accent
 										// 	color: $ryg-second
 
+
 								// .addMember-trigger-dropdown:before
 								// 	display: none !important
 
@@ -380,6 +384,13 @@
 						border-color: $ryg-second
 						box-shadow: none
 						outline: none
+
+				input[type="email"],
+				input[type="password"],
+				input[type="text"],
+				input[type="text"]:disabled,
+				input[type="text"][readonly]
+					height: 38px
 
 				select
 					-webkit-appearance: none
@@ -637,6 +648,7 @@
 						display: inline-block
 					span
 						color: rgba($white,.8)
+						display: block
 						font-weight: $medium
 						&.badge.badge-success.badge-outline
 							background-color: $ryg-accent

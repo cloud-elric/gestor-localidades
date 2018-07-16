@@ -1,5 +1,9 @@
 $(document).ready(function(){
 
+    $(".panel-listado-acctions-tooltip a").on("click", function(){
+        $(this).trigger('blur');
+    });
+
     $(".js-icon-edit").on("click", function(){
         $(".form-label").hide();
         $(".form-input").show();
@@ -39,7 +43,7 @@ $(document).ready(function(){
     $(document).on({"click": function(){
         $(this).trigger('blur');
     }
-    }, '.panel-listado-acctions a');
+    }, '.panel-listado-acctions-tooltip a');
 
     $(document).on({'click': function(e){
             e.preventDefault();
