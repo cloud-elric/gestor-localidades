@@ -57,7 +57,7 @@ class LocalidadesController extends Controller
                             'asignar-usuario-tarea',  'ver-tareas-localidad', 'archivar-localidad'
                         ],
                         'allow' => true,
-                        'roles' => [ConstantesWeb::ABOGADO],
+                        'roles' => [ConstantesWeb::ABOGADO, ConstantesWeb::ASISTENTE],
                     ],
                     [
                         'actions' => [

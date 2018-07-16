@@ -18,6 +18,7 @@ $usuario = EntUsuarios::getUsuarioLogueado();
 $isAbogado = $usuario->txt_auth_item == ConstantesWeb::ABOGADO;
 $isColaborador = $usuario->txt_auth_item == ConstantesWeb::COLABORADOR;
 $isDirector = $usuario->txt_auth_item == ConstantesWeb::CLIENTE;
+$isAsistente = $usuario->txt_auth_item == ConstantesWeb::ASISTENTE;
 $relTareaUsuario = null;
 
 $this->registerCssFile(
@@ -51,7 +52,7 @@ $this->registerCssFile(
                             
                             <div class="ent-localidades-view-panel-int">
                                 <?php
-                                if($isAbogado){
+                                if($isAbogado || $isAsistente){
                                 ?>
                                 <!--Botón para generar nueva tarea-->
                                 <div class="row ">
@@ -104,7 +105,7 @@ $this->registerCssFile(
                                                     ?>
                                                         
                                                         <?php
-                                                        if($isAbogado || $isDirector){
+                                                        if($isAbogado || $isAsistente || $isDirector){
                                                             $relTareaUsuario = WrkUsuariosTareas::find()->where(['id_tarea'=>$tarea->id_tarea])->all();
 
                                                         ?>
@@ -123,7 +124,7 @@ $this->registerCssFile(
                                                         
 
                                                         <?php
-                                                        if($isAbogado || $isDirector){
+                                                        if($isAbogado || $isAsistente || $isDirector){
                                                         ?>
                                                             <div class="tarea-member addMember-cont">
                                                                 <select multiple='multiple' class='plugin-selective-tareas' data-localidad="<?=$localidad->id_localidad?>" data-id='<?=$tarea->id_tarea?>' data-json='<?=$tarea->colaboradoresAsignados?>'></select> 
@@ -167,7 +168,7 @@ $this->registerCssFile(
 
 
                                                     <?php
-                                                    if(($isColaborador || $isAbogado) && !$tarea->b_completa){
+                                                    if(($isColaborador || $isAbogado || $isAsistente) && !$tarea->b_completa){
                                                     ?> 
 
                                                         <div class="tarea-fechas">
@@ -232,7 +233,7 @@ $this->registerCssFile(
 
                                                         <div class="form-group">
                                                         <?php
-                                                            if($isColaborador || $isAbogado){
+                                                            if($isColaborador || $isAbogado || $isAsistente){
                                                         ?>
                                                             <?=Html::submitButton("<span class='ladda-label'><i class='icon wb-file' aria-hidden='true'></i>".$textoGuardar."</span>", ["data-id"=>$tarea->id_tarea, "style"=>"display:block;", "data-style"=>'zoom-in', "class"=>"btn ladda-button btn-save-texto btn-block btn-round mt-20 submit_tarea"]);?>
                                                         <?php
