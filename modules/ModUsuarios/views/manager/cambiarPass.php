@@ -38,6 +38,6 @@ $this->params['classBody'] = "page-login-v2 layout-full page-login";
         </div>
 
         <?php ActiveForm::end(); ?>
-        <p class="soporteTxt">¿Necesitas ayuda? escribe a: <a class="no-redirect login-link-white" href="mailto:soporte@ovhaul.mx?Subject=Solicitud%de%Soporte">soporte@ovhaul.mx E</a></p>
+        <p class="soporteTxt">¿Necesitas ayuda? escribe a: <a class="no-redirect login-link-white" href="mailto:soporte@ovhaul.mx?Subject=Solicitud%de%Soporte">soporte@ovhaul.mx</a></p>
     </div>
 </div>    
