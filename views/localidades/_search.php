@@ -87,7 +87,7 @@ use yii\helpers\Url;
     </div>
 
     <div class="col-sm-12 mt-20 text-right">
-        <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
+        <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ASISTENTE){ ?>
             <?= Html::a('<i class="icon ion-md-trending-up" aria-hidden="true"></i> Agregar', ['create'], ['class' => 'btn btn-add no-pjax']) ?>
             <?= Html::a('<i class="icon ion-md-download" aria-hidden="true"></i> Exportar', ['exportar-localidades'], ['class' => 'btn btn-add no-pjax', 'target'=>'_blank']) ?>
             <?php # Html::a('<i class="icon ion-md-archive" aria-hidden="true"></i> Archivar', Url::base().'/archivadas/index', ['class' => 'btn btn-add no-pjax']) ?>

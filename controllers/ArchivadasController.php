@@ -43,7 +43,7 @@ class ArchivadasController extends Controller
                             'index', 'create', 'update', 'delete', 'desarchivar-localidad'                            
                         ],
                         'allow' => true,
-                        'roles' => [ConstantesWeb::ABOGADO],
+                        'roles' => [ConstantesWeb::ABOGADO, ConstantesWeb::ASISTENTE],
                     ],
                 ],
             ],
