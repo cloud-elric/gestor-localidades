@@ -28,15 +28,7 @@ $this->params['classBody'] = "page-login-v2 layout-full page-login";
             'id' => 'login-form',
         ]); ?>
 
-        
-        <?= $form->field($model, 'password')->passwordInput(['maxlength' => true])->label("Nueva contraseña") ?>
-
         <?= $form->field($model, 'password')->passwordInput(["class"=>"form-control", 'placeholder'=>'Nueva contraseña'])->label(false) ?>
-
-
-
-        
-        <?= $form->field($model, 'repeatPassword')->passwordInput(['maxlength' => true])->label("Repetir contraseña") ?>
 
         <?= $form->field($model, 'repeatPassword')->passwordInput(["class"=>"form-control", 'placeholder'=>'Repetir contraseña'])->label(false) ?>
 
