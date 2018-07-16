@@ -26,22 +26,12 @@ $this->params['classBody'] = "page-login-v2 layout-full page-login";
 
         <?php $form = ActiveForm::begin([
             'id' => 'login-form',
-            'fieldConfig' => [
-                "template" => "{input}{label}{error}",
-                "options" => [
-                    "class" => "form-group form-material floating",
-                    "data-plugin" => "formMaterial"
-                ],
-                "labelOptions" => [
-                    "class" => "floating-label"
-                ]
-            ]
         ]); ?>
 
-        
-        <?= $form->field($model, 'password')->passwordInput(['maxlength' => true])->label("Nueva contraseña") ?>
-        
-        <?= $form->field($model, 'repeatPassword')->passwordInput(['maxlength' => true])->label("Repetir contraseña") ?>
+
+        <?= $form->field($model, 'password')->passwordInput(["class"=>"form-control", 'placeholder'=>'Nueva contraseña'])->label(false) ?>
+
+        <?= $form->field($model, 'repeatPassword')->passwordInput(["class"=>"form-control", 'placeholder'=>'Repetir contraseña'])->label(false) ?>
 
         <div class="form-group">
             <?= Html::submitButton('<span class="ladda-label">Cambiar contraseña</label>', ["data-style"=>"zoom-in", 'class' => 'btn btn-recuperar-pass btn-block btn-lg mt-20 ladda-button', 'name' => 'login-button']) ?>
