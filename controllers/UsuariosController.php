@@ -40,7 +40,7 @@ class UsuariosController extends Controller
                             'create', 'update', "view", "bloquear-usuario", "activar-usuario"
                         ],
                         'allow' => true,
-                        'roles' => [ConstantesWeb::ABOGADO, ConstantesWeb::ASISTENTE],
+                        'roles' => [ConstantesWeb::SUPER_ADMIN, ConstantesWeb::ABOGADO, ConstantesWeb::ASISTENTE],
                     ],
                     
                 ],
@@ -108,6 +108,15 @@ class UsuariosController extends Controller
         unset($hijos[$usuario->txt_auth_item]);
         ksort($hijos);
         $roles = AuthItem::find()->where(['in', 'name', array_keys($hijos)])->orderBy("name")->all();
+
+        if($usuario->txt_auth_item == "super-admin"){
+            unset($hijos[$usuario->txt_auth_item]);
+            unset($hijos['asistente']);
+            unset($hijos['cliente']);
+            unset($hijos['usuario-cliente']);
+            ksort($hijos);
+            $roles = AuthItem::find()->where(['in', 'name', array_keys($hijos)])->all();
+        }
 
         $model = new EntUsuarios([
             'scenario' => 'registerInput'

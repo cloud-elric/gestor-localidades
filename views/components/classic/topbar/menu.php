@@ -12,7 +12,8 @@ use app\models\ConstantesWeb;
           <li class="site-menu-category">General</li>
 
           <?php
-          if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::SUPER_ADMIN || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::CLIENTE){?>
+          if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::SUPER_ADMIN || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO ||
+            Yii::$app->user->identity->txt_auth_item == ConstantesWeb::CLIENTE || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ASISTENTE){?>
 
           <li class="dropdown site-menu-item has-sub">
             <a data-toggle="dropdown" href="javascript:void(0)" data-dropdown-toggle="false">
@@ -47,7 +48,8 @@ use app\models\ConstantesWeb;
           ?>
 
           <?php
-          if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::SUPER_ADMIN || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){?>
+          if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::SUPER_ADMIN || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO
+          || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ASISTENTE){?>
 
           <li class="dropdown site-menu-item has-sub">
             <a data-toggle="dropdown" href="javascript:void(0)" data-dropdown-toggle="false">
