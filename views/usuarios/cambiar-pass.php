@@ -21,16 +21,9 @@ $this->params['classBody'] = "site-navbar-small page-user ryg-body";
                 <?php 
                 $form = ActiveForm::begin([
                     'id' => 'login-form',
-                    'fieldConfig' => [
-                        "template" => "{input}{label}{error}",
-                        "options" => [
-                            "class" => "form-group form-material floating",
-                            "data-plugin" => "formMaterial"
-                        ],
-                        "labelOptions" => [
-                            "class" => "floating-label"
-                        ]
-                    ]
+                    'options' =>[
+                        "class"=>"usuarios-cambiar-pass",
+                    ],
                 ]); ?>
 
                         
@@ -42,8 +35,8 @@ $this->params['classBody'] = "site-navbar-small page-user ryg-body";
                     <?= Html::submitButton('<span class="ladda-label">Cambiar contraseña</label>', ["data-style"=>"zoom-in", 'class' => 'btn btn-recuperar-pass btn-block btn-lg mt-20 ladda-button', 'name' => 'login-button']) ?>
                 </div>
 
+                <p class="soporte-ayuda">¿Necesitas ayuda? escribe a: <a class="no-redirect login-link-white" href="mailto:soporte@ovhaul.mx?Subject=Solicitud%de%Soporte">soporte@ovhaul.mx</a></p>
                 <?php ActiveForm::end(); ?>
-                <p class="soporteTxt">¿Necesitas ayuda? escribe a: <a class="no-redirect login-link-white" href="mailto:soporte@2gom.com.mx?Subject=Solicitud%de%Soporte">soporte@2gom.com.mx</a></p>
             </div>  
         </div>
         
