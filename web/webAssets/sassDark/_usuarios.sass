@@ -755,16 +755,19 @@
 					justify-content: center
 					text-align: center
 					.user-file-a
+						align-items: center
+						background-color: rgba($white,.1)
 						+border-radius(36px)
 						cursor: pointer
 						display: flex
 						height: 74px
+						justify-content: center
 						margin: 0 auto
 						max-width: 80%
 						overflow: hidden
 						width: 143px
 						img
-							margin-top: -25%
+							// margin-top: -25%
 							max-width: 100%
 
 				form
@@ -853,7 +856,7 @@
 						.select2-container--krajee .select2-selection:focus
 							box-shadow: none
 
-						.select2-container--krajee
+						.select2-container--krajee,
 						.select2-selection--single
 							.select2-selection__rendered
 								color: $white
