@@ -256,7 +256,8 @@ $this->registerCssFile(
                             return '
                             <ul class="addMember-items">
                                 <li class="addMember-item">
-                                    <img class="avatar tooltip-success" src="'.$usuarioDefault->imageProfile.'" data-toggle="tooltip" data-original-title="'.$usuarioDefault->nombreCompleto.'"">
+                                    <img class="avatar tooltip-success" src="'.$usuarioDefault->imageProfile.'" data-toggle="tooltip" data-original-title="'.$usuarioDefault->nombreCompleto.'">
+                                    <p>'.$usuarioDefault->nombreCompleto.'</p>
                                 </li>
                             </ul>
                             ';

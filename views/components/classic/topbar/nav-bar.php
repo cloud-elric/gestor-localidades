@@ -17,9 +17,9 @@ role="navigation">
     </button>
     <a class="navbar-brand navbar-brand-center" href="<?=Url::base()?>">
       <img class="navbar-brand-logo navbar-brand-logo-normal" src="<?=Url::base()?>/webAssets/images/overhaul.png"
-      title="Remark">
+      title="OverHaul">
       <img class="navbar-brand-logo navbar-brand-logo-special" src="<?=Url::base()?>/webAssets/images/overhaul.png"
-      title="Remark">
+      title="OverHaul">
       
     </a>
     
