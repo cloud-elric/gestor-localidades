@@ -429,7 +429,7 @@ $(document).ready(function(){
               return '<div style=\"display:'+isAsignado+'\" class=\"' + this.namespace + '-trigger-button\"><i class=\"wb-plus\"></i></div>';
             },
             listItem: function listItem(data) {
-              return '<li class=\"' + this.namespace + '-list-item\"><img  class=\"avatar\" src=\"' + data.avatar + '\">' + data.name + '</li>';
+              return '<li class=\"' + this.namespace + '-list-item\"><img  class=\"avatar\" src=\"' + data.avatar + '\"><p>' + data.name + '</p></li>';
             },
             item: function item(data) {
               return '<li class=\"' + this.namespace + '-item\"><img data-toggle=\"tooltip\" data-original-title=\"' + data.name + '\" class=\"avatar\" src=\"' + data.avatar + '\" >' + this.options.tpl.itemRemove.call(this) + '</li>';
