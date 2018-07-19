@@ -107,7 +107,7 @@ $user = Yii::$app->user->identity;
 
                                     <div class="row">
                                         <div class="col-sm-12 col-md-12">
-                                            <span>Calle: </span>
+                                            <span>Domicilio: </span>
                                             <p><?= $model->txt_calle ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
@@ -126,7 +126,7 @@ $user = Yii::$app->user->identity;
                                             ?>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
-                                            <span>Municipio: </span>
+                                            <span>Delegación/Municipio: </span>
                                             <p><?= $model->txt_municipio ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
