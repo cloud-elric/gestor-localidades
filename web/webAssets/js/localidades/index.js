@@ -461,3 +461,11 @@ $(document).on({'click': function(){
     });
 }
 }, ".js_btn_eliminar_tarea");
+
+$(document).on({'click': function(){
+    var l = Ladda.create(document.getElementById("js-btn-guardar-loc"));
+    l.start();
+
+    $('#form-crear-localidad').submit();
+}
+}, "#js-btn-guardar-loc");
