@@ -50,10 +50,10 @@ $this->registerJsFile(
 
 ?>
   
-    
+  
 <!-- Panel -->
 <div class="panel panel-list-user-table">
-  
+
     <?php
     
     echo GridView::widget([

@@ -48,6 +48,7 @@ class UsuariosSearch extends EntUsuarios
     public function search($params)
     {
         $query = EntUsuarios::find()->leftJoin("auth_item", "auth_item.name= mod_usuarios_ent_usuarios.txt_auth_item");
+        //$query = EntUsuarios::find();
 
         // add conditions that should always apply here
 
@@ -104,7 +105,7 @@ class UsuariosSearch extends EntUsuarios
             ->andFilterWhere(['like', 'txt_email', $this->txt_email])
             ->andFilterWhere(['like', 'fch_creacion', $this->fch_creacion])
             
-            ->andFilterWhere(['like', 'txt_auth_item', $this->roleDescription])
+            ->andFilterWhere(['txt_auth_item'=>$this->roleDescription])
             ->andFilterWhere(['like', 'CONCAT(txt_username, " ", txt_apellido_paterno)', $this->nombreCompleto]);
   
 
