@@ -103,7 +103,7 @@ $this->registerJsFile(
            'txt_email:raw',
           
           [
-            'attribute' => 'fch_creacion',
+            'attribute' => 'usuarioPadre',
             'label' => 'Usuario responsable',
             // 'filter'=>DatePicker::widget([
             //   'model'=>$searchModel,
@@ -122,7 +122,8 @@ $this->registerJsFile(
                 $responsable = EntUsuarios::find()->where(['id_usuario'=>$idResponsable])->one();
 
                 if($responsable){
-
+                  $data->usuarioPadre = $responsable->txt_username;
+                  
                   return '<img class="panel-listado-img" src="'.$responsable->imageProfile.'" alt="">
                     <span>'.$responsable->nombreCompleto .'</span>';
                 }

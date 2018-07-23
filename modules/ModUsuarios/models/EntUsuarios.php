@@ -272,6 +272,27 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 				'id_usuario' => 'id_usuario' 
 		] );
 	}
+
+	/**
+	 *
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getEntUsuarioPadre() {
+		return $this->hasMany ( WrkUsuarioUsuarios::className (), [ 
+				'id_usuario_padre' => 'id_usuario' 
+		] );
+	}
+
+	
+	/**
+	 *
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getEntUsuarioHijo() {
+		return $this->hasMany ( WrkUsuarioUsuarios::className (), [ 
+				'id_usuario_hijo' => 'id_usuario' 
+		] );
+	}
 	
 	/**
 	 *
