@@ -207,7 +207,13 @@ class UsuariosController extends Controller
         $rol = $model->txt_auth_item;
 
         if($usuario->txt_auth_item == ConstantesWeb::SUPER_ADMIN){
-            $usuariosClientes = EntUsuarios::find()->all();
+            if($model->txt_auth_item == ConstantesWeb::COLABORADOR){
+                $usuariosClientes = EntUsuarios::find()->where(['txt_auth_item'=>'cliente'])->all();
+            }else if($model->txt_auth_item == ConstantesWeb::CLIENTE || $model->txt_auth_item == ConstantesWeb::ASISTENTE){
+                $usuariosClientes = EntUsuarios::find()->where(['txt_auth_item'=>'abogado'])->all();
+            }else{
+                $usuariosClientes = EntUsuarios::find()->where(['txt_auth_item'=>'super-admin'])->all();;
+            }
         }else{
             $usuariosClientes = EntUsuarios::find()->where(['txt_auth_item'=>ConstantesWeb::CLIENTE])->all();
         }
@@ -234,6 +240,11 @@ class UsuariosController extends Controller
                 if($relUsuarios){
                     $relUsuarios->id_usuario_padre = $_POST['EntUsuarios']['usuarioPadre'];
                     $relUsuarios->save(); 
+                }else{
+                    $relUsuarios = new WrkUsuarioUsuarios();
+                    $relUsuarios->id_usuario_hijo =$model->id_usuario;
+                    $relUsuarios->id_usuario_padre = $_POST['EntUsuarios']['usuarioPadre'];
+                    $relUsuarios->save();
                 }
 
                 if($rev){
