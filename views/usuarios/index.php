@@ -119,13 +119,16 @@ $this->registerJsFile(
             'format'=>'raw',
             'value'=>function($data){
                 $idResponsable = WrkUsuarioUsuarios::find()->where(['id_usuario_hijo'=>$data->id_usuario])->one();
-                $responsable = EntUsuarios::find()->where(['id_usuario'=>$idResponsable])->one();
+                
+                if($idResponsable){
+                  $responsable = EntUsuarios::find()->where(['id_usuario'=>$idResponsable->id_usuario_padre])->one();
 
-                if($responsable){
-                  $data->usuarioPadre = $responsable->txt_username;
-                  
-                  return '<img class="panel-listado-img" src="'.$responsable->imageProfile.'" alt="">
-                    <span>'.$responsable->nombreCompleto .'</span>';
+                  if($responsable){
+                    $data->usuarioPadre = $responsable->txt_username;
+                    
+                    return '<img class="panel-listado-img" src="'.$responsable->imageProfile.'" alt="">
+                      <span>'.$responsable->nombreCompleto .'</span>';
+                  }
                 }
                 return "<p>Sin responsable</p>";
             }
