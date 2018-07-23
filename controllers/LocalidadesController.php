@@ -754,9 +754,31 @@ class LocalidadesController extends Controller
             $localidades = EntLocalidades::find()->all();
             
             $delimiter = ",";
-            $campos = ['Estado', 'Usuario', 'Moneda', 'Nombre', 'Arrendador', 'Beneficiario', 'Calle', 'Colonia', 'Municipio', 'CP',
-            'Antecedentes', 'Renta actual', 'Incremento', 'Pretencion renta', 'Incremento cliente', 'Pretencion renta cliente', 'Vencimiento contrato',
-            'Fecha creacion', 'Fecha asignacion', 'Status localidad'];
+            $campos = [
+                'CMS',
+                'Nombre',
+                'Arrendador',
+                'Beneficiario',
+                'Contacto',
+                'Antecedentes',
+
+                'Codigo postal',
+                'Colonia',
+                'Delegación/Municipio',
+                'Estado',
+                'Domicilio',
+
+                'Fecha vencimiento contrato',
+                'Fecha asignacion',
+                'Tipo de contrato',
+                'Renta actual',
+                'Porcentaje de incremento preautorizado',
+                'Renta pre-autorizada',
+                'Porcentaje de incremento solicitado por arrendador',
+                'Pretensión de renta del arrendador',
+                'Frecuencia de pago',
+                'Moneda'
+            ];
 
             fputcsv($nuevoFichero, $campos, $delimiter);
 
@@ -773,12 +795,31 @@ class LocalidadesController extends Controller
                 $moneda = $localidad->moneda;
                 $status = $localidad->bStatusLocalidad;
                 
-                $datos = [$localidad->id_estado ? $estado->txt_nombre : $localidad->texto_estado, $usuario->txt_username . ' ' . $usuario->txt_apellido_paterno, $moneda->txt_moneda,
-                $localidad->txt_nombre, $localidad->txt_arrendador, $localidad->txt_beneficiario, $localidad->txt_calle, $localidad->txt_colonia ? $colonia->txt_nombre : $localidad->texto_colonia,
-                $localidad->txt_municipio, $localidad->txt_cp, $localidad->txt_antecedentes, $localidad->num_renta_actual,
-                $localidad->num_incremento_autorizado, $localidad->num_pretencion_renta, $localidad->num_incremento_cliente,
-                $localidad->num_pretencion_renta_cliente, $localidad->fch_vencimiento_contratro, $localidad->fch_creacion, $localidad->fch_asignacion,
-                $status->txt_nombre];
+                $datos = [
+                    $localidad->cms,
+                    $localidad->txt_nombre,
+                    $localidad->txt_arrendador,
+                    $localidad->txt_beneficiario,
+                    $localidad->txt_contacto,
+                    $localidad->txt_antecedentes,
+
+                    $localidad->txt_cp,
+                    $localidad->txt_colonia ? $colonia->txt_nombre : $localidad->texto_colonia,
+                    $localidad->txt_municipio,
+                    $localidad->id_estado ? $estado->txt_nombre : $localidad->texto_estado,
+                    $localidad->txt_calle,
+
+                    $localidad->fch_vencimiento_contratro,
+                    $localidad->fch_asignacion,
+                    $status->txt_nombre,
+                    $localidad->num_renta_actual,
+                    $localidad->num_incremento_autorizado,
+                    $localidad->num_pretencion_renta,
+                    $localidad->num_incremento_cliente,
+                    $localidad->num_pretencion_renta_cliente,
+                    $localidad->txt_frecuencia,
+                    $moneda->txt_moneda
+                ];
 
                 fputcsv($nuevoFichero, $datos, $delimiter);
             }

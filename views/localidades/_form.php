@@ -171,7 +171,7 @@ $this->registerJsFile(
                                 ?>
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-4">
-                                <?=Html::label("Municipio", "txt_municipio", ['class'=>'control-label'])?>
+                                <?=Html::label("Delegación/Municipio", "txt_municipio", ['class'=>'control-label'])?>
                                 <?=Html::textInput("txt_municipio", $model->txt_municipio, ['class'=>'form-control','disabled'=>'disabled', 'id'=>'txt_municipio' ])?>
                                 <?= $form->field($model, 'txt_municipio')->hiddenInput(['maxlength' => true])->label(false) ?>
                             </div>
@@ -195,23 +195,23 @@ $this->registerJsFile(
                     <div class="col-md-12" id='js-div-manual' style='display:none'>
                         <div class="row">
                             <div class="col-sm-12 col-md-6 col-lg-4">
-                                <?= $form->field($model, 'textoCP')->textInput(['maxlength' => true]) ?>
+                                <?= $form->field($model, 'textoCP')->textInput(['maxlength' => true])->label() ?>
                             </div>
 
                             <div class="col-sm-12 col-md-6 col-lg-4">
-                                <?= $form->field($model, 'textoColonia')->textInput(['maxlength' => true]) ?>
+                                <?= $form->field($model, 'textoColonia')->textInput(['maxlength' => true])->label() ?>
                             </div>
                                 
                             <div class="col-sm-12 col-md-6 col-lg-4">
-                                <?= $form->field($model, 'textoMun')->textInput(['maxlength' => true]) ?>
+                                <?= $form->field($model, 'textoMun')->textInput(['maxlength' => true])->label() ?>
                             </div>
                                 
                             <div class="col-sm-12 col-md-6 col-lg-4">
-                                <?= $form->field($model, 'textoEstado')->textInput(['maxlength' => true]) ?>
+                                <?= $form->field($model, 'textoEstado')->textInput(['maxlength' => true])->label() ?>
                             </div>
                                 
                             <div class="col-sm-12 col-md-6 col-lg-4">
-                                <?= $form->field($model, 'textoCalle')->textInput(['maxlength' => true]) ?>                                
+                                <?= $form->field($model, 'textoCalle')->textInput(['maxlength' => true])->label() ?>
                             </div>
                         </div>
                     </div>

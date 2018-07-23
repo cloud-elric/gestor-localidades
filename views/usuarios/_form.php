@@ -8,6 +8,7 @@ use yii\helpers\ArrayHelper;
 use app\models\ConstantesWeb;
 use yii\web\View;
 use app\models\WrkUsuarioUsuarios;
+use app\modules\ModUsuarios\models\EntUsuarios;
 
 ?>
 <div class="row">
@@ -45,10 +46,17 @@ use app\models\WrkUsuarioUsuarios;
             
                 <div id="select_clientes" class="col-md-6" style="display:none">
                     <?php
-                    $usuarioDirector = WrkUsuarioUsuarios::find(["id_usuario_hijo"=>$model->id_usuario])->one();
-                    if($usuarioDirector){
-                        $model->usuarioPadre = $usuarioDirector->id_usuario_padre;
-                    }
+                    // $usuarioDirector = WrkUsuarioUsuarios::find(["id_usuario_hijo"=>$model->id_usuario])->one();
+                    // if($usuarioDirector){
+                    //     $model->usuarioPadre = $usuarioDirector->id_usuario_padre;
+                    // }
+
+                    $idPadre = WrkUsuarioUsuarios::find()->where(['id_usuario_hijo'=>$model->id_usuario])->one();
+                    $padre = EntUsuarios::find()->where(['id_usuario'=>$idPadre->id_usuario_padre])->one();
+                    
+                    if($padre){
+                        $model->usuarioPadre = $padre->id_usuario;
+                    }//echo "ddd--" .$model->usuarioPadre;exit;
                     ?>
                     <?= $form->field($model, 'usuarioPadre')
                         ->widget(Select2::classname(), [
@@ -103,10 +111,16 @@ $(document).ready(function(){
 });
 
 function desplegarDirectores(elemento){
-    if(elemento.val()=="'.ConstantesWeb::COLABORADOR.'"){
+
+    if("'.Yii::$app->user->identity->txt_auth_item.'" == "'.ConstantesWeb::SUPER_ADMIN.'"){
         $("#select_clientes").show();
     }else{
-        $("#select_clientes").hide();
+
+        if(elemento.val()=="'.ConstantesWeb::COLABORADOR.'"){
+            $("#select_clientes").show();
+        }else{
+            $("#select_clientes").hide();
+        }
     }
 }
 ', View::POS_LOAD, 'user');

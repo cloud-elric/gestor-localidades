@@ -272,6 +272,27 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 				'id_usuario' => 'id_usuario' 
 		] );
 	}
+
+	/**
+	 *
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getEntUsuarioPadre() {
+		return $this->hasMany ( WrkUsuarioUsuarios::className (), [ 
+				'id_usuario_padre' => 'id_usuario' 
+		] );
+	}
+
+	
+	/**
+	 *
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getEntUsuarioHijo() {
+		return $this->hasMany ( WrkUsuarioUsuarios::className (), [ 
+				'id_usuario_hijo' => 'id_usuario' 
+		] );
+	}
 	
 	/**
 	 *
@@ -594,6 +615,28 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 			}
 			
 			return $basePath . '/webAssets/images/site/user.png';
+		}
+		
+		return 'http://graph.facebook.com/'.$usuarioFacebook->id_facebook.'/picture';
+		
+	}
+
+	/**
+	 * Si la imagen esta vacia mandamos una por default
+	 *
+	 * @return string
+	 */
+	public function getImageProfileAdmin() {
+		$basePath = Yii::getAlias ( '@web' );
+		
+		$usuarioFacebook = $this->entUsuariosFacebook;
+		
+		if(empty($usuarioFacebook)){
+			if ($this->txt_imagen) {
+				return $basePath . '/profiles/' . $this->txt_token."/". $this->txt_imagen;
+			}
+			
+			return $basePath . '/webAssets/images/site/admin.jpg';
 		}
 		
 		return 'http://graph.facebook.com/'.$usuarioFacebook->id_facebook.'/picture';

@@ -129,7 +129,7 @@ class UsuariosController extends Controller
         }
         
         $padre = null;
-        if ($model->load(Yii::$app->request->post())){//print_r($_POST);exit;
+        if ($model->load(Yii::$app->request->post())){ //print_r($_POST);exit;
             
             $model->password = $model->randomPassword();
             $model->repeatPassword = $model->password;
@@ -162,7 +162,7 @@ class UsuariosController extends Controller
                 if($model->txt_auth_item == ConstantesWeb::COLABORADOR){
                     $relUsuarios = new WrkUsuarioUsuarios();
                     $relUsuarios->id_usuario_hijo =$model->id_usuario;
-                    $relUsuarios->id_usuario_padre = $usuario->id_usuario;
+                    $relUsuarios->id_usuario_padre = $_POST['EntUsuarios']['usuarioPadre'];
                     $relUsuarios->save(); 
                 }
                 if($model->txt_auth_item == ConstantesWeb::CLIENTE || $model->txt_auth_item == ConstantesWeb::ASISTENTE){
@@ -206,9 +206,13 @@ class UsuariosController extends Controller
         $model->scenario = "update";
         $rol = $model->txt_auth_item;
 
-        $usuariosClientes = EntUsuarios::find()->where(['txt_auth_item'=>ConstantesWeb::CLIENTE])->all();
+        if($usuario->txt_auth_item == ConstantesWeb::SUPER_ADMIN){
+            $usuariosClientes = EntUsuarios::find()->all();
+        }else{
+            $usuariosClientes = EntUsuarios::find()->where(['txt_auth_item'=>ConstantesWeb::CLIENTE])->all();
+        }
 
-        if ($model->load(Yii::$app->request->post())){
+        if ($model->load(Yii::$app->request->post())){ //print_r($_POST);exit;
             $model->usuarioPadre = $usuario->id_usuario;
             $model->txt_auth_item = $_POST['EntUsuarios']['txt_auth_item'];
             $model->image = UploadedFile::getInstance($model, 'image');
@@ -225,6 +229,12 @@ class UsuariosController extends Controller
                 $item = $manager->getRole($rol);
                 $item = $item ? : $manager->getPermission($rol);
                 $rev = $manager->revoke($item,$model->id_usuario);
+
+                $relUsuarios = WrkUsuarioUsuarios::find()->where(['id_usuario_hijo'=>$model->id_usuario])->one();
+                if($relUsuarios){
+                    $relUsuarios->id_usuario_padre = $_POST['EntUsuarios']['usuarioPadre'];
+                    $relUsuarios->save(); 
+                }
 
                 if($rev){
                     $authorRole = $manager->getRole($model->txt_auth_item);
