@@ -129,7 +129,7 @@ class UsuariosController extends Controller
         }
         
         $padre = null;
-        if ($model->load(Yii::$app->request->post())){//print_r($_POST);exit;
+        if ($model->load(Yii::$app->request->post())){ //print_r($_POST);exit;
             
             $model->password = $model->randomPassword();
             $model->repeatPassword = $model->password;
@@ -162,7 +162,7 @@ class UsuariosController extends Controller
                 if($model->txt_auth_item == ConstantesWeb::COLABORADOR){
                     $relUsuarios = new WrkUsuarioUsuarios();
                     $relUsuarios->id_usuario_hijo =$model->id_usuario;
-                    $relUsuarios->id_usuario_padre = $usuario->id_usuario;
+                    $relUsuarios->id_usuario_padre = $_POST['EntUsuarios']['usuarioPadre'];
                     $relUsuarios->save(); 
                 }
                 if($model->txt_auth_item == ConstantesWeb::CLIENTE || $model->txt_auth_item == ConstantesWeb::ASISTENTE){

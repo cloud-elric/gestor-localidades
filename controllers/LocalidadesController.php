@@ -754,8 +754,8 @@ class LocalidadesController extends Controller
             $localidades = EntLocalidades::find()->all();
             
             $delimiter = ",";
-            $campos = ['Estado', 'Usuario', 'Moneda', 'Nombre', 'Arrendador', 'Beneficiario', 'Calle', 'Colonia', 'Municipio', 'CP',
-            'Antecedentes', 'Renta actual', 'Incremento', 'Pretencion renta', 'Incremento cliente', 'Pretencion renta cliente', 'Vencimiento contrato',
+            $campos = ['Estado', 'Usuario', 'Moneda', 'Nombre', 'Arrendador', 'Beneficiario', 'Domicilio', 'Colonia', 'Delegación/Municipio', 'CP',
+            'Antecedentes', 'Renta actual', 'Porcentaje de incremento preautorizado', 'Renta pre-autorizada', 'Porcentaje de incremento solicitado por arrendador', 'Pretensión de renta del arrendador', 'Vencimiento contrato',
             'Fecha creacion', 'Fecha asignacion', 'Status localidad'];
 
             fputcsv($nuevoFichero, $campos, $delimiter);

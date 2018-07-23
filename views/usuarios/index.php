@@ -4,6 +4,7 @@ use yii\helpers\Html;
 // use yii\grid\GridView;
 // use yii\widgets\ListView;
 use app\models\Calendario;
+use app\models\WrkUsuarioUsuarios;
 use kartik\grid\GridView;
 use app\modules\ModUsuarios\models\EntUsuarios;
 use kop\y2sp\ScrollPager;
@@ -103,22 +104,29 @@ $this->registerJsFile(
           
           [
             'attribute' => 'fch_creacion',
-            'label' => 'Fecha de Creación',
-            'filter'=>DatePicker::widget([
-              'model'=>$searchModel,
-              'attribute'=>'fch_creacion',
-              'pickerButton'=>false,
-              'removeButton'=>false,
-              'type' => DatePicker::TYPE_INPUT,
-              'pluginOptions' => [
-                  'autoclose'=>true,
-                  'format' => 'dd-mm-yyyy'
-              ]
-            ]),
+            'label' => 'Usuario responsable',
+            // 'filter'=>DatePicker::widget([
+            //   'model'=>$searchModel,
+            //   'attribute'=>'fch_creacion',
+            //   'pickerButton'=>false,
+            //   'removeButton'=>false,
+            //   'type' => DatePicker::TYPE_INPUT,
+            //   'pluginOptions' => [
+            //       'autoclose'=>true,
+            //       'format' => 'dd-mm-yyyy'
+            //   ]
+            // ]),
             'format'=>'raw',
             'value'=>function($data){
-                
-              return Calendario::getDateSimple($data->fch_creacion);
+                $idResponsable = WrkUsuarioUsuarios::find()->where(['id_usuario_hijo'=>$data->id_usuario])->one();
+                $responsable = EntUsuarios::find()->where(['id_usuario'=>$idResponsable])->one();
+
+                if($responsable){
+
+                  return '<img class="panel-listado-img" src="'.$responsable->imageProfile.'" alt="">
+                    <span>'.$responsable->nombreCompleto .'</span>';
+                }
+                return "<p>Sin responsable</p>";
             }
           ],
           [
