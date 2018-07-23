@@ -600,6 +600,28 @@ class EntUsuarios extends \yii\db\ActiveRecord implements IdentityInterface
 		
 	}
 
+	/**
+	 * Si la imagen esta vacia mandamos una por default
+	 *
+	 * @return string
+	 */
+	public function getImageProfileAdmin() {
+		$basePath = Yii::getAlias ( '@web' );
+		
+		$usuarioFacebook = $this->entUsuariosFacebook;
+		
+		if(empty($usuarioFacebook)){
+			if ($this->txt_imagen) {
+				return $basePath . '/profiles/' . $this->txt_token."/". $this->txt_imagen;
+			}
+			
+			return $basePath . '/webAssets/images/site/admin.jpg';
+		}
+		
+		return 'http://graph.facebook.com/'.$usuarioFacebook->id_facebook.'/picture';
+		
+	}
+
 	public function isRegisterFaceBook(){
 		$usuarioFacebook = $this->entUsuariosFacebook;
 		

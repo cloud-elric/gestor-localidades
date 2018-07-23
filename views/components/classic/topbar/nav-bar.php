@@ -55,7 +55,17 @@ role="navigation">
             ?>
             <span class="user-name"><?=$auth->description?></span>
             <span class="avatar avatar-online">
-              <img src="<?=EntUsuarios::getUsuarioLogueado()->imageProfile?>" alt="...">
+              <?php
+              if($usuario->txt_auth_item == 'super-admin'){
+              ?>
+                <img src="<?=EntUsuarios::getUsuarioLogueado()->imageProfileAdmin?>" alt="...">
+              <?php
+              }else{
+              ?>
+                <img src="<?=EntUsuarios::getUsuarioLogueado()->imageProfile?>" alt="...">
+              <?php
+              }
+              ?>
               <i></i>
             </span>
           </a>
