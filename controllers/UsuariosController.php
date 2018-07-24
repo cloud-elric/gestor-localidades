@@ -220,7 +220,7 @@ class UsuariosController extends Controller
 
         if ($model->load(Yii::$app->request->post())){ //print_r($_POST);exit;
             $model->usuarioPadre = $usuario->id_usuario;
-            $model->txt_auth_item = $_POST['EntUsuarios']['txt_auth_item'];
+            //$model->txt_auth_item = $_POST['EntUsuarios']['txt_auth_item'];
             $model->image = UploadedFile::getInstance($model, 'image');
             
             if($model->image){
@@ -254,7 +254,12 @@ class UsuariosController extends Controller
 
                 return $this->redirect(['index']);
             }else{
-                print_r($model->errors);exit;
+                $model->scenario = 'updateModel';
+                return $this->render('update', [
+                    'model' => $model,
+                    'roles'=>$roles,
+                    'usuariosClientes' => $usuariosClientes
+                ]);
             }
         }else{
             $model->scenario = 'updateModel';

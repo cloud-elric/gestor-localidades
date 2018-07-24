@@ -32,7 +32,10 @@ use app\modules\ModUsuarios\models\EntUsuarios;
 
             <div class="row">
                 <div class="col-md-6">
-                    <?= $form->field($model, 'txt_auth_item')
+                    <?php
+                    if($model->isNewRecord){
+                    ?>
+                        <?= $form->field($model, 'txt_auth_item')
                             ->widget(Select2::classname(), [
                                 'data' => ArrayHelper::map($roles, 'name', 'description'),
                                 'language' => 'es',
@@ -41,6 +44,13 @@ use app\modules\ModUsuarios\models\EntUsuarios;
                                     'allowClear' => true
                                 ],
                             ])->label(false);
+                        ?>
+                    <?php
+                    }else{
+                    ?>
+                        <p><?= $model->txt_auth_item ?></p>
+                    <?php
+                    }
                     ?>
                 </div>   
             
