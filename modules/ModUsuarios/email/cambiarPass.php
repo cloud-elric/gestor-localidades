@@ -16,6 +16,7 @@
     <style type="text/css" id="media-query">
       body {
         font-family: 'Roboto', Verdana, Sans-serif;
+        font-weight: 300;
   margin: 0;
   padding: 0; }
 

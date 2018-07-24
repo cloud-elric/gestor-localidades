@@ -16,6 +16,7 @@
     <style type="text/css" id="media-query">
       body {
         font-family: 'Roboto', Verdana, Sans-serif;
+        font-weight: 300;
   margin: 0;
   padding: 0; }
 
@@ -271,26 +272,7 @@ a[x-apple-data-detectors=true] {
         </div>
       </div>
     </div>
-    <div style="background-color:#EDFFFD;">
-      <div style="Margin: 0 auto;min-width: 320px;max-width: 460px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #EDFFFD;" class="block-grid ">
-        <div style="border-collapse: collapse;display: table;width: 100%;background-color:#EDFFFD;">
-          <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="background-color:#EDFFFD;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width: 600px;"><tr class="layout-full-width" style="background-color:#EDFFFD;"><![endif]-->
-
-              <!--[if (mso)|(IE)]><td align="center" width="600" style=" width:600px; padding-right: 0px; padding-left: 0px; padding-top:0px; padding-bottom:0px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><![endif]-->
-            <div class="col num12" style="min-width: 320px;max-width: 460px;display: table-cell;vertical-align: top;">
-              <div style="background-color: transparent; width: 100% !important;">
-              <!--[if (!mso)&(!IE)]><!--><div style="border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent; padding-top:20px; padding-bottom:10px; padding-right: 0px; padding-left: 0px;"><!--<![endif]-->
-
-                  
-                    &#160;
-                  
-              <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
-              </div>
-            </div>
-          <!--[if (mso)|(IE)]></td></tr></table></td></tr></table><![endif]-->
-        </div>
-      </div>
-    </div>    <div style="background-color:transparent;">
+    <div style="background-color:transparent;">
       <div style="Margin: 0 auto;min-width: 320px;max-width: 460px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #FFF;" class="block-grid ">
         <div style="border-collapse: collapse;display: table;width: 100%;background-color:#FFF;">
           <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="background-color:transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width: 600px;"><tr class="layout-full-width" style="background-color:#FFF;"><![endif]-->
@@ -300,24 +282,12 @@ a[x-apple-data-detectors=true] {
               <div style="background-color: transparent; width: 100% !important;">
               <!--[if (!mso)&(!IE)]><!--><div style="border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent; padding-top:5px; padding-bottom:5px; padding-right: 0px; padding-left: 0px;"><!--<![endif]-->
 
-                  
-                    <div class="">
-	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
-	<div style="line-height:200%;color:#555555;font-family:'Roboto', Verdana, Sans-serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
-
-		<div style="font-size:16px;line-height:24px;font-family:'Roboto', Verdana, Sans-serif;color:#555555;text-align:left;"><p style="margin: 0;font-size: 16px;line-height: 28px;text-align: left"><span style="font-size: 18px; font-weight: bold; color: #2B3736; line-height: 48px;">Asignar contraseña</span></p></div>	
-
-	</div>
-	<!--[if mso]></td></tr></table><![endif]-->
-</div>
-                  
-                  
                     <div class="">
 	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
 	<div style="line-height:200%;color:#555555;font-family:'Roboto', Verdana, Sans-serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
         <div style="line-height:24px;font-size:12px;color:#555555;font-family:'Roboto', Verdana, Sans-serif;text-align:left;">
 
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">Este correo es para poder <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 14px; font-weight: bold;">asignar una nueva contraseña</strong> <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 14px; font-weight: bold;"></strong> - la cual puedes modificar dando click en el siguiente enlace.</span></p>
+            <p style="margin: 0;font-size: 12px; line-height: 24px;text-align: justify;"><span style="font-size: 18px; font-weight: 300; line-height: 32px;">Este correo es para poder <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-weight: bold;">asignar una nueva contraseña</strong> <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 16px; font-weight: bold;"></strong> - la cual puedes modificar dando click en el siguiente enlace.</span></p>
 
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
         </div>	

@@ -545,67 +545,57 @@ class LocalidadesController extends Controller
     {
         $respuesta = new ResponseServices();
         $hoy = date("Y-m-d 00:00:00");
-        $hoy = date("Y-m-d 00:00:00", strtotime($hoy . '-7 day'));
-        $tareas = WrkTareas::find()->where(['<', 'fch_creacion', $hoy])->andWhere(['txt_path'=>null])->andWhere(['txt_tarea'=>null])->orderBy('fch_creacion')->all();
+        $hoy = date("Y-m-d 00:00:00", strtotime($hoy . '-8 day'));
+        $tareas = WrkTareas::find()->where(['<', 'fch_creacion', $hoy])->andWhere(['txt_path'=>null])->andWhere(['txt_tarea'=>null])->andWhere(['b_completa'=>0])->orderBy('fch_creacion')->all();
         $arr = [];
 
         foreach ($tareas as $tarea) {
             $colaboradores = $tarea->usuarios;
             $localidad = $tarea->localidad;
-            $arr[$localidad->id_localidad]["nombreLocalidad"] = $localidad->txt_nombre;
-            $arr[$localidad->id_localidad]["token"]=$localidad->txt_token;
-            $colaboradoresArr = [];
-
-            foreach ($colaboradores as $colaboradorRel) {
-                $colaborador = $colaboradorRel->idUsuario;
-                $arr[$localidad->id_localidad]["colaboradores"][$colaborador->id_usuario]["nombre"] = $colaborador->nombreCompleto;
-                $arr[$localidad->id_localidad]["colaboradores"][$colaborador->id_usuario]["email"] = $colaborador->txt_email;
-                $arr[$localidad->id_localidad]["colaboradores"][$colaborador->id_usuario]["token"] = $colaborador->txt_token;
-                $arr[$localidad->id_localidad]["colaboradores"][$colaborador->id_usuario]["tareas"][$tarea->id_tarea] = $tarea ;
-            }
-
-           
-
             $directores = $localidad->wrkUsuariosLocalidades;
+
+            $hoy = date("Y-m-d");
+            $dias = (strtotime($hoy) - strtotime($tarea->fch_creacion))/86400;
+	        $dias = abs($dias); $dias = floor($dias);
+
             foreach ($directores as $director) {
                 $usuarioDirector = $director->usuario;
-                $arr[$localidad->id_localidad]["directores"][$usuarioDirector->id_usuario] = $usuarioDirector;
-            }
 
+                $arr[$usuarioDirector->id_usuario]['localidades'][$localidad->id_localidad]["nombreLocalidad"] = $localidad->txt_nombre;
+                $arr[$usuarioDirector->id_usuario]['localidades'][$localidad->id_localidad]["cms"]=$localidad->cms;
+                $arr[$usuarioDirector->id_usuario]['localidades'][$localidad->id_localidad]["token"]=$localidad->txt_token;
+                $arr[$usuarioDirector->id_usuario]['localidades'][$localidad->id_localidad]['tareas'][$tarea->id_tarea]['nombre'] = $tarea->txt_nombre;
+                $arr[$usuarioDirector->id_usuario]['localidades'][$localidad->id_localidad]['tareas'][$tarea->id_tarea]['dias'] = $dias;
+                $arr[$usuarioDirector->id_usuario]["directorEmail"] = $usuarioDirector->txt_email;
+                $arr[$usuarioDirector->id_usuario]["directorNombre"] = $usuarioDirector->nombreCompleto;
+                $arr[$usuarioDirector->id_usuario]["directorToken"] = $usuarioDirector->txt_token;
+            }
+        }
+        //print_r($arr);exit;
+
+        foreach($arr as $tar){ //print_r($tar['localidades']);exit;
+            // Enviar correo
+            $utils = new Utils();
+            $parametrosEmail = [];
+
+            $parametrosEmail ['localidades'] = $tar['localidades'];//print_r($tar);exit;
+
+            $email = $tar['directorEmail'];
+            $parametrosEmail ['user'] = $tar['directorNombre'];
+            $parametrosEmail['url'] = Yii::$app->urlManager->createAbsoluteUrl([
+                'localidades/index/?token=' . $tar["directorToken"]
+            ]);
+
+            if($utils->sendEmailNotificacionesTareas( $email, $parametrosEmail )){
+                $respuesta->status = "success";
+                $respuesta->message = "Enviados con exito";
+                $respuesta->result = $arr;
+            }else{
+                return $respuesta;
+            }
         }
 
-        foreach($arr as $tar){// localidad
-        //     // Enviar correo
-             $utils = new Utils ();
-              $parametrosEmail = [];
-              $parametrosEmail ['localidad'] = $tar["nombreLocalidad"];
-              foreach($tar["colaboradores"] as $cola){// colaboradores
-                    $parametrosEmail ['user'] = $cola['nombre'];
-                    $parametrosEmail['url'] = Yii::$app->urlManager->createAbsoluteUrl([
-                        'localidades/index/?token=' . $cola["token"] . '&tokenLoc=' . $tar["token"]
-                    ]);
-                  foreach($cola["tareas"] as $key=>$tareas){// tareas
-                    $parametrosEmail ['tareas'][$key] = $tareas["txt_nombre"];
-                  }
-                  $utils->sendEmailNotificacionesTareas( $cola['email'], $parametrosEmail );
-              }
-
-              foreach($tar["directores"] as $director){// colaboradores
-                $parametrosEmail ['user'] = $director['txt_username']." ".$director['txt_apellido_paterno'];
-                $parametrosEmail['localidad'] = $tar;
-                $parametrosEmail['url'] = Yii::$app->urlManager->createAbsoluteUrl([
-                    'localidades/index/?token=' . $director["txt_token"] . '&tokenLoc=' . $tar["token"]
-                ]);
-              $utils->sendEmailNotificacionesTareasDirector( $director['txt_email'], $parametrosEmail );
-            }
-         
-          }
-
-        
-
-        $respuesta->result = $arr;
         return $respuesta;
-        
     }
 
     public function actionVerTareasLocalidad($id)

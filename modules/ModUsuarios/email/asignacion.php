@@ -16,6 +16,7 @@
     <style type="text/css" id="media-query">
       body {
         font-family: 'Roboto', Verdana, Sans-serif;
+        font-weight: 300;
   margin: 0;
   padding: 0; }
 
@@ -306,14 +307,14 @@ a[x-apple-data-detectors=true] {
 	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
 	<div style="line-height:200%;color:#555555;font-family:'Roboto', Verdana, Sans-serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
         <div style="line-height:24px;font-size:12px;color:#555555;font-family:'Roboto', Verdana, Sans-serif;text-align:left;">
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">
-              Este correo es para notificarte que <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 14px; font-style: normal; font-weight: bold;">
+            <p style="margin: 0;font-size: 18px;line-height: 24px;text-align: justify;"><span style="font-size: 18px; font-weight: 300; line-height: 32px;">
+              Este correo es para notificarte que <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-style: normal; font-weight: bold;">
                 has sido agregado</strong> a la localidad 
-                <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 14px; font-style: italic; font-weight: bold;">
+                <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-style: italic; font-weight: bold;">
                 <?=$localidad?> 
                 </strong>
-                dentro de la plataforma “Regalado y Galindo - Gestor de localidades”, 
-                para poder <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 14px; font-style: normal; font-weight: bold;">acceder</strong>
+                dentro de la plataforma <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-style: italic; font-weight: bold;">"Overhaul&#174;"</strong>, 
+                para poder <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-style: normal; font-weight: bold;">acceder</strong>
                  al sistema da click en la siguiente liga:</span></p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
             

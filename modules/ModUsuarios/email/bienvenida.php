@@ -372,8 +372,8 @@ a[x-apple-data-detectors=true] {
         <strong>IMPORTANTE</strong>
         </span>
     </p> 
-    <p style="margin: 0;font-size: 14px;line-height: 16px; color: #597572; text-align: justify;">
-        <span style="font-size: 14px; line-height: 16px;">
+    <p style="margin: 0;font-size: 13px;line-height: 16px; color: #597572; text-align: justify;">
+        <span style="font-size: 13px; line-height: 16px;">
           Conserva este correo para poder acceder al sistema en futuras ocasiones, es necesario ingreses tu usuario y contraseña mismos que te compartimos a continuación:
         </span>
     </p> 
