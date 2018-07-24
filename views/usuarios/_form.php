@@ -61,27 +61,43 @@ use app\modules\ModUsuarios\models\EntUsuarios;
                     //     $model->usuarioPadre = $usuarioDirector->id_usuario_padre;
                     // }
 
-                    if($model->txt_auth_item == ConstantesWeb::ASISTENTE || $model->txt_auth_item == ConstantesWeb::CLIENTE || $model->txt_auth_item == ConstantesWeb::COLABORADOR){
-                        $idPadre = WrkUsuarioUsuarios::find()->where(['id_usuario_hijo'=>$model->id_usuario])->one();
-                        if($idPadre){
-                            $padre = EntUsuarios::find()->where(['id_usuario'=>$idPadre->id_usuario_padre])->one();
-                            
-                            if($padre){
-                                $model->usuarioPadre = $padre->id_usuario;
-                            }//echo "ddd--" .$model->usuarioPadre;exit;
-                        }
+                    if($model->isNewRecord){
                     ?>
                         <?= $form->field($model, 'usuarioPadre')
-                            ->widget(Select2::classname(), [
-                                'data' => ArrayHelper::map($usuariosClientes, 'id_usuario', 'nombreCompleto'),
-                                'language' => 'es',
-                                'options' => ['placeholder' => 'Seleccionar grupo de trabajo'],
-                                'pluginOptions' => [
-                                    'allowClear' => true
-                                ],
-                            ])->label(false);
-                        ?> 
-                    <?php }?>
+                                ->widget(Select2::classname(), [
+                                    'data' => ArrayHelper::map($usuariosClientes, 'id_usuario', 'nombreCompleto'),
+                                    'language' => 'es',
+                                    'options' => ['placeholder' => 'Seleccionar grupo de trabajo'],
+                                    'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                ])->label(false);
+                            ?> 
+                    <?php
+                    }else{
+                        if($model->txt_auth_item == ConstantesWeb::ASISTENTE || $model->txt_auth_item == ConstantesWeb::CLIENTE || $model->txt_auth_item == ConstantesWeb::COLABORADOR){
+                            $idPadre = WrkUsuarioUsuarios::find()->where(['id_usuario_hijo'=>$model->id_usuario])->one();
+                            if($idPadre){
+                                $padre = EntUsuarios::find()->where(['id_usuario'=>$idPadre->id_usuario_padre])->one();
+                                
+                                if($padre){
+                                    $model->usuarioPadre = $padre->id_usuario;
+                                }//echo "ddd--" .$model->usuarioPadre;exit;
+                            }
+                        ?>
+                            <?= $form->field($model, 'usuarioPadre')
+                                ->widget(Select2::classname(), [
+                                    'data' => ArrayHelper::map($usuariosClientes, 'id_usuario', 'nombreCompleto'),
+                                    'language' => 'es',
+                                    'options' => ['placeholder' => 'Seleccionar grupo de trabajo'],
+                                    'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                ])->label(false);
+                            ?> 
+                    <?php 
+                        }
+                    }?>
                 </div>
 
             </div>
