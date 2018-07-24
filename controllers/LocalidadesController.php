@@ -580,20 +580,18 @@ class LocalidadesController extends Controller
 
             $parametrosEmail ['localidades'] = $tar['localidades'];//print_r($tar);exit;
 
-            foreach($tar['localidades'] as $loc){ //print_r($loc);exit;
-                $email = $tar['directorEmail'];
-                $parametrosEmail ['user'] = $tar['directorNombre'];
-                $parametrosEmail['url'] = Yii::$app->urlManager->createAbsoluteUrl([
-                    'localidades/index/?token=' . $tar["directorToken"] . '&tokenLoc=' . $loc["token"]
-                ]);
+            $email = $tar['directorEmail'];
+            $parametrosEmail ['user'] = $tar['directorNombre'];
+            $parametrosEmail['url'] = Yii::$app->urlManager->createAbsoluteUrl([
+                'localidades/index/?token=' . $tar["directorToken"]
+            ]);
 
-                if($utils->sendEmailNotificacionesTareas( $email, $parametrosEmail )){
-                    $respuesta->status = "success";
-                    $respuesta->message = "Enviados con exito";
-                    $respuesta->result = $arr;
-                }else{
-                    return $respuesta;
-                }
+            if($utils->sendEmailNotificacionesTareas( $email, $parametrosEmail )){
+                $respuesta->status = "success";
+                $respuesta->message = "Enviados con exito";
+                $respuesta->result = $arr;
+            }else{
+                return $respuesta;
             }
         }
 
