@@ -16,6 +16,8 @@ class UsuariosSearch extends EntUsuarios
 {
     public $nombreCompleto;
     public $roleDescription;
+    public $usuarioPadre;
+
     /**
      * @inheritdoc
      */
@@ -23,7 +25,7 @@ class UsuariosSearch extends EntUsuarios
     {
         return [
             [['id_usuario', 'id_status'], 'integer'],
-            [['roleDescription','nombreCompleto','txt_auth_item', 'txt_token', 'txt_imagen', 'txt_username', 'txt_apellido_paterno', 'txt_apellido_materno', 'txt_auth_key', 'txt_password_hash', 'txt_password_reset_token', 'txt_email', 'fch_creacion', 'fch_actualizacion'], 'safe'],
+            [['roleDescription','nombreCompleto', 'usuarioPadre', 'txt_auth_item', 'txt_token', 'txt_imagen', 'txt_username', 'txt_apellido_paterno', 'txt_apellido_materno', 'txt_auth_key', 'txt_password_hash', 'txt_password_reset_token', 'txt_email', 'fch_creacion', 'fch_actualizacion'], 'safe'],
         ];
     }
 
@@ -47,7 +49,10 @@ class UsuariosSearch extends EntUsuarios
      */
     public function search($params)
     {
-        $query = EntUsuarios::find()->leftJoin("auth_item", "auth_item.name= mod_usuarios_ent_usuarios.txt_auth_item");
+        $query = EntUsuarios::find()->leftJoin("auth_item", "auth_item.name= mod_usuarios_ent_usuarios.txt_auth_item")
+            ->leftJoin('wrk_usuario_usuarios WU', 'WU.id_usuario_hijo = mod_usuarios_ent_usuarios.id_usuario')
+            ->leftJoin('mod_usuarios_ent_usuarios P', 'P.id_usuario = WU.id_usuario_padre');
+        //$query = EntUsuarios::find();
 
         // add conditions that should always apply here
 
@@ -66,8 +71,14 @@ class UsuariosSearch extends EntUsuarios
         ]);
         $dataProvider->sort->attributes['nombreCompleto'] = [
         
-            'asc' => ['txt_username' => SORT_ASC, 'txt_apellido_paterno' => SORT_ASC],
-            'desc' => ['txt_username' => SORT_DESC, 'txt_apellido_paterno' => SORT_DESC], 
+            'asc' => ['mod_usuarios_ent_usuarios.txt_username' => SORT_ASC, 'mod_usuarios_ent_usuarios.txt_apellido_paterno' => SORT_ASC],
+            'desc' => ['mod_usuarios_ent_usuarios.txt_username' => SORT_DESC, 'mod_usuarios_ent_usuarios.txt_apellido_paterno' => SORT_DESC], 
+        ];
+
+        $dataProvider->sort->attributes['usuarioPadre'] = [
+        
+            'asc' => ['P.txt_username' => SORT_ASC, 'P.txt_apellido_paterno' => SORT_ASC],
+            'desc' => ['P.txt_username' => SORT_DESC, 'P.txt_apellido_paterno' => SORT_DESC], 
         ];
         
         $dataProvider->sort->attributes['roleDescription'] = [
@@ -86,26 +97,28 @@ class UsuariosSearch extends EntUsuarios
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id_usuario' => $this->id_usuario,
-            'fch_actualizacion' => $this->fch_actualizacion,
-            'id_status' => $this->id_status,
+            'mod_usuarios_ent_usuarios.id_usuario' => $this->id_usuario,
+            'mod_usuarios_ent_usuarios.fch_actualizacion' => $this->fch_actualizacion,
+            'mod_usuarios_ent_usuarios.id_status' => $this->id_status,
         ]);
 
         if($this->fch_creacion){
             $this->fch_creacion = Utils::changeFormatDateInputShort($this->fch_creacion);
-        }  
+        }
+          
         
-        $query->andFilterWhere(['in','txt_auth_item', $this->txt_auth_item])
-            ->andFilterWhere(['like', 'txt_token', $this->txt_token])
-            ->andFilterWhere(['like', 'txt_imagen', $this->txt_imagen])
-            ->andFilterWhere(['like', 'txt_auth_key', $this->txt_auth_key])
-            ->andFilterWhere(['like', 'txt_password_hash', $this->txt_password_hash])
-            ->andFilterWhere(['like', 'txt_password_reset_token', $this->txt_password_reset_token])
-            ->andFilterWhere(['like', 'txt_email', $this->txt_email])
-            ->andFilterWhere(['like', 'fch_creacion', $this->fch_creacion])
+        $query->andFilterWhere(['in', 'mod_usuarios_ent_usuarios.txt_auth_item', $this->txt_auth_item])
+            ->andFilterWhere(['like', 'mod_usuarios_ent_usuarios.txt_token', $this->txt_token])
+            ->andFilterWhere(['like', 'mod_usuarios_ent_usuarios.txt_imagen', $this->txt_imagen])
+            ->andFilterWhere(['like', 'mod_usuarios_ent_usuarios.txt_auth_key', $this->txt_auth_key])
+            ->andFilterWhere(['like', 'mod_usuarios_ent_usuarios.txt_password_hash', $this->txt_password_hash])
+            ->andFilterWhere(['like', 'mod_usuarios_ent_usuarios.txt_password_reset_token', $this->txt_password_reset_token])
+            ->andFilterWhere(['like', 'mod_usuarios_ent_usuarios.txt_email', $this->txt_email])
+            ->andFilterWhere(['like', 'mod_usuarios_ent_usuarios.fch_creacion', $this->fch_creacion])
             
-            ->andFilterWhere(['like', 'txt_auth_item', $this->roleDescription])
-            ->andFilterWhere(['like', 'CONCAT(txt_username, " ", txt_apellido_paterno)', $this->nombreCompleto]);
+            ->andFilterWhere(['mod_usuarios_ent_usuarios.txt_auth_item'=>$this->roleDescription])
+            ->andFilterWhere(['like', 'CONCAT(mod_usuarios_ent_usuarios.txt_username, " ", mod_usuarios_ent_usuarios.txt_apellido_paterno)', $this->nombreCompleto])
+            ->andFilterWhere(['like', 'CONCAT(P.txt_username, " ", P.txt_apellido_paterno)', $this->usuarioPadre]);
   
 
         if($this->fch_creacion){

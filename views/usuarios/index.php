@@ -4,6 +4,7 @@ use yii\helpers\Html;
 // use yii\grid\GridView;
 // use yii\widgets\ListView;
 use app\models\Calendario;
+use app\models\WrkUsuarioUsuarios;
 use kartik\grid\GridView;
 use app\modules\ModUsuarios\models\EntUsuarios;
 use kop\y2sp\ScrollPager;
@@ -50,10 +51,10 @@ $this->registerJsFile(
 
 ?>
   
-    
+  
 <!-- Panel -->
 <div class="panel panel-list-user-table">
-  
+
     <?php
     
     echo GridView::widget([
@@ -102,23 +103,34 @@ $this->registerJsFile(
            'txt_email:raw',
           
           [
-            'attribute' => 'fch_creacion',
-            'label' => 'Fecha de Creación',
-            'filter'=>DatePicker::widget([
-              'model'=>$searchModel,
-              'attribute'=>'fch_creacion',
-              'pickerButton'=>false,
-              'removeButton'=>false,
-              'type' => DatePicker::TYPE_INPUT,
-              'pluginOptions' => [
-                  'autoclose'=>true,
-                  'format' => 'dd-mm-yyyy'
-              ]
-            ]),
+            'attribute' => 'usuarioPadre',
+            'label' => 'Usuario responsable',
+            // 'filter'=>DatePicker::widget([
+            //   'model'=>$searchModel,
+            //   'attribute'=>'fch_creacion',
+            //   'pickerButton'=>false,
+            //   'removeButton'=>false,
+            //   'type' => DatePicker::TYPE_INPUT,
+            //   'pluginOptions' => [
+            //       'autoclose'=>true,
+            //       'format' => 'dd-mm-yyyy'
+            //   ]
+            // ]),
             'format'=>'raw',
             'value'=>function($data){
+                $idResponsable = WrkUsuarioUsuarios::find()->where(['id_usuario_hijo'=>$data->id_usuario])->one();
                 
-              return Calendario::getDateSimple($data->fch_creacion);
+                if($idResponsable){
+                  $responsable = EntUsuarios::find()->where(['id_usuario'=>$idResponsable->id_usuario_padre])->one();
+
+                  if($responsable){
+                    $data->usuarioPadre = $responsable->txt_username;
+                    
+                    return '<img class="panel-listado-img" src="'.$responsable->imageProfile.'" alt="">
+                      <span>'.$responsable->nombreCompleto .'</span>';
+                  }
+                }
+                return "<p>Sin responsable</p>";
             }
           ],
           [

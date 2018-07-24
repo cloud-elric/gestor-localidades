@@ -122,6 +122,11 @@ class EntLocalidades extends \yii\db\ActiveRecord
             'txt_colonia' => 'Colonia',
             'txt_municipio' => 'Delegación/Municipio',
             'txt_cp' => 'Código postal',
+            'textoCP' => 'Código postal',
+            'textoColonia' => 'Colonia',
+            'textoMun' => 'Delegación/Municipio',
+            'textoEstado' => 'Estado',
+            'textoCalle' => 'Domicilio',
             'txt_estatus' => 'Estatus',
             'txt_antecedentes' => 'Antecedentes',
             'txt_contacto' => 'Contacto',
@@ -137,12 +142,6 @@ class EntLocalidades extends \yii\db\ActiveRecord
             'b_problemas_acceso' => 'Problemas acceso',
             'b_status_localidad' => 'Tipo de Contrato',
             'b_archivada' => 'Archivada',
-
-            'textoCP' => 'Código postal',
-            'textoColonia' => 'Colonia',
-            'textoMun' => 'Municipio',
-            'textoEstado' => 'Estado',
-            'textoCalle' => 'Calle'
         ];
     }
 
