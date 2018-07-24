@@ -306,24 +306,16 @@ a[x-apple-data-detectors=true] {
 	<div style="line-height:200%;color:#555555;font-family:'Arial', Georgia, Times, 'Times New Roman', serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
         <div style="line-height:24px;font-size:12px;color:#555555;font-family:'Arial', Georgia, Times, 'Times New Roman', serif;text-align:left;">
             <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">
-              Este correo es para notificarte que <strong style="font-family: Verdana; font-size: 14px; font-style: italic; font-weight: bold;">
+              Este correo es para notificarte que <strong style="font-family: Verdana; font-size: 14px; font-style: normal; font-weight: bold;">
                 has sido agregado</strong> a la localidad 
                 <strong style="font-family: Verdana; font-size: 14px; font-style: italic; font-weight: bold;">
                 <?=$localidad?> 
                 </strong>
                 dentro de la plataforma “Regalado y Galindo - Gestor de localidades”, 
-                para poder <strong style="font-family: Verdana; font-size: 14px; font-style: italic; font-weight: bold;">acceder</strong>
+                para poder <strong style="font-family: Verdana; font-size: 14px; font-style: normal; font-weight: bold;">acceder</strong>
                  al sistema da click en la siguiente liga:</span></p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
-            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">
-
-              <a href="<?=$url?>" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: left;color: #2B3736; width: auto; font-family: 'Arial', Georgia, Times, 'Times New Roman', serif; mso-border-alt: none; font-weight: 300; color: #3C86E9; font-size: 14px; line-height: 16px;">
-                <span style="font-size:12px;line-height:24px;"><span style="font-size: 14px; line-height: 32px;" data-mce-style="font-size: 14px; line-height: 32px; color: #2B3736;"><?=$url?></span></span>
-
-              </a>
-            </p>
-            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
-
+            
            
         </div>	
 	</div>
@@ -383,7 +375,7 @@ a[x-apple-data-detectors=true] {
             <p style="margin: 0;font-size: 14px;line-height: 17px;text-align: center;">Overhaul&#174; by Regalado y Galindo Abogados 2018 </p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br><br></p>
             <p style="margin: 0;font-size: 14px;line-height: 17px;text-align: center;">
-              <img class="center  autowidth  fullwidth" align="center" border="0" src="http://dev.2geeksonemonkey.com/ryg/gestor-localidades/web/webAssets/images/overhaul-login.png" alt="OH" title="OH" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: 0;height: auto;float: none;margin: 0 auto; width: 108px;max-width: 100%" width="98">
+              <img class="center  autowidth  fullwidth" align="center" border="0" src="http://dev.2geeksonemonkey.com/ryg/gestor-localidades/web/webAssets/images/oh.png" alt="OH" title="OH" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: 0;height: auto;float: none;margin: 0 auto; width: 40px;max-width: 100%" width="40">
             </p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
@@ -419,7 +411,7 @@ a[x-apple-data-detectors=true] {
 
             <p style="margin: 0;font-size: 12px;line-height: 17px;text-align: right;">
               <span style="display: inline-block; font-size: 10px; line-height: 24px; text-align: right;">Software developed by: </span>
-              <img class="center  autowidth  fullwidth" align="center" border="0" src="http://dev.2geeksonemonkey.com/ryg/gestor-localidades/web/webAssets/images/2gom-black.png" alt="2GOM" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block;border: 0;height: auto;float: none;margin: 0 0 0 8px; width: 108px;max-width: 100%" width="108">
+              <img class="center  autowidth  fullwidth" align="center" border="0" src="http://dev.2geeksonemonkey.com/ryg/gestor-localidades/web/webAssets/images/2gom-black.png" alt="2GOM" title="2GOM" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block;border: 0;height: auto;float: none;margin: 0 0 0 8px; width: 108px;max-width: 100%" width="108">
             </p>
 
         </div>	

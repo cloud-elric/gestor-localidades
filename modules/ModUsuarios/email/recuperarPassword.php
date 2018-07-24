@@ -377,7 +377,7 @@ a[x-apple-data-detectors=true] {
             <p style="margin: 0;font-size: 14px;line-height: 17px;text-align: center;">Overhaul&#174; by Regalado y Galindo Abogados 2018 </p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br><br></p>
             <p style="margin: 0;font-size: 14px;line-height: 17px;text-align: center;">
-              <img class="center  autowidth  fullwidth" align="center" border="0" src="http://dev.2geeksonemonkey.com/ryg/gestor-localidades/web/webAssets/images/overhaul-login.png" alt="OH" title="OH" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: 0;height: auto;float: none;margin: 0 auto; width: 108px;max-width: 100%" width="98">
+              <img class="center  autowidth  fullwidth" align="center" border="0" src="http://dev.2geeksonemonkey.com/ryg/gestor-localidades/web/webAssets/images/oh.png" alt="OH" title="OH" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: 0;height: auto;float: none;margin: 0 auto; width: 40px;max-width: 100%" width="40">
             </p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
@@ -413,7 +413,7 @@ a[x-apple-data-detectors=true] {
 
             <p style="margin: 0;font-size: 12px;line-height: 17px;text-align: right;">
               <span style="display: inline-block; font-size: 10px; line-height: 24px; text-align: right;">Software developed by: </span>
-              <img class="center  autowidth  fullwidth" align="center" border="0" src="http://dev.2geeksonemonkey.com/ryg/gestor-localidades/web/webAssets/images/2gom-black.png" alt="2GOM" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block;border: 0;height: auto;float: none;margin: 0 0 0 8px; width: 108px;max-width: 100%" width="108">
+              <img class="center  autowidth  fullwidth" align="center" border="0" src="http://dev.2geeksonemonkey.com/ryg/gestor-localidades/web/webAssets/images/2gom-black.png" alt="2GOM" title="2GOM" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block;border: 0;height: auto;float: none;margin: 0 0 0 8px; width: 108px;max-width: 100%" width="108">
             </p>
 
         </div>	
