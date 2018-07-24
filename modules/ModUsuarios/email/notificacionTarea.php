@@ -307,66 +307,32 @@ a[x-apple-data-detectors=true] {
 	<div style="line-height:200%;color:#555555;font-family:'Arial', Georgia, Times, 'Times New Roman', serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
         <div style="line-height:24px;font-size:12px;color:#555555;font-family:'Arial', Georgia, Times, 'Times New Roman', serif;text-align:left;">
           
-          <div class="">
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;">
-              <span style="font-size: 16px; line-height: 32px;">
-                <strong>Localidad - <?=$localidad?> CMS45345, <?=$tarea?> Terrazas de Azuela</strong>
-              </span></p>
+          <?php
+          foreach($localidades as $localidad){ //print_r($localidad['cms']);exit;
+          ?>
+            <div class="">
+              <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;">
+                <span style="font-size: 16px; line-height: 32px;">
+                  <strong>Localidad - <?="CMS" . $localidad['cms']?>, <?=$localidad['nombreLocalidad']?></strong>
+                </span></p>
 
-            <ul style="padding-left: 16px;">
-              <li style="font-size: 16px; line-height: 24px; margin-bottom: 16px;">
-                <span style="font-size: 16px; line-height: 24px;">
-                  Actualizar nombre del albacea <span style="color: #AFCECB; font-size: 13px; font-style: italic; font-weight: 100; padding-left: 12px;">creada hace 15 días</span>
-                </span>
-              </li>
-              <li style="font-size: 16px; line-height: 24px; margin-bottom: 16px;">
-                <span style="font-size: 16px; line-height: 24px;">
-                  Actualizar nombre del albacea <span style="color: #AFCECB; font-size: 13px; font-style: italic; font-weight: 100; padding-left: 12px;">creada hace 15 días</span>
-                </span>
-              </li>
-              <li style="font-size: 16px; line-height: 24px; margin-bottom: 16px;">
-                <span style="font-size: 16px; line-height: 24px;">
-                  Actualizar nombre del albacea Actualizar nombre del albacea <span style="color: #AFCECB; font-size: 13px; font-style: italic; font-weight: 100; padding-left: 12px;">creada hace 15 días</span>
-                </span>
-              </li>
-            </ul>
-          </div>
-          
-          
-            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
-        </div>	
-	</div>
-  <!--[if mso]></td></tr></table><![endif]-->
-  
-  <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
-	<div style="line-height:200%;color:#555555;font-family:'Arial', Georgia, Times, 'Times New Roman', serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
-        <div style="line-height:24px;font-size:12px;color:#555555;font-family:'Arial', Georgia, Times, 'Times New Roman', serif;text-align:left;">
+              <ul style="padding-left: 16px;">
+                <?php
+                foreach($localidad['tareas'] as $tarea){
+                ?>
+                  <li style="font-size: 16px; line-height: 24px; margin-bottom: 16px;">
+                    <span style="font-size: 16px; line-height: 24px;">
+                      <?= $tarea['nombre'] ?> <span style="color: #AFCECB; font-size: 13px; font-style: italic; font-weight: 100; padding-left: 12px;">creada hace <?= $tarea['dias'] ?> días</span>
+                    </span>
+                  </li>
+                <?php
+                }
+                ?>
+              </ul>
 
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">
-              Este correo es para notificarte que: <strong style="font-family: Verdana; font-size: 14px; font-weight: bold;"> 
-                tienes tareas sin atender</strong> en la localidad - <strong style="font-family: Verdana; font-size: 14px; font-weight: bold;"> 
-                <?=$localidad?></strong>
-                Las tareas son:
-                <ol>
-                  <?php
-                  foreach($tareas as $tarea){?>
-                    
-                    <li><?=$tarea?></li>
-                     
-                  <?php
-                  }?>
-                </ol>
-                   </span></p>
 
-            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
-        </div>	
-	</div>
-	<!--[if mso]></td></tr></table><![endif]-->
-</div>
-                  
-                  
-                    
-<div align="left" class="button-container left " style="padding-right: 30px; padding-left: 30px; padding-top:25px; padding-bottom:30px;">
+
+              <div align="left" class="button-container left " style="padding-right: 30px; padding-left: 30px; padding-top:25px; padding-bottom:30px;">
   <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top:25px; padding-bottom:30px;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="" style="height:35pt; v-text-anchor:middle; width:196pt;" arcsize="13%" strokecolor="#E33032" fillcolor="#E33032"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:'Arial', Georgia, Times, 'Times New Roman', serif; font-size:16px;"><![endif]-->
     <a href="<?=$url?>" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFF; background-color: #435059; border-radius: 6px; -webkit-border-radius: 6px; -moz-border-radius: 6px; max-width: 262px; width: 222px;width: auto; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent; padding-top: 10px; padding-right: 20px; padding-bottom: 10px; padding-left: 20px; font-family: 'Arial', Georgia, Times, 'Times New Roman', serif;mso-border-alt: none; font-weight: 300;">
       <span style="font-size:12px;line-height:24px;"><span style="font-size: 14px; line-height: 32px;" data-mce-style="font-size: 14px; line-height: 32px; color: #FFF;">Ingreso automático al portal</span></span>
@@ -388,6 +354,22 @@ a[x-apple-data-detectors=true] {
 
   <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
 </div>
+
+
+
+            </div>
+          <?php
+          }
+          ?>
+            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
+        </div>	
+	</div>
+  <!--[if mso]></td></tr></table><![endif]-->
+  
+  <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
+	<!--[if mso]></td></tr></table><![endif]-->
+</div>
+
 
                   
               <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
