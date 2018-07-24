@@ -546,7 +546,7 @@ class LocalidadesController extends Controller
         $respuesta = new ResponseServices();
         $hoy = date("Y-m-d 00:00:00");
         $hoy = date("Y-m-d 00:00:00", strtotime($hoy . '-8 day'));
-        $tareas = WrkTareas::find()->where(['<', 'fch_creacion', $hoy])->andWhere(['txt_path'=>null])->andWhere(['txt_tarea'=>null])->orderBy('fch_creacion')->all();
+        $tareas = WrkTareas::find()->where(['<', 'fch_creacion', $hoy])->andWhere(['txt_path'=>null])->andWhere(['txt_tarea'=>null])->andWhere(['b_completa'=>0])->orderBy('fch_creacion')->all();
         $arr = [];
 
         foreach ($tareas as $tarea) {
