@@ -561,31 +561,32 @@ class LocalidadesController extends Controller
             foreach ($directores as $director) {
                 $usuarioDirector = $director->usuario;
 
-                $arr[$usuarioDirector->id_usuario][$localidad->id_localidad]["nombreLocalidad"] = $localidad->txt_nombre;
-                $arr[$usuarioDirector->id_usuario][$localidad->id_localidad]["cms"]=$localidad->cms;
-                $arr[$usuarioDirector->id_usuario][$localidad->id_localidad]["token"]=$localidad->txt_token;
-                $arr[$usuarioDirector->id_usuario][$localidad->id_localidad]['tareas'][$tarea->id_tarea]['nombre'] = $tarea->txt_nombre;
-                $arr[$usuarioDirector->id_usuario][$localidad->id_localidad]['tareas'][$tarea->id_tarea]['dias'] = $dias;
-                $arr[$usuarioDirector->id_usuario][$localidad->id_localidad]["directorEmail"] = $usuarioDirector->txt_email;
-                $arr[$usuarioDirector->id_usuario][$localidad->id_localidad]["directorNombre"] = $usuarioDirector->nombreCompleto;
-                $arr[$usuarioDirector->id_usuario][$localidad->id_localidad]["directorToken"] = $usuarioDirector->txt_token;
+                $arr[$usuarioDirector->id_usuario]['localidades'][$localidad->id_localidad]["nombreLocalidad"] = $localidad->txt_nombre;
+                $arr[$usuarioDirector->id_usuario]['localidades'][$localidad->id_localidad]["cms"]=$localidad->cms;
+                $arr[$usuarioDirector->id_usuario]['localidades'][$localidad->id_localidad]["token"]=$localidad->txt_token;
+                $arr[$usuarioDirector->id_usuario]['localidades'][$localidad->id_localidad]['tareas'][$tarea->id_tarea]['nombre'] = $tarea->txt_nombre;
+                $arr[$usuarioDirector->id_usuario]['localidades'][$localidad->id_localidad]['tareas'][$tarea->id_tarea]['dias'] = $dias;
+                $arr[$usuarioDirector->id_usuario]["directorEmail"] = $usuarioDirector->txt_email;
+                $arr[$usuarioDirector->id_usuario]["directorNombre"] = $usuarioDirector->nombreCompleto;
+                $arr[$usuarioDirector->id_usuario]["directorToken"] = $usuarioDirector->txt_token;
             }
         }
         //print_r($arr);exit;
 
-        foreach($arr as $tar){ //print_r($tar);exit;
+        foreach($arr as $tar){ //print_r($tar['localidades']);exit;
             // Enviar correo
             $utils = new Utils();
             $parametrosEmail = [];
 
-            $parametrosEmail ['localidades'] = $tar;//print_r($tar);exit;
+            $parametrosEmail ['localidades'] = $tar['localidades'];//print_r($tar);exit;
 
-            foreach($tar as $loc){ //print_r($loc);exit;
-                $email = $loc['directorEmail'];
-                $parametrosEmail ['user'] = $loc['directorNombre'];
+            foreach($tar['localidades'] as $loc){ //print_r($loc);exit;
+                $email = $tar['directorEmail'];
+                $parametrosEmail ['user'] = $tar['directorNombre'];
                 $parametrosEmail['url'] = Yii::$app->urlManager->createAbsoluteUrl([
-                    'localidades/index/?token=' . $loc["directorToken"] . '&tokenLoc=' . $loc["token"]
+                    'localidades/index/?token=' . $tar["directorToken"] . '&tokenLoc=' . $loc["token"]
                 ]);
+
                 if($utils->sendEmailNotificacionesTareas( $email, $parametrosEmail )){
                     $respuesta->status = "success";
                     $respuesta->message = "Enviados con exito";
