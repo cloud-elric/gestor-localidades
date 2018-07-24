@@ -575,9 +575,9 @@ class LocalidadesController extends Controller
 
         foreach($arr as $tar){ //print_r($tar);exit;
             // Enviar correo
-            $utils = new Utils ();
+            $utils = new Utils();
             $parametrosEmail = [];
-            
+
             $parametrosEmail ['localidades'] = $tar;//print_r($tar);exit;
 
             foreach($tar as $loc){ //print_r($loc);exit;
@@ -586,10 +586,16 @@ class LocalidadesController extends Controller
                 $parametrosEmail['url'] = Yii::$app->urlManager->createAbsoluteUrl([
                     'localidades/index/?token=' . $loc["directorToken"] . '&tokenLoc=' . $loc["token"]
                 ]);
-                $utils->sendEmailNotificacionesTareas( $email, $parametrosEmail );
+                if($utils->sendEmailNotificacionesTareas( $email, $parametrosEmail )){
+                    $respuesta->status = "success";
+                    $respuesta->message = "Enviados con exito";
+                    $respuesta->result = $arr;
+                }else{
+                    return $respuesta;
+                }
             }
         }
-        $respuesta->result = $arr;
+
         return $respuesta;
     }
 
