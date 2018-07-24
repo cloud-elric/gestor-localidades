@@ -719,6 +719,14 @@
 												border-color: $error
 												color: $white
 
+								&.td-nombre
+									.td-nombre-col
+										align-items: center
+										display: flex
+										justify-content: flex-start
+										width: 100%
+									p
+										margin-bottom: 0
 				.summary
 					color: $ryg-aqua
 					display: flex
@@ -782,6 +790,19 @@
 							background-color: darken( $ryg-accent, 20% )
 							border-color: darken( $ryg-accent, 20% )
 							color: $ryg-second
+
+					.text-nombre-usuario
+						align-items: center
+						background-color: transparent
+						border: 1px dashed rgba($white, .6)
+						border-radius: 4px
+						color: $white
+						display: flex
+						height: 36px
+						justify-content: flex-start
+						margin-bottom: 1.429rem
+						padding: 4px 14px
+
 					.form-group
 						position: relative
 						input[type="email"],
