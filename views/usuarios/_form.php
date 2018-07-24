@@ -10,6 +10,8 @@ use yii\web\View;
 use app\models\WrkUsuarioUsuarios;
 use app\modules\ModUsuarios\models\EntUsuarios;
 
+$isAdmin = $usuario->txt_auth_item == ConstantesWeb::SUPER_ADMIN;
+
 ?>
 <div class="row">
     <div class="col-md-4">
@@ -62,18 +64,20 @@ use app\modules\ModUsuarios\models\EntUsuarios;
                     // }
 
                     if($model->isNewRecord){
+                        if(!$isAdmin){
                     ?>
-                        <?= $form->field($model, 'usuarioPadre')
-                                ->widget(Select2::classname(), [
-                                    'data' => ArrayHelper::map($usuariosClientes, 'id_usuario', 'nombreCompleto'),
-                                    'language' => 'es',
-                                    'options' => ['placeholder' => 'Seleccionar grupo de trabajo'],
-                                    'pluginOptions' => [
-                                        'allowClear' => true
-                                    ],
-                                ])->label(false);
-                            ?> 
+                            <?= $form->field($model, 'usuarioPadre')
+                                    ->widget(Select2::classname(), [
+                                        'data' => ArrayHelper::map($usuariosClientes, 'id_usuario', 'nombreCompleto'),
+                                        'language' => 'es',
+                                        'options' => ['placeholder' => 'Seleccionar grupo de trabajo'],
+                                        'pluginOptions' => [
+                                            'allowClear' => true
+                                        ],
+                                    ])->label(false);
+                                ?> 
                     <?php
+                        }
                     }else{
                         if($model->txt_auth_item == ConstantesWeb::ASISTENTE || $model->txt_auth_item == ConstantesWeb::CLIENTE || $model->txt_auth_item == ConstantesWeb::COLABORADOR){
                             $idPadre = WrkUsuarioUsuarios::find()->where(['id_usuario_hijo'=>$model->id_usuario])->one();

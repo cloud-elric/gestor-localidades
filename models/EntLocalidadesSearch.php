@@ -76,7 +76,8 @@ class EntLocalidadesSearch extends EntLocalidades
 
         if($user->txt_auth_item == ConstantesWeb::ASISTENTE){
             $padre = WrkUsuarioUsuarios::find()->where(['id_usuario_hijo'=>$user->id_usuario])->one();
-            $query->andFilterWhere(['id_usuario'=>$padre->id_usuario_padre]);            
+            $query->andFilterWhere(['id_usuario'=>$padre->id_usuario_padre])
+                ->orFilterWhere(['id_usuario' => $user->id_usuario]);            
         }
 
         if($user->txt_auth_item == ConstantesWeb::CLIENTE){
