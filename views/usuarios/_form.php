@@ -10,7 +10,7 @@ use yii\web\View;
 use app\models\WrkUsuarioUsuarios;
 use app\modules\ModUsuarios\models\EntUsuarios;
 
-$isAdmin = $usuario->txt_auth_item == ConstantesWeb::SUPER_ADMIN;
+$isAdmin = Yii::$app->user->identity->txt_auth_item == ConstantesWeb::SUPER_ADMIN;
 
 ?>
 <div class="row">
