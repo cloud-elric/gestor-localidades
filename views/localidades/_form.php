@@ -16,6 +16,8 @@ use app\models\CatColonias;
 use app\models\CatTiposMonedas;
 use app\models\CatRegularizacionRenovacion;
 use app\assets\AppAsset;
+use app\models\ConstantesWeb;
+use app\models\WrkUsuarioUsuarios;
 
 
 /* @var $this yii\web\View */
@@ -24,7 +26,14 @@ use app\assets\AppAsset;
 
 $estado = $model->estado;
 $idUser = Yii::$app->user->identity->id_usuario;
-$porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$idUser])->one();
+
+if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ASISTENTE){
+    $rel = WrkUsuarioUsuarios::find()->where(['id_usuario_hijo'=>$idUser])->one();
+    $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$rel->id_usuario_padre])->one();
+}else{
+    $porcentajeAbogado = CatPorcentajeRentaAbogados::find()->where(['id_usuario'=>$idUser])->one();
+}
+
 $this->registerJsFile(
     '@web/webAssets/plugins/moment/moment.js',
     ['depends' => [AppAsset::className()]]
