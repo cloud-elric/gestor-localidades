@@ -732,11 +732,33 @@
 		"oT": 1,
 		"q": 100
 		},
+	"\/images\/oh.png": {
+		"ft": 32768,
+		"iS": 6511,
+		"oA": 0,
+		"oAP": "\/images\/oh.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
 	"\/images\/overhaul-login.png": {
 		"ft": 32768,
 		"iS": 37845,
 		"oA": 0,
 		"oAP": "\/images\/overhaul-login.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/images\/overhaul-logo.png": {
+		"ft": 32768,
+		"iS": 26023,
+		"oA": 0,
+		"oAP": "\/images\/overhaul-logo.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
@@ -752,6 +774,17 @@
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
+		"q": 100
+		},
+	"\/images\/site\/admin.jpg": {
+		"ft": 16384,
+		"iS": 18653,
+		"jF": 0,
+		"oA": 0,
+		"oAP": "\/images\/site\/admin.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
 		"q": 100
 		},
 	"\/images\/site\/user.png": {

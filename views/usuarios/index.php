@@ -105,6 +105,9 @@ $this->registerJsFile(
           [
             'attribute' => 'usuarioPadre',
             'label' => 'Usuario responsable',
+            'contentOptions' => [
+              'class'=>"td-nombre"
+            ],
             // 'filter'=>DatePicker::widget([
             //   'model'=>$searchModel,
             //   'attribute'=>'fch_creacion',
@@ -126,8 +129,8 @@ $this->registerJsFile(
                   if($responsable){
                     $data->usuarioPadre = $responsable->txt_username;
                     
-                    return '<img class="panel-listado-img" src="'.$responsable->imageProfile.'" alt="">
-                      <span>'.$responsable->nombreCompleto .'</span>';
+                    return '<div class="td-nombre-col"><img class="panel-listado-img" src="'.$responsable->imageProfile.'" alt="">
+                      <span>'.$responsable->nombreCompleto .'</span></div>';
                   }
                 }
                 return "<p>Sin responsable</p>";
