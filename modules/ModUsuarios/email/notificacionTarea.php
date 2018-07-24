@@ -308,7 +308,7 @@ a[x-apple-data-detectors=true] {
         <div style="line-height:24px;font-size:12px;color:#555555;font-family:'Arial', Georgia, Times, 'Times New Roman', serif;text-align:left;">
           
           <?php
-          foreach($localidades as $localidad){ print_r($localidad);exit;
+          foreach($localidades as $localidad){ //print_r($localidad);exit;
           ?>
             <div class="">
               <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;">
