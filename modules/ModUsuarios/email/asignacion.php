@@ -10,11 +10,13 @@
     <!--[if !mso]><!--><meta http-equiv="X-UA-Compatible" content="IE=edge"><!--<![endif]-->
     <title></title>
     <!--[if !mso]><!-- -->
-	<link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
 	<!--<![endif]-->
     
     <style type="text/css" id="media-query">
       body {
+        font-family: 'Roboto', Verdana, Sans-serif;
+        font-weight: 300;
   margin: 0;
   padding: 0; }
 
@@ -303,16 +305,16 @@ a[x-apple-data-detectors=true] {
                   
                     <div class="">
 	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
-	<div style="line-height:200%;color:#555555;font-family:'Arial', Georgia, Times, 'Times New Roman', serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
-        <div style="line-height:24px;font-size:12px;color:#555555;font-family:'Arial', Georgia, Times, 'Times New Roman', serif;text-align:left;">
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">
-              Este correo es para notificarte que <strong style="font-family: Verdana; font-size: 14px; font-style: normal; font-weight: bold;">
+	<div style="line-height:200%;color:#555555;font-family:'Roboto', Verdana, Sans-serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
+        <div style="line-height:24px;font-size:12px;color:#555555;font-family:'Roboto', Verdana, Sans-serif;text-align:left;">
+            <p style="margin: 0;font-size: 18px;line-height: 24px;text-align: justify;"><span style="font-size: 18px; font-weight: 300; line-height: 32px;">
+              Este correo es para notificarte que <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-style: normal; font-weight: bold;">
                 has sido agregado</strong> a la localidad 
-                <strong style="font-family: Verdana; font-size: 14px; font-style: italic; font-weight: bold;">
+                <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-style: italic; font-weight: bold;">
                 <?=$localidad?> 
                 </strong>
-                dentro de la plataforma “Regalado y Galindo - Gestor de localidades”, 
-                para poder <strong style="font-family: Verdana; font-size: 14px; font-style: normal; font-weight: bold;">acceder</strong>
+                dentro de la plataforma <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-style: italic; font-weight: bold;">"Overhaul&#174;"</strong>, 
+                para poder <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-style: normal; font-weight: bold;">acceder</strong>
                  al sistema da click en la siguiente liga:</span></p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
             
@@ -325,20 +327,20 @@ a[x-apple-data-detectors=true] {
                   
                     
 <div align="left" class="button-container left " style="padding-right: 30px; padding-left: 30px; padding-top:25px; padding-bottom:10px;">
-  <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top:25px; padding-bottom:30px;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="<?=$url?>" style="height:35pt; v-text-anchor:middle; width:196pt;" arcsize="13%" strokecolor="#FFF" fillcolor="#FFF"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:'Arial', Georgia, Times, 'Times New Roman', serif; font-size:16px;"><![endif]-->
-    <a href="<?=$url?>" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFF; background-color: #435059; border-radius: 6px; -webkit-border-radius: 6px; -moz-border-radius: 6px; max-width: 262px; width: 222px;width: auto; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent; padding-top: 10px; padding-right: 20px; padding-bottom: 10px; padding-left: 20px; font-family: 'Arial', Georgia, Times, 'Times New Roman', serif;mso-border-alt: none; font-weight: 300;">
+  <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top:25px; padding-bottom:30px;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="<?=$url?>" style="height:35pt; v-text-anchor:middle; width:196pt;" arcsize="13%" strokecolor="#FFF" fillcolor="#FFF"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:'Roboto', Verdana, Sans-serif; font-size:16px;"><![endif]-->
+    <a href="<?=$url?>" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFF; background-color: #435059; border-radius: 6px; -webkit-border-radius: 6px; -moz-border-radius: 6px; max-width: 262px; width: 222px;width: auto; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent; padding-top: 10px; padding-right: 20px; padding-bottom: 10px; padding-left: 20px; font-family: 'Roboto', Verdana, Sans-serif;mso-border-alt: none; font-weight: 300;">
       <span style="font-size:12px;line-height:24px;"><span style="font-size: 14px; line-height: 32px;" data-mce-style="font-size: 14px; line-height: 32px; color: #FFF;">Ingreso automático al portal</span></span>
     </a>
   <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
 </div>
 
 <div align="left" class="button-container left " style="padding-right: 30px; padding-left: 30px; padding-top:10px; padding-bottom:10px;">
-  <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top:25px; padding-bottom:30px;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="<?=$url?>" style="height:35pt; v-text-anchor:middle; width:196pt;" arcsize="13%" strokecolor="#E33032" fillcolor="#E33032"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:'Arial', Georgia, Times, 'Times New Roman', serif; font-size:16px;"><![endif]-->
+  <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top:25px; padding-bottom:30px;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="<?=$url?>" style="height:35pt; v-text-anchor:middle; width:196pt;" arcsize="13%" strokecolor="#435059" fillcolor="#435059"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:'Roboto', Verdana, Sans-serif; font-size:16px;"><![endif]-->
     <p style="font-size: 13px; color: #597572;">Si tienes dificultad para visualizar el botón, puedes dar click al siguiente enlace:</p>
 
     <p style="margin: 0; margin-bottom: 32px; line-height: 24px;text-align: left;font-size: 10px" dir="ltr">
 
-      <a href="<?=$url?>" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: left;color: #3C86E9; width: auto; font-family: 'Arial', Georgia, Times, 'Times New Roman', serif; mso-border-alt: none; font-weight: 300; color: #3C86E9; font-size: 13px; line-height: 16px;">
+      <a href="<?=$url?>" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: left;color: #3C86E9; width: auto; font-family: 'Roboto', Verdana, Sans-serif; mso-border-alt: none; font-weight: 300; color: #3C86E9; font-size: 13px; line-height: 16px;">
         <span style="font-size:13px;line-height:24px;"><span style="font-size: 13px; line-height: 32px;" data-mce-style="font-size: 13px; line-height: 32px; color: #3C86E9;"><?=$url?></span></span>
 
       </a>
@@ -367,10 +369,10 @@ a[x-apple-data-detectors=true] {
                   
                     <div class="">
 	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 20px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px;"><![endif]-->
-	<div style="color:#555555;line-height:120%;font-family:'Arial', Georgia, Times, 'Times New Roman', serif; padding-right: 20px; padding-left: 20px; padding-top: 40px; padding-bottom: 0;">	
-		<div style="font-size:12px;line-height:14px;color:#555555;font-family:'Arial', Georgia, Times, 'Times New Roman', serif;text-align: center;">
+	<div style="color:#555555;line-height:120%;font-family:'Roboto', Verdana, Sans-serif; padding-right: 20px; padding-left: 20px; padding-top: 40px; padding-bottom: 0;">	
+		<div style="font-size:12px;line-height:14px;color:#555555;font-family:'Roboto', Verdana, Sans-serif;text-align: center;">
 
-            <p style="margin: 0;font-size: 14px;line-height: 24px;text-align: justify;">Este correo electrónico fue generado de manera automática por el sistema y no es necesario contestes a el, si necesitas asistencia o soporte favor de escribirme a: <a href="mailto:soporte@ovhaul.mx?Subject=Ayuda%20Web" target="_blank" style="display: inline-block;text-decoration: none;-webkit-text-size-adjust: none;text-align: left;color: #2B3736; width: auto; font-family: 'Arial', Georgia, Times, 'Times New Roman', serif; mso-border-alt: none; font-weight: 300; color: #3C86E9; font-size: 14px; line-height: 16px;"><span style="font-size: 14px; line-height: 20px;" data-mce-style="font-size: 14px; line-height: 20px; color: #2B3736;">soporte@ovhaul.mx</span></a></p>
+            <p style="margin: 0;font-size: 14px;line-height: 24px;text-align: justify;">Este correo electrónico fue generado de manera automática por el sistema y no es necesario contestes a el, si necesitas asistencia o soporte favor de escribirme a: <a href="mailto:soporte@ovhaul.mx?Subject=Ayuda%20Web" target="_blank" style="display: inline-block;text-decoration: none;-webkit-text-size-adjust: none;text-align: left;color: #2B3736; width: auto; font-family: 'Roboto', Verdana, Sans-serif; mso-border-alt: none; font-weight: 300; color: #3C86E9; font-size: 14px; line-height: 16px;"><span style="font-size: 14px; line-height: 20px;" data-mce-style="font-size: 14px; line-height: 20px; color: #2B3736;">soporte@ovhaul.mx</span></a></p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br><br></p>
             <p style="margin: 0;font-size: 14px;line-height: 17px;text-align: center;">Overhaul&#174; by Regalado y Galindo Abogados 2018 </p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br><br></p>
@@ -406,8 +408,8 @@ a[x-apple-data-detectors=true] {
                   
                     <div class="">
 	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 20px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px;"><![endif]-->
-	<div style="color:#555555;line-height:120%;font-family:'Arial', Georgia, Times, 'Times New Roman', serif; padding-right: 20px; padding-left: 20px; padding-top: 0; padding-bottom: 0;">	
-		<div style="font-size:12px;line-height:14px;color:#555555;font-family:'Arial', Georgia, Times, 'Times New Roman', serif;text-align: right;">
+	<div style="color:#555555;line-height:120%;font-family:'Roboto', Verdana, Sans-serif; padding-right: 20px; padding-left: 20px; padding-top: 0; padding-bottom: 0;">	
+		<div style="font-size:12px;line-height:14px;color:#555555;font-family:'Roboto', Verdana, Sans-serif;text-align: right;">
 
             <p style="margin: 0;font-size: 12px;line-height: 17px;text-align: right;">
               <span style="display: inline-block; font-size: 10px; line-height: 24px; text-align: right;">Software developed by: </span>
