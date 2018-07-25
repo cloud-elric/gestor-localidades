@@ -305,7 +305,7 @@ a[x-apple-data-detectors=true] {
                 ?>
                   <li style="font-size: 16px; line-height: 24px; margin-bottom: 16px;">
                     <span style="font-size: 16px; font-weight: 300; line-height: 24px;">
-                      Algo <?= $tarea['nombre'] ?> <span style="color: #AFCECB; font-size: 13px; font-weight: 300; font-style: italic; font-weight: 100; padding-left: 12px;">creada hace <?= $tarea['dias'] ?> días</span>
+                      <?= $tarea['nombre'] ?> <span style="color: #AFCECB; font-size: 13px; font-weight: 300; font-style: italic; font-weight: 100; padding-left: 12px;">creada hace <?= $tarea['dias'] ?> días</span>
                     </span>
                   </li>
                 <?php
