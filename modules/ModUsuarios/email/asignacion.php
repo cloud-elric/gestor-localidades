@@ -310,10 +310,10 @@ a[x-apple-data-detectors=true] {
             <p style="margin: 0;font-size: 18px;line-height: 24px;text-align: justify;"><span style="font-size: 18px; font-weight: 300; line-height: 32px;">
               Este correo es para notificarte que <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-style: normal; font-weight: bold;">
                 has sido agregado</strong> a la localidad 
-                <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-style: italic; font-weight: bold;">
+                <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-weight: bold;">
                 <?=$localidad?> 
                 </strong>
-                dentro de la plataforma <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-style: italic; font-weight: bold;">"Overhaul&#174;"</strong>, 
+                dentro de la plataforma <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-weight: bold;">"Overhaul&#174;"</strong>, 
                 para poder <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-style: normal; font-weight: bold;">acceder</strong>
                  al sistema da click en la siguiente liga:</span></p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
