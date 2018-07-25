@@ -84,7 +84,7 @@ class Calendario
         if($string){
             $tiempo = strtotime($string);
         }
-        $fecha = date('y', $tiempo);
+        $fecha = date('Y', $tiempo);
 
         return $fecha;
     }

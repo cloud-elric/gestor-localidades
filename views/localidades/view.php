@@ -176,7 +176,7 @@ $user = Yii::$app->user->identity;
                                                 $estatus = EntEstatus::find()->where(['id_localidad'=>$model->id_localidad])->orderBy('fch_creacion')->all();
                                                 $arr = "";
                                                 foreach ($estatus as $est){
-                                                    if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){                                                    
+                                                    if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ASISTENTE){                                                    
                                                 ?>
                                                         <div class="form-group">
                                                                 <textarea class="form-control form-input form-input-<?=$est->id_estatus?>" placeholder="Estatus"><?=$est->txt_estatus?></textarea>
