@@ -62,7 +62,7 @@ $user = Yii::$app->user->identity;
         <div class="page-content">
             <div class="ent-localidades-view">
                 <div class="ent-localidades-view-head">
-                    <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
+                    <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ASISTENTE){ ?>
                         <?= Html::a('<i class="icon wb-pencil" aria-hidden="true"></i> Editar', ['update', 'id' => $model->id_localidad], ['class' => 'btn btn-update no-pjax']) ?>
                     <?php } ?>
                     <?php # Html::a('<i class="icon wb-trash" aria-hidden="true"></i>', ['delete', 'id' => $model->id_localidad], [
