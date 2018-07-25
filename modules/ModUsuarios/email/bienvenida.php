@@ -301,15 +301,6 @@ a[x-apple-data-detectors=true] {
             <div class="col num12" style="min-width: 320px;max-width: 460px;display: table-cell;vertical-align: top;">
               <div style="background-color: transparent; width: 100% !important;">
               <!--[if (!mso)&(!IE)]><!--><div style="border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent; padding-top:5px; padding-bottom:5px; padding-right: 0px; padding-left: 0px;"><!--<![endif]-->
-
-                  
-                    <div class="">
-	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
-	<div style="line-height:200%;color:#555555;font-family:'Roboto', Verdana, Sans-serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
-		<div style="font-size:16px;line-height:24px;font-family:'Roboto', Verdana, Sans-serif;color:#555555;text-align:left;"><p style="margin: 0;font-size: 16px;line-height: 28px;text-align: left"><span style="font-size: 24px; font-weight: bold; color: #2B3736; line-height: 48px;">Hola <?= $user ?></span></p></div>	
-	</div>
-	<!--[if mso]></td></tr></table><![endif]-->
-</div>
                   
                   
                     <div class="">
