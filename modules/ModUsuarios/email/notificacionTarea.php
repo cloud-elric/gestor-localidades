@@ -10,11 +10,13 @@
     <!--[if !mso]><!--><meta http-equiv="X-UA-Compatible" content="IE=edge"><!--<![endif]-->
     <title></title>
     <!--[if !mso]><!-- -->
-	<link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
 	<!--<![endif]-->
     
     <style type="text/css" id="media-query">
       body {
+        font-family: 'Roboto', Verdana, Sans-serif;
+        font-weight: 300;
   margin: 0;
   padding: 0; }
 
@@ -273,26 +275,7 @@ a[x-apple-data-detectors=true] {
         </div>
       </div>
     </div>
-    <div style="background-color:#EDFFFD;">
-      <div style="Margin: 0 auto;min-width: 320px;max-width: 460px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #EDFFFD;" class="block-grid ">
-        <div style="border-collapse: collapse;display: table;width: 100%;background-color:#EDFFFD;">
-          <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="background-color:#EDFFFD;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width: 600px;"><tr class="layout-full-width" style="background-color:#EDFFFD;"><![endif]-->
-
-              <!--[if (mso)|(IE)]><td align="center" width="600" style=" width:600px; padding-right: 0px; padding-left: 0px; padding-top:0px; padding-bottom:0px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><![endif]-->
-            <div class="col num12" style="min-width: 320px;max-width: 460px;display: table-cell;vertical-align: top;">
-              <div style="background-color: transparent; width: 100% !important;">
-              <!--[if (!mso)&(!IE)]><!--><div style="border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent; padding-top:20px; padding-bottom:10px; padding-right: 0px; padding-left: 0px;"><!--<![endif]-->
-
-                  
-                    &#160;
-                  
-              <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
-              </div>
-            </div>
-          <!--[if (mso)|(IE)]></td></tr></table></td></tr></table><![endif]-->
-        </div>
-      </div>
-    </div>    <div style="background-color:transparent;">
+    <div style="background-color:transparent;">
       <div style="Margin: 0 auto;min-width: 320px;max-width: 460px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #FFF;" class="block-grid ">
         <div style="border-collapse: collapse;display: table;width: 100%;background-color:#FFF;">
           <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="background-color:transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width: 600px;"><tr class="layout-full-width" style="background-color:#FFF;"><![endif]-->
@@ -304,15 +287,15 @@ a[x-apple-data-detectors=true] {
 
                     <div class="">
 	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
-	<div style="line-height:200%;color:#555555;font-family:'Arial', Georgia, Times, 'Times New Roman', serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
-        <div style="line-height:24px;font-size:12px;color:#555555;font-family:'Arial', Georgia, Times, 'Times New Roman', serif;text-align:left;">
+	<div style="line-height:200%;color:#555555;font-family:'Roboto', Verdana, Sans-serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
+        <div style="line-height:24px;font-size:12px;color:#555555;font-family:'Roboto', Verdana, Sans-serif;text-align:left;">
           
           <?php
           foreach($localidades as $localidad){ //print_r($localidad);exit;
           ?>
             <div class="">
               <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;">
-                <span style="font-size: 16px; line-height: 32px;">
+                <span style="font-size: 16px; font-weight: 300; line-height: 32px;">
                   <strong>Localidad - <?="CMS" . $localidad['cms']?>, <?=$localidad['nombreLocalidad']?></strong>
                 </span></p>
 
@@ -321,8 +304,8 @@ a[x-apple-data-detectors=true] {
                 foreach($localidad['tareas'] as $tarea){
                 ?>
                   <li style="font-size: 16px; line-height: 24px; margin-bottom: 16px;">
-                    <span style="font-size: 16px; line-height: 24px;">
-                      <?= $tarea['nombre'] ?> <span style="color: #AFCECB; font-size: 13px; font-style: italic; font-weight: 100; padding-left: 12px;">creada hace <?= $tarea['dias'] ?> días</span>
+                    <span style="font-size: 16px; font-weight: 300; line-height: 24px;">
+                      <?= $tarea['nombre'] ?> <span style="color: #AFCECB; font-size: 13px; font-weight: 300; font-style: italic; font-weight: 100; padding-left: 12px;">creada hace <?= $tarea['dias'] ?> días</span>
                     </span>
                   </li>
                 <?php
@@ -347,12 +330,12 @@ a[x-apple-data-detectors=true] {
 </div>
 
 <div align="left" class="button-container left " style="padding-right: 30px; padding-left: 30px; padding-top:10px; padding-bottom:10px;">
-  <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top:25px; padding-bottom:30px;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="<?=$url?>" style="height:35pt; v-text-anchor:middle; width:196pt;" arcsize="13%" strokecolor="#E33032" fillcolor="#E33032"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:'Arial', Georgia, Times, 'Times New Roman', serif; font-size:16px;"><![endif]-->
+  <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top:25px; padding-bottom:30px;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="<?=$url?>" style="height:35pt; v-text-anchor:middle; width:196pt;" arcsize="13%" strokecolor="#fff" fillcolor="#fff"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:'Roboto', Verdana, Sans-serif; font-size:16px;"><![endif]-->
     <p style="font-size: 13px; color: #597572;">Si tienes dificultad para visualizar el botón, puedes dar click al siguiente enlace:</p>
 
     <p style="margin: 0; margin-bottom: 32px; line-height: 24px;text-align: left;font-size: 10px" dir="ltr">
 
-      <a href="<?=$url?>" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: left;color: #3C86E9; width: auto; font-family: 'Arial', Georgia, Times, 'Times New Roman', serif; mso-border-alt: none; font-weight: 300; color: #3C86E9; font-size: 13px; line-height: 16px;">
+      <a href="<?=$url?>" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: left;color: #3C86E9; width: auto; font-family: 'Roboto', Verdana, Sans-serif; mso-border-alt: none; font-weight: 300; color: #3C86E9; font-size: 13px; line-height: 16px;">
         <span style="font-size:13px;line-height:24px;"><span style="font-size: 13px; line-height: 32px;" data-mce-style="font-size: 13px; line-height: 32px; color: #3C86E9;"><?=$url?></span></span>
 
       </a>
@@ -386,10 +369,10 @@ a[x-apple-data-detectors=true] {
                   
                     <div class="">
 	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 20px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px;"><![endif]-->
-	<div style="color:#555555;line-height:120%;font-family:'Arial', Georgia, Times, 'Times New Roman', serif; padding-right: 20px; padding-left: 20px; padding-top: 40px; padding-bottom: 0;">	
-		<div style="font-size:12px;line-height:14px;color:#555555;font-family:'Arial', Georgia, Times, 'Times New Roman', serif;text-align: center;">
+	<div style="color:#555555;line-height:120%;font-family:'Roboto', Verdana, Sans-serif; padding-right: 20px; padding-left: 20px; padding-top: 40px; padding-bottom: 0;">	
+		<div style="font-size:12px;line-height:14px;color:#555555;font-family:'Roboto', Verdana, Sans-serif;text-align: center;">
 
-            <p style="margin: 0;font-size: 14px;line-height: 24px;text-align: justify;">Este correo electrónico fue generado de manera automática por el sistema y no es necesario contestes a el, si necesitas asistencia o soporte favor de escribirme a: <a href="mailto:soporte@ovhaul.mx?Subject=Ayuda%20Web" target="_blank" style="display: inline-block;text-decoration: none;-webkit-text-size-adjust: none;text-align: left;color: #2B3736; width: auto; font-family: 'Arial', Georgia, Times, 'Times New Roman', serif; mso-border-alt: none; font-weight: 300; color: #3C86E9; font-size: 14px; line-height: 16px;"><span style="font-size: 14px; line-height: 20px;" data-mce-style="font-size: 14px; line-height: 20px; color: #2B3736;">soporte@ovhaul.mx</span></a></p>
+            <p style="margin: 0;font-size: 14px;line-height: 24px;text-align: justify;">Este correo electrónico fue generado de manera automática por el sistema y no es necesario contestes a el, si necesitas asistencia o soporte favor de escribirme a: <a href="mailto:soporte@ovhaul.mx?Subject=Ayuda%20Web" target="_blank" style="display: inline-block;text-decoration: none;-webkit-text-size-adjust: none;text-align: left;color: #2B3736; width: auto; font-family: 'Roboto', Verdana, Sans-serif; mso-border-alt: none; font-weight: 300; color: #3C86E9; font-size: 14px; line-height: 16px;"><span style="font-size: 14px; line-height: 20px;" data-mce-style="font-size: 14px; line-height: 20px; color: #2B3736;">soporte@ovhaul.mx</span></a></p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br><br></p>
             <p style="margin: 0;font-size: 14px;line-height: 17px;text-align: center;">Overhaul&#174; by Regalado y Galindo Abogados 2018 </p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br><br></p>
@@ -425,8 +408,8 @@ a[x-apple-data-detectors=true] {
                   
                     <div class="">
 	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 20px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px;"><![endif]-->
-	<div style="color:#555555;line-height:120%;font-family:'Arial', Georgia, Times, 'Times New Roman', serif; padding-right: 20px; padding-left: 20px; padding-top: 0; padding-bottom: 0;">	
-		<div style="font-size:12px;line-height:14px;color:#555555;font-family:'Arial', Georgia, Times, 'Times New Roman', serif;text-align: right;">
+	<div style="color:#555555;line-height:120%;font-family:'Roboto', Verdana, Sans-serif; padding-right: 20px; padding-left: 20px; padding-top: 0; padding-bottom: 0;">	
+		<div style="font-size:12px;line-height:14px;color:#555555;font-family:'Roboto', Verdana, Sans-serif;text-align: right;">
 
             <p style="margin: 0;font-size: 12px;line-height: 17px;text-align: right;">
               <span style="display: inline-block; font-size: 10px; line-height: 24px; text-align: right;">Software developed by: </span>
