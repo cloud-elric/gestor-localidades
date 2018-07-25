@@ -10,11 +10,13 @@
     <!--[if !mso]><!--><meta http-equiv="X-UA-Compatible" content="IE=edge"><!--<![endif]-->
     <title></title>
     <!--[if !mso]><!-- -->
-	<link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
 	<!--<![endif]-->
     
     <style type="text/css" id="media-query">
       body {
+        font-family: 'Roboto', Verdana, Sans-serif;
+        font-weight: 300;
   margin: 0;
   padding: 0; }
 
@@ -158,7 +160,7 @@ a[x-apple-data-detectors=true] {
 
     </style>
 </head>
-<body class="clean-body" style="margin: 0;padding: 0;-webkit-text-size-adjust: 100%;background-color: #F0F0F0">
+<body class="clean-body" style="margin: 0;padding: 0;-webkit-text-size-adjust: 100%;background-color: #FFF">
   <style type="text/css" id="media-query-bodytag">
     @media (max-width: 520px) {
       .block-grid {
@@ -216,26 +218,26 @@ a[x-apple-data-detectors=true] {
   </style>
   <!--[if IE]><div class="ie-browser"><![endif]-->
   <!--[if mso]><div class="mso-container"><![endif]-->
-  <table class="nl-container" style="border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;min-width: 320px;Margin: 0 auto;background-color: #F0F0F0;width: 100%" cellpadding="0" cellspacing="0">
+  <table class="nl-container" style="border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;min-width: 320px;Margin: 0 auto;background-color: #EDFFFD;width: 100%" cellpadding="0" cellspacing="0">
 	<tbody>
 	<tr style="vertical-align: top">
 		<td style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">
-    <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" style="background-color: #F0F0F0;"><![endif]-->
+    <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" style="background-color: #EDFFFD;"><![endif]-->
 
-    <div style="background-color:#2B3736;">
+    <div style="background-color:#FFF; border-bottom: 4px solid #435059;">
       <div style="Margin: 0 auto;min-width: 320px;max-width: 460px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #FFF;" class="block-grid ">
         <div style="border-collapse: collapse;display: table;width: 100%;background-color:#FFF;">
           <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="background-color:#0D0C0C;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width: 600px;"><tr class="layout-full-width" style="background-color:#FFF;"><![endif]-->
 
               <!--[if (mso)|(IE)]><td align="center" width="600" style="background-color:#050404; width:600px; padding-right: 0px; padding-left: 0px; padding-top:5px; padding-bottom:5px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><![endif]-->
             <div class="col num12" style="min-width: 320px;max-width: 460px;display: table-cell;vertical-align: top;">
-              <div style="background-color: #2B3736; width: 100% !important;">
+              <div style="background-color: #FFF; width: 100% !important;">
               <!--[if (!mso)&(!IE)]><!--><div style="border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent; padding-top:18px; padding-bottom:18px; padding-right: 0px; padding-left: 0px;"><!--<![endif]-->
 
                   
                     <div align="center" class="img-container center  autowidth  fullwidth " style="padding-right: 0px;  padding-left: 0px;">
 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr style="line-height:0px;line-height:0px;"><td style="padding-right: 0px; padding-left: 0px;" align="center"><![endif]-->
-  <img class="center  autowidth  fullwidth" align="center" border="0" src="http://dev.2geeksonemonkey.com/ryg/gestor-localidades/web/webAssets/images/overhaul.png" alt="Abogados RYG" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: 0;height: auto;float: none;width: 160px;max-width: 100%" width="160">
+  <img class="center  autowidth  fullwidth" align="center" border="0" src="http://dev.2geeksonemonkey.com/ryg/gestor-localidades/web/webAssets/images/overhaul-login.png" alt="Abogados RYG" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: 0;height: auto;float: none;width: 160px;max-width: 100%" width="160">
 <!--[if mso]></td></tr></table><![endif]-->
 </div>
 
@@ -246,18 +248,25 @@ a[x-apple-data-detectors=true] {
           <!--[if (mso)|(IE)]></td></tr></table></td></tr></table><![endif]-->
         </div>
       </div>
-    </div>    <div style="background-color:#F0F0F0;">
-      <div style="Margin: 0 auto;min-width: 320px;max-width: 460px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #F0F0F0;" class="block-grid ">
-        <div style="border-collapse: collapse;display: table;width: 100%;background-color:#F0F0F0;">
-          <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="background-color:#F0F0F0;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width: 600px;"><tr class="layout-full-width" style="background-color:#F0F0F0;"><![endif]-->
+    </div>    <div style="background-color:#EDFFFD;">
+      <div style="Margin: 0 auto;min-width: 320px;max-width: 460px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #EDFFFD;" class="block-grid ">
+        <div style="border-collapse: collapse;display: table;width: 100%;background-color:#EDFFFD;">
+          <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="background-color:#EDFFFD;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width: 600px;"><tr class="layout-full-width" style="background-color:#EDFFFD;"><![endif]-->
 
               <!--[if (mso)|(IE)]><td align="center" width="600" style=" width:600px; padding-right: 0px; padding-left: 0px; padding-top:0px; padding-bottom:0px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><![endif]-->
             <div class="col num12" style="min-width: 320px;max-width: 460px;display: table-cell;vertical-align: top;">
               <div style="background-color: transparent; width: 100% !important;">
               <!--[if (!mso)&(!IE)]><!--><div style="border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent; padding-top:20px; padding-bottom:10px; padding-right: 0px; padding-left: 0px;"><!--<![endif]-->
 
-                  
-                    &#160;
+                <p style="margin: 0;font-size: 10px; font-weight: 100; line-height: 16px;text-align: justify;">
+                  <span style="font-size: 16px; line-height: 32px;">
+                  Marte 24 de Julio 2018
+                  </span></p>
+
+                <h3 style="margin: 0; margin-bottom: 32px; font-size: 20px; font-weight: 300; line-height: 24px;text-align: justify;">
+                  Bienvenido <?= $user ?>,
+                  <span style="display: block; margin-top: 8px;">Tareas atrasadas.</span>
+                </h3>
                   
               <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
               </div>
@@ -265,7 +274,8 @@ a[x-apple-data-detectors=true] {
           <!--[if (mso)|(IE)]></td></tr></table></td></tr></table><![endif]-->
         </div>
       </div>
-    </div>    <div style="background-color:transparent;">
+    </div>
+    <div style="background-color:transparent;">
       <div style="Margin: 0 auto;min-width: 320px;max-width: 460px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #FFF;" class="block-grid ">
         <div style="border-collapse: collapse;display: table;width: 100%;background-color:#FFF;">
           <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="background-color:transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width: 600px;"><tr class="layout-full-width" style="background-color:#FFF;"><![endif]-->
@@ -275,64 +285,79 @@ a[x-apple-data-detectors=true] {
               <div style="background-color: transparent; width: 100% !important;">
               <!--[if (!mso)&(!IE)]><!--><div style="border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent; padding-top:5px; padding-bottom:5px; padding-right: 0px; padding-left: 0px;"><!--<![endif]-->
 
-                  
                     <div class="">
 	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
-	<div style="line-height:200%;color:#555555;font-family:'Verdanaf', Georgia, Times, 'Times New Roman', serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
+	<div style="line-height:200%;color:#555555;font-family:'Roboto', Verdana, Sans-serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
+        <div style="line-height:24px;font-size:12px;color:#555555;font-family:'Roboto', Verdana, Sans-serif;text-align:left;">
+          
+          <p style="margin: 0;font-size: 12px; line-height: 24px;text-align: justify;"><span style="font-size: 18px; font-weight: 300; line-height: 32px;">
+              Este correo es para notificarte que:
+              <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-weight: bold;"> tus colaboradores tienen tareas sin atender</strong>
+              <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 16px; font-weight: bold;"> <?= $loc ?> </strong>
+              en la localidad - 
+               <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 16px; font-weight: bold;"> <?=$localidad["nombreLocalidad"]?> </strong>
+               - Las tareas son:</span>
+            </p>
 
-		<div style="font-size:16px;line-height:24px;font-family:'Verdana', Georgia, Times, 'Times New Roman', serif;color:#555555;text-align:left;"><p style="margin: 0;font-size: 16px;line-height: 28px;text-align: left"><span style="font-size: 18px; font-weight: bold; color: #2B3736; line-height: 48px;">
-      Tareas atrasadas.
-      </span></p></div>	
+          <?php
+          foreach($localidad["colaboradores"] as $colaborador){
+          ?>
+            <div class="">
+              <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;">
+                <span style="font-size: 16px; font-weight: 300; line-height: 32px;">
+                  <strong>Colaborador: <?=$colaborador["nombre"]?></strong>
+                </span></p>
 
-	</div>
-	<!--[if mso]></td></tr></table><![endif]-->
-</div>
-                  
-                  
-                    <div class="">
-	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
-	<div style="line-height:200%;color:#555555;font-family:'Verdanaf', Georgia, Times, 'Times New Roman', serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
-        <div style="line-height:24px;font-size:12px;color:#555555;font-family:'Verdanaf', Georgia, Times, 'Times New Roman', serif;text-align:left;">
+              <ul style="padding-left: 16px;">
+                <?php
+                foreach($colaborador["tareas"] as $tarea){
+                ?>
+                  <li style="font-size: 16px; line-height: 24px; margin-bottom: 16px;">
+                    <span style="font-size: 16px; font-weight: 300; line-height: 24px;">
+                      <?=$tarea["txt_nombre"]?> <span style="color: #AFCECB; font-size: 13px; font-weight: 300; font-style: italic; font-weight: 100; padding-left: 12px;">creada hace <?= $tarea['dias'] ?> días</span>
+                    </span>
+                  </li>
+                <?php
+                }
+                ?>
 
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">
-              Hola <?= $user ?>:</span></p>
-            <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;"><span style="font-size: 16px; line-height: 32px;">
-              Este correo es para notificarte que: <strong style="font-family: Verdana; font-size: 14px; font-weight: bold;"> 
-                tus colaboradores tienen tareas sin atender</strong> en la localidad - <strong style="font-family: Verdana; font-size: 14px; font-weight: bold;"> 
-                <?=$localidad["nombreLocalidad"]?></strong>
-                Las tareas son:
-                <ul>
-                  <?php
-                  foreach($localidad["colaboradores"] as $colaborador){?>
-                    
-                    <li>Colaborador: <?=$colaborador["nombre"]?></li>
-                     <ol>
-                     <?php
-                      foreach($colaborador["tareas"] as $tarea){?>
-                        <li><?=$tarea["txt_nombre"]?></li>
-                    <?php
-                    }?>
-                     </ol>
-                  <?php
-                  }?>
-                </ul>
-                   </span></p>
-
+              </ul>
+            </div>
+          <?php
+          }
+          ?>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
         </div>	
 	</div>
-	<!--[if mso]></td></tr></table><![endif]-->
-</div>
-                  
-                  
-                    
-<div align="center" class="button-container center " style="padding-right: 10px; padding-left: 10px; padding-top:25px; padding-bottom:30px;">
-  <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top:25px; padding-bottom:30px;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="" style="height:35pt; v-text-anchor:middle; width:196pt;" arcsize="13%" strokecolor="#E33032" fillcolor="#E33032"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:'Verdanaf', Georgia, Times, 'Times New Roman', serif; font-size:16px;"><![endif]-->
-    <a href="<?=$url?>" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #2B3736; background-color: #B3E6E2; border-radius: 6px; -webkit-border-radius: 6px; -moz-border-radius: 6px; max-width: 262px; width: 222px;width: auto; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent; padding-top: 10px; padding-right: 20px; padding-bottom: 10px; padding-left: 20px; font-family: 'Verdanaf', Georgia, Times, 'Times New Roman', serif;mso-border-alt: none; font-weight: 300;">
-      <span style="font-size:12px;line-height:24px;"><span style="font-size: 14px; line-height: 32px;" data-mce-style="font-size: 14px; line-height: 32px; color: #2B3736;">Ingreso automático al portal</span></span>
+  <!--[if mso]></td></tr></table><![endif]-->
+  
+  <div align="left" class="button-container left " style="padding-right: 30px; padding-left: 30px; padding-top:25px; padding-bottom:30px;">
+  <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top:25px; padding-bottom:30px;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="" style="height:35pt; v-text-anchor:middle; width:196pt;" arcsize="13%" strokecolor="#E33032" fillcolor="#E33032"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:'Arial', Georgia, Times, 'Times New Roman', serif; font-size:16px;"><![endif]-->
+    <a href="<?=$url?>" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFF; background-color: #435059; border-radius: 6px; -webkit-border-radius: 6px; -moz-border-radius: 6px; max-width: 262px; width: 222px;width: auto; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent; padding-top: 10px; padding-right: 20px; padding-bottom: 10px; padding-left: 20px; font-family: 'Arial', Georgia, Times, 'Times New Roman', serif;mso-border-alt: none; font-weight: 300;">
+      <span style="font-size:12px;line-height:24px;"><span style="font-size: 14px; line-height: 32px;" data-mce-style="font-size: 14px; line-height: 32px; color: #FFF;">Ingreso automático al portal</span></span>
     </a>
   <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
 </div>
+
+<div align="left" class="button-container left " style="padding-right: 30px; padding-left: 30px; padding-top:10px; padding-bottom:10px;">
+  <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top:25px; padding-bottom:30px;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="<?=$url?>" style="height:35pt; v-text-anchor:middle; width:196pt;" arcsize="13%" strokecolor="#fff" fillcolor="#fff"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:'Roboto', Verdana, Sans-serif; font-size:16px;"><![endif]-->
+    <p style="font-size: 13px; color: #597572;">Si tienes dificultad para visualizar el botón, puedes dar click al siguiente enlace:</p>
+
+    <p style="margin: 0; margin-bottom: 32px; line-height: 24px;text-align: left;font-size: 10px" dir="ltr">
+
+      <a href="<?=$url?>" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: left;color: #3C86E9; width: auto; font-family: 'Roboto', Verdana, Sans-serif; mso-border-alt: none; font-weight: 300; color: #3C86E9; font-size: 13px; line-height: 16px;">
+        <span style="font-size:13px;line-height:24px;"><span style="font-size: 13px; line-height: 32px;" data-mce-style="font-size: 13px; line-height: 32px; color: #3C86E9;"><?=$url?></span></span>
+
+      </a>
+    </p>
+
+  <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
+</div>
+
+  <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
+	<!--[if mso]></td></tr></table><![endif]-->
+</div>
+
 
                   
               <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
@@ -341,10 +366,10 @@ a[x-apple-data-detectors=true] {
           <!--[if (mso)|(IE)]></td></tr></table></td></tr></table><![endif]-->
         </div>
       </div>
-    </div>    <div style="background-color:#F0F0F0;">
-      <div style="Margin: 0 auto;min-width: 320px;max-width: 460px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #F0F0F0;" class="block-grid ">
-        <div style="border-collapse: collapse;display: table;width: 100%;background-color:#F0F0F0;">
-          <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="background-color:#F0F0F0;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width: 600px;"><tr class="layout-full-width" style="background-color:#F0F0F0;"><![endif]-->
+    </div>    <div style="background-color:#EDFFFD;">
+      <div style="Margin: 0 auto;min-width: 320px;max-width: 460px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #EDFFFD;" class="block-grid ">
+        <div style="border-collapse: collapse;display: table;width: 100%;background-color:#EDFFFD;">
+          <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="background-color:#EDFFFD;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width: 600px;"><tr class="layout-full-width" style="background-color:#EDFFFD;"><![endif]-->
 
               <!--[if (mso)|(IE)]><td align="center" width="600" style=" width:600px; padding-right: 0px; padding-left: 0px; padding-top:5px; padding-bottom:5px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><![endif]-->
             <div class="col num12" style="min-width: 320px;max-width: 460px;display: table-cell;vertical-align: top;">
@@ -354,14 +379,20 @@ a[x-apple-data-detectors=true] {
                   
                     <div class="">
 	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 20px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px;"><![endif]-->
-	<div style="color:#555555;line-height:120%;font-family:'Verdanaf', Georgia, Times, 'Times New Roman', serif; padding-right: 20px; padding-left: 20px; padding-top: 40px; padding-bottom: 20px;">	
-		<div style="font-size:12px;line-height:14px;color:#555555;font-family:'Verdanaf', Georgia, Times, 'Times New Roman', serif;text-align: center;">
+	<div style="color:#555555;line-height:120%;font-family:'Roboto', Verdana, Sans-serif; padding-right: 20px; padding-left: 20px; padding-top: 40px; padding-bottom: 0;">	
+		<div style="font-size:12px;line-height:14px;color:#555555;font-family:'Roboto', Verdana, Sans-serif;text-align: center;">
 
-            <p style="margin: 0;font-size: 14px;line-height: 24px;text-align: justify;">Este correo electrónico fue generado de manera automática por el sistema y no es necesario contestes a el, si necesitas asistencia o soporte favor de escribirme a: <a href="mailto:soporte@ovhaul.mx?Subject=Ayuda%20Web" target="_blank" style="display: inline-block;text-decoration: none;-webkit-text-size-adjust: none;text-align: left; width: auto; font-family: 'Verdanaf', Georgia, Times, 'Times New Roman', serif; mso-border-alt: none; font-weight: 300; color: #3C86E9; font-size: 14px; line-height: 16px;"><span style="font-size: 14px; line-height: 20px;" data-mce-style="font-size: 14px; line-height: 20px;">soporte@ovhaul.mx</span></a></p>
+            <p style="margin: 0;font-size: 14px;line-height: 24px;text-align: justify;">Este correo electrónico fue generado de manera automática por el sistema y no es necesario contestes a el, si necesitas asistencia o soporte favor de escribirme a: <a href="mailto:soporte@ovhaul.mx?Subject=Ayuda%20Web" target="_blank" style="display: inline-block;text-decoration: none;-webkit-text-size-adjust: none;text-align: left;color: #2B3736; width: auto; font-family: 'Roboto', Verdana, Sans-serif; mso-border-alt: none; font-weight: 300; color: #3C86E9; font-size: 14px; line-height: 16px;"><span style="font-size: 14px; line-height: 20px;" data-mce-style="font-size: 14px; line-height: 20px; color: #2B3736;">soporte@ovhaul.mx</span></a></p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br><br></p>
-            <p style="margin: 0;font-size: 14px;line-height: 17px;text-align: center;">&copy; Regalado y Galindo Abogados 2018 </p>
+            <p style="margin: 0;font-size: 14px;line-height: 17px;text-align: center;">Overhaul&#174; by Regalado y Galindo Abogados 2018 </p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br><br></p>
-            <p style="margin: 0;font-size: 14px;line-height: 17px;text-align: center;"><img class="center  autowidth  fullwidth" align="center" border="0" src="http://dev.2geeksonemonkey.com/ryg/gestor-localidades/web/webAssets/images/2gom-black.png" alt="2GOM" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: 0;height: auto;float: none;margin: 0 auto; width: 108px;max-width: 100%" width="108"></p>
+            <p style="margin: 0;font-size: 14px;line-height: 17px;text-align: center;">
+              <img class="center  autowidth  fullwidth" align="center" border="0" src="http://dev.2geeksonemonkey.com/ryg/gestor-localidades/web/webAssets/images/oh.png" alt="OH" title="OH" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: 0;height: auto;float: none;margin: 0 auto; width: 40px;max-width: 100%" width="40">
+            </p>
+            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
+            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
+            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
+            <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
         </div>	
 	</div>
 	<!--[if mso]></td></tr></table><![endif]-->
@@ -373,7 +404,40 @@ a[x-apple-data-detectors=true] {
           <!--[if (mso)|(IE)]></td></tr></table></td></tr></table><![endif]-->
         </div>
       </div>
-    </div>   <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+    </div> 
+    <div style="background-color:#FFF;">
+      <div style="Margin: 0 auto;min-width: 320px;max-width: 460px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #FFF;" class="block-grid ">
+        <div style="border-collapse: collapse;display: table;width: 100%;background-color:#FFF;">
+          <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="background-color:#FFF;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width: 600px;"><tr class="layout-full-width" style="background-color:#FFF;"><![endif]-->
+
+              <!--[if (mso)|(IE)]><td align="center" width="600" style=" width:600px; padding-right: 0px; padding-left: 0px; padding-top:5px; padding-bottom:5px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><![endif]-->
+            <div class="col num12" style="min-width: 320px;max-width: 460px;display: table-cell;vertical-align: top;">
+              <div style="background-color: transparent; width: 100% !important;">
+              <!--[if (!mso)&(!IE)]><!--><div style="border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent; padding-top:0; padding-bottom:0; padding-right: 0px; padding-left: 0px;"><!--<![endif]-->
+
+                  
+                    <div class="">
+	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 20px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px;"><![endif]-->
+	<div style="color:#555555;line-height:120%;font-family:'Roboto', Verdana, Sans-serif; padding-right: 20px; padding-left: 20px; padding-top: 0; padding-bottom: 0;">	
+		<div style="font-size:12px;line-height:14px;color:#555555;font-family:'Roboto', Verdana, Sans-serif;text-align: right;">
+
+            <p style="margin: 0;font-size: 12px;line-height: 17px;text-align: right;">
+              <span style="display: inline-block; font-size: 10px; line-height: 24px; text-align: right;">Software developed by: </span>
+              <img class="center  autowidth  fullwidth" align="center" border="0" src="http://dev.2geeksonemonkey.com/ryg/gestor-localidades/web/webAssets/images/2gom-black.png" alt="2GOM" title="2GOM" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block;border: 0;height: auto;float: none;margin: 0 0 0 8px; width: 108px;max-width: 100%" width="108">
+            </p>
+
+        </div>	
+	</div>
+	<!--[if mso]></td></tr></table><![endif]-->
+</div>
+                  
+              <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
+              </div>
+            </div>
+          <!--[if (mso)|(IE)]></td></tr></table></td></tr></table><![endif]-->
+        </div>
+      </div>
+    </div><!--[if (mso)|(IE)]></td></tr></table><![endif]-->
 		</td>
   </tr>
   </tbody>
