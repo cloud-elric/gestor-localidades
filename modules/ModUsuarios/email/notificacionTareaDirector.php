@@ -1,3 +1,6 @@
+<?php
+use app\models\Calendario;
+?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"><head>
     <!--[if gte mso 9]><xml>
      <o:OfficeDocumentSettings>
@@ -259,13 +262,20 @@ a[x-apple-data-detectors=true] {
               <!--[if (!mso)&(!IE)]><!--><div style="border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent; padding-top:20px; padding-bottom:10px; padding-right: 0px; padding-left: 0px;"><!--<![endif]-->
 
                 <p style="margin: 0;font-size: 10px; font-weight: 100; line-height: 16px;text-align: justify;">
-                  <span style="font-size: 16px; line-height: 32px;">
-                  Marte 24 de Julio 2018
+                  <span style="font-size: 14px; line-height: 32px;">
+                  <?php
+                    $fecha = date('Y-m-d');
+                    $mes = Calendario::getMonthNameComplete($fecha);
+                    $dia = Calendario::getDayName($fecha);
+                    $diaNum = Calendario::getDayNumber($fecha);
+                    $anio = Calendario::getYearLastDigit();
+                    echo $dia .' '. $diaNum .' de '. $mes .' '. $anio;
+                  ?>
                   </span></p>
 
-                <h3 style="margin: 0; margin-bottom: 32px; font-size: 20px; font-weight: 300; line-height: 24px;text-align: justify;">
+                <h3 style="margin: 0; margin-bottom: 32px; font-size: 18px; font-weight: 300; line-height: 24px;text-align: justify;">
                   Bienvenido <?= $user ?>,
-                  <span style="display: block; margin-top: 8px;">Tareas atrasadas.</span>
+                  <span style="display: block; margin-top: 8px;">Tareas sin atender.</span>
                 </h3>
                   
               <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
@@ -290,12 +300,12 @@ a[x-apple-data-detectors=true] {
 	<div style="line-height:200%;color:#555555;font-family:'Roboto', Verdana, Sans-serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
         <div style="line-height:24px;font-size:12px;color:#555555;font-family:'Roboto', Verdana, Sans-serif;text-align:left;">
           
-          <p style="margin: 0;font-size: 12px; line-height: 24px;text-align: justify;"><span style="font-size: 18px; font-weight: 300; line-height: 32px;">
+          <p style="margin: 0;font-size: 12px; line-height: 24px;text-align: justify; margin-bottom: 12px;"><span style="font-size: 18px; font-weight: 300; line-height: 32px;">
               Este correo es para notificarte que:
-              <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-weight: bold;"> tus colaboradores tienen tareas sin atender</strong>
-              <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 16px; font-weight: bold;"> <?= $loc ?> </strong>
+              <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 17px; font-weight: bold;"> tus colaboradores tienen tareas sin atender</strong>
+              <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 17px; font-weight: bold;"> <?= $loc ?> </strong>
               en la localidad - 
-               <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 16px; font-weight: bold;"> <?=$localidad["nombreLocalidad"]?> </strong>
+               <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 17px; font-weight: bold;"> <?=$localidad["nombreLocalidad"]?> </strong>
                - Las tareas son:</span>
             </p>
 
@@ -304,11 +314,11 @@ a[x-apple-data-detectors=true] {
           ?>
             <div class="">
               <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;">
-                <span style="font-size: 16px; font-weight: 300; line-height: 32px;">
+                <span style="font-size: 17px; font-weight: 300; line-height: 32px;">
                   <strong>Colaborador: <?=$colaborador["nombre"]?></strong>
                 </span></p>
 
-              <ul style="padding-left: 16px;">
+              <ul style="padding-left: 18px;">
                 <?php
                 foreach($colaborador["tareas"] as $tarea){
                 ?>

@@ -1,3 +1,6 @@
+<?php
+use app\models\Calendario;
+?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"><head>
     <!--[if gte mso 9]><xml>
      <o:OfficeDocumentSettings>
@@ -259,11 +262,18 @@ a[x-apple-data-detectors=true] {
               <!--[if (!mso)&(!IE)]><!--><div style="border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent; padding-top:20px; padding-bottom:10px; padding-right: 0px; padding-left: 0px;"><!--<![endif]-->
 
                 <p style="margin: 0;font-size: 10px; font-weight: 100; line-height: 16px;text-align: justify;">
-                  <span style="font-size: 16px; line-height: 32px;">
-                  Marte 24 de Julio 2018
+                  <span style="font-size: 14px; line-height: 32px;">
+                  <?php
+                    $fecha = date('Y-m-d');
+                    $mes = Calendario::getMonthNameComplete($fecha);
+                    $dia = Calendario::getDayName($fecha);
+                    $diaNum = Calendario::getDayNumber($fecha);
+                    $anio = Calendario::getYearLastDigit();
+                    echo $dia .' '. $diaNum .' de '. $mes .' '. $anio;
+                  ?>
                   </span></p>
 
-                <h3 style="margin: 0; margin-bottom: 32px; font-size: 20px; font-weight: 300; line-height: 24px;text-align: justify;">
+                <h3 style="margin: 0; margin-bottom: 32px; font-size: 18px; font-weight: 300; line-height: 24px;text-align: justify;">
                   Bienvenido <?= $user ?>,
                   <span style="display: block; margin-top: 8px;">Tarea atrasada.</span>
                 </h3>
@@ -294,9 +304,9 @@ a[x-apple-data-detectors=true] {
             <div class="">
               <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;">
                 <span style="font-size: 16px; font-weight: 300; line-height: 32px;">
-                  <span style="font-size: 16px; font-weight: 300; line-height: 32px;">Este correo es para recordarte que es importante nos ayudes con la responsabilidad de:</span>
-                  <strong style="display: block; margin: 8px 0 12px;">Cargar el documento constancia de amparo</strong>
-                  <span style="font-size: 15px; font-weight: 300; line-height: 32px;">Si ya tienes el documento lo peudes cargar haciendo click en el siguiente enlace:</span>
+                  <span style="font-size: 16px; font-weight: 300; line-height: 32px;">Este correo es para recordarte que es importante nos ayudes con la tarea:</span>
+                  <strong style="display: block; margin: 4px 0 16px;">Cargar el documento constancia de amparo</strong>
+                  <span style="font-size: 16px; font-weight: 300; line-height: 32px;">Si ya tienes el documento lo peudes cargar haciendo click en el siguiente enlace:</span>
                 </span>
               </p>
             </div>
