@@ -751,6 +751,7 @@ class LocalidadesController extends Controller
                 'Beneficiario',
                 'Contacto',
                 'Antecedentes',
+                'Historial de estatus',
 
                 'Codigo postal',
                 'Colonia',
@@ -767,7 +768,8 @@ class LocalidadesController extends Controller
                 'Porcentaje de incremento solicitado por arrendador',
                 'Pretensión de renta del arrendador',
                 'Frecuencia de pago',
-                'Moneda'
+                'Moneda',
+                'Problemas de acceso'
             ];
 
             fputcsv($nuevoFichero, $campos, $delimiter);
@@ -784,6 +786,20 @@ class LocalidadesController extends Controller
                 $usuario = $localidad->usuario;
                 $moneda = $localidad->moneda;
                 $status = $localidad->bStatusLocalidad;
+                $estatusLoc = EntEstatus::find()->where(['id_localidad'=>$localidad->id_localidad])->all();
+                $problemaAcceso = $localidad->b_problemas_acceso ? 'Si' : 'No';
+                
+                $i = 1;
+                $estatusConcat = '';
+
+                if($estatusLoc){
+                    foreach($estatusLoc as $estatus){
+                        $estatusConcat .= $i . ".- " . $estatus->txt_estatus . " ";
+                        $i++;
+                    }
+                }else{
+                    $estatusConcat = "No hay estatus";
+                }//echo $estatusConcat;exit;
                 
                 $datos = [
                     $localidad->cms,
@@ -792,6 +808,7 @@ class LocalidadesController extends Controller
                     $localidad->txt_beneficiario,
                     $localidad->txt_contacto,
                     $localidad->txt_antecedentes,
+                    $estatusConcat,
 
                     $localidad->txt_cp,
                     $localidad->txt_colonia ? $colonia->txt_nombre : $localidad->texto_colonia,
@@ -808,7 +825,8 @@ class LocalidadesController extends Controller
                     $localidad->num_incremento_cliente,
                     $localidad->num_pretencion_renta_cliente,
                     $localidad->txt_frecuencia,
-                    $moneda->txt_moneda
+                    $moneda->txt_moneda,
+                    $problemaAcceso
                 ];
 
                 fputcsv($nuevoFichero, $datos, $delimiter);
