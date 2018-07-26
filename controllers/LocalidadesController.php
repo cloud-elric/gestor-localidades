@@ -768,7 +768,8 @@ class LocalidadesController extends Controller
                 'Porcentaje de incremento solicitado por arrendador',
                 'Pretensión de renta del arrendador',
                 'Frecuencia de pago',
-                'Moneda'
+                'Moneda',
+                'Problemas de acceso'
             ];
 
             fputcsv($nuevoFichero, $campos, $delimiter);
@@ -786,6 +787,7 @@ class LocalidadesController extends Controller
                 $moneda = $localidad->moneda;
                 $status = $localidad->bStatusLocalidad;
                 $estatusLoc = EntEstatus::find()->where(['id_localidad'=>$localidad->id_localidad])->all();
+                $problemaAcceso = $localidad->b_problemas_acceso ? 'Si' : 'No';
                 
                 $i = 1;
                 $estatusConcat = '';
@@ -823,7 +825,8 @@ class LocalidadesController extends Controller
                     $localidad->num_incremento_cliente,
                     $localidad->num_pretencion_renta_cliente,
                     $localidad->txt_frecuencia,
-                    $moneda->txt_moneda
+                    $moneda->txt_moneda,
+                    $problemaAcceso
                 ];
 
                 fputcsv($nuevoFichero, $datos, $delimiter);
