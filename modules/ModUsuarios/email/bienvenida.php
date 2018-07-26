@@ -20,6 +20,7 @@ use app\models\Calendario;
       body {
         font-family: 'Roboto', Verdana, Sans-serif;
         font-weight: 300;
+        color:#435059;
   margin: 0;
   padding: 0; }
 
@@ -279,9 +280,9 @@ a[x-apple-data-detectors=true] {
               <!--[if (mso)|(IE)]><td align="center" width="600" style=" width:600px; padding-right: 0px; padding-left: 0px; padding-top:0px; padding-bottom:0px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><![endif]-->
             <div class="col num12" style="min-width: 320px;max-width: 460px;display: table-cell;vertical-align: top;">
               <div style="background-color: transparent; width: 100% !important;">
-              <!--[if (!mso)&(!IE)]><!--><div style="border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent; padding-top:20px; padding-bottom:10px; padding-right: 0px; padding-left: 0px;"><!--<![endif]-->
+              <!--[if (!mso)&(!IE)]><!--><div style="border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent; padding-top:20px; padding-bottom:10px; padding-right: 0px; padding-left: 0px;color:#435059;font-family:'Roboto', Verdana, Sans-serif;"><!--<![endif]-->
 
-                <p style="margin: 0;font-size: 10px; font-weight: 100; line-height: 16px;text-align: justify;">
+                <p style="padding-left: 26px; margin: 0;font-size: 10px; font-weight: 100; line-height: 16px;text-align: justify;">
                   <span style="font-size: 14px; line-height: 32px;">
                   <?php
                     $fecha = date('Y-m-d');
@@ -291,10 +292,50 @@ a[x-apple-data-detectors=true] {
                     $anio = Calendario::getYearLastDigit();
                     echo $dia .' '. $diaNum .' de '. $mes .' '. $anio;
                   ?>
+                  Jueves 26 de Abril 2018
                   </span></p>
 
-                <h3 style="margin: 0; margin-bottom: 32px; font-size: 18px; font-weight: 300; line-height: 24px;text-align: justify;">
-                  Bienvenido <?= $user ?>
+                <h3 style="padding-left: 26px; margin: 0; margin-bottom: 32px; font-size: 22px; font-weight: 300; line-height: 24px;text-align: justify;">
+                  Bienvenido Juan Perez<?= $user ?>
+                </h3>
+                  
+              <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
+              </div>
+            </div>
+          <!--[if (mso)|(IE)]></td></tr></table></td></tr></table><![endif]-->
+        </div>
+      </div>
+    </div>
+    <div style="background-color:#EDFFFD;">
+      <div style="Margin: 0 auto;min-width: 320px;max-width: 460px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #EDFFFD;" class="block-grid ">
+        <div style="border-collapse: collapse;display: table;width: 100%;background-color:#FFF;">
+          <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="background-color:#EDFFFD;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width: 600px;"><tr class="layout-full-width" style="background-color:#EDFFFD;"><![endif]-->
+
+              <!--[if (mso)|(IE)]><td align="center" width="600" style=" width:600px; padding-right: 0px; padding-left: 0px; padding-top:0px; padding-bottom:0px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><![endif]-->
+            <div class="col num12" style="min-width: 320px;max-width: 460px;display: table-cell;vertical-align: top;">
+              <div style="background-color: transparent; width: 100% !important;">
+              <!--[if (!mso)&(!IE)]><!--><div style="border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent; padding-top:20px; padding-bottom:10px; padding-right: 0px; padding-left: 0px;color:#435059;font-family:'Roboto', Verdana, Sans-serif;"><!--<![endif]-->
+
+                <p style="padding-left: 26px; margin: 0;font-size: 10px; font-weight: 100; line-height: 16px;text-align: justify;">
+                  <span style="font-size: 14px; line-height: 32px;">
+                  <?php
+                    $fecha = date('Y-m-d');
+                    $mes = Calendario::getMonthNameComplete($fecha);
+                    $dia = Calendario::getDayName($fecha);
+                    $diaNum = Calendario::getDayNumber($fecha);
+                    $anio = Calendario::getYearLastDigit();
+                    echo $dia .' '. $diaNum .' de '. $mes .' '. $anio;
+                  ?>
+                  Jueves 26 de Abril 2018
+                  </span></p>
+
+                <h3 style="padding-left: 26px; margin: 0;font-size: 10px; font-weight: 100; line-height: 16px;">
+                  <span style="display: block; font-size: 18px; line-height: 32px;">
+                    Bienvenido Juan Perez<?= $user ?>
+                  </span>
+                  <span style="display: block; font-size: 22px; line-height: 32px;">
+                    Bienvenido Juan Perez<?= $user ?>
+                  </span>
                 </h3>
                   
               <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
@@ -319,6 +360,24 @@ a[x-apple-data-detectors=true] {
 	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
 	<div style="line-height:200%;color:#435059;font-family:'Roboto', Verdana, Sans-serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
         <div style="line-height:24px;font-size:18px;color:#435059;font-family:'Roboto', Verdana, Sans-serif;text-align:left;">
+            
+            <p style="margin: 0;font-size: 10px; font-weight: 100; line-height: 16px;text-align: justify;">
+              <span style="font-size: 14px; line-height: 32px;">
+              <?php
+                $fecha = date('Y-m-d');
+                $mes = Calendario::getMonthNameComplete($fecha);
+                $dia = Calendario::getDayName($fecha);
+                $diaNum = Calendario::getDayNumber($fecha);
+                $anio = Calendario::getYearLastDigit();
+                echo $dia .' '. $diaNum .' de '. $mes .' '. $anio;
+              ?>
+              Jueves 26 de Abril 2018
+              </span></p>
+
+            <h3 style="margin: 0; margin-bottom: 32px; font-size: 22px; font-weight: 300; line-height: 24px;text-align: justify;">
+              Bienvenido Juan Perez<?= $user ?>
+            </h3>
+        
             <p style="margin: 0;font-size: 18px;line-height: 24px;text-align: justify;">
               <span style="font-size: 20px; font-weight: 300; line-height: 32px;">
                 Este correo es para notificarte que has sido
