@@ -276,7 +276,7 @@ a[x-apple-data-detectors=true] {
 
                 <h3 style="margin: 0; margin-bottom: 32px; font-size: 18px; font-weight: 300; line-height: 24px;text-align: justify;">
                   Bienvenido <?= $user ?>
-                  <span style="display: block; margin-top: 8px;">Asignación a un grupo de Trabajo</span>
+                  <span style="display: block; margin-top: 8px;">Asignación a un grupo de Trabajo.</span>
                 </h3>
                   
               <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
