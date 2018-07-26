@@ -751,6 +751,7 @@ class LocalidadesController extends Controller
                 'Beneficiario',
                 'Contacto',
                 'Antecedentes',
+                'Historial de estatus',
 
                 'Codigo postal',
                 'Colonia',
@@ -784,6 +785,19 @@ class LocalidadesController extends Controller
                 $usuario = $localidad->usuario;
                 $moneda = $localidad->moneda;
                 $status = $localidad->bStatusLocalidad;
+                $estatusLoc = EntEstatus::find()->where(['id_localidad'=>$localidad->id_localidad])->all();
+                
+                $i = 1;
+                $estatusConcat = '';
+
+                if($estatusLoc){
+                    foreach($estatusLoc as $estatus){
+                        $estatusConcat .= $i . ".- " . $estatus->txt_estatus . " ";
+                        $i++;
+                    }
+                }else{
+                    $estatusConcat = "No hay estatus";
+                }//echo $estatusConcat;exit;
                 
                 $datos = [
                     $localidad->cms,
@@ -792,6 +806,7 @@ class LocalidadesController extends Controller
                     $localidad->txt_beneficiario,
                     $localidad->txt_contacto,
                     $localidad->txt_antecedentes,
+                    $estatusConcat,
 
                     $localidad->txt_cp,
                     $localidad->txt_colonia ? $colonia->txt_nombre : $localidad->texto_colonia,
