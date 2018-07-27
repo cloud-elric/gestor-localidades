@@ -18,6 +18,7 @@ use app\models\WrkUsuariosTareas;
 use yii\helpers\Url;
 use app\assets\AppAsset;
 use app\models\Calendario;
+use app\models\EntEstatusArchivados;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\EntLocalidades */
@@ -146,14 +147,18 @@ $user = Yii::$app->user->identity;
                                             <span>Estatus: </span>
                                             <p>
                                             <?php
-                                            $estatus = EntEstatus::find()->where(['id_localidad'=>$model->id_localidad])->orderBy('fch_creacion')->all();
+                                            $estatus = EntEstatusArchivados::find()->where(['id_localidad'=>$model->id_localidad])->orderBy('fch_creacion')->all();
                                             $arr = "";
                                             foreach ($estatus as $est){
-                                                $arr .= '<span class="badge badge-outline badge-success badge-round ml-5 vertical-align-middle">'.$est->txt_estatus.'</span>';
-                                            }
-                                            echo "<p>".$arr."</p>";
                                             ?>
-                                            </p>
+                                                <div class="form-group">
+                                            <?php
+                                                    echo '<p class="form-p form-label"><span class="badge badge-outline badge-success badge-round ml-5 vertical-align-middle">'.$est->txt_estatus.'</span></p>';                                                
+                                            ?>
+                                                </div>
+                                            <?php
+                                            }
+                                            ?>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
                                             <span>Antecedentes: </span>
