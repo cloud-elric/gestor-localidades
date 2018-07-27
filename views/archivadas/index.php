@@ -193,7 +193,7 @@ $this->registerCssFile(
                         $botones .= '<div class="panel-listado-acctions-tooltip" data-toggle="tooltip" data-original-title="Tareas" data-template="<div class=\'tooltip tooltip-2 tooltip-warning\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>">
                                         <a href="'.Url::base().'/archivadas/ver-tareas-localidad?id='.$data->id_localidad.'" id="js_ver_tareas_archivadas_'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel"><i class="icon wb-list" aria-hidden="true"></i></a>
                                     </div>';  
-                        if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){
+                        if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ASISTENTE){
                            // if(false){
                             $botones .= '<div class="panel-listado-acctions-tooltip">
                                             <button data-template="<div class=\'tooltip tooltip-2 tooltip-info\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>" data-url="archivadas/desarchivar-localidad?id='.$data->id_localidad.'" class="btn btn-icon btn-info btn-outline panel-listado-acction acction-archive no-pjax js_desarchivar_localidad" data-toggle="tooltip" data-original-title="Desarchivar"><i class="icon wb-inbox" aria-hidden="true"></i></button>
