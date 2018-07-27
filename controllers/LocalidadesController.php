@@ -31,6 +31,7 @@ use app\models\Calendario;
 use app\models\EntLocalidadesArchivadasSearch;
 use app\config\ConstantesDropbox;
 use app\models\CatColonias;
+use app\models\EntEstatusArchivados;
 
 
 /**
@@ -668,7 +669,25 @@ class LocalidadesController extends Controller
         try {
             if ($archivada->save()) {
                 $tareas = $localidad->wrkTareas;
-                if ($tareas) {
+                $estatus = EntEstatus::find()->where(['id_localidad'=>$localidad->id_localidad])->all();
+
+                foreach($estatus as $es){
+                    $estatusArch = new EntEstatusArchivados();
+                    $estatusArch->id_localidad = $archivada->id_localidad;
+                    $estatusArch->txt_estatus = $es->txt_estatus;
+                    $estatusArch->fch_creacion = $es->fch_creacion;
+
+                    if(!$estatusArch->save()){
+                        $transaction->rollBack();
+                        echo "wqwq22";
+
+                        return $response;
+                    }else{
+                        $es->delete();
+                    }
+                }
+
+                if($tareas){
                     foreach ($tareas as $tarea) {
                         $tareaArchivada = new WrkTareasArchivadas();
                         $tareaArchivada->attributes = $tarea->attributes;

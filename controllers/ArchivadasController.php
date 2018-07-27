@@ -20,6 +20,8 @@ use app\models\EntLocalidades;
 use app\models\WrkTareas;
 use app\models\WrkUsuariosTareas;
 use app\components\AccessControlExtend;
+use app\models\EntEstatusArchivados;
+use app\models\EntEstatus;
 
 /**
  * ArchivadasController implements the CRUD actions for EntLocalidadesArchivadas model.
@@ -224,6 +226,25 @@ class ArchivadasController extends Controller
         try{
             if($localidad->save()){
                 $tareasArchivadas = $archivada->wrkTareasArchivadas;
+
+                $estatusArch = EntEstatusArchivados::find()->where(['id_localidad'=>$archivada->id_localidad])->all();
+
+                foreach($estatusArch as $es){
+                    $estatus = new EntEstatus();
+                    $estatus->id_localidad = $localidad->id_localidad;
+                    $estatus->txt_estatus = $es->txt_estatus;
+                    $estatus->fch_creacion = $es->fch_creacion;
+
+                    if(!$estatus->save()){
+                        $transaction->rollBack();
+                        echo "wqwq22";
+
+                        return $response;
+                    }else{
+                        $es->delete();
+                    }
+                }
+
                 foreach($tareasArchivadas as $tareaArchivada){
                     $tarea = new WrkTareas();
                     $tarea->attributes = $tareaArchivada->attributes;
