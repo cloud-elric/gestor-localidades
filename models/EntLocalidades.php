@@ -96,6 +96,7 @@ class EntLocalidades extends \yii\db\ActiveRecord
             [['txt_nombre', 'txt_arrendador', 'txt_beneficiario', 'txt_calle', 'txt_colonia', 'txt_municipio', 'txt_contacto', 'texto_colonia', 'texto_estado'], 'string', 'max' => 150],
             [['txt_cp', 'textoCP'], 'string', 'max' => 5],
             [['txt_nombre'], 'unique', 'message'=>'El nombre de la localidad ya existe'],
+            [['cms'], 'unique', 'message'=>'El nombre de la localidad ya existe'],
             [['id_estado'], 'exist', 'skipOnError' => true, 'targetClass' => CatEstados::className(), 'targetAttribute' => ['id_estado' => 'id_estado']],
             [['id_usuario'], 'exist', 'skipOnError' => true, 'targetClass' => EntUsuarios::className(), 'targetAttribute' => ['id_usuario' => 'id_usuario']],
             [['b_status_localidad'], 'exist', 'skipOnError' => true, 'targetClass' => CatRegularizacionRenovacion::className(), 'targetAttribute' => ['b_status_localidad' => 'id_catalogo']],
