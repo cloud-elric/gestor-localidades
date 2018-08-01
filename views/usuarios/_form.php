@@ -50,7 +50,7 @@ $isAdmin = Yii::$app->user->identity->txt_auth_item == ConstantesWeb::SUPER_ADMI
                     <?php
                     }else{
                     ?>
-                        <p class="text-nombre-usuario"><?= $model->description ?></p>
+                        <p class="text-nombre-usuario"><?= $model->roleDescription ?></p>
                     <?php
                     }
                     ?>
