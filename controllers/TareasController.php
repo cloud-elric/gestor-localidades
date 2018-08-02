@@ -207,7 +207,7 @@ class TareasController extends Controller
                 // Enviar correo
                 $utils = new Utils ();
                 // Parametros para el email
-                $parametrosEmail ['localidad'] = $localidad->txt_nombre;
+                $parametrosEmail ['localidad'] = $localidad;
                 $parametrosEmail ['tarea'] = $model->txt_nombre;
                 $parametrosEmail ['user'] = $user->getNombreCompleto ();
                 $parametrosEmail ['userActual'] = $userActual->getNombreCompleto ();
