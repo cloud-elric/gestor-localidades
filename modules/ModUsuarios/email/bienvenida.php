@@ -282,6 +282,10 @@ a[x-apple-data-detectors=true] {
               <div style="background-color: transparent; width: 100% !important;">
               <!--[if (!mso)&(!IE)]><!--><div style="border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent; padding-top:20px; padding-bottom:10px; padding-right: 0px; padding-left: 0px;color:#435059;font-family:'Roboto', Verdana, Sans-serif;"><!--<![endif]-->
 
+                <h3 style="margin: 0; margin-bottom: 32px; font-size: 18px; font-weight: 300; line-height: 24px;text-align: justify;">
+                  Bienvenido al sistema de Gestión Overhaul&#174;
+                </h3>
+                
                 <p style="padding-left: 26px; margin: 0;font-size: 10px; font-weight: 100; line-height: 16px;text-align: justify;">
                   <span style="font-size: 14px; line-height: 32px;">
                   <?php
@@ -292,11 +296,10 @@ a[x-apple-data-detectors=true] {
                     $anio = Calendario::getYearLastDigit();
                     echo $dia .' '. $diaNum .' de '. $mes .' '. $anio;
                   ?>
-                  Jueves 26 de Abril 2018
                   </span></p>
 
                 <h3 style="padding-left: 26px; margin: 0; margin-bottom: 32px; font-size: 22px; font-weight: 300; line-height: 24px;text-align: justify;">
-                  Bienvenido Juan Perez<?= $user ?>
+                  Hola <?= $user ?>
                 </h3>
                   
               <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
@@ -327,7 +330,7 @@ a[x-apple-data-detectors=true] {
                 Este correo es para notificarte que has sido
                   <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 20px; font-weight: bold;">
                     agregado a un grupo de trabajo
-                  </strong> dentro de la plataforma de
+                  </strong> dentro de la plataforma de gestión de localidades - 
                   <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 20px; font-weight: bold;">
                     "Overhaul&#174;"
                   </strong> .
@@ -339,8 +342,7 @@ a[x-apple-data-detectors=true] {
 
             <p style="margin: 0;font-size: 18px;line-height: 24px;text-align: justify;">
               <span style="font-size: 20px; font-weight: 300; line-height: 32px;">
-                Para poder tener acceso al sistema, solo tienes que dar click en el siguiente botón.
-                    
+                Para poder acceder da click en el siguiente enlace:
               </span>
             </p>
 
@@ -353,10 +355,10 @@ a[x-apple-data-detectors=true] {
                   
                   
                     
-<div align="left" class="button-container left " style="padding-right: 30px; padding-left: 30px; padding-top:25px; padding-bottom:10px;">
+<div align="left" class="button-container left " style="padding-right: 30px; padding-left: 30px; padding-top:15px; padding-bottom:10px;">
   <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top:25px; padding-bottom:30px;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="<?=$url?>" style="height:35pt; v-text-anchor:middle; width:196pt;" arcsize="13%" strokecolor="#435059" fillcolor="#435059"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:'Roboto', Verdana, Sans-serif; font-size:16px;"><![endif]-->
     <a href="<?=$url?>" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFF; background-color: #435059; border-radius: 6px; -webkit-border-radius: 6px; -moz-border-radius: 6px; max-width: 262px; width: 222px;width: auto; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent; padding-top: 10px; padding-right: 20px; padding-bottom: 10px; padding-left: 20px; font-family: 'Roboto', Verdana, Sans-serif;mso-border-alt: none; font-weight: 300;">
-      <span style="font-size:12px;line-height:24px;"><span style="font-size: 14px; line-height: 32px;" data-mce-style="font-size: 14px; line-height: 32px; color: #FFF;">Ingreso automático al portal</span></span>
+      <span style="font-size:12px;line-height:24px;"><span style="font-size: 14px; line-height: 32px;" data-mce-style="font-size: 14px; line-height: 32px; color: #FFF;">Ingreso automático al Sistema</span></span>
     </a>
   <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
 </div>
@@ -388,12 +390,12 @@ a[x-apple-data-detectors=true] {
 
     <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;">
         <span style="font-size: 12px; line-height: 32px;">
-        <span style="color: #2B3736;">Usuario: </span> <span style="color: #6372ED;">Algo <?=$usuario?></span>
+        <span style="color: #2B3736;">Usuario: </span> <span style="color: #6372ED;"> <?=$usuario?></span>
         </span>
     </p>  
     <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;">
         <span style="font-size: 12px; line-height: 32px;">
-        <span style="color: #2B3736;">Contraseña: </span> <span style="color: #6372ED;">Algo <?=$password?></span>
+        <span style="color: #2B3736;">Contraseña: </span> <span style="color: #6372ED;"> <?=$password?></span>
         </span>
         </p>
 

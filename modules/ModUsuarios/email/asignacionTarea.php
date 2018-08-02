@@ -262,6 +262,10 @@ a[x-apple-data-detectors=true] {
               <div style="background-color: transparent; width: 100% !important;">
               <!--[if (!mso)&(!IE)]><!--><div style="border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent; padding-top:20px; padding-bottom:10px; padding-right: 0px; padding-left: 0px;color:#435059;font-family:'Roboto', Verdana, Sans-serif;"><!--<![endif]-->
 
+                <h3 style="margin: 0; margin-bottom: 32px; font-size: 18px; font-weight: 300; line-height: 24px;text-align: justify;">
+                  Asignación de tarea en Overhaul&#174;
+                </h3>
+
                 <p style="margin: 0;font-size: 10px; font-weight: 100; line-height: 16px;text-align: justify;">
                   <span style="font-size: 14px; line-height: 32px;">
                   <?php
@@ -276,7 +280,6 @@ a[x-apple-data-detectors=true] {
 
                 <h3 style="margin: 0; margin-bottom: 32px; font-size: 18px; font-weight: 300; line-height: 24px;text-align: justify;">
                   Bienvenido <?= $user ?>
-                  <span style="display: block; margin-top: 8px;">Asignación a un grupo de Trabajo.</span>
                 </h3>
                   
               <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
@@ -303,11 +306,9 @@ a[x-apple-data-detectors=true] {
 
             <p style="margin: 0;font-size: 12px; line-height: 24px;text-align: justify;"><span style="font-size: 18px; font-weight: 300; line-height: 32px;">
               Este correo es para notificarte que: <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-weight: bold;"><?= $abogado ?> te ha asignado</strong>
-              a un grupo de trabajo para la gestión de la localidad - 
-              <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 16px; font-weight: bold;"> <?= $loc ?> </strong>
-               - La tarea asignada se llama - 
-               <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 16px; font-weight: bold;"> <?= $tarea ?> </strong>
-               - la cual puedes consultar dando click en el siguiente enlace.</span>
+              la responsabilidad de completar la siguiente tarea: 
+              <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 16px; font-weight: bold;"> <?= $tarea ?> </strong>
+               - para poder darle seguimiento da click en el siguiente enlace.
             </p>
 
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>

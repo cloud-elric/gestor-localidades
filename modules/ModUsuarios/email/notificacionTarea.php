@@ -262,6 +262,10 @@ a[x-apple-data-detectors=true] {
               <div style="background-color: transparent; width: 100% !important;">
               <!--[if (!mso)&(!IE)]><!--><div style="border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent; padding-top:20px; padding-bottom:10px; padding-right: 0px; padding-left: 0px;color:#435059;font-family:'Roboto', Verdana, Sans-serif;"><!--<![endif]-->
 
+                <h3 style="margin: 0; margin-bottom: 32px; font-size: 18px; font-weight: 300; line-height: 24px;text-align: justify;">
+                  Notificaciones semanales de Overhaul&#174;
+                </h3>
+
                 <p style="margin: 0;font-size: 10px; font-weight: 100; line-height: 16px;text-align: justify;">
                   <span style="font-size: 14px; line-height: 32px;">
                   <?php
@@ -275,8 +279,7 @@ a[x-apple-data-detectors=true] {
                   </span></p>
 
                 <h3 style="margin: 0; margin-bottom: 32px; font-size: 18px; font-weight: 300; line-height: 24px;text-align: justify;">
-                  Bienvenido <?= $user ?>,
-                  <span style="display: block; margin-top: 8px;">Tareas pendientes por ser atendidas.</span>
+                  Hola <?= $user ?>
                 </h3>
                   
               <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
@@ -301,13 +304,18 @@ a[x-apple-data-detectors=true] {
 	<div style="line-height:200%;color:#555555;font-family:'Roboto', Verdana, Sans-serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
         <div style="line-height:24px;font-size:12px;color:#555555;font-family:'Roboto', Verdana, Sans-serif;text-align:left;">
           
+          <p style="margin: 0;font-size: 18px;line-height: 24px;text-align: justify;"><span style="font-size: 18px; font-weight: 300; line-height: 32px;">
+            Este correo es para <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-style: normal; font-weight: bold;">
+            notificarte</strong> que aún tienes vigentes las siguientes responsabilidades:
+            </span></p>
+
           <?php
           foreach($localidades as $localidad){ //print_r($localidad);exit;
           ?>
             <div class="">
               <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: justify;">
                 <span style="font-size: 17px; font-weight: 300; line-height: 32px;">
-                  <strong>Localidad - <?="CMS" . $localidad['cms']?>, <?=$localidad['nombreLocalidad']?></strong>
+                  <strong><?="CMS" . $localidad['cms']?>, <?=$localidad['nombreLocalidad']?></strong>
                 </span></p>
 
               <ul style="padding-left: 16px;">
@@ -316,7 +324,7 @@ a[x-apple-data-detectors=true] {
                 ?>
                   <li style="font-size: 16px; line-height: 24px; margin-bottom: 16px;">
                     <span style="font-size: 16px; font-weight: 300; line-height: 24px;">
-                      <?= $tarea['nombre'] ?> <span style="color: #AFCECB; font-size: 13px; font-weight: 300; font-style: italic; font-weight: 100; padding-left: 12px;">creada hace <?= $tarea['dias'] ?> días</span>
+                      <?= $tarea['nombre'] ?> <span style="color: #AFCECB; font-size: 13px; font-weight: 300; font-style: italic; font-weight: 100; padding-left: 12px;">asignada hace <?= $tarea['dias'] ?> días</span>
                     </span>
                   </li>
                 <?php

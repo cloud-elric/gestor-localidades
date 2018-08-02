@@ -262,6 +262,10 @@ a[x-apple-data-detectors=true] {
               <div style="background-color: transparent; width: 100% !important;">
               <!--[if (!mso)&(!IE)]><!--><div style="border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent; padding-top:20px; padding-bottom:10px; padding-right: 0px; padding-left: 0px;color:#435059;font-family:'Roboto', Verdana, Sans-serif;"><!--<![endif]-->
 
+                <h3 style="margin: 0; margin-bottom: 32px; font-size: 18px; font-weight: 300; line-height: 24px;text-align: justify;">
+                  Overhaul&#174; - Recuperación de contraseña:
+                </h3>
+
                 <p style="margin: 0;font-size: 10px; font-weight: 100; line-height: 16px;text-align: justify;">
                   <span style="font-size: 14px; line-height: 32px;">
                   <?php
@@ -275,7 +279,7 @@ a[x-apple-data-detectors=true] {
                   </span></p>
 
                 <h3 style="margin: 0; margin-bottom: 32px; font-size: 18px; font-weight: 300; line-height: 24px;text-align: justify;">
-                  Solicitud de cambio de contraseña
+                  Hola <?= $user ?>
                 </h3>
                   
               <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
@@ -300,7 +304,14 @@ a[x-apple-data-detectors=true] {
 	<div style="line-height:200%;color:#555555;font-family:'Roboto', Verdana, Sans-serif; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">	
         <div style="line-height:24px;font-size:12px;color:#555555;font-family:'Roboto', Verdana, Sans-serif;text-align:left;">
 
-            <p style="margin: 0;font-size: 12px; line-height: 24px;text-align: justify;"><span style="font-size: 18px; font-weight: 300; line-height: 32px;">Este correo es para poder <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-weight: bold;">asignar una contraseña</strong> <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 16px; font-weight: bold;"></strong> para poder ingresar al sistema, la cual puedes hacer dando click en el siguiente enlace.</span></p>
+            <p style="margin: 0;font-size: 12px; line-height: 24px;text-align: justify;">
+              <span style="font-size: 18px; font-weight: 300; line-height: 32px;">
+                Parece que requieres de una
+                <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-weight: bold;">contraseña</strong>, para poder 
+                <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-weight: bold;"> restablecerla por una nueva </strong> 
+                es necesario des click en el siguiente enlace y escribas una nueva contraseña:
+              </span>
+            </p>
 
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
         </div>	
@@ -313,8 +324,14 @@ a[x-apple-data-detectors=true] {
 <div align="left" class="button-container left " style="padding-right: 30px; padding-left: 30px; padding-top:25px; padding-bottom:10px;">
   <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top:25px; padding-bottom:30px;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="<?=$url?>" style="height:35pt; v-text-anchor:middle; width:196pt;" arcsize="13%" strokecolor="#435059" fillcolor="#435059"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:'Roboto', Verdana, Sans-serif; font-size:16px;"><![endif]-->
     <a href="<?=$url?>" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFF; background-color: #435059; border-radius: 6px; -webkit-border-radius: 6px; -moz-border-radius: 6px; max-width: 262px; width: 222px;width: auto; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent; padding-top: 10px; padding-right: 20px; padding-bottom: 10px; padding-left: 20px; font-family: 'Roboto', Verdana, Sans-serif;mso-border-alt: none; font-weight: 300;">
-      <span style="font-size:12px;line-height:24px;"><span style="font-size: 14px; line-height: 32px;" data-mce-style="font-size: 14px; line-height: 32px; color: #FFF;">Ingreso automático al portal</span></span>
+      <span style="font-size:12px;line-height:24px;"><span style="font-size: 14px; line-height: 32px;" data-mce-style="font-size: 14px; line-height: 32px; color: #FFF;">Restablecer mi contraseña</span></span>
     </a>
+  <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
+</div>
+
+<div align="left" class="button-container left " style="padding-right: 30px; padding-left: 30px; padding-top:10px; padding-bottom:30px;">
+  <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top:25px; padding-bottom:30px;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="<?=$url?>" style="height:35pt; v-text-anchor:middle; width:196pt;" arcsize="13%" strokecolor="#fff" fillcolor="#fff"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:'Roboto', Verdana, Sans-serif; font-size:16px;"><![endif]-->
+    <p style="font-size: 14px; color: #597572;">Si tu no solicitaste este servicio has caso omiso de este correo, y sigue utilizando tu contraseña actual.</p>
   <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
 </div>
 

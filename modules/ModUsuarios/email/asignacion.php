@@ -282,6 +282,10 @@ a[x-apple-data-detectors=true] {
               <div style="background-color: transparent; width: 100% !important;">
               <!--[if (!mso)&(!IE)]><!--><div style="border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent; padding-top:20px; padding-bottom:10px; padding-right: 0px; padding-left: 0px;color:#435059;font-family:'Roboto', Verdana, Sans-serif;"><!--<![endif]-->
 
+                <h3 style="margin: 0; margin-bottom: 32px; font-size: 18px; font-weight: 300; line-height: 24px;text-align: justify;">
+                  Asignación de localidad en Overhaul&#174;
+                </h3>
+
                 <p style="margin: 0;font-size: 10px; font-weight: 100; line-height: 16px;text-align: justify;">
                   <span style="font-size: 14px; line-height: 32px;">
                   <?php
@@ -296,7 +300,6 @@ a[x-apple-data-detectors=true] {
 
                 <h3 style="margin: 0; margin-bottom: 32px; font-size: 18px; font-weight: 300; line-height: 24px;text-align: justify;">
                   Bienvenido <?= $user ?>
-                  <span style="display: block; margin-top: 8px;">Asignación de Localidad.</span>
                 </h3>
                   
               <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
@@ -323,13 +326,13 @@ a[x-apple-data-detectors=true] {
         <div style="line-height:24px;font-size:12px;color:#555555;font-family:'Roboto', Verdana, Sans-serif;text-align:left;">
             <p style="margin: 0;font-size: 18px;line-height: 24px;text-align: justify;"><span style="font-size: 18px; font-weight: 300; line-height: 32px;">
               Este correo es para notificarte que <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-style: normal; font-weight: bold;">
-                has sido agregado</strong> a la localidad 
-                <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-weight: bold;">
-                <?=$localidad?> 
-                </strong>
-                dentro de la plataforma <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-weight: bold;">"Overhaul&#174;"</strong>, 
-                para poder <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-style: normal; font-weight: bold;">acceder</strong>
-                 al sistema da click en la siguiente liga:</span></p>
+              has sido agregado</strong> a la localidad 
+              <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-weight: bold;">
+              <?=$localidad?> 
+              </strong>
+              dentro de la plataforma <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-weight: bold;">"Overhaul&#174;"</strong>, 
+              para poder <strong style="font-family: 'Roboto', Verdana, Sans-serif; font-size: 18px; font-style: normal; font-weight: bold;">acceder</strong>
+              al sistema da click en el siguiente enlace:</span></p>
             <p style="margin: 0;line-height: 24px;text-align: left;font-size: 12px" dir="ltr">&#160;<br></p>
             
            
