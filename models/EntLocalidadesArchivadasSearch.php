@@ -48,6 +48,7 @@ class EntLocalidadesArchivadasSearch extends EntLocalidadesArchivadas
      */
     public function search($params)
     {
+        $user = Yii::$app->user->identity;
         $query = EntLocalidadesArchivadas::find();
 
         // add conditions that should always apply here
@@ -62,6 +63,33 @@ class EntLocalidadesArchivadasSearch extends EntLocalidadesArchivadas
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
+        }
+
+        if($user->txt_auth_item == ConstantesWeb::ABOGADO){
+            // grid filtering conditions
+            $query->andFilterWhere([
+                'id_usuario' => $user->id_usuario,
+                'id_localidad' => $this->id_localidad
+                ]);
+        }
+
+        if($user->txt_auth_item == ConstantesWeb::ASISTENTE){
+            $padre = WrkUsuarioUsuarios::find()->where(['id_usuario_hijo'=>$user->id_usuario])->one();
+            $query->andFilterWhere(['id_usuario'=>$padre->id_usuario_padre])
+                ->orFilterWhere(['id_usuario' => $user->id_usuario]);            
+        }
+
+        if($user->txt_auth_item == ConstantesWeb::CLIENTE){
+            $loc = WrkUsuariosLocalidadesArchivadas::find()->select('id_localidad')->where(['id_usuario'=>$user->id_usuario])->asArray();//var_dump($loc);exit;
+            // grid filtering conditions
+            $query->andFilterWhere(['in', 'id_localidad', $loc]);
+        }
+
+        if($user->txt_auth_item == ConstantesWeb::COLABORADOR){
+            $grupoTrabajo = WrkUsuarioUsuarios::find()->where(['id_usuario_hijo'=>$user->id_usuario])->one();
+            $loc = WrkUsuariosLocalidadesArchivadas::find()->select('id_localidad')->where(['id_usuario'=>$grupoTrabajo->id_usuario_padre])->asArray();//var_dump($loc);exit;
+            // grid filtering conditions
+            $query->andFilterWhere(['in', 'id_localidad', $loc]);
         }
 
         // grid filtering conditions
