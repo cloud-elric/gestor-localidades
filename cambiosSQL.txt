@@ -1,0 +1,49 @@
+CREATE TABLE `cat_estatus_tracker` (
+	`id_estatus_tracker` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`txt_estatus_tracker` VARCHAR(200) NOT NULL COLLATE 'utf8_unicode_ci',
+	`b_habilitado` INT(1) UNSIGNED NOT NULL DEFAULT '1',
+	PRIMARY KEY (`id_estatus_tracker`)
+)
+COLLATE='utf8_unicode_ci'
+ENGINE=InnoDB
+;
+
+INSERT INTO `gomcommx_dev-ryg-gestor-localidades`.`cat_estatus_tracker` (`txt_estatus_tracker`) VALUES ('En aprobación de incremento de renta con el cliente.');
+SELECT LAST_INSERT_ID();
+SELECT `id_estatus_tracker`, `txt_estatus_tracker`, `b_habilitado` FROM `gomcommx_dev-ryg-gestor-localidades`.`cat_estatus_tracker` WHERE  `id_estatus_tracker`=1;
+INSERT INTO `gomcommx_dev-ryg-gestor-localidades`.`cat_estatus_tracker` (`txt_estatus_tracker`) VALUES ('En espera de anexo A.');
+SELECT LAST_INSERT_ID();
+SELECT `id_estatus_tracker`, `txt_estatus_tracker`, `b_habilitado` FROM `gomcommx_dev-ryg-gestor-localidades`.`cat_estatus_tracker` WHERE  `id_estatus_tracker`=2;
+INSERT INTO `gomcommx_dev-ryg-gestor-localidades`.`cat_estatus_tracker` (`txt_estatus_tracker`) VALUES ('En proceso de sucesión y de la adjudicación.');
+SELECT LAST_INSERT_ID();
+SELECT `id_estatus_tracker`, `txt_estatus_tracker`, `b_habilitado` FROM `gomcommx_dev-ryg-gestor-localidades`.`cat_estatus_tracker` WHERE  `id_estatus_tracker`=3;
+INSERT INTO `gomcommx_dev-ryg-gestor-localidades`.`cat_estatus_tracker` (`txt_estatus_tracker`) VALUES ('Términos y condiciones diferentes a los establecidos por ATC.');
+SELECT LAST_INSERT_ID();
+SELECT `id_estatus_tracker`, `txt_estatus_tracker`, `b_habilitado` FROM `gomcommx_dev-ryg-gestor-localidades`.`cat_estatus_tracker` WHERE  `id_estatus_tracker`=4;
+INSERT INTO `gomcommx_dev-ryg-gestor-localidades`.`cat_estatus_tracker` (`txt_estatus_tracker`) VALUES ('Arrendador ilocalizable.');
+SELECT LAST_INSERT_ID();
+SELECT `id_estatus_tracker`, `txt_estatus_tracker`, `b_habilitado` FROM `gomcommx_dev-ryg-gestor-localidades`.`cat_estatus_tracker` WHERE  `id_estatus_tracker`=5;
+INSERT INTO `gomcommx_dev-ryg-gestor-localidades`.`cat_estatus_tracker` (`txt_estatus_tracker`) VALUES ('Se procede a detonar reubicación');
+SELECT LAST_INSERT_ID();
+SELECT `id_estatus_tracker`, `txt_estatus_tracker`, `b_habilitado` FROM `gomcommx_dev-ryg-gestor-localidades`.`cat_estatus_tracker` WHERE  `id_estatus_tracker`=6;
+INSERT INTO `gomcommx_dev-ryg-gestor-localidades`.`cat_estatus_tracker` (`txt_estatus_tracker`) VALUES ('En negociación del contrato con el arrendador.');
+SELECT LAST_INSERT_ID();
+SELECT `id_estatus_tracker`, `txt_estatus_tracker`, `b_habilitado` FROM `gomcommx_dev-ryg-gestor-localidades`.`cat_estatus_tracker` WHERE  `id_estatus_tracker`=7;
+INSERT INTO `gomcommx_dev-ryg-gestor-localidades`.`cat_estatus_tracker` (`txt_estatus_tracker`) VALUES ('En revisión del contrato por ATC.');
+SELECT LAST_INSERT_ID();
+SELECT `id_estatus_tracker`, `txt_estatus_tracker`, `b_habilitado` FROM `gomcommx_dev-ryg-gestor-localidades`.`cat_estatus_tracker` WHERE  `id_estatus_tracker`=8;
+INSERT INTO `gomcommx_dev-ryg-gestor-localidades`.`cat_estatus_tracker` (`txt_estatus_tracker`) VALUES ('En proceso de firma del contrato.');
+SELECT LAST_INSERT_ID();
+SELECT `id_estatus_tracker`, `txt_estatus_tracker`, `b_habilitado` FROM `gomcommx_dev-ryg-gestor-localidades`.`cat_estatus_tracker` WHERE  `id_estatus_tracker`=9;
+INSERT INTO `gomcommx_dev-ryg-gestor-localidades`.`cat_estatus_tracker` (`txt_estatus_tracker`) VALUES ('Negociación de la salida del sitio.');
+SELECT LAST_INSERT_ID();
+SELECT `id_estatus_tracker`, `txt_estatus_tracker`, `b_habilitado` FROM `gomcommx_dev-ryg-gestor-localidades`.`cat_estatus_tracker` WHERE  `id_estatus_tracker`=10;
+INSERT INTO `gomcommx_dev-ryg-gestor-localidades`.`cat_estatus_tracker` (`txt_estatus_tracker`) VALUES ('Concluido.');
+
+ALTER TABLE `ent_localidades`
+	ADD COLUMN `id_estatus_tracker` INT(10) UNSIGNED NULL AFTER `id_moneda`,
+	ADD CONSTRAINT `FK_ent_localidades_cat_estatus_tracker` FOREIGN KEY (`id_estatus_tracker`) REFERENCES `cat_estatus_tracker` (`id_estatus_tracker`);
+
+ALTER TABLE `ent_localidades_archivadas`
+	ADD COLUMN `id_estatus_tracker` INT(10) UNSIGNED NULL DEFAULT NULL AFTER `id_moneda`,
+	ADD CONSTRAINT `FK_ent_localidades_archivadas_cat_estatus_tracker` FOREIGN KEY (`id_estatus_tracker`) REFERENCES `cat_estatus_tracker` (`id_estatus_tracker`);
