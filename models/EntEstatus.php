@@ -46,7 +46,7 @@ class EntEstatus extends \yii\db\ActiveRecord
         return [
             'id_estatus' => 'Id Estatus',
             'id_localidad' => 'Id Localidad',
-            'txt_estatus' => 'Estatus',
+            'txt_estatus' => 'Comentarios',
             'fch_creacion' => 'Fch Creacion',
         ];
     }
