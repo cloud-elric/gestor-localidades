@@ -335,7 +335,7 @@ $this->registerJsFile(
             <div class="col-md-12">
                 <div class="panel panel-history">
                     <div class="panel-heading">
-                        <h3>Historial de estatus</h3>
+                        <h3>Historial de comentarios</h3>
                     </div>
                     <?php if($historial){ ?>
                         <div class="panel-body">
@@ -345,7 +345,7 @@ $this->registerJsFile(
                         </div>
                     <?php }else{ ?>
                         <div class="panel-body">
-                            <p>No hay historial de estatus</p>
+                            <p>No hay historial de comentarios</p>
                         </div>
                     <?php } ?>
                 </div>
