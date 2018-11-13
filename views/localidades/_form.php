@@ -18,6 +18,7 @@ use app\models\CatRegularizacionRenovacion;
 use app\assets\AppAsset;
 use app\models\ConstantesWeb;
 use app\models\WrkUsuarioUsuarios;
+use app\models\CatEstatusTracker;
 
 
 /* @var $this yii\web\View */
@@ -76,6 +77,9 @@ $this->registerJsFile(
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">
                         <?= $form->field($model, 'txt_contacto')->textInput(['maxlength' => true]) ?>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-4">
+                        <?= $form->field($model, 'id_estatus_tracker')->dropDownList(ArrayHelper::map(CatEstatusTracker::find()->where(['b_habilitado'=>1])->orderBy('txt_estatus_tracker')->all(), 'id_estatus_tracker', 'txt_estatus_tracker'), ['prompt'=>'Seleccionar estatus']); ?>
                     </div>
                 </div>
                 <div class="row">
@@ -331,7 +335,7 @@ $this->registerJsFile(
             <div class="col-md-12">
                 <div class="panel panel-history">
                     <div class="panel-heading">
-                        <h3>Historial de estatus</h3>
+                        <h3>Historial de comentarios</h3>
                     </div>
                     <?php if($historial){ ?>
                         <div class="panel-body">
@@ -341,7 +345,7 @@ $this->registerJsFile(
                         </div>
                     <?php }else{ ?>
                         <div class="panel-body">
-                            <p>No hay historial de estatus</p>
+                            <p>No hay historial de comentarios</p>
                         </div>
                     <?php } ?>
                 </div>

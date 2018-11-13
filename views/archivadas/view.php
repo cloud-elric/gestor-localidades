@@ -143,8 +143,20 @@ $user = Yii::$app->user->identity;
                                     </div>
 
                                     <div class="row">
+
                                         <div class="col-sm-12 col-md-12">
                                             <span>Estatus: </span>
+                                            <?php
+                                            if($model->estatusTracker){
+                                                echo "<p>".$model->estatusTracker->txt_estatus_tracker."</p>";
+                                            }else{
+                                                echo "<p>Si estatus</p>";
+                                            }
+                                            ?>
+                                        </div>
+                                        
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Comentarios: </span>
                                             <p>
                                             <?php
                                             $estatus = EntEstatusArchivados::find()->where(['id_localidad'=>$model->id_localidad])->orderBy('fch_creacion')->all();
