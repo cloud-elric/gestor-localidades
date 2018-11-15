@@ -18,6 +18,7 @@ use app\models\Calendario;
 use kartik\date\DatePicker;
 use app\assets\AppAssetClassicCore;
 use app\models\WrkTareas;
+use app\modules\ModUsuarios\models\Utils;
 
 
 /* @var $this yii\web\View */
@@ -48,7 +49,7 @@ $this->registerJsFile(
 );
 
 $this->registerJsFile(
-    '@web/webAssets/js/localidades/index.js',
+    '@web/webAssets/js/archivadas/index.js',
     ['depends' => [AppAsset::className()]]
 );
 
@@ -89,13 +90,7 @@ $this->registerCssFile(
             // 'tableOptions' => [
             //     "class" => "table"
             // ],
-            'pjax'=>true,
-            'pjaxSettings'=>[
-                'options'=>[
-                    'linkSelector'=>"a:not(.no-pjax)",
-                    'id'=>'pjax-usuarios'
-                ]
-                ],
+            
             'dataProvider' => $dataProvider,
             'tableOptions' => [
                 'class'=>"table table-hover"
@@ -108,17 +103,35 @@ $this->registerCssFile(
                     'headerOptions' => [
                         'class' => 'text-center'
                     ],
+                    'contentOptions' => [
+                        'class'=>"td-nombre"
+                    ],
                     'format'=>'raw',
                     'value'=>function($data){
                         $punto = 'cat-yellow';
                 
-                        return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat '.$punto.'"></span></div>
-                        <a  class="panel-listado-user-link no-pjax run-slide-panel" href="'.Url::base().'/archivadas/view/'.$data->id_localidad.'">' .$data->txt_nombre.'</a></div>';
+                        return '<div class="panel-listado-user">
+                        <a class="panel-listado-user-link no-pjax run-slide-panel" href="'.Url::base().'/archivadas/view/'.$data->id_localidad.'">' .$data->txt_nombre.'</a></div>';
                     }
                 ],
-
                 [
-                    'label'=>'Ultima',
+                    'attribute'=>'cms',
+                    'contentOptions' => [
+                        'class'=>"text-center"
+                    ],
+                    'headerOptions' => [
+                        'class' => 'text-center'
+                    ],
+                    'format'=>'raw',
+                ],
+                [
+                    'label'=>'Última',
+                    'contentOptions' => [
+                        'class'=>"text-center"
+                    ],
+                    'headerOptions' => [
+                        'class' => 'text-center'
+                    ],
                     'format'=>'raw',
                     'value'=>function($data){
                         return 'Hoy';
@@ -127,6 +140,12 @@ $this->registerCssFile(
 
                 [
                     'attribute'=>'fch_asignacion',
+                    'contentOptions' => [
+                        'class'=>"td-fecha text-center"
+                    ],
+                    'headerOptions' => [
+                        'class' => 'text-center'
+                    ],
                     'filter'=>DatePicker::widget([
                         'model'=>$searchModel,
                         'attribute'=>'fch_creacion',
@@ -143,17 +162,26 @@ $this->registerCssFile(
                         if (!$data->fch_asignacion){
                             return "(no definido)";
                         }
-                        return Calendario::getDateSimple($data->fch_asignacion);
+                        return Calendario::getDateSimple(Utils::changeFormatDateNormal($data->fch_asignacion));
                     }
                 ],
 
                 [
                     'attribute'=>'txt_arrendador',
+                    'contentOptions' => [
+                        'class'=>"td-arrendador"
+                    ],
                     'format'=>'raw'
                 ],
 
                 [
                     'label'=>'Acciones',
+                    'contentOptions' => [
+                        'class'=>"td-actions"
+                    ],
+                    'headerOptions' => [
+                        'class' => 'text-center'
+                    ],
                     'format'=>'raw',
                     'value'=>function($data){
 
@@ -165,7 +193,7 @@ $this->registerCssFile(
                         $botones .= '<div class="panel-listado-acctions-tooltip" data-toggle="tooltip" data-original-title="Tareas" data-template="<div class=\'tooltip tooltip-2 tooltip-warning\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>">
                                         <a href="'.Url::base().'/archivadas/ver-tareas-localidad?id='.$data->id_localidad.'" id="js_ver_tareas_archivadas_'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel"><i class="icon wb-list" aria-hidden="true"></i></a>
                                     </div>';  
-                        if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){
+                        if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ASISTENTE){
                            // if(false){
                             $botones .= '<div class="panel-listado-acctions-tooltip">
                                             <button data-template="<div class=\'tooltip tooltip-2 tooltip-info\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>" data-url="archivadas/desarchivar-localidad?id='.$data->id_localidad.'" class="btn btn-icon btn-info btn-outline panel-listado-acction acction-archive no-pjax js_desarchivar_localidad" data-toggle="tooltip" data-original-title="Desarchivar"><i class="icon wb-inbox" aria-hidden="true"></i></button>

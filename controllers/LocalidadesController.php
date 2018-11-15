@@ -29,6 +29,9 @@ use app\models\WrkUsuariosLocalidadesArchivadas;
 use app\models\WrkUsuariosTareasArchivadas;
 use app\models\Calendario;
 use app\models\EntLocalidadesArchivadasSearch;
+use app\config\ConstantesDropbox;
+use app\models\CatColonias;
+use app\models\EntEstatusArchivados;
 
 
 /**
@@ -45,21 +48,25 @@ class LocalidadesController extends Controller
             'access' => [
                 'class' => AccessControlExtend::className(),
                 'only' => [
-                    'create', 'view', 'update', 'delete', 'asignar-usuario', 'asignar-usuario-eliminar', 'remover-asignacion-usuario',
+                    'create', 'update', 'delete', 'asignar-usuario', 'asignar-usuario-eliminar', 'remover-asignacion-usuario',
                     'asignar-usuario-tarea',  'ver-tareas-localidad', 'archivar-localidad'
                 ],
                 'rules' => [
                     [
                         'actions' => [
-                            'create', 'view', 'update', 'delete', 'asignar-usuario', 'asignar-usuario-eliminar', 'remover-asignacion-usuario',
+                            'create', 'update', 'delete', 'asignar-usuario', 'asignar-usuario-eliminar', 'remover-asignacion-usuario',
                             'asignar-usuario-tarea',  'ver-tareas-localidad', 'archivar-localidad'
                         ],
                         'allow' => true,
-                        'roles' => [ConstantesWeb::ABOGADO, ConstantesWeb::COLABORADOR, ConstantesWeb::CLIENTE],
-
-
+                        'roles' => [ConstantesWeb::ABOGADO, ConstantesWeb::ASISTENTE],
                     ],
-
+                    [
+                        'actions' => [
+                            'asignar-usuario-tarea',  'ver-tareas-localidad'
+                        ],
+                        'allow' => true,
+                        'roles' => [ConstantesWeb::COLABORADOR, ConstantesWeb::CLIENTE],
+                    ],
                 ],
             ],
             // 'verbs' => [
@@ -159,30 +166,57 @@ class LocalidadesController extends Controller
         $model->id_moneda = 1;
         $hoy = Utils::getFechaActual();
 
-        $model->fch_asignacion = Utils::changeFormatDate($hoy);
+        $model->fch_asignacion = Utils::changeFormatDateNormal($hoy);
 
         $estatus = new EntEstatus();
 
         $historial = null;
 
-        if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())) {
-            //var_dump($_POST);exit;
+        if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())) { //print_r($_POST);exit;
+
+            /**
+             * Guardar datos si vienen de forma manual
+             */
+            if($_POST['tipo_ubicacion'] == 1){
+                $model->txt_cp = $_POST['EntLocalidades']['textoCP'];
+                $model->txt_calle = $_POST['EntLocalidades']['textoCalle'];
+                $model->texto_colonia = $_POST['EntLocalidades']['textoColonia'];
+                $model->texto_estado = $_POST['EntLocalidades']['textoEstado'];
+                $model->txt_municipio = $_POST['EntLocalidades']['textoMun'];
+            }
+            //exit;
+            
             $model->id_usuario = Yii::$app->user->identity->id_usuario;
             $model->txt_token = Utils::generateToken('tok');
-            //$model->id_moneda = $_POST['group2'];
+            $model->fch_creacion = $hoy;
+            
 
-            $model->fch_vencimiento_contratro = Utils::changeFormatDateInput($model->fch_vencimiento_contratro);
-            $model->fch_asignacion = Utils::changeFormatDateInput($model->fch_asignacion);
+            if($model->validate()){
+                $model->fch_vencimiento_contratro = Utils::changeFormatDateInput($model->fch_vencimiento_contratro);
+                $model->fch_asignacion = Utils::changeFormatDateInput($model->fch_asignacion);
 
-            $dropbox = Dropbox::crearFolder("raul/" . $_POST["EntLocalidades"]["txt_nombre"]);
-            $decodeDropbox = json_decode(trim($dropbox), true);
-
-            if ($decodeDropbox['metadata']) {
-                if ($model->save()) {
-                    $estatus->id_localidad = $model->id_localidad;
-                    if ($estatus->save()) {
-                        return $this->redirect(['index']);
+                $dropbox = Dropbox::crearFolder(ConstantesDropbox::NOMBRE_CARPETA . $_POST["EntLocalidades"]["txt_nombre"]);
+                $decodeDropbox = json_decode(trim($dropbox), true);
+                
+                if(isset($decodeDropbox['metadata'])){
+                    // if($model->validate()){
+                    //     echo "Validado";exit;
+                    // }echo "no validado";exit;
+                    if ($model->save()) {
+                        if(!empty($_POST['EntEstatus']['txt_estatus'])){
+                            $estatus->id_localidad = $model->id_localidad;
+                            if ($estatus->save()) {
+                                return $this->redirect(['index']);
+                            }
+                        }else{
+                            return $this->redirect(['index']);
+                        }
+                    }else{
+                        print_r($model->errors);
+                        exit;
                     }
+                }else{
+                    print_r($decodeDropbox);exit;
                 }
             }
         }
@@ -210,41 +244,90 @@ class LocalidadesController extends Controller
         $estatus = new EntEstatus();
         $historial = EntEstatus::find()->where(['id_localidad' => $id])->all();
         $nombreOriginal = $model->txt_nombre;
-        if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())) {
+        
+        if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())) { //print_r($model->fch_asignacion);print_r($model->fch_vencimiento_contratro);exit;
 
-            $estatus->id_localidad = $model->id_localidad;
+             /**
+             * Guardar datos si vienen de forma manual
+             */
+            if($_POST['tipo_ubicacion'] == 1){
+                $model->txt_cp = $_POST['EntLocalidades']['textoCP'];
+                $model->txt_calle = $_POST['EntLocalidades']['textoCalle'];
+                $model->texto_colonia = $_POST['EntLocalidades']['textoColonia'];
+                $model->txt_municipio = $_POST['EntLocalidades']['textoMun'];
+                $model->texto_estado = $_POST['EntLocalidades']['$textoEstado'];
+
+                $model->txt_colonia = null;
+            }
+
+            $model->fch_vencimiento_contratro = Utils::changeFormatDateInput($model->fch_vencimiento_contratro);
+            $model->fch_asignacion = Utils::changeFormatDateInput($model->fch_asignacion);print_r($model->fch_asignacion);//print_r($model->fch_vencimiento_contratro);exit;
+
+            if(!empty($_POST['EntEstatus']['txt_estatus'])){
+                $estatus->id_localidad = $model->id_localidad;
+            }
+            
             if ($model->validate()) {
                 if ($nombreOriginal != $model->txt_nombre) {
                     // @TODO
                     //Esto debe de renombrar la carpeta y no crear un nuevo folder marca error si tiene el mismo nombre
-                    $dropbox = Dropbox::moverArchivo("/raul/" . $nombreOriginal, "/raul/" . $_POST["EntLocalidades"]["txt_nombre"]);
+                    $dropbox = Dropbox::moverArchivo("/". ConstantesDropbox::NOMBRE_CARPETA . $nombreOriginal, "/". ConstantesDropbox::NOMBRE_CARPETA . $_POST["EntLocalidades"]["txt_nombre"]);
 
                     $decodeDropbox = json_decode(trim($dropbox), true);
 
                     if (isset($decodeDropbox['metadata'])) {
-                        $model->save() && $estatus->save();
-
-
-                        return $this->redirect(['index']);
+                        if($model->save()){
+                            if(!empty($_POST['EntEstatus']['txt_estatus'])){
+                                if(!$estatus->save()){
+                                    print_r($estatus->errors);exit;
+                                }
+                            }
+                            return $this->redirect(['index']);                                    
+                        }else{
+                            print_r($model->errors);exit;
+                        }
                     } else {
                         Yii::$app->session->setFlash('error', "Ocurrió un problema con la comunicación de dropbox. Si el problema persiste contacté a soporteœ2gom.com.mx.");
 
                     }
                 } else {
-                    $model->save() && $estatus->save();
-                    return $this->redirect(['index']);
+                    if($model->save()){
+                        if(!empty($_POST['EntEstatus']['txt_estatus'])){
+                            if(!$estatus->save()){
+                                print_r($estatus->errors);exit;                                
+                            }
+                        }
+                        return $this->redirect(['index']);
+                    }else{
+                        print_r($model->errors);exit;
+                    }
                 }
-
-
-
             }
 
-        }
+        }//print_r($_POST);exit;
+
         $tareas = true;
         $flag = true;
 
-        $model->fch_vencimiento_contratro = Utils::changeFormatDate($model->fch_vencimiento_contratro);
-        $model->fch_asignacion = Utils::changeFormatDate($model->fch_asignacion);
+        $model->fch_vencimiento_contratro = Utils::changeFormatDateNormal($model->fch_vencimiento_contratro);
+        $model->fch_asignacion = Utils::changeFormatDateNormal($model->fch_asignacion);
+        
+        if($model->txt_colonia){
+            $model->tipoUbicacion = 0;
+        }else{
+            $model->tipoUbicacion = 1;
+            $model->textoCP = $model->txt_cp;
+            $model->textoColonia = $model->texto_colonia;
+            $model->textoEstado = $model->texto_estado;
+            $model->textoCalle = $model->txt_calle;
+            $model->textoMun = $model->txt_municipio;
+
+            $model->txt_cp = null;
+            $model->txt_municipio = null;
+            $model->id_estado = null;
+            $model->txt_calle = null;
+            $model->id_estado = null;
+        }
 
         return $this->render('update', [
             'model' => $model,
@@ -384,6 +467,10 @@ class LocalidadesController extends Controller
 
             $relacion = WrkUsuariosTareas::find()->where(['id_tarea' => $_POST['idT']])->one();
             if ($relacion) {
+                $tar = $relacion->tarea;
+                $tar->fch_asignacion = null;
+                $tar->save();
+
                 $respuesta->status = "success";
                 $respuesta->message = "Se ha eliminado la asignacion a la tarea";
                 $relacion->delete();
@@ -406,7 +493,7 @@ class LocalidadesController extends Controller
             for ($i = $longArray - 1; $i >= 0; $i--) {
                 $idUser = $_POST['idU'][$i];
                 break;
-            }
+            }            
 
             $relacion = WrkUsuariosTareas::find()->where(['id_tarea' => $_POST['idT']])->one();
             if ($relacion)
@@ -424,6 +511,9 @@ class LocalidadesController extends Controller
                     $loc = $tarea->localidad;
                     $abogado = $tarea->usuario;
                     //$tarea = WrkTareas::findOne($model->id_localidad);
+
+                    $tarea->fch_asignacion = date("Y-m-d H:i:s");
+                    $tarea->save();
 
 					// Enviar correo
                     $utils = new Utils();
@@ -456,67 +546,57 @@ class LocalidadesController extends Controller
     {
         $respuesta = new ResponseServices();
         $hoy = date("Y-m-d 00:00:00");
-        $hoy = date("Y-m-d 00:00:00", strtotime($hoy . '-7 day'));
-        $tareas = WrkTareas::find()->where(['<', 'fch_creacion', $hoy])->andWhere(['txt_path'=>null])->andWhere(['txt_tarea'=>null])->orderBy('fch_creacion')->all();
+        $hoy = date("Y-m-d 00:00:00", strtotime($hoy . '-8 day'));
+        $tareas = WrkTareas::find()->where(['<', 'fch_creacion', $hoy])->andWhere(['txt_path'=>null])->andWhere(['txt_tarea'=>null])->andWhere(['b_completa'=>0])->orderBy('fch_creacion')->all();
         $arr = [];
 
         foreach ($tareas as $tarea) {
             $colaboradores = $tarea->usuarios;
             $localidad = $tarea->localidad;
-            $arr[$localidad->id_localidad]["nombreLocalidad"] = $localidad->txt_nombre;
-            $arr[$localidad->id_localidad]["token"]=$localidad->txt_token;
-            $colaboradoresArr = [];
-
-            foreach ($colaboradores as $colaboradorRel) {
-                $colaborador = $colaboradorRel->idUsuario;
-                $arr[$localidad->id_localidad]["colaboradores"][$colaborador->id_usuario]["nombre"] = $colaborador->nombreCompleto;
-                $arr[$localidad->id_localidad]["colaboradores"][$colaborador->id_usuario]["email"] = $colaborador->txt_email;
-                $arr[$localidad->id_localidad]["colaboradores"][$colaborador->id_usuario]["token"] = $colaborador->txt_token;
-                $arr[$localidad->id_localidad]["colaboradores"][$colaborador->id_usuario]["tareas"][$tarea->id_tarea] = $tarea ;
-            }
-
-           
-
             $directores = $localidad->wrkUsuariosLocalidades;
+
+            $hoy = date("Y-m-d");
+            $dias = (strtotime($hoy) - strtotime($tarea->fch_creacion))/86400;
+	        $dias = abs($dias); $dias = floor($dias);
+
             foreach ($directores as $director) {
                 $usuarioDirector = $director->usuario;
-                $arr[$localidad->id_localidad]["directores"][$usuarioDirector->id_usuario] = $usuarioDirector;
-            }
 
+                $arr[$usuarioDirector->id_usuario]['localidades'][$localidad->id_localidad]["nombreLocalidad"] = $localidad->txt_nombre;
+                $arr[$usuarioDirector->id_usuario]['localidades'][$localidad->id_localidad]["cms"]=$localidad->cms;
+                $arr[$usuarioDirector->id_usuario]['localidades'][$localidad->id_localidad]["token"]=$localidad->txt_token;
+                $arr[$usuarioDirector->id_usuario]['localidades'][$localidad->id_localidad]['tareas'][$tarea->id_tarea]['nombre'] = $tarea->txt_nombre;
+                $arr[$usuarioDirector->id_usuario]['localidades'][$localidad->id_localidad]['tareas'][$tarea->id_tarea]['dias'] = $dias;
+                $arr[$usuarioDirector->id_usuario]["directorEmail"] = $usuarioDirector->txt_email;
+                $arr[$usuarioDirector->id_usuario]["directorNombre"] = $usuarioDirector->nombreCompleto;
+                $arr[$usuarioDirector->id_usuario]["directorToken"] = $usuarioDirector->txt_token;
+            }
+        }
+        //print_r($arr);exit;
+
+        foreach($arr as $tar){ //print_r($tar['localidades']);exit;
+            // Enviar correo
+            $utils = new Utils();
+            $parametrosEmail = [];
+
+            $parametrosEmail ['localidades'] = $tar['localidades'];//print_r($tar);exit;
+
+            $email = $tar['directorEmail'];
+            $parametrosEmail ['user'] = $tar['directorNombre'];
+            $parametrosEmail['url'] = Yii::$app->urlManager->createAbsoluteUrl([
+                'localidades/index/?token=' . $tar["directorToken"]
+            ]);
+
+            if($utils->sendEmailNotificacionesTareas( $email, $parametrosEmail )){
+                $respuesta->status = "success";
+                $respuesta->message = "Enviados con exito";
+                $respuesta->result = $arr;
+            }else{
+                return $respuesta;
+            }
         }
 
-        foreach($arr as $tar){// localidad
-        //     // Enviar correo
-             $utils = new Utils ();
-              $parametrosEmail = [];
-              $parametrosEmail ['localidad'] = $tar["nombreLocalidad"];
-              foreach($tar["colaboradores"] as $cola){// colaboradores
-                    $parametrosEmail ['user'] = $cola['nombre'];
-                    $parametrosEmail['url'] = Yii::$app->urlManager->createAbsoluteUrl([
-                        'localidades/index/?token=' . $cola["token"] . '&tokenLoc=' . $tar["token"]
-                    ]);
-                  foreach($cola["tareas"] as $key=>$tareas){// tareas
-                    $parametrosEmail ['tareas'][$key] = $tareas["txt_nombre"];
-                  }
-                  $utils->sendEmailNotificacionesTareas( $cola['email'], $parametrosEmail );
-              }
-
-              foreach($tar["directores"] as $director){// colaboradores
-                $parametrosEmail ['user'] = $director['txt_username']." ".$director['txt_apellido_paterno'];
-                $parametrosEmail['localidad'] = $tar;
-                $parametrosEmail['url'] = Yii::$app->urlManager->createAbsoluteUrl([
-                    'localidades/index/?token=' . $director["txt_token"] . '&tokenLoc=' . $tar["token"]
-                ]);
-              $utils->sendEmailNotificacionesTareasDirector( $director['txt_email'], $parametrosEmail );
-            }
-         
-          }
-
-        
-
-        $respuesta->result = $arr;
         return $respuesta;
-        
     }
 
     public function actionVerTareasLocalidad($id)
@@ -582,13 +662,32 @@ class LocalidadesController extends Controller
         $archivada = new EntLocalidadesArchivadas();
         $archivada->attributes = $localidad->attributes;
         $archivada->id_localidad = $localidad->id_localidad;
+        //print_r($archivada);exit;
         $archivada->b_archivada = $mot;
 
         $transaction = Yii::$app->db->beginTransaction();
         try {
             if ($archivada->save()) {
                 $tareas = $localidad->wrkTareas;
-                if ($tareas) {
+                $estatus = EntEstatus::find()->where(['id_localidad'=>$localidad->id_localidad])->all();
+
+                foreach($estatus as $es){
+                    $estatusArch = new EntEstatusArchivados();
+                    $estatusArch->id_localidad = $archivada->id_localidad;
+                    $estatusArch->txt_estatus = $es->txt_estatus;
+                    $estatusArch->fch_creacion = $es->fch_creacion;
+
+                    if(!$estatusArch->save()){
+                        $transaction->rollBack();
+                        echo "wqwq22";
+
+                        return $response;
+                    }else{
+                        $es->delete();
+                    }
+                }
+
+                if($tareas){
                     foreach ($tareas as $tarea) {
                         $tareaArchivada = new WrkTareasArchivadas();
                         $tareaArchivada->attributes = $tarea->attributes;
@@ -605,27 +704,31 @@ class LocalidadesController extends Controller
 
                                     if (!$userTareaArchivada->save()) {
                                         $transaction->rollBack();
+                                        echo "wqwq";
                                         return $response;
                                     }
                                     $userTarea->delete();
                                 }
                             }
-
-                            $usersLocs = WrkUsuariosLocalidades::find()->where(['id_localidad' => $localidad->id_localidad])->all();
+                            
+                            $usersLocs = WrkUsuariosLocalidades::find()->where(['id_localidad' => $localidad->id_localidad])->one();
+                            //print_r($usersLocs);exit;
                             if ($usersLocs) {
-                                foreach ($usersLocs as $userLoc) {
+                                // foreach ($usersLocs as $userLoc) {
                                     $userLocArchivada = new WrkUsuariosLocalidadesArchivadas();
-                                    $userLocArchivada->attributes = $userLoc->attributes;
+                                    $userLocArchivada->attributes = $usersLocs->attributes;
 
                                     if (!$userLocArchivada->save()) {
                                         $transaction->rollBack();
+                                        
                                         return $response;
                                     }
-                                    $userLoc->delete();
-                                }
+                                    $usersLocs->delete();
+                                // }
                             }
                         } else {
                             $transaction->rollBack();
+                            echo "xdxddd";
                             return $response;
                         }
                         $tarea->delete();
@@ -637,11 +740,141 @@ class LocalidadesController extends Controller
                 $response->message = $id;
 
                 return $response;
+            }else{
+                $transaction->rollBack();
+                echo "hyhyhyhy";print_r($archivada->errors);exit;
+                return $response;
             }
             $transaction->commit();
         } catch (\Exception $e) {
             $transaction->rollBack();
             throw $e;
+        }
+
+        echo "cdfvbghn";
+        return $response;
+    }
+
+    public function actionExportarLocalidades(){
+        $nuevoFichero = fopen('Localidades.csv', 'w+');
+        fputs($nuevoFichero, $bom = (chr(0xEF) . chr(0xBB) . chr(0xBF)));
+
+        if($nuevoFichero){
+            $localidades = EntLocalidades::find()->all();
+            
+            $delimiter = ",";
+            $campos = [
+                'CMS',
+                'Nombre',
+                'Arrendador',
+                'Beneficiario',
+                'Contacto',
+                'Antecedentes',
+                'Historial de estatus',
+
+                'Codigo postal',
+                'Colonia',
+                'Delegación/Municipio',
+                'Estado',
+                'Domicilio',
+
+                'Fecha vencimiento contrato',
+                'Fecha asignacion',
+                'Tipo de contrato',
+                'Renta actual',
+                'Porcentaje de incremento preautorizado',
+                'Renta pre-autorizada',
+                'Porcentaje de incremento solicitado por arrendador',
+                'Pretensión de renta del arrendador',
+                'Frecuencia de pago',
+                'Moneda',
+                'Problemas de acceso'
+            ];
+
+            fputcsv($nuevoFichero, $campos, $delimiter);
+
+            foreach($localidades as $localidad){
+                $estado;
+                if($localidad->id_estado){
+                    $estado = $localidad->estado;
+                }
+                $colonia;
+                if($localidad->txt_colonia){
+                    $colonia = CatColonias::find()->where(['id_colonia'=>$localidad->txt_colonia])->one();
+                }
+                $usuario = $localidad->usuario;
+                $moneda = $localidad->moneda;
+                $status = $localidad->bStatusLocalidad;
+                $estatusLoc = EntEstatus::find()->where(['id_localidad'=>$localidad->id_localidad])->all();
+                $problemaAcceso = $localidad->b_problemas_acceso ? 'Si' : 'No';
+                
+                $i = 1;
+                $estatusConcat = '';
+
+                if($estatusLoc){
+                    foreach($estatusLoc as $estatus){
+                        $estatusConcat .= $i . ".- " . $estatus->txt_estatus . " ";
+                        $i++;
+                    }
+                }else{
+                    $estatusConcat = "No hay estatus";
+                }//echo $estatusConcat;exit;
+                
+                $datos = [
+                    $localidad->cms,
+                    $localidad->txt_nombre,
+                    $localidad->txt_arrendador,
+                    $localidad->txt_beneficiario,
+                    $localidad->txt_contacto,
+                    $localidad->txt_antecedentes,
+                    $estatusConcat,
+
+                    $localidad->txt_cp,
+                    $localidad->txt_colonia ? $colonia->txt_nombre : $localidad->texto_colonia,
+                    $localidad->txt_municipio,
+                    $localidad->id_estado ? $estado->txt_nombre : $localidad->texto_estado,
+                    $localidad->txt_calle,
+
+                    $localidad->fch_vencimiento_contratro,
+                    $localidad->fch_asignacion,
+                    $status->txt_nombre,
+                    $localidad->num_renta_actual,
+                    $localidad->num_incremento_autorizado,
+                    $localidad->num_pretencion_renta,
+                    $localidad->num_incremento_cliente,
+                    $localidad->num_pretencion_renta_cliente,
+                    $localidad->txt_frecuencia,
+                    $moneda->txt_moneda,
+                    $problemaAcceso
+                ];
+
+                fputcsv($nuevoFichero, $datos, $delimiter);
+            }
+            fseek($nuevoFichero, 0);
+            header('Content-Type: text/csv');
+            header("Content-disposition: attachment; filename=\"Localidades.csv\"");
+
+            fpassthru($nuevoFichero);exit;
+        }
+    }
+
+    public function actionEditarEstatus($id = null){
+        $response = new ResponseServices();
+
+        if(isset($_POST['txt_estatus'])){
+            if(!empty($_POST['txt_estatus'])){
+                $estatus = EntEstatus::find()->where(['id_estatus'=>$id])->one();
+                
+                if($estatus){
+                    $estatus->txt_estatus = $_POST['txt_estatus'];
+                    if($estatus->save()){
+                        $response->status = 'success';
+                        $response->message = 'Estatus actualizado correctamente';
+                    }else{
+                        $response->result = $estatus->errors;
+                    }
+                }
+            }
         }
 
         return $response;

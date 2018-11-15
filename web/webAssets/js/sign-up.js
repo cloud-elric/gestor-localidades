@@ -1,6 +1,9 @@
 var inputFile = $("#entusuarios-image");
 var tamanioAdmitido = 3;
 var tipoImagenesAdmitidas = ["image/jpeg", "image/png", "image/jpg", "image/gif"];
+var urlImagenDefault = $(".js-image-preview").attr('src');
+
+
 $(document).ready(function () {
     $(".js-img-avatar").on("click", function (e) {
         e.preventDefault();
@@ -58,13 +61,50 @@ function colocarImagen(jsfile) {
     var file = jsfile;
     var reader = new FileReader();
 
-    // Set preview image into the popover data-content
-    reader.onload = function (e) {
-        console.log('colocar imagenbb');
 
-        $('.js-image-preview').on("load", function(){
+    var _URL = window.URL || window.webkitURL;
+    var img;
+    
+    if (file) {
+        
+        img = new Image();
+        img.onload = function() {
+            //alert(this.width + " " + this.height);
+            if(this.width < 1000 && this.height < 1000){
+                console.log("tu imagen ha sido cargada correctamente");
+                swal("Imagen correcta!"," ","success")
 
-        }).attr('src', e.target.result);
+                // Set preview image into the popover data-content
+                reader.onload = function (e) {
+                    console.log('colocar imagenbb');
+
+                    $('.js-image-preview').on("load", function(){
+
+                    }).attr('src', e.target.result);
+                }
+                reader.readAsDataURL(file);
+
+            }else{
+                console.log("error imagen no tiene el tamaño permitido");
+                swal("Error al cargar imagen!", "Debe ser menor de 1000px x 1000px", 'warning');
+                document.getElementById("entusuarios-image").value = "";
+
+                // Set preview image into the popover data-content
+                reader.onload = function (e) {
+                    console.log('colocar imagenbb--'+e);
+
+                    $('.js-image-preview').on("load", function(){
+
+                    }).attr('src', urlImagenDefault);
+                }
+                reader.readAsDataURL(file);
+            }
+        };
+        img.onerror = function() {
+            //alert( "not a valid file: " + file.type);
+        };
+        img.src = _URL.createObjectURL(file);
+    }else{
+        console.log("error");
     }
-    reader.readAsDataURL(file);
 }

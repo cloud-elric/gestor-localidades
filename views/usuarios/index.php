@@ -4,6 +4,7 @@ use yii\helpers\Html;
 // use yii\grid\GridView;
 // use yii\widgets\ListView;
 use app\models\Calendario;
+use app\models\WrkUsuarioUsuarios;
 use kartik\grid\GridView;
 use app\modules\ModUsuarios\models\EntUsuarios;
 use kop\y2sp\ScrollPager;
@@ -50,10 +51,10 @@ $this->registerJsFile(
 
 ?>
   
-    
+  
 <!-- Panel -->
 <div class="panel panel-list-user-table">
-  
+
     <?php
     
     echo GridView::widget([
@@ -102,23 +103,37 @@ $this->registerJsFile(
            'txt_email:raw',
           
           [
-            'attribute' => 'fch_creacion',
-            'label' => 'Fecha de Creación',
-            'filter'=>DatePicker::widget([
-              'model'=>$searchModel,
-              'attribute'=>'fch_creacion',
-              'pickerButton'=>false,
-              'removeButton'=>false,
-              'type' => DatePicker::TYPE_INPUT,
-              'pluginOptions' => [
-                  'autoclose'=>true,
-                  'format' => 'dd-mm-yyyy'
-              ]
-            ]),
+            'attribute' => 'usuarioPadre',
+            'label' => 'Usuario responsable',
+            'contentOptions' => [
+              'class'=>"td-nombre"
+            ],
+            // 'filter'=>DatePicker::widget([
+            //   'model'=>$searchModel,
+            //   'attribute'=>'fch_creacion',
+            //   'pickerButton'=>false,
+            //   'removeButton'=>false,
+            //   'type' => DatePicker::TYPE_INPUT,
+            //   'pluginOptions' => [
+            //       'autoclose'=>true,
+            //       'format' => 'dd-mm-yyyy'
+            //   ]
+            // ]),
             'format'=>'raw',
             'value'=>function($data){
+                $idResponsable = WrkUsuarioUsuarios::find()->where(['id_usuario_hijo'=>$data->id_usuario])->one();
                 
-              return Calendario::getDateSimple($data->fch_creacion);
+                if($idResponsable){
+                  $responsable = EntUsuarios::find()->where(['id_usuario'=>$idResponsable->id_usuario_padre])->one();
+
+                  if($responsable){
+                    $data->usuarioPadre = $responsable->txt_username;
+                    
+                    return '<div class="td-nombre-col"><img class="panel-listado-img" src="'.$responsable->imageProfile.'" alt="">
+                      <span>'.$responsable->nombreCompleto .'</span></div>';
+                  }
+                }
+                return "<p>Sin responsable</p>";
             }
           ],
           [
@@ -155,9 +170,9 @@ $this->registerJsFile(
             'value'=>function($data){
              
                $botonEditar =  '<a data-template="<div class=\'tooltip tooltip-success\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>" 
-                      data-toggle="tooltip" data-original-title="Editar" href="'.Url::base().'/usuarios/update/'.$data->id_usuario.'" class="btn btn-icon btn-success btn-outline panel-listado-acction acction-edit no-pjax"><i class="icon wb-edit"></i></a>';
+                      data-toggle="tooltip" data-original-title="Editar" href="'.Url::base().'/usuarios/update/'.$data->id_usuario.'" class="btn btn-icon btn-success btn-outline panel-listado-acction acction-edit no-pjax"><i class="icon ion-md-create" aria-hidden="true"></i></a>';
                $botonEnviarBienvenida = '<button data-template="<div class=\'tooltip tooltip-warning\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>" 
-                      data-toggle="tooltip" data-original-title="Enviar contraseña" data-token="'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-mail js-reenviar-email"><i class="icon wb-envelope"></i></button>';
+                      data-toggle="tooltip" data-original-title="Enviar contraseña" data-style="zoom-in" data-token="'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline ladda-button panel-listado-acction acction-mail js-reenviar-email"><i class="icon ion-md-mail" aria-hidden="true"></i></button>';
               // return $botonEditar.$botonEnviarBienvenida;
 
               return '<div class="panel-listado-acctions">'.$botonEditar.$botonEnviarBienvenida.'</div>';

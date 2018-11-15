@@ -18,6 +18,7 @@ use app\models\Calendario;
 use kartik\date\DatePicker;
 use app\assets\AppAssetClassicCore;
 use app\models\WrkTareas;
+use app\modules\ModUsuarios\models\Utils;
 
 
 /* @var $this yii\web\View */
@@ -75,8 +76,6 @@ $this->registerCssFile(
 
     <!-- Panel -->
     <div class="panel panel-localidades">
-
-
         <div class="panel-search">
             <h3 class="panel-search-title">Listado de localidades</h3>
 
@@ -84,21 +83,7 @@ $this->registerCssFile(
                 'model' => $searchModel,
                 //'estatus' => $estatus            
             ]); ?>
-
-            <div class="row mt-30">
-                <div class="col-md-3 offset-md-9">
-                <!--
-                    <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
-                        <?= Html::a('<i class="icon wb-plus"></i> Crear Localidades', ['create'], ['class' => 'btn btn-add no-pjax']) ?>
-                        <?= Html::a('<i class="icon wb-inbox"></i> Localidades archivadas', Url::base().'/archivadas/index', ['class' => 'btn btn-default no-pjax']) ?>
-                    <?php } ?>
-                    -->
-                </div>
-
-            </div>
         </div>
-
-
     </div>
 
     
@@ -107,27 +92,24 @@ $this->registerCssFile(
             // 'tableOptions' => [
             //     "class" => "table"
             // ],
-            'pjax'=>true,
-            'pjaxSettings'=>[
-                'options'=>[
-                    'linkSelector'=>"a:not(.no-pjax)",
-                    'id'=>'pjax-usuarios'
-                ]
-                ],
+            
             'dataProvider' => $dataProvider,
             'tableOptions' => [
                 'class'=>"table table-hover"
             ],
             'layout' => '{items}{summary}{pager}',
             'columns' =>[
-                
                 [
-                    'attribute'=>'txt_nombre',
-                    'headerOptions' => [
-                        'class' => 'pl-10'
-                    ],
+                    'attribute'=>'cms',
                     'format'=>'raw',
+                    'headerOptions' => [
+                        'class' => 'th-cms'
+                    ],
+                    'contentOptions' => [
+                        'class'=>"td-cms"
+                    ],
                     'value'=>function($data){
+
                         $hoy = time();//date("Y-m-d");
                         $fch_creacion = strtotime($data->fch_creacion);
                         $punto = 'cat-green';
@@ -138,7 +120,51 @@ $this->registerCssFile(
                                 $fch_creacion = strtotime($tarea->fch_creacion);
                                 $res = $hoy - $fch_creacion;
                                 $res1 = round($res / (60*60*24));
-                                if($res1 > 7 && $tarea->b_completa == 0){
+                                
+                                if($res1 > ConstantesWeb::DIAS_RESTANTES && (!$tarea->txt_tarea && !$tarea->txt_path) && $tarea->b_completa == 0){
+                                    $punto = 'cat-red';
+                                    break;
+                                }
+                                // //if((!$tarea->txt_tarea && $tarea->id_tipo == ConstantesWeb::TAREA_ABIERTO) || (!$tarea->txt_path && $tarea->id_tipo == ConstantesWeb::TAREA_ARCHIVO)){
+                                if(($tarea->txt_tarea || $tarea->txt_path) && $tarea->b_completa == 0){
+                                    $punto = 'cat-yellow';
+                                    //break;
+                                }
+                                if($res1 < ConstantesWeb::DIAS_RESTANTES && (!$tarea->txt_tarea && !$tarea->txt_path) && $tarea->b_completa == 0){
+                                    $punto = 'cat-yellow';
+                                }
+                            }
+                        }else{
+                            $punto = 'cat-yellow';
+                        }
+
+                        if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::SUPER_ADMIN){
+                            return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat '.$punto.'"></span></div>' .$data->cms.'</div>';
+                        }
+                        return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat '.$punto.'"></span></div>' .$data->cms.'</div>';
+                    }
+                ],
+                [
+                    'attribute'=>'txt_nombre',
+                    'contentOptions' => [
+                        'class'=>"td-nombre"
+                    ],
+                    'format'=>'raw',
+                    'value'=>function($data){
+
+                        return $data->txt_nombre;
+                        $hoy = time();//date("Y-m-d");
+                        $fch_creacion = strtotime($data->fch_creacion);
+                        $punto = 'cat-yellow';
+                        
+                        $tareas = $data->wrkTareas;
+                        if($tareas){
+                            foreach($tareas as $tarea){
+                                $fch_creacion = strtotime($tarea->fch_creacion);
+                                $res = $hoy - $fch_creacion;
+                                $res1 = round($res / (60*60*24));
+                                
+                                if($res1 > ConstantesWeb::DIAS_RESTANTES && $tarea->b_completa == 0){
                                     $punto = 'cat-red';
                                     break;
                                 }
@@ -154,14 +180,22 @@ $this->registerCssFile(
                                 }
                             }
                         }
-                
+                        if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::SUPER_ADMIN){
+                            return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat '.$punto.'"></span></div>' .$data->txt_nombre.'</div>';
+                        }
                         return '<div class="panel-listado-user"><div class="panel-listado-user-cats"><span class="panel-listado-user-cat '.$punto.'"></span></div>
                         <a  class="panel-listado-user-link no-pjax run-slide-panel" href="'.Url::base().'/localidades/view/'.$data->id_localidad.'">' .$data->txt_nombre.'</a></div>';
                     }
                 ],
-
+                
                 [
                     'attribute'=>'fch_asignacion',
+                    'contentOptions' => [
+                        'class'=>"td-fecha text-center"
+                    ],
+                    'headerOptions' => [
+                        'class' => 'text-center'
+                    ],
                     'label' => 'Fecha de Asignación',
                     'filter'=>DatePicker::widget([
                         'model'=>$searchModel,
@@ -179,7 +213,7 @@ $this->registerCssFile(
                         if (!$data->fch_asignacion){
                             return "(no definido)";
                         }
-                        return Calendario::getDateSimple($data->fch_asignacion);
+                        return Calendario::getDateSimple(Utils::changeFormatDateNormal($data->fch_asignacion));
                     }
                 ],
 
@@ -187,10 +221,15 @@ $this->registerCssFile(
                     'attribute'=>'txt_arrendador',
                     'format'=>'raw'
                 ],
-
                 [
                     'label'=>'Responsable',
                     'format'=>'raw',
+                    'headerOptions' => [
+                        'class' => 'text-center'
+                    ],
+                    'contentOptions' => [
+                        'class'=>"td-responsable"
+                    ],
                     'value'=>function($data){
 
                         //LISTA DE USUARIOS AGREGADOS
@@ -207,7 +246,7 @@ $this->registerCssFile(
                         }
                         $seleccionados = json_encode($seleccionados);
                         
-                            if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){
+                            if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ASISTENTE){
                                 return "<div id='js_div_responsables' class='panel-listado-col w-m'>
                                     <select multiple='multiple' class='plugin-selective' data-id='".$data->id_localidad ."' data-json='". $seleccionados ."'></select> 
                                 </div>";
@@ -217,7 +256,7 @@ $this->registerCssFile(
                             return '
                             <ul class="addMember-items">
                                 <li class="addMember-item">
-                                    <img class="avatar" src="'.$usuarioDefault->imageProfile.'" data-toggle="tooltip" data-original-title="'.$usuarioDefault->nombreCompleto.'"">
+                                    <img class="avatar tooltip-success" src="'.$usuarioDefault->imageProfile.'" data-toggle="tooltip" data-original-title="'.$usuarioDefault->nombreCompleto.'">
                                 </li>
                             </ul>
                             ';
@@ -226,23 +265,43 @@ $this->registerCssFile(
 
                 [
                     'label'=>'Acciones',
+                    'contentOptions' => [
+                        'class'=>"td-actions"
+                    ],
+                    'headerOptions' => [
+                        'class' => 'text-center'
+                    ],
                     'format'=>'raw',
                     'value'=>function($data){
-
+                        $botones = '';
                         $botones =  '<div class="panel-listado-acctions-tooltip" data-toggle="tooltip" data-original-title="Detalles" data-template="<div class=\'tooltip tooltip-2 tooltip-success\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>">
-                                        <a  href="'.Url::base().'/localidades/view/'.$data->id_localidad.'"  class="btn btn-icon btn-success btn-outline panel-listado-acction acction-detail no-pjax run-slide-panel" >
-                                        <i class="icon wb-eye" aria-hidden="true"></i>
-                                        </a>
-                                    </div>';
-                        $botones .= '<div class="panel-listado-acctions-tooltip" data-toggle="tooltip" data-original-title="Tareas" data-template="<div class=\'tooltip tooltip-2 tooltip-warning\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>">
-                                        <a href="'.Url::base().'/localidades/ver-tareas-localidad?id='.$data->id_localidad.'" id="js_ver_localidades_'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel"><i class="icon wb-list" aria-hidden="true"></i></a>
-                                    </div>';  
-                        if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){
+                            <a  href="'.Url::base().'/localidades/view/'.$data->id_localidad.'"  class="btn btn-icon btn-success btn-outline panel-listado-acction acction-detail no-pjax run-slide-panel" >
+                            <i class="icon ion-md-list" aria-hidden="true"></i>
+                            </a>
+                        </div>';
+                        if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::SUPER_ADMIN){
+                            $botones .= '<div class="panel-listado-acctions-tooltip" data-toggle="tooltip" data-original-title="Tareas" data-template="<div class=\'tooltip tooltip-2 tooltip-warning\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>">
+                                <a href="'.Url::base().'/localidades/ver-tareas-localidad?id='.$data->id_localidad.'" id="js_ver_localidades_'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel"><i class="icon ion-md-hand" aria-hidden="true"></i></a>
+                            </div>'; 
+                        }
+                        if( Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ASISTENTE){
+
+                            $botones .= '<div class="panel-listado-acctions-tooltip" data-toggle="tooltip" data-original-title="Tareas" data-template="<div class=\'tooltip tooltip-2 tooltip-warning\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>">
+                                <a href="'.Url::base().'/localidades/ver-tareas-localidad?id='.$data->id_localidad.'" id="js_ver_localidades_'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel"><i class="icon ion-md-hand" aria-hidden="true"></i></a>
+                            </div>';  
+                        
                            // if(false){
                             $botones .= '<div class="panel-listado-acctions-tooltip">
-                                            <button data-template="<div class=\'tooltip tooltip-2 tooltip-info\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>" data-url="localidades/archivar-localidad?id='.$data->id_localidad.'" class="btn btn-icon btn-info btn-outline panel-listado-acction acction-archive no-pjax js_archivar_localidad" data-toggle="tooltip" data-original-title="Archivar"><i class="icon wb-inbox" aria-hidden="true"></i></button>
-                                        </div>'; 
-                        }                     
+                                <button data-template="<div class=\'tooltip tooltip-2 tooltip-info\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>" data-url="localidades/archivar-localidad?id='.$data->id_localidad.'" class="btn btn-icon btn-info btn-outline panel-listado-acction acction-archive no-pjax js_archivar_localidad" data-toggle="tooltip" data-original-title="Archivar"><i class="icon ion-md-archive" aria-hidden="true"></i></button>
+                            </div>'; 
+                        }
+                        
+                        if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::COLABORADOR || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::CLIENTE){
+                            $botones .= '<div class="panel-listado-acctions-tooltip" data-toggle="tooltip" data-original-title="Tareas" data-template="<div class=\'tooltip tooltip-2 tooltip-warning\' role=\'tooltip\'><div class=\'arrow\'></div><div class=\'tooltip-inner\'></div></div>">
+                                <a href="'.Url::base().'/localidades/ver-tareas-localidad?id='.$data->id_localidad.'" id="js_ver_localidades_'.$data->txt_token.'" class="btn btn-icon btn-warning btn-outline panel-listado-acction acction-tarea no-pjax run-slide-panel"><i class="icon ion-md-hand" aria-hidden="true"></i></a>
+                            </div>'; 
+                        }
+                        
                         return '<div class="panel-listado-acctions">
                                     '.$botones.'
                                 </div>
@@ -375,7 +434,7 @@ $(document).ready(function(){
               return '<div style=\"display:'+isAsignado+'\" class=\"' + this.namespace + '-trigger-button\"><i class=\"wb-plus\"></i></div>';
             },
             listItem: function listItem(data) {
-              return '<li class=\"' + this.namespace + '-list-item\"><img  class=\"avatar\" src=\"' + data.avatar + '\">' + data.name + '</li>';
+              return '<li class=\"' + this.namespace + '-list-item\"><img  class=\"avatar\" src=\"' + data.avatar + '\"><p>' + data.name + '</p></li>';
             },
             item: function item(data) {
               return '<li class=\"' + this.namespace + '-item\"><img data-toggle=\"tooltip\" data-original-title=\"' + data.name + '\" class=\"avatar\" src=\"' + data.avatar + '\" >' + this.options.tpl.itemRemove.call(this) + '</li>';

@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -8,36 +9,34 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 
 $this->title = 'Cambiar contraseña';
-$this->params['classBody'] = "page-login-v3 layout-full";
+$this->params['classBody'] = "page-login-v2 layout-full page-login";
 ?>
 
-<div class="panel">
-	<div class="panel-body">
+<div class="page-brand-info">
+	<img class="logo-login" src="<?=Url::base()?>/webAssets/images/overhaul-login.png" alt="Overhaul">
+</div>
+
+<div class="page-login-main animation-slide-right animation-duration-1">
+
+	<div class="page-login-v2-mask"></div>
+
+	<div class="page-login-main-cont">
+
+		<h3 class="title-datos">Porfavor Ingresa tus contraseñas</h3>
 
         <?php $form = ActiveForm::begin([
             'id' => 'login-form',
-            'fieldConfig' => [
-                "template" => "{input}{label}{error}",
-                "options" => [
-                    "class" => "form-group form-material floating",
-                    "data-plugin" => "formMaterial"
-                ],
-                "labelOptions" => [
-                    "class" => "floating-label"
-                ]
-            ]
         ]); ?>
 
-        
-        <?= $form->field($model, 'password')->passwordInput(['maxlength' => true])->label("Nueva contraseña") ?>
-        
-        <?= $form->field($model, 'repeatPassword')->passwordInput(['maxlength' => true])->label("Repetir contraseña") ?>
+        <?= $form->field($model, 'password')->passwordInput(["class"=>"form-control", 'placeholder'=>'Nueva contraseña'])->label(false) ?>
+
+        <?= $form->field($model, 'repeatPassword')->passwordInput(["class"=>"form-control", 'placeholder'=>'Repetir contraseña'])->label(false) ?>
 
         <div class="form-group">
             <?= Html::submitButton('<span class="ladda-label">Cambiar contraseña</label>', ["data-style"=>"zoom-in", 'class' => 'btn btn-recuperar-pass btn-block btn-lg mt-20 ladda-button', 'name' => 'login-button']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>
-        <p class="soporteTxt">¿Necesitas ayuda? escribe a: <a class="no-redirect login-link-white" href="mailto:soporte@2gom.com.mx?Subject=Solicitud%de%Soporte">soporte@2gom.com.mx</a></p>
+        <p class="soporteTxt">¿Necesitas ayuda? escribe a: <a class="no-redirect login-link-white" href="mailto:soporte@ovhaul.mx?Subject=Solicitud%de%Soporte">soporte@ovhaul.mx</a></p>
     </div>
 </div>    

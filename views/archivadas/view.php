@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\models\CatEstados;
+use app\models\CatColonias;
 use app\modules\ModUsuarios\models\EntUsuarios;
 use app\modules\ModUsuarios\models\Utils;
 use yii\widgets\ActiveForm;
@@ -16,6 +17,8 @@ use app\models\WrkUsuarioUsuarios;
 use app\models\WrkUsuariosTareas;
 use yii\helpers\Url;
 use app\assets\AppAsset;
+use app\models\Calendario;
+use app\models\EntEstatusArchivados;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\EntLocalidades */
@@ -53,25 +56,12 @@ $user = Yii::$app->user->identity;
     <button type="button" class="btn btn-pure btn-inverse slidePanel-close actions-top icon wb-close"
       aria-hidden="true"></button>
   </div>
-  <h1>A Detalles de la localidad: <?=$model->txt_nombre?></h1>
+  <h1>Detalles de la localidad: <?=$model->txt_nombre?></h1>
 </header>
 
     <div class="page ryg-page">
         <div class="page-content">
             <div class="ent-localidades-view">
-                <div class="ent-localidades-view-head">
-                    <?php /*if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
-                        <?= Html::a('<i class="icon wb-pencil" aria-hidden="true"></i> Editar', ['update', 'id' => $model->id_localidad], ['class' => 'btn btn-update no-pjax']) ?>
-                    <?php }*/ ?>
-                    <?php # Html::a('<i class="icon wb-trash" aria-hidden="true"></i>', ['delete', 'id' => $model->id_localidad], [
-                        #'class' => 'btn btn-delete',
-                        #'data' => [
-                            #   'confirm' => 'Are you sure you want to delete this item?',
-                            #  'method' => 'post',
-                        #],
-                    #]) ?>
-                </div>
-
                 <div class="ent-localidades-view-body">
 
                     <div class="ent-localidades-view-panel">
@@ -80,105 +70,167 @@ $user = Yii::$app->user->identity;
                         <div class="row">
                             <div class="col-md-12 col">
 
-                             
-                                
                                 <div class="ent-localidades-view-panel-int">
                                     <div class="row">
-                                        <div class="col-sm-6 col-md-6">
-                                            Estado: 
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Nombre localidad: </span>
+                                            <p><?= $model->txt_nombre ?></p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Arrendador: </span>
+                                            <p><?= $model->txt_arrendador ?></p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Beneficiario: </span>
+                                            <p><?= $model->txt_beneficiario ?></p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Cms: </span>
+                                            <p><?= $model->cms ?></p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Contacto: </span>
+                                            <p><?= $model->txt_contacto ?></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Domicilio: </span>
+                                            <p><?= $model->txt_calle ?></p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Colonia: </span>
                                             <?php
-                                            
-                                            $estado = CatEstados::find()->where(['id_estado'=>$model->id_estado])->one();
-                                            echo $estado->txt_nombre;
-                                            
+                                            if($model->txt_colonia){
+                                                $colonia = CatColonias::find()->where(['id_colonia'=>$model->txt_colonia])->one();
+                                            ?>
+                                                <p><?= $colonia->txt_nombre ?></p>
+                                            <?php
+                                            }else{
+                                            ?>
+                                                <p><?= $model->texto_colonia ?></p>
+                                            <?php
+                                            }
                                             ?>
                                         </div>
-                                        <div class="col-sm-6 col-md-6">
-                                            Nombre: 
-                                            <?= $model->txt_nombre ?>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Delegación/Municipio: </span>
+                                            <p><?= $model->txt_municipio ?></p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Código postal: </span>
+                                            <p><?= $model->txt_cp ?></p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Estado: </span>
+                                            <p>
+                                                <?php
+                                                if($model->id_estado){
+                                                    $estado = CatEstados::find()->where(['id_estado'=>$model->id_estado])->one();
+                                                    echo $estado->txt_nombre;
+                                                ?>
+
+                                                <?php
+                                                }else{
+                                                ?>
+                                                    <?= $model->texto_estado ?>
+                                                <?php
+                                                }
+                                                ?>
+                                            </p>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-sm-6 col-md-6">
-                                            Arrendador: 
-                                            <?= $model->txt_arrendador ?>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6">
-                                            Beneficiario: 
-                                            <?= $model->txt_beneficiario ?>
-                                        </div>
-                                    </div>
 
-                                    <div class="row">
-                                        <div class="col-sm-6 col-md-6">
-                                            Calle: 
-                                            <?= $model->txt_calle ?>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6">
-                                            Colonia: 
-                                            <?= $model->txt_colonia ?>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-6 col-md-6">
-                                            Municipio: 
-                                            <?= $model->txt_municipio ?>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6">
-                                            Codigo postal: 
-                                            <?= $model->txt_cp ?>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-6 col-md-6">
-                                            Estatus: 
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Estatus: </span>
                                             <?php
-                                            $estatus = EntEstatus::find()->where(['id_localidad'=>$model->id_localidad])->orderBy('fch_creacion')->all();
+                                            if($model->estatusTracker){
+                                                echo "<p>".$model->estatusTracker->txt_estatus_tracker."</p>";
+                                            }else{
+                                                echo "<p>Si estatus</p>";
+                                            }
+                                            ?>
+                                        </div>
+                                        
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Comentarios: </span>
+                                            <p>
+                                            <?php
+                                            $estatus = EntEstatusArchivados::find()->where(['id_localidad'=>$model->id_localidad])->orderBy('fch_creacion')->all();
                                             $arr = "";
                                             foreach ($estatus as $est){
-                                                $arr .= '<span class="badge badge-outline badge-success badge-round ml-5 vertical-align-middle">'.$est->txt_estatus.'</span>';
+                                            ?>
+                                                <div class="form-group">
+                                            <?php
+                                                    echo '<p class="form-p form-label"><span class="badge badge-outline badge-success badge-round ml-5 vertical-align-middle">'.$est->txt_estatus.'</span></p>';                                                
+                                            ?>
+                                                </div>
+                                            <?php
                                             }
-                                            echo $arr;
                                             ?>
                                         </div>
-                                        <div class="col-sm-6 col-md-6">
-                                            Antecedentes: 
-                                            <?= $model->txt_antecedentes ?>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Antecedentes: </span>
+                                            <p><?= $model->txt_antecedentes ?></p>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-sm-6 col-md-6">
-                                            Num Renta Actual: 
-                                            <?= $model->num_renta_actual ?>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Tipo de moneda: </span>
+                                            <?php
+                                            $moneda = $model->moneda;
+                                            echo "<p>".$moneda->txt_moneda."</p>";
+                                            ?>
                                         </div>
-                                        <div class="col-sm-6 col-md-6">
-                                            Num Incremento Autotizado: 
-                                            <?= $model->num_incremento_autorizado ?>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Frecuencia de pago: </span>
+                                            <p><?= $model->txt_frecuencia ?></p>
                                         </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-6 col-md-6">
-                                            Fecha Vencimiento Contratado: 
-                                            <?= Utils::changeFormatDate($model->fch_vencimiento_contratro); ?>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Renta Actual: </span>
+                                            <p><?= $model->num_renta_actual ?></p>
                                         </div>
-                                        <div class="col-sm-6 col-md-6">
-                                            Fecha Creación: 
-                                            <?= Utils::changeFormatDate($model->fch_creacion); ?>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Porcentaje de incremento preautorizado: </span>
+                                            <p><?= $model->num_incremento_autorizado ?></p>
                                         </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-6 col-md-6">
-                                            Fecha Asignación: 
-                                            <?= Utils::changeFormatDate($model->fch_asignacion); ?>
+                                        <div class="col-sm-12 col-md-12">
+                                            <?php if($model->num_pretencion_renta){ ?>
+                                                <span>Renta pre-autorizada: </span>
+                                                <p><?= $model->num_pretencion_renta ?></p>
+                                            <?php } ?>
                                         </div>
-                                        <div class="col-sm-6 col-md-6">
-                                            Problemas Acceso: 
+                                        <div class="col-sm-12 col-md-12">
+                                            <?php if($model->num_incremento_cliente){ ?>
+                                                <span>Porcentaje de incremento solicitado por arrendador: </span>
+                                                <p><?= $model->num_incremento_cliente ?></p>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <?php if($model->num_pretencion_renta_cliente){ ?>
+                                                <span>Pretensión de renta del arrendador: </span>
+                                                <p><?= $model->num_pretencion_renta_cliente ?></p>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Fecha Vencimiento Contrato: </span>
+                                            <p><?= Calendario::getDateSimple(Utils::changeFormatDateNormal($model->fch_vencimiento_contratro)); ?></p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Fecha Creación: </span>
+                                            <p><?= Calendario::getDateSimple(Utils::changeFormatDateNormal($model->fch_creacion)); ?></p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Fecha Asignación: </span>
+                                            <p><?= Calendario::getDateSimple(Utils::changeFormatDateNormal($model->fch_asignacion)); ?></p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Problemas Acceso: </span>
+                                            <p>
                                             <?php
                                             if($model->b_problemas_acceso == 0){
                                                 echo "No";
@@ -186,6 +238,7 @@ $user = Yii::$app->user->identity;
                                                 echo "Si";
                                             }
                                             ?>
+                                            </p>
                                         </div>
                                     </div>
 

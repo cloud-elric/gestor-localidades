@@ -46,6 +46,12 @@ use app\modules\ModUsuarios\models\EntUsuarios;
  */
 class EntLocalidadesArchivadas extends \yii\db\ActiveRecord
 {
+    public $textoCP;
+    public $textoColonia;
+    public $textoMun;
+    public $textoEstado;
+    public $textoCalle;
+    public $tipoUbicacion;
     /**
      * @inheritdoc
      */
@@ -60,15 +66,15 @@ class EntLocalidadesArchivadas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_estado', 'id_usuario', 'cms', 'txt_token', 'txt_nombre', 'txt_arrendador', 'txt_beneficiario'], 'required'],
-            [['id_estado', 'id_usuario', 'id_moneda', 'b_problemas_acceso', 'b_archivada', 'b_status_localidad'], 'integer'],
-            [['txt_estatus', 'txt_antecedentes'], 'string'],
+            [[/*'id_estado',*/ 'id_usuario', 'cms', 'txt_token', 'txt_nombre', 'txt_arrendador', 'txt_beneficiario'], 'required'],
+            [['id_estado', 'id_usuario', 'id_moneda', 'id_estatus_tracker', 'b_problemas_acceso', 'b_archivada', 'b_status_localidad'], 'integer'],
+            [['txt_estatus', 'txt_antecedentes', 'txt_contacto', 'txt_frecuencia'], 'string'],
             [['num_renta_actual', 'num_incremento_autorizado', 'num_pretencion_renta', 'num_incremento_cliente', 'num_pretencion_renta_cliente'], 'number'],
             [['fch_vencimiento_contratro', 'fch_creacion', 'fch_asignacion'], 'safe'],
             [['cms'], 'string', 'max' => 50],
             [['txt_token'], 'string', 'max' => 70],
-            [['txt_nombre', 'txt_arrendador', 'txt_beneficiario', 'txt_calle', 'txt_colonia', 'txt_municipio'], 'string', 'max' => 150],
-            [['txt_cp'], 'string', 'max' => 5],
+            [['txt_nombre', 'txt_arrendador', 'txt_beneficiario', 'txt_calle', 'txt_colonia', 'txt_municipio', 'txt_contacto', 'texto_colonia', 'texto_estado'], 'string', 'max' => 150],
+            [['txt_cp', 'textoCP'], 'string', 'max' => 5],
             [['b_archivada'], 'exist', 'skipOnError' => true, 'targetClass' => CatMotivosArchivar::className(), 'targetAttribute' => ['b_archivada' => 'id_motivo']],
             [['id_estado'], 'exist', 'skipOnError' => true, 'targetClass' => CatEstados::className(), 'targetAttribute' => ['id_estado' => 'id_estado']],
             [['b_status_localidad'], 'exist', 'skipOnError' => true, 'targetClass' => CatRegularizacionRenovacion::className(), 'targetAttribute' => ['b_status_localidad' => 'id_catalogo']],
@@ -89,14 +95,15 @@ class EntLocalidadesArchivadas extends \yii\db\ActiveRecord
             'id_moneda' => 'Id Moneda',
             'cms' => 'Cms',
             'txt_token' => 'Txt Token',
-            'txt_nombre' => 'Txt Nombre',
-            'txt_arrendador' => 'Txt Arrendador',
+            'txt_nombre' => 'Nombre',
+            'txt_arrendador' => 'Arrendador',
             'txt_beneficiario' => 'Txt Beneficiario',
-            'txt_calle' => 'Txt Calle',
+            'txt_calle' => 'Domicilio',
             'txt_colonia' => 'Txt Colonia',
-            'txt_municipio' => 'Txt Municipio',
+            'txt_municipio' => 'Delegación/Municipio',
             'txt_cp' => 'Txt Cp',
-            'txt_estatus' => 'Txt Estatus',
+            'txt_estatus' => 'Comentarios',
+            'id_estatus_tracker' => 'Estatus',
             'txt_antecedentes' => 'Txt Antecedentes',
             'num_renta_actual' => 'Num Renta Actual',
             'num_incremento_autorizado' => 'Num Incremento Autorizado',
@@ -104,11 +111,11 @@ class EntLocalidadesArchivadas extends \yii\db\ActiveRecord
             'num_incremento_cliente' => 'Num Incremento Cliente',
             'num_pretencion_renta_cliente' => 'Num Pretencion Renta Cliente',
             'fch_vencimiento_contratro' => 'Fch Vencimiento Contratro',
-            'fch_creacion' => 'Fch Creacion',
-            'fch_asignacion' => 'Fch Asignacion',
+            'fch_creacion' => 'Fecha de Creación',
+            'fch_asignacion' => 'Fecha  de Asignación',
             'b_problemas_acceso' => 'B Problemas Acceso',
             'b_archivada' => 'B Archivada',
-            'b_status_localidad' => 'B Status Localidad',
+            'b_status_localidad' => 'B Status Localidad NO',
         ];
     }
 
@@ -174,5 +181,13 @@ class EntLocalidadesArchivadas extends \yii\db\ActiveRecord
     public function getUsuarios()
     {
         return $this->hasMany(ModUsuariosEntUsuarios::className(), ['id_usuario' => 'id_usuario'])->viaTable('wrk_usuarios_localidades_archivadas', ['id_localidad' => 'id_localidad']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEstatusTracker()
+    {
+        return $this->hasOne(CatEstatusTracker::className(), ['id_estatus_tracker' => 'id_estatus_tracker']);
     }
 }

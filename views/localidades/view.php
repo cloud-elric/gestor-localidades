@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\models\CatEstados;
+use app\models\CatColonias;
 use app\modules\ModUsuarios\models\EntUsuarios;
 use app\modules\ModUsuarios\models\Utils;
 use yii\widgets\ActiveForm;
@@ -16,6 +17,7 @@ use app\models\WrkUsuarioUsuarios;
 use app\models\WrkUsuariosTareas;
 use yii\helpers\Url;
 use app\assets\AppAsset;
+use app\models\Calendario;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\EntLocalidades */
@@ -60,7 +62,7 @@ $user = Yii::$app->user->identity;
         <div class="page-content">
             <div class="ent-localidades-view">
                 <div class="ent-localidades-view-head">
-                    <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO){ ?>
+                    <?php if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ASISTENTE){ ?>
                         <?= Html::a('<i class="icon wb-pencil" aria-hidden="true"></i> Editar', ['update', 'id' => $model->id_localidad], ['class' => 'btn btn-update no-pjax']) ?>
                     <?php } ?>
                     <?php # Html::a('<i class="icon wb-trash" aria-hidden="true"></i>', ['delete', 'id' => $model->id_localidad], [
@@ -75,7 +77,6 @@ $user = Yii::$app->user->identity;
                 <div class="ent-localidades-view-body">
 
                     <div class="ent-localidades-view-panel">
-                        
 
                         <div class="row">
                             <div class="col-md-12 col">
@@ -83,7 +84,7 @@ $user = Yii::$app->user->identity;
                                 <div class="ent-localidades-view-panel-int">
                                     <div class="row">
                                         <div class="col-sm-12 col-md-12">
-                                            <span>Nombre: </span>
+                                            <span>Nombre localidad: </span>
                                             <p><?= $model->txt_nombre ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
@@ -94,19 +95,38 @@ $user = Yii::$app->user->identity;
                                             <span>Beneficiario: </span>
                                             <p><?= $model->txt_beneficiario ?></p>
                                         </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Cms: </span>
+                                            <p><?= $model->cms ?></p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Contacto: </span>
+                                            <p><?= $model->txt_contacto ?></p>
+                                        </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-sm-12 col-md-12">
-                                            <span>Calle: </span>
+                                            <span>Domicilio: </span>
                                             <p><?= $model->txt_calle ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
                                             <span>Colonia: </span>
-                                            <p><?= $model->txt_colonia ?></p>
+                                            <?php
+                                            if($model->txt_colonia){
+                                                $colonia = CatColonias::find()->where(['id_colonia'=>$model->txt_colonia])->one();
+                                            ?>
+                                                <p><?= $colonia->txt_nombre ?></p>
+                                            <?php
+                                            }else{
+                                            ?>
+                                                <p><?= $model->texto_colonia ?></p>
+                                            <?php
+                                            }
+                                            ?>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
-                                            <span>Municipio: </span>
+                                            <span>Delegación/Municipio: </span>
                                             <p><?= $model->txt_municipio ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
@@ -116,27 +136,79 @@ $user = Yii::$app->user->identity;
                                         <div class="col-sm-12 col-md-12">
                                             <span>Estado: </span>
                                             <p>
-                                            <?php
-                                            $estado = CatEstados::find()->where(['id_estado'=>$model->id_estado])->one();
-                                            echo $estado->txt_nombre;
-                                            ?>
+                                                <?php
+                                                if($model->id_estado){
+                                                    $estado = CatEstados::find()->where(['id_estado'=>$model->id_estado])->one();
+                                                    echo $estado->txt_nombre;
+                                                ?>
+
+                                                <?php
+                                                }else{
+                                                ?>
+                                                    <?= $model->texto_estado ?>
+                                                <?php
+                                                }
+                                                ?>
                                             </p>
                                         </div>
                                     </div>
 
                                     <div class="row">
+
+                                        <!-- <div class="col-sm-12 col-md-12">
+                                            <form action="" class="form-detalle-localidad">
+                                                <h6>Datos</h6>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control form-input" placeholder="Algo">
+                                                    <p class="form-p form-label">Algo de lorem ipsum</p>
+                                                    <div class="form-edit">
+                                                        <i class="icon wb-pencil icon-edit js-icon-edit" aria-hidden="true"></i>
+                                                        <i class="icon wb-check icon-save js-icon-save" aria-hidden="true"></i>
+                                                    </div>
+                                                </div>
+                                            
+                                        </div> -->
+
                                         <div class="col-sm-12 col-md-12">
                                             <span>Estatus: </span>
-                                            <p>
                                             <?php
-                                            $estatus = EntEstatus::find()->where(['id_localidad'=>$model->id_localidad])->orderBy('fch_creacion')->all();
-                                            $arr = "";
-                                            foreach ($estatus as $est){
-                                                $arr .= '<span class="badge badge-outline badge-success badge-round ml-5 vertical-align-middle">'.$est->txt_estatus.'</span>';
+                                            if($model->estatusTracker){
+                                                echo "<p>".$model->estatusTracker->txt_estatus_tracker."</p>";
+                                            }else{
+                                                echo "<p>Si estatus</p>";
                                             }
-                                            echo $arr;
                                             ?>
-                                            </p>
+                                        </div>
+
+                                        <div class="col-sm-12 col-md-12 ">
+                                            <form action="" class="form-detalle-localidad">
+                                                <span>Comentarios: </span>
+                                                <?php
+                                                $estatus = EntEstatus::find()->where(['id_localidad'=>$model->id_localidad])->orderBy('fch_creacion')->all();
+                                                $arr = "";
+                                                foreach ($estatus as $est){
+                                                    if(Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ABOGADO || Yii::$app->user->identity->txt_auth_item == ConstantesWeb::ASISTENTE){                                                    
+                                                ?>
+                                                        <div class="form-group">
+                                                                <textarea class="form-control form-input form-input-<?=$est->id_estatus?>" placeholder="Estatus"><?=$est->txt_estatus?></textarea>
+                                                            <?php
+                                                                echo '<p class="form-p form-label form-label-'.$est->id_estatus.'"><span class="badge badge-outline badge-success js-span-texto-'.$est->id_estatus.' badge-round ml-5 vertical-align-middle">'.$est->txt_estatus.'</span></p>';
+                                                            ?>
+                                                            <div class="form-edit form-edit-<?=$est->id_estatus?>">
+                                                                <i class="icon wb-pencil icon-edit js-icon-edit" data-id="<?=$est->id_estatus?>" aria-hidden="true"></i>
+                                                                <i class="icon wb-check icon-save js-icon-save" data-id="<?=$est->id_estatus?>" aria-hidden="true"></i>
+                                                            </div>
+                                                        </div>
+                                                    <?php 
+                                                    }else{ 
+                                                    ?>
+                                                        <div class="form-group">
+                                                            <p class="form-p form-label"><span class="badge badge-outline badge-success badge-round ml-5 vertical-align-middle"><?=$est->txt_estatus?></span></p>
+                                                        </div>
+                                                <?php 
+                                                    }
+                                                } ?>
+                                            </form>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
                                             <span>Antecedentes: </span>
@@ -146,24 +218,53 @@ $user = Yii::$app->user->identity;
 
                                     <div class="row">
                                         <div class="col-sm-12 col-md-12">
-                                            <span>Num. Renta Actual: </span>
+                                            <span>Tipo de moneda: </span>
+                                            <?php
+                                            $moneda = $model->moneda;
+                                            echo "<p>".$moneda->txt_moneda."</p>";
+                                            ?>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Frecuencia de pago: </span>
+                                            <p><?= $model->txt_frecuencia ?></p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Renta Actual: </span>
                                             <p><?= $model->num_renta_actual ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
-                                            <span>Num. Incremento Autotizado: </span>
+                                            <span>Porcentaje de incremento preautorizado: </span>
                                             <p><?= $model->num_incremento_autorizado ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
-                                            <span>Fecha Vencimiento Contratado: </span>
-                                            <p><?= Utils::changeFormatDate($model->fch_vencimiento_contratro); ?></p>
+                                            <?php if($model->num_pretencion_renta){ ?>
+                                                <span>Renta pre-autorizada: </span>
+                                                <p><?= $model->num_pretencion_renta ?></p>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <?php if($model->num_incremento_cliente){ ?>
+                                                <span>Porcentaje de incremento solicitado por arrendador: </span>
+                                                <p><?= $model->num_incremento_cliente ?></p>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <?php if($model->num_pretencion_renta_cliente){ ?>
+                                                <span>Pretensión de renta del arrendador: </span>
+                                                <p><?= $model->num_pretencion_renta_cliente ?></p>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12">
+                                            <span>Fecha Vencimiento Contrato: </span>
+                                            <p><?= Calendario::getDateSimple(Utils::changeFormatDateNormal($model->fch_vencimiento_contratro)); ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
                                             <span>Fecha Creación: </span>
-                                            <p><?= Utils::changeFormatDate($model->fch_creacion); ?></p>
+                                            <p><?= Calendario::getDateSimple(Utils::changeFormatDateNormal($model->fch_creacion)); ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
                                             <span>Fecha Asignación: </span>
-                                            <p><?= Utils::changeFormatDate($model->fch_asignacion); ?></p>
+                                            <p><?= Calendario::getDateSimple(Utils::changeFormatDateNormal($model->fch_asignacion)); ?></p>
                                         </div>
                                         <div class="col-sm-12 col-md-12">
                                             <span>Problemas Acceso: </span>
@@ -193,3 +294,43 @@ $user = Yii::$app->user->identity;
             </div>
         </div>    
     </div>
+
+<?php
+$this->registerJs('
+
+$(document).ready(function(){
+
+    $(".js-icon-edit").on("click", function(){
+        var id = $(this).data("id");
+        $(".form-label-"+id).hide();
+        $(".form-input-"+id).show();
+
+        $(".form-edit-"+id).addClass("edit-visible");
+
+        // $(this).hide();
+        // $(".js-icon-save").show().css({"display": "-webkit-box", "display": "-ms-flexbox", "display": "-webkit-flex", "display": "flex"});
+    });
+
+    $(".js-icon-save").on("click", function(){
+        var id = $(this).data("id");
+        var texto = $(".form-input-"+id).val();
+        
+        $.ajax({
+            url: baseUrl+"localidades/editar-estatus?id="+id,
+            data: {txt_estatus: texto},
+            type: "POST",
+            success: function(resp){
+                if(resp.status == "success"){
+                    $(".form-input-"+id).hide();
+                    $(".js-span-texto-"+id).text(texto);
+                    $(".form-label-"+id).show();
+                    $(".form-edit-"+id).removeClass("edit-visible");
+                }
+            }    
+        });
+    });
+});
+
+', View::POS_END );
+
+?>

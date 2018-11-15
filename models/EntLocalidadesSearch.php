@@ -19,8 +19,14 @@ class EntLocalidadesSearch extends EntLocalidades
     public function rules()
     {
         return [
-            [['id_localidad', 'id_estado', 'id_usuario', 'b_problemas_acceso', 'b_archivada'], 'integer'],
-            [['txt_token', 'txt_nombre', 'txt_arrendador', 'txt_beneficiario', 'txt_calle', 'txt_colonia', 'txt_municipio', 'txt_cp', 'txt_estatus', 'txt_antecedentes', 'fch_vencimiento_contratro', 'fch_creacion', 'fch_asignacion'], 'safe'],
+            [['id_localidad', 'id_estado', 'id_usuario', 'b_problemas_acceso', 'b_archivada', 'b_status_localidad'], 'integer'],
+            [
+                [
+                    'cms'
+                ],
+                'trim'
+            ],
+            [['txt_token', 'cms', 'txt_nombre', 'txt_arrendador', 'txt_beneficiario', 'txt_calle', 'txt_colonia', 'txt_municipio', 'txt_cp', 'txt_estatus', 'txt_antecedentes', 'fch_vencimiento_contratro', 'fch_creacion', 'fch_asignacion'], 'safe'],
             [['num_renta_actual', 'num_incremento_autorizado'], 'number'],
         ];
     }
@@ -67,6 +73,13 @@ class EntLocalidadesSearch extends EntLocalidades
                 'id_localidad' => $this->id_localidad
                 ]);
         }
+
+        if($user->txt_auth_item == ConstantesWeb::ASISTENTE){
+            $padre = WrkUsuarioUsuarios::find()->where(['id_usuario_hijo'=>$user->id_usuario])->one();
+            $query->andFilterWhere(['id_usuario'=>$padre->id_usuario_padre])
+                ->orFilterWhere(['id_usuario' => $user->id_usuario]);            
+        }
+
         if($user->txt_auth_item == ConstantesWeb::CLIENTE){
             $loc = WrkUsuariosLocalidades::find()->select('id_localidad')->where(['id_usuario'=>$user->id_usuario])->asArray();//var_dump($loc);exit;
             // grid filtering conditions
@@ -90,10 +103,12 @@ class EntLocalidadesSearch extends EntLocalidades
             'fch_asignacion' => $this->fch_asignacion,
             'b_problemas_acceso' => $this->b_problemas_acceso,
             'b_archivada' => $this->b_archivada,
+            'b_status_localidad' => $this->b_status_localidad,
         ]);
 
         $query->andFilterWhere(['like', 'txt_token', $this->txt_token])
-            ->andFilterWhere(['like', 'txt_nombre', $this->txt_nombre])
+            ->andFilterWhere(['like', 'txt_nombre', $this->cms])
+            ->orFilterWhere(['like', 'cms', $this->cms])
             ->andFilterWhere(['like', 'txt_arrendador', $this->txt_arrendador])
             ->andFilterWhere(['like', 'txt_beneficiario', $this->txt_beneficiario])
             ->andFilterWhere(['like', 'txt_calle', $this->txt_calle])

@@ -19,6 +19,9 @@ use app\models\ResponseServices;
 use app\models\EntLocalidades;
 use app\models\WrkTareas;
 use app\models\WrkUsuariosTareas;
+use app\components\AccessControlExtend;
+use app\models\EntEstatusArchivados;
+use app\models\EntEstatus;
 
 /**
  * ArchivadasController implements the CRUD actions for EntLocalidadesArchivadas model.
@@ -31,6 +34,21 @@ class ArchivadasController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControlExtend::className(),
+                'only' => [
+                    'index', 'create', 'update', 'delete', 'desarchivar-localidad'
+                ],
+                'rules' => [
+                    [
+                        'actions' => [
+                            'index', 'create', 'update', 'delete', 'desarchivar-localidad'                            
+                        ],
+                        'allow' => true,
+                        'roles' => [ConstantesWeb::ABOGADO, ConstantesWeb::ASISTENTE],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -208,6 +226,25 @@ class ArchivadasController extends Controller
         try{
             if($localidad->save()){
                 $tareasArchivadas = $archivada->wrkTareasArchivadas;
+
+                $estatusArch = EntEstatusArchivados::find()->where(['id_localidad'=>$archivada->id_localidad])->all();
+
+                foreach($estatusArch as $es){
+                    $estatus = new EntEstatus();
+                    $estatus->id_localidad = $localidad->id_localidad;
+                    $estatus->txt_estatus = $es->txt_estatus;
+                    $estatus->fch_creacion = $es->fch_creacion;
+
+                    if(!$estatus->save()){
+                        $transaction->rollBack();
+                        echo "wqwq22";
+
+                        return $response;
+                    }else{
+                        $es->delete();
+                    }
+                }
+
                 foreach($tareasArchivadas as $tareaArchivada){
                     $tarea = new WrkTareas();
                     $tarea->attributes = $tareaArchivada->attributes;
@@ -217,36 +254,40 @@ class ArchivadasController extends Controller
 
                     if(!$tarea->save()){
                         $transaction->rollBack ();
-                        print_r($tarea);exit;
+                        //print_r($tarea);exit;
                         return $response;
                     }else{
                         $userTareaArchivada = WrkUsuariosTareasArchivadas::find()->where(['id_tarea'=>$tareaArchivada->id_tarea])->one();
-                        $userTarea = new WrkUsuariosTareas();
-                        $userTarea->id_usuario = $userTareaArchivada->id_usuario;
-                        $userTarea->id_tarea = $tarea->id_tarea;
+                        if($userTareaArchivada){
+                            $userTarea = new WrkUsuariosTareas();
+                            $userTarea->id_usuario = $userTareaArchivada->id_usuario;
+                            $userTarea->id_tarea = $tarea->id_tarea;
 
-                        if(!$userTarea->save()){
-                            $transaction->rollBack ();
-                            print_r($userTarea);exit;                            
-                            return $response;
+                            if(!$userTarea->save()){
+                                $transaction->rollBack ();
+                                //print_r($userTarea);exit;                            
+                                return $response;
+                            }
                         }
                     }
                     $tareaArchivada->delete();
                 }
                 $userLocArchivada = WrkUsuariosLocalidadesArchivadas::find()->where(['id_localidad'=>$archivada->id_localidad])->one();
-                $userLoc = new WrkUsuariosLocalidades();
-                $userLoc->id_localidad = $localidad->id_localidad;
-                $userLoc->id_usuario = $userLocArchivada->id_usuario;
-                
-                if(!$userLoc->save()){
-                    $transaction->rollBack ();
-                    print_r($userLoc);exit;
-                    return $response;
+                if($userLocArchivada){
+                    $userLoc = new WrkUsuariosLocalidades();
+                    $userLoc->id_localidad = $localidad->id_localidad;
+                    $userLoc->id_usuario = $userLocArchivada->id_usuario;
+                    
+                    if(!$userLoc->save()){
+                        $transaction->rollBack ();
+                        //print_r($userLoc);exit;
+                        return $response;
+                    }
                 }
             }else{
                 $transaction->rollBack();
-                print_r($localidad);exit;
-                return respuesta;
+                //print_r($localidad->errors);exit;
+                return $response;
             }
             $archivada->delete();
             $transaction->commit ();

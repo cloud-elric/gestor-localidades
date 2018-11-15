@@ -1,0 +1,1160 @@
+/*!
+	-----------------------------------------------------------------------------
+
+	2.0 - Usuarios
+			# Listado
+			# Crear
+
+	-----------------------------------------------------------------------------
+	*/
+
+
+/*  Page Listado
+	======================================= */
+.ryg-page
+	
+	.page-header
+		position: relative
+		z-index: 3
+
+	.page-content
+		position: relative
+		z-index: 3
+
+		.panel-localidades-cont
+			// background-color: rgba($ryg-second,.45)
+			background-color: rgba($ryg-panel,.65)
+			
+			.panel-localidades,
+			.panel-table
+				background-color: transparent
+
+			.panel-localidades
+
+				.list-group-item
+					background-color: transparent
+
+				// .page-header
+				.panel-search
+					align-content: center
+					display: flex
+					flex-direction: column
+					justify-content: flex-start
+					padding: 20px
+					width: 100%
+					.panel-search-title
+						color: $ryg-aqua
+						font-size: 1rem
+						font-weight: $light
+						line-height: 2.4
+						margin: 0
+						width: 100%
+					
+					.panel-search-form
+						// align-content: center
+						// display: flex
+						// justify-content: flex-start
+						margin-bottom: 0
+						width: 100%
+						.form-group
+							margin-bottom: 0
+							+respond-to(xs)
+								margin-bottom: 12px
+
+						.panel-search-form-input,
+						.panel-search-form-select,
+						select.form-control,
+						select.form-control:not([size]):not([multiple])
+							background-color: $ryg-seconds
+							border: none
+							+border-radius(3px)
+							color: $ryg-aqua
+							font-size: 1rem
+							font-weight: $light
+							width: 100%
+							+placeholder
+								color: rgba($ryg-aqua,.6)
+								font-size: 1rem
+								font-weight: $light
+							&:focus
+								outline: none
+
+						.panel-search-form-select,
+						select.form-control,
+						select.form-control:not([size]):not([multiple])
+							-webkit-appearance: none
+							-moz-appearance: none
+							-ms-appearance: none
+							appearance: none
+							background-image: url(../images/downarrow.png)
+							background-color: $ryg-seconds
+							background-position: 96% 50%
+							background-repeat: no-repeat
+							background-size: 8px
+							height: 34px
+							padding: 6px 20px
+							&:focus
+								box-shadow: none
+								outline: none
+
+						.panel-search-form-input
+							padding: 6px 16px
+					
+					.btn-add
+						background-color: $ryg-accent
+						border-color: $ryg-accent
+						color: $ryg-second
+						+respond-to(sl)
+							display: block
+							margin-bottom: 12px
+						&:active,
+						&:focus,
+						&:hover
+							background-color: darken( $ryg-accent, 20% )
+							border-color: darken( $ryg-accent, 20% )
+							box-shadow: none
+							color: $ryg-second
+					
+					.btn-search
+						background-color: transparent
+						border-color: $ryg-accent
+						color: $white
+						width: 100%
+						&:active,
+						&:focus,
+						&:hover
+							background-color: rgba($ryg-accent,.85)
+							color: $ryg-second
+
+						+respond-to(md)
+							padding: .5rem .3rem
+						+respond-to(tl)
+							padding: .5rem .15rem
+						+respond-to(xs)
+							padding: .5rem 1rem
+
+			.panel-table
+				padding-bottom: 16px
+				
+				table
+					width: 100%
+					th,
+					td
+						border: none
+					thead
+						tr
+							th
+								color: $ryg-gray
+								font-size: .9rem
+								font-weight: $bold
+								padding: 8px 0
+								text-transform: uppercase
+								a
+									color: $ryg-gray
+									font-size: .9rem
+									font-weight: $bold
+									padding: 8px 0
+									text-decoration: none
+									text-transform: uppercase
+								&.th-cms
+									padding-left: 58px
+
+							td
+								input[type="text"],
+								select
+									background-color: $ryg-second
+									border: none
+									+border-radius(3px)
+									color: $ryg-aqua
+									font-size: 1rem
+									font-weight: $light
+									margin-right: 20px
+									+placeholder
+										color: rgba($ryg-aqua,.6)
+										font-size: 1rem
+										font-weight: $light
+									&:focus
+										outline: none
+
+								select
+									padding: 6px 20px
+								input[type="text"]
+									padding: 6px 16px
+					
+					tbody
+						tr
+							&:last-child
+								border-bottom: 1px solid $ryg-second
+							&:hover
+								background-color: rgba($ryg-second, .3)
+							td
+								border-top: 1px solid $ryg-second
+								color: $ryg-aqua
+								font-size: .87rem
+								font-weight: $thin
+								line-height: 3
+								padding: 10px 0 8px
+								vertical-align: middle
+
+								.empty
+									font-size: .9rem
+									padding: 0 12px
+									text-align: center
+								
+								.panel-listado-user
+									align-items: center
+									display: flex
+									flex-wrap: wrap
+									padding-left: 12px
+									text-decoration: none
+									+respond-to(sl)
+										justify-content: center
+									.panel-listado-user-link
+										color: $ryg-aqua
+										font-size: .8rem
+										font-weight: $thin
+										padding: 8px 4px
+										text-decoration: none
+										text-transform: uppercase
+									.panel-listado-user-cats
+										margin-right: 24px
+										width: 24px
+										.panel-listado-user-cat
+											align-items: center
+											border-radius: 50%
+											display: flex
+											height: 14px
+											justify-content: center
+											margin-right: .8rem
+											text-decoration: none
+											width: 14px
+											&.cat-pink
+												background-color: $ryg-pink
+											&.cat-yellow
+												background-color: $ryg-accent
+											&.cat-aqua
+												background-color: $ryg-aqua
+											&.cat-lg
+												height: 24px
+												width: 24px
+
+											&.cat-green
+												background-color: $success
+											&.cat-red
+												background-color: $error
+
+								&.td-cms
+									width: 16%
+
+								&.td-nombre
+									width: 20%
+
+								&.td-responsable
+									line-height: 0
+									width: 160px
+									.addMember
+										// background-color: yellow
+										text-align: center
+									.addMember-items
+										// background-color: red
+										display: block
+										.addMember-item
+											border-radius: 50%
+											display: block
+											height: 30px
+											// overflow: hidden
+											margin: 0 auto
+											width: 30px
+											.avatar
+												vertical-align: middle
+												height: 30px
+												width: 30px
+
+								&.td-actions
+									width: 120px
+
+								&.td-fecha
+									width: 160px
+									+respond-to(tl)
+										width: auto
+									+respond-to(xs)
+										width: auto
+
+								&.td-arrendador
+									width: 30%
+
+								.panel-listado-acctions
+									align-items: center
+									display: flex
+									flex-wrap: wrap
+									justify-content: center
+									padding-right: 4px
+									width: 120px
+									+respond-to(xs)
+										flex-direction: column
+									+respond-to(sl)
+										flex-direction: row
+										justify-content: center
+									.tooltip-2,
+									.tooltip.tooltip-2
+										z-index: 2 !important
+									.panel-listado-acctions-tooltip
+										display: flex
+										margin-right: .8rem
+										&:last-child
+											margin-right: 0
+										+respond-to(xs)
+											margin-bottom: .8rem
+											margin-right: 0
+										+respond-to(sl)
+											margin-bottom: 0
+											margin-right: .8rem
+									.panel-listado-acction
+										align-items: center
+										background-color: $ryg-accent
+										border-color: $ryg-accent
+										border-radius: 50%
+										color: $ryg-second
+										display: flex
+										height: 28px
+										justify-content: center
+										padding: 0
+										text-align: center
+										text-decoration: none
+										width: 28px
+										i
+											// color: $ryg-primary
+											font-size: 1.1rem
+											margin: 0
+										&:active
+											background-color: transparent
+
+										&.acction-archive
+											display: block
+											padding: 0
+											line-height: 20px
+
+										// &.acction-detail,
+										// &.acction-tarea
+										// 	background-color: $ryg-accent
+										// 	border-color: $ryg-accent
+										// 	color: $ryg-second
+
+								.addMember-trigger-dropdown
+									width: 170px
+									.addMember-list-item
+										align-items: center
+										display: flex
+										justify-content: flex-start
+										padding: 8px 12px
+										width: 100%
+										img
+											height: 30px
+											width: 30px
+										p
+											margin-bottom: 0
+											text-overflow: ellipsis
+											white-space: nowrap
+											overflow: hidden
+											width: calc(100% - 42px)
+
+
+								// .addMember-trigger-dropdown:before
+								// 	display: none !important
+
+			.summary
+				color: $ryg-aqua
+				display: flex
+				font-size: .9rem
+				font-weight: $thin
+				justify-content: flex-end
+				letter-spacing: 1px
+				margin-bottom: 0
+				padding: 4px 8px 0
+				b
+					color: $white
+					font-weight: $regular
+					margin: 0 8px
+
+/*  Page Crear - Actualizar
+	======================================= */
+.ent-localidades-create,
+.ent-localidades-update
+	.ent-localidades-form
+		padding: 40px 0 60px
+		form
+			.form-group
+				.control-label
+					padding-left: 1rem
+				
+				input[type="email"],
+				input[type="password"],
+				input[type="text"],
+				input[type="text"]:disabled,
+				input[type="text"][readonly],
+				select,
+				textarea,
+				.form-control,
+				.form-control:disabled,
+				.form-control[readonly]
+					background-color: $ryg-second
+					border-color: $ryg-seconds
+					font-weight: $light
+					&:active,
+					&:focus,
+					&:hover
+						border-color: $ryg-second
+						box-shadow: none
+						outline: none
+
+				input[type="email"],
+				input[type="password"],
+				input[type="text"],
+				input[type="text"]:disabled,
+				input[type="text"][readonly]
+					height: 38px
+
+				select
+					-webkit-appearance: none
+					-moz-appearance: none
+					-ms-appearance: none
+					appearance: none
+					background-image: url(../images/downarrow.png)
+					background-color: $ryg-seconds
+					background-position: 96% 50%
+					background-repeat: no-repeat
+					background-size: 8px
+
+				textarea
+					resize: none
+
+				.help-block
+					color: $error
+					font-size: .85rem
+					margin-top: .3rem
+					padding-left: 1rem
+				
+				.select2,
+				.select2-container--krajee
+					position: relative
+					.select2-selection
+						background-color: $ryg-second
+						border-color: $ryg-second
+						color: $ryg-aqua
+						font-weight: $light
+						position: relative
+						.select2-selection__rendered
+							position: relative
+							.select2-selection__clear
+								color: $ryg-aqua
+								right: .2rem
+								top: -.4rem
+
+					.select2-selection--single
+						.select2-selection__arrow	
+							border-left-color: $ryg-second
+
+				.select2-container--krajee.select2-container--open .select2-selection,
+				.select2-container--krajee .select2-selection:focus
+					box-shadow: none
+
+				.select2-container--krajee
+					.select2-selection--single
+						.select2-selection__rendered
+							color: $white
+
+			.radio-custom label::before
+				background-color: $ryg-second
+				border-color: $ryg-second
+				
+			.radio-warning
+				input[type=radio]:checked+input[type=hidden]+label::before,
+				input[type=radio]:checked+label::before
+					background-color: $ryg-accent
+					border-color: $ryg-accent
+
+				input[type=radio]:checked+input[type=hidden]+label::after,
+				input[type=radio]:checked+label::after
+					background-color: $ryg-second
+					border-color: $ryg-second
+
+			.btn-form-save
+				background-color: $ryg-accent
+				border-color: $ryg-accent
+				color: $ryg-second
+				width: 100%
+				&:active,
+				&:focus,
+				&:hover
+					background-color: darken( $ryg-accent, 20% )
+					border-color: darken( $ryg-accent, 20% )
+					color: $ryg-second
+
+			.form-control,
+			.form-control:disabled,
+			.form-control[readonly]
+				background-color: $ryg-second
+				border-color: $ryg-second
+
+			.panel
+				.panel-heading
+					.panel-title
+						color: $ryg-aqua
+						font-weight: $light
+				.panel-body
+					.list-inline-item:not(:last-child)
+						margin-right: 30px
+					.list-inline-item
+						label
+							// background-color: red
+							color: rgba($ryg-aqua,.48)
+
+/*  Page Actualizar
+	======================================= */
+.ent-localidades-update
+	.ent-localidades-update-history
+		// background-color: red
+		.panel-history
+			background-color: rgba($ryg-second,.65)
+			.panel-heading
+				background-color: $ryg-second
+				padding: 12px 16px
+				h3
+					color: $ryg-aqua
+					font-size: 1.25rem
+					font-weight: $thin
+					letter-spacing: 1px
+					margin: 0
+			.panel-body
+				padding: 24px 16px
+
+
+/*  Page View
+	======================================= */
+.ent-localidades-view
+	// background-color: red
+
+	.ent-localidades-view-head
+		align-items: center
+		display: flex
+		justify-content: flex-end
+		margin-bottom: 32px
+		width: 100%
+
+		.btn-update,
+		.btn-delete
+			border-color: $ryg-accent
+
+		.btn-update
+			background-color: $ryg-accent
+			color: $ryg-primary
+			&:active,
+			&:active:focus,
+			&:active:hover,
+			&:disabled,
+			&[disabled]:hover,
+			&[disabled]:focus,
+			&:hover,
+			&:focus
+				background-color: darken( $ryg-accent, 20% )
+				border-color: darken( $ryg-accent, 20% )
+				color: $ryg-second
+
+		.btn-delete
+			background-color: rgba($ryg-accent,.45)
+			color: $white
+			margin-left: 12px
+			&:active,
+			&:active:focus,
+			&:active:hover,
+			&:disabled,
+			&[disabled]:hover,
+			&[disabled]:focus,
+			&:hover,
+			&:focus
+				background-color: rgba($ryg-accent,.6)
+	
+	.ent-localidades-view-body
+		
+		.ent-localidades-view-panel
+			// background-color: rgba($ryg-primary,.75)
+			// margin-bottom: 32px
+			padding: 0 0 16px
+			&:last-child
+				margin-bottom: 0
+
+			form.form-detalle-localidad
+				background-color: rgba($black,.2)
+				padding: 24px 4px
+				.form-group
+					position: relative
+					.form-control,
+					p.form-p
+						position: relative
+						z-index: 9
+
+					.form-control
+						background-color: transparent
+						border-color: $ryg-accent
+						// color: $black
+
+					.form-input
+						display: none
+						min-height: 40px
+						width: calc(100% - 40px)
+
+					.form-label
+						display: block
+						width: calc(100% - 40px)
+
+					.form-edit
+						bottom: 0
+						display: flex
+						position: absolute
+						right: 0
+						top: 0
+						z-index: 12
+						i.icon
+							align-items: center
+							background-color: $ryg-accent
+							border-radius: 50%
+							color: $font-color
+							cursor: pointer
+							display: flex
+							height: 36px
+							justify-content: center
+							width: 36px
+							&.icon-save
+								display: none
+						&.edit-visible
+							display: flex
+							i.icon
+								&.icon-edit
+									display: none
+								&.icon-save
+									display: flex
+
+					&:hover
+						.form-edit
+							display: block
+						.form-edit
+							&.edit-visible
+								display: flex
+
+
+
+			h2,
+			h3
+				background-color: rgba($ryg-second,.9)
+				color: $ryg-aqua
+				font-size: 1.15rem
+				font-weight: $thin
+				margin: 0
+				padding: 24px
+				text-transform: uppercase
+			
+			.col
+				margin-bottom: 32px
+			
+			.ent-localidades-view-panel-int
+				background-color: rgba($ryg-primary,.75)
+				padding: 16px 38px
+				.row
+					// border-bottom: 1px solid $ryg-second
+					// padding-bottom: 8px
+					// padding-top: 8px
+					// &:last-child
+					// 	border-bottom: none
+					span,
+					p
+						display: inline-block
+					span
+						color: rgba($white,.8)
+						display: block
+						font-weight: $medium
+						&.badge.badge-success.badge-outline
+							background-color: $ryg-accent
+							border-color: $ryg-accent
+							color: rgba($ryg-second,.8)
+							white-space: pre-wrap
+							word-wrap: break-word
+							overflow-wrap: break-word
+							text-align: left
+					p
+						color: rgba($white,.65)
+						font-weight: $light
+
+					.addMember-remove
+						color: #fa7a7a
+					.ladda-label
+						color: $ryg-second
+						font-weight: $light
+
+					.addMember-list-item
+						align-items: center
+						display: flex
+						justify-content: flex-start
+						p
+							color: $ryg-primary
+							margin: 0
+						
+
+					.tarea-fechas
+						align-items: flex-start
+						display: flex
+						justify-content: space-between
+						margin-bottom: 16px
+						.tarea-creada,
+						.tarea-actualizacion
+							p
+								margin-bottom: 2px
+							p.item
+								color: rgba($white,.6)
+								font-size: .85rem
+							p.borrar
+								color: $white
+								cursor: pointer
+								font-size: 1rem
+								margin-left: 12px
+
+						.tarea-creada
+							display: flex
+							flex-direction: column
+
+					.col-separacion
+						// border-bottom: 1px solid $ryg-second
+						padding-bottom: 12px
+						padding-top: 12px
+						// &:last-child
+						// 	background-color: red
+
+					.tarea-actions
+						align-items: center
+						display: flex
+						justify-content: flex-start
+						.tarea-check
+							width: 30px
+							.checkbox-custom.checkbox-warning
+								margin-bottom: 12px
+								margin-top: 0
+							.tarea-check-p
+								align-items: center
+								border: 1px solid $ryg-accent
+								border-radius: 4px
+								color: $white
+								display: flex
+								font-size: 1.15rem
+								justify-content: center
+								margin-bottom: 0
+								padding: 6px 2px
+								text-align: left
+								width: 100%
+								i.icon
+									margin-right: 0
+
+							.checkbox-warning
+								input[type="checkbox"]:checked + label::after
+									color: $ryg-primary
+
+							&.tarea-check-completada
+								width: 0
+
+							&.tarea-check-completada ~ .form-tarea-abogado
+								width: 100%
+								p.form-p.form-tarea-label
+									padding-left: 0
+								
+						.tarea-member
+							width: 40px
+							.addMember
+								display: flex
+								margin-top: 0
+
+						.form-tarea-abogado
+							// padding: 24px 4px
+							width: calc(100% - 70px)
+							.form-groupes
+								align-items: center
+								display: flex
+								justify-content: flex-start
+								margin-bottom: 0
+								min-height: 36px
+								position: relative
+								.form-control,
+								p.form-p
+									position: relative
+									z-index: 9
+
+								.form-group-row
+									display: none
+									margin-bottom: 0
+									width: calc(100% - 50px)
+
+									.form-control
+										background-color: transparent
+										border-color: $ryg-accent
+										&:active,
+										&:hover,
+										&:focus
+											box-shadow: none
+											outline: none
+
+									.form-tarea-input
+										height: 60px
+										min-height: 60px
+										width: 100%
+
+								.form-tarea-label
+									display: block
+									margin-bottom: 0
+									padding-left: 12px
+									width: calc(100% - 50px)
+
+								.form-tarea-edit
+									bottom: 0
+									display: flex
+									min-height: 36px
+									position: absolute
+									right: 0
+									top: 0
+									z-index: 12
+									i.icon
+										align-items: center
+										background-color: $ryg-accent
+										border-radius: 50%
+										color: $font-color
+										cursor: pointer
+										display: flex
+										height: 36px
+										justify-content: center
+										margin-right: 0
+										width: 36px
+										&.icon-save
+											display: none
+									&.edit-tarea-visible
+										align-items: center
+										display: flex
+										i.icon
+											&.icon-edit
+												display: none
+											&.icon-save
+												display: flex
+
+								&:hover
+									.form-tarea-edit
+										display: block
+									.form-tarea-edit
+										&.edit-tarea-visible
+											display: flex
+
+
+					.tarea-colaborador-actions
+						align-items: center
+						display: flex
+						justify-content: flex-start
+
+						.form-tarea-colaborador-texto
+							// padding: 24px 4px
+							width: 100%
+							.form-groupes
+								align-items: center
+								display: flex
+								justify-content: flex-start
+								margin-bottom: 0
+								min-height: 36px
+								position: relative
+								.form-control,
+								p.form-p
+									position: relative
+									z-index: 9
+
+								.form-group-colaborador-row
+									display: none
+									margin-bottom: 0
+									width: calc(100% - 50px)
+
+									.form-control
+										background-color: transparent
+										border-color: $ryg-accent
+										&:active,
+										&:hover,
+										&:focus
+											box-shadow: none
+											outline: none
+
+									.form-colaborador-input
+										height: 60px
+										min-height: 60px
+										width: 100%
+
+								.form-colaborador-label
+									display: block
+									margin-bottom: 0
+									padding-left: 12px
+									width: calc(100% - 50px)
+
+								.form-colaborador-edit
+									bottom: 0
+									display: flex
+									min-height: 36px
+									position: absolute
+									right: 0
+									top: 0
+									z-index: 12
+									i.icon
+										align-items: center
+										background-color: $ryg-accent
+										border-radius: 50%
+										color: $font-color
+										cursor: pointer
+										display: flex
+										height: 36px
+										justify-content: center
+										margin-right: 0
+										width: 36px
+										&.icon-save
+											display: none
+									&.edit-colaborador-visible
+										align-items: center
+										display: flex
+										i.icon
+											&.icon-edit
+												display: none
+											&.icon-save
+												display: flex
+
+								&:hover
+									.form-colaborador-edit
+										display: block
+									.form-colaborador-edit
+										&.edit-colaborador-visible
+											display: flex
+
+					.tarea-nombre
+						align-items: center
+						display: flex
+						justify-content: space-between
+						padding: 12px 0
+						width: 100%
+						h4
+							color: $white
+							font-size: 1.125rem
+							font-weight: 300
+						a.btn-down-archive
+							align-items: center
+							background-color: $ryg-accent
+							border-color: $ryg-accent
+							border-radius: 50%
+							color: $font-color
+							cursor: pointer
+							display: flex
+							height: 36px
+							justify-content: center
+							padding: 0
+							text-align: center
+							width: 36px
+							i.icon
+								margin-right: 3px
+
+					.form-tarea-archive
+						.form-archive
+							align-items: center
+							display: flex
+							justify-content: space-between
+							margin-top: 16px
+							width: 100%
+							p
+								color: $white
+								font-size: 1.15rem
+								text-align: left
+							a.btn-down-doc
+								align-items: center
+								background-color: $ryg-accent
+								border-color: $ryg-accent
+								border-radius: 50%
+								color: $font-color
+								cursor: pointer
+								display: flex
+								height: 36px
+								justify-content: center
+								padding: 0
+								text-align: center
+								width: 36px
+								i.icon
+									margin-right: 3px
+
+					.tarea-completada-text
+						display: block
+						p
+							color: $success
+							font-size: 1.15rem
+							margin-bottom: 0
+							padding: 8px 0
+							text-align: left
+							text-transform: uppercase
+			
+
+/*  Slide Paneles
+	======================================= */	
+.slidePanel
+	+box-shadow(-6px 0 4px 0 rgba($ryg-second, .2))
+.slidePanel-right,
+.slidePanel-left
+	background-color: $ryg-second!important
+
+.slidePanel-header
+	background-color: $ryg-second!important
+	padding: 40px 30px
+	.slidePanel-actions
+		position: absolute
+		right: 20px
+		top: 0
+	h1
+		color: $ryg-aqua
+		text-align: center
+
+.slidePanel-content
+	.page-content
+		padding: 0 30px
+	.ent-localidades-view-panel-int
+		background-color: rgba($ryg-primary,.85)!important
+	.row-padding
+		padding: 4px 38px
+	.list-group-item
+		background-color: transparent
+		padding-left: 0
+		padding-right: 0
+	.btn-warning
+		background-color: $ryg-accent
+		border-color: $ryg-accent
+		color: $ryg-second
+		&:active,
+		&:focus,
+		&:hover
+			background-color: darken( $ryg-accent, 20% )
+			border-color: darken( $ryg-accent, 20% )
+			color: $ryg-second
+	.task-badges
+		a
+			color: $ryg-aqua
+
+	.dropify-wrapper
+		background-color: transparent
+		border-color: $ryg-accent
+		&:hover
+			background-color: rgba($ryg-accent,.1)
+			background-image: linear-gradient(-45deg, rgba($white,.15) 25%, transparent 25%, transparent 50%, rgba($white,.15) 50%, rgba($white,.15) 75%, transparent 75%, transparent)
+		.dropify-message
+			color: $white
+			&:active,
+			&:hover,
+			&:focus
+				background-color: rgba($ryg-accent,.45)
+				cursor: pointer
+				outline: none
+		.dropify-preview
+			background-color: $ryg-second
+
+	textarea.form-control
+		background-color: transparent
+		border: 1px solid $ryg-accent
+		font-size: 1.1rem
+		font-weight: $light
+		min-height: 120px
+		padding: 16px
+		resize: none
+
+	.row.row-no-border
+		// background-color: red
+		border-bottom: none!important
+		border-top: none!important
+		.list-group-item
+			border-top: 1px solid $ryg-gray
+			margin-top: 12px
+			padding: 8px
+
+			button.btn.btn-delete-tarea
+				background-color: $error
+				border-color: $error
+				color: $white
+
+			button.btn.btn-save-texto
+				background-color: darken($ryg-accent, 20%)
+				border-color: darken($ryg-accent, 20%)
+
+			.label-check
+				color: $white
+				font-size: 1rem
+				margin-bottom: 4px
+				width: 100%
+
+			form.form-tareas
+				// background-color: rgba(red,.1)
+
+				.checkbox-custom.checkbox-warning
+
+					input[type="text"].form-control
+						background-color: $ryg-second
+						border: none
+						color: $ryg-aqua
+						font-size: 1rem
+						font-weight: $light
+						margin-right: 20px
+						+placeholder
+							color: rgba($ryg-aqua,.6)
+							font-size: 1rem
+							font-weight: $light
+						&:focus
+							box-shadow: none
+							outline: none
+
+					label
+						&::before
+							background-color: $ryg-second
+							border-color: $ryg-second
+							
+						&::after,
+						&::before
+							background-color: $ryg-second
+							border-color: $ryg-second
+							top: 8px
+
+					input[type="checkbox"]:checked + label::after
+						background-color: $ryg-accent
+						border-color: $ryg-accent
+						border-radius: .215rem
+
+	.tooltip-2,
+	.tooltip.tooltip-2
+		background-color: blue !important
+		z-index: 2 !important
+
+	.addMember
+		margin-top: 6px
+
+	.btn.btn-success.btn-outline
+		// color: $white
+		display: inline-block
+		height: 26px
+		margin-top: 8px
+		padding: 4px 0
+		text-align: center
+		vertical-align: middle
+		width: 26px
+		.icon
+			margin-right: 0
+
+	.checkbox-warning
+		input[type=radio]:checked+input[type=hidden]+label::before,
+		input[type=radio]:checked+label::before,
+		input[type=checkbox]:checked+input[type=hidden]+label::before, 
+		input[type=checkbox]:checked+label::before
+			background-color: $ryg-accent
+			border-color: $ryg-accent
+
+	// .addMember-cont
+	// 	.addMember
+	// 		.addMember-trigger
+	// 			.addMember-trigger-dropdown
+	// 				&:before
+	// 					border-color: transparent

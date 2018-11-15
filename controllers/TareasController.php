@@ -73,19 +73,39 @@ class TareasController extends Controller
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())){
             $model->id_usuario = EntUsuarios::getUsuarioLogueado()->id_usuario;
             if($model->save()){ 
-                $templateItem = '<li class="list-group-item" data-tareakey="'.$model->id_tarea.'">                        
-                                    <div class="w-full">
-                                        <div class="row row-no-border">
-                                            <div class="col-xs-8 col-sm-8 col-md-8">
-                                                <div class="checkbox-custom checkbox-warning">
-                                                    <input type="checkbox" name="checkbox">
-                                                        <label class="task-title">'.$model->txt_nombre.'</label>
+                $templateItem = '<li class="list-group-item js-tarea-'.$model->id_tarea.'" data-tareakey="'.$model->id_tarea.'">                        
+                                    <div class="col-sm-12 col-md-12 col-separacion js_descargar_archivo-'.$model->id_tarea.'">
+                                        <div class="tarea-fechas"> 
+                                            <div class="tarea-actualizacion">
+                                                <p class="borrar js_btn_eliminar_tarea js_btn_eliminar_tarea-'.$model->id_tarea.'" data-id="'.$model->id_tarea.'">Borrar</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <form id="form-tarea-nombre'.$model->id_tarea.'" class="tarea-actions form-tareas">
+                                            <div class="tarea-check">
+                                                <div class="checkbox-custom checkbox-warning">                                                    
+                                                    <input type="checkbox" id="check-nombre" class="js-completar-tarea" data-token="'.$model->id_tarea.'" name="checkbox">
+                                                    <label for="check-nombre" class="task-title" style="width:100%"></label>
                                                 </div>
                                             </div>
-                                            <div class="col-xs-2 col-sm-2 col-md-2 text-left">
+                                            <div class="tarea-member addMember-cont">
                                                 <select multiple="multiple" class="plugin-selective-tareas" data-localidad="'.$model->id_localidad.'" data-id="'.$model->id_tarea.'" data-json="[]"/>
-                                            </div>                                       
-                                        </div>
+                                            </div>
+
+                                            <div class="form-tarea-abogado">
+                                                <div class="form-groupes"> 
+                                                    <div class="form-group form-group-row"> 
+                                                        <textarea class="form-control form-tarea-input js-editar-nombre-tarea" data-id="'.$model->id_tarea.'">'.$model->txt_nombre.'</textarea>
+                                                        <div class="help-block"></div>
+                                                    </div>
+                                                    <p class="form-p form-tarea-label">'.$model->txt_nombre.'</p>
+                                                    <div class="form-tarea-edit">
+                                                        <i class="icon wb-pencil icon-edit js-tarea-icon-edit" aria-hidden="true"></i>
+                                                        <i class="icon wb-check icon-save js-tarea-icon-save" aria-hidden="true"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                 </li>';
                 $respuesta->status = "success";
@@ -175,7 +195,7 @@ class TareasController extends Controller
                 $response->message = "Tarea guardada.";
                 $response->result['url'] = null;
             }
-            $model ->fch_actualizacion = date("Y-m-d 00:00:00");
+            $model->fch_actualizacion = date("Y-m-d H:i:s");
             if($model->save()){
 
                 $response->status = "success";
@@ -187,7 +207,7 @@ class TareasController extends Controller
                 // Enviar correo
                 $utils = new Utils ();
                 // Parametros para el email
-                $parametrosEmail ['localidad'] = $localidad->txt_nombre;
+                $parametrosEmail ['localidad'] = $localidad;
                 $parametrosEmail ['tarea'] = $model->txt_nombre;
                 $parametrosEmail ['user'] = $user->getNombreCompleto ();
                 $parametrosEmail ['userActual'] = $userActual->getNombreCompleto ();
@@ -281,5 +301,39 @@ class TareasController extends Controller
         return $response;
     }
 
-   
+    public function actionCambiarNombre($id = null){
+        $response = new ResponseServices();
+        $tarea = $this->findModel($id);
+
+        if(isset($_POST['nombre'])){
+            if(!empty($_POST['nombre'])){
+                if($tarea){
+                    $tarea->txt_nombre = $_POST['nombre'];
+
+                    if($tarea->save()){
+                        $response->status = "success";
+                        $response->message = "Estatus de la tarea guardado";
+                    }else{
+                        $response->result = $tarea->errors;
+                    }
+                }
+            }
+        }
+
+        return $response;
+    }
+
+    public function actionEliminarTarea($id = null){
+        $response = new ResponseServices();
+        $tarea = $this->findModel($id);
+
+        if($tarea->delete()){
+            $response->status = "success";
+            $response->message = "Tarea eliminada correctamente";
+        }else{
+            $response->result = $tarea->errors;
+        }
+
+        return $response;
+    }
 }

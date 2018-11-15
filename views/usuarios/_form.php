@@ -8,6 +8,9 @@ use yii\helpers\ArrayHelper;
 use app\models\ConstantesWeb;
 use yii\web\View;
 use app\models\WrkUsuarioUsuarios;
+use app\modules\ModUsuarios\models\EntUsuarios;
+
+$isAdmin = Yii::$app->user->identity->txt_auth_item == ConstantesWeb::SUPER_ADMIN;
 
 ?>
 <div class="row">
@@ -31,7 +34,10 @@ use app\models\WrkUsuarioUsuarios;
 
             <div class="row">
                 <div class="col-md-6">
-                    <?= $form->field($model, 'txt_auth_item')
+                    <?php
+                    if($model->isNewRecord){
+                    ?>
+                        <?= $form->field($model, 'txt_auth_item')
                             ->widget(Select2::classname(), [
                                 'data' => ArrayHelper::map($roles, 'name', 'description'),
                                 'language' => 'es',
@@ -40,29 +46,64 @@ use app\models\WrkUsuarioUsuarios;
                                     'allowClear' => true
                                 ],
                             ])->label(false);
+                        ?>
+                    <?php
+                    }else{
                     ?>
-                </div>
-                
-                    
+                        <p class="text-nombre-usuario"><?= $model->roleDescription ?></p>
+                    <?php
+                    }
+                    ?>
+                </div>   
             
                 <div id="select_clientes" class="col-md-6" style="display:none">
                     <?php
-                    $usuarioDirector = WrkUsuarioUsuarios::find(["id_usuario_hijo"=>$model->id_usuario])->one();
-                    if($usuarioDirector){
-                        $model->usuarioPadre = $usuarioDirector->id_usuario_padre;
-                    }
+                    // $usuarioDirector = WrkUsuarioUsuarios::find(["id_usuario_hijo"=>$model->id_usuario])->one();
+                    // if($usuarioDirector){
+                    //     $model->usuarioPadre = $usuarioDirector->id_usuario_padre;
+                    // }
+
+                    if($model->isNewRecord){
+                        if(!$isAdmin){
                     ?>
-                    <?= $form->field($model, 'usuarioPadre')
-                        ->widget(Select2::classname(), [
-                            'data' => ArrayHelper::map($usuariosClientes, 'id_usuario', 'nombreCompleto'),
-                            'language' => 'es',
-                            'options' => ['placeholder' => 'Seleccionar grupo de trabajo'],
-                            'pluginOptions' => [
-                                'allowClear' => true
-                            ],
-                        ])->label(false);
-                    ?> 
+                            <?= $form->field($model, 'usuarioPadre')
+                                    ->widget(Select2::classname(), [
+                                        'data' => ArrayHelper::map($usuariosClientes, 'id_usuario', 'nombreCompleto'),
+                                        'language' => 'es',
+                                        'options' => ['placeholder' => 'Seleccionar grupo de trabajo'],
+                                        'pluginOptions' => [
+                                            'allowClear' => true
+                                        ],
+                                    ])->label(false);
+                                ?> 
+                    <?php
+                        }
+                    }else{
+                        if($model->txt_auth_item == ConstantesWeb::ASISTENTE || $model->txt_auth_item == ConstantesWeb::CLIENTE || $model->txt_auth_item == ConstantesWeb::COLABORADOR){
+                            $idPadre = WrkUsuarioUsuarios::find()->where(['id_usuario_hijo'=>$model->id_usuario])->one();
+                            if($idPadre){
+                                $padre = EntUsuarios::find()->where(['id_usuario'=>$idPadre->id_usuario_padre])->one();
+                                
+                                if($padre){
+                                    $model->usuarioPadre = $padre->id_usuario;
+                                }//echo "ddd--" .$model->usuarioPadre;exit;
+                            }
+                        ?>
+                            <?= $form->field($model, 'usuarioPadre')
+                                ->widget(Select2::classname(), [
+                                    'data' => ArrayHelper::map($usuariosClientes, 'id_usuario', 'nombreCompleto'),
+                                    'language' => 'es',
+                                    'options' => ['placeholder' => 'Seleccionar grupo de trabajo'],
+                                    'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                ])->label(false);
+                            ?> 
+                    <?php 
+                        }
+                    }?>
                 </div>
+
             </div>
             <div class="row">
                 <div class="col-md-6">
@@ -104,11 +145,19 @@ $(document).ready(function(){
 });
 
 function desplegarDirectores(elemento){
-    if(elemento.val()=="'.ConstantesWeb::COLABORADOR.'"){
-        $("#select_clientes").show();
 
+    if("'.Yii::$app->user->identity->txt_auth_item.'" == "'.ConstantesWeb::SUPER_ADMIN.'"){
+        if("'.$model->txt_auth_item.'" == "'.ConstantesWeb::ABOGADO.'"){
+            $("#select_clientes").hide();
+        }
+        $("#select_clientes").show();
     }else{
-        $("#select_clientes").hide();
+
+        if(elemento.val()=="'.ConstantesWeb::COLABORADOR.'"){
+            $("#select_clientes").show();
+        }else{
+            $("#select_clientes").hide();
+        }
     }
 }
 ', View::POS_LOAD, 'user');

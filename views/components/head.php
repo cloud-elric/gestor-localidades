@@ -23,6 +23,10 @@ use yii\helpers\Url;
     <link rel="icon" type="image/png" sizes="32x32" href="<?=Url::base()?>/webAssets/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="<?=Url::base()?>/webAssets/favicons/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="<?=Url::base()?>/webAssets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="<?=Url::base()?>/webAssets/favicons/manifest.json">
+    <meta name="msapplication-TileColor" content="#161D1E">
+    <meta name="msapplication-TileImage" content="<?=Url::base()?>/webAssets/favicons/ms-icon-150x150.png">
+    <meta name="theme-color" content="#161D1E">
     
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>

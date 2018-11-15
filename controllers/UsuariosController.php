@@ -14,6 +14,8 @@ use app\models\WrkUsuarioUsuarios;
 use app\models\ConstantesWeb;
 use app\models\CatPorcentajeRentaAbogados;
 use app\models\ResponseServices;
+use yii\web\UploadedFile;
+use app\components\AccessControlExtend;
 
 /**
  * UsuariosController implements the CRUD actions for EntUsuarios model.
@@ -27,12 +29,28 @@ class UsuariosController extends Controller
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
+            'access' => [
+                'class' => AccessControlExtend::className(),
+                'only' => [
+                    'create', 'update', "view", "bloquear-usuario", "activar-usuario"
+                ],
+                'rules' => [
+                    [
+                        'actions' => [
+                            'create', 'update', "view", "bloquear-usuario", "activar-usuario"
+                        ],
+                        'allow' => true,
+                        'roles' => [ConstantesWeb::SUPER_ADMIN, ConstantesWeb::ABOGADO, ConstantesWeb::ASISTENTE],
+                    ],
+                    
                 ],
             ],
+            // 'verbs' => [
+            //     'class' => VerbFilter::className(),
+            //     'actions' => [
+            //         'logout' => ['post'],
+            //     ],
+            // ],
         ];
     }
 
@@ -91,6 +109,15 @@ class UsuariosController extends Controller
         ksort($hijos);
         $roles = AuthItem::find()->where(['in', 'name', array_keys($hijos)])->orderBy("name")->all();
 
+        if($usuario->txt_auth_item == "super-admin"){
+            unset($hijos[$usuario->txt_auth_item]);
+            unset($hijos['asistente']);
+            unset($hijos['cliente']);
+            unset($hijos['usuario-cliente']);
+            ksort($hijos);
+            $roles = AuthItem::find()->where(['in', 'name', array_keys($hijos)])->all();
+        }
+
         $model = new EntUsuarios([
             'scenario' => 'registerInput'
         ]);
@@ -100,10 +127,9 @@ class UsuariosController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
-
         
         $padre = null;
-        if ($model->load(Yii::$app->request->post())){
+        if ($model->load(Yii::$app->request->post())){ //print_r($_POST);exit;
             
             $model->password = $model->randomPassword();
             $model->repeatPassword = $model->password;
@@ -139,10 +165,14 @@ class UsuariosController extends Controller
                     $relUsuarios->id_usuario_padre = $_POST['EntUsuarios']['usuarioPadre'];
                     $relUsuarios->save(); 
                 }
-
+                if($model->txt_auth_item == ConstantesWeb::CLIENTE || $model->txt_auth_item == ConstantesWeb::ASISTENTE){
+                    $relUsuarios = new WrkUsuarioUsuarios();
+                    $relUsuarios->id_usuario_hijo =$model->id_usuario;
+                    $relUsuarios->id_usuario_padre = $usuario->id_usuario;
+                    $relUsuarios->save(); 
+                }
               
                 return $this->redirect(['usuarios/index']);
-                
             }
         
         // return $this->redirect(['view', 'id' => $model->id_usuario]);
@@ -174,14 +204,62 @@ class UsuariosController extends Controller
 
         $model = $this->findModel($id);
         $model->scenario = "update";
+        $rol = $model->txt_auth_item;
 
-        $usuariosClientes = EntUsuarios::find()->where(['txt_auth_item'=>ConstantesWeb::CLIENTE])->all();
+        if($usuario->txt_auth_item == ConstantesWeb::SUPER_ADMIN){
+            if($model->txt_auth_item == ConstantesWeb::COLABORADOR){
+                $usuariosClientes = EntUsuarios::find()->where(['txt_auth_item'=>'cliente'])->all();
+            }else if($model->txt_auth_item == ConstantesWeb::CLIENTE || $model->txt_auth_item == ConstantesWeb::ASISTENTE){
+                $usuariosClientes = EntUsuarios::find()->where(['txt_auth_item'=>'abogado'])->all();
+            }else{
+                $usuariosClientes = EntUsuarios::find()->where(['txt_auth_item'=>'super-admin'])->all();;
+            }
+        }else{
+            $usuariosClientes = EntUsuarios::find()->where(['txt_auth_item'=>ConstantesWeb::CLIENTE])->all();
+        }
 
-        if ($model->load(Yii::$app->request->post())){
+        if ($model->load(Yii::$app->request->post())){ //print_r($_POST);exit;
+            $model->usuarioPadre = $usuario->id_usuario;
+            //$model->txt_auth_item = $_POST['EntUsuarios']['txt_auth_item'];
+            $model->image = UploadedFile::getInstance($model, 'image');
             
+            if($model->image){
+                $model->txt_imagen = $model->txt_token.".".$model->image->extension;
+                if(!$model->upload()){
+                    return false;
+                }
+            }
+
             if($model->save()){
-                
+                $manager = Yii::$app->authManager;
+                $item = $manager->getRole($rol);
+                $item = $item ? : $manager->getPermission($rol);
+                $rev = $manager->revoke($item,$model->id_usuario);
+
+                $relUsuarios = WrkUsuarioUsuarios::find()->where(['id_usuario_hijo'=>$model->id_usuario])->one();
+                if($relUsuarios){
+                    $relUsuarios->id_usuario_padre = $_POST['EntUsuarios']['usuarioPadre'];
+                    $relUsuarios->save(); 
+                }else{
+                    $relUsuarios = new WrkUsuarioUsuarios();
+                    $relUsuarios->id_usuario_hijo =$model->id_usuario;
+                    $relUsuarios->id_usuario_padre = $_POST['EntUsuarios']['usuarioPadre'];
+                    $relUsuarios->save();
+                }
+
+                if($rev){
+                    $authorRole = $manager->getRole($model->txt_auth_item);
+                    $manager->assign($authorRole, $model->id_usuario);
+                }
+
                 return $this->redirect(['index']);
+            }else{
+                $model->scenario = 'updateModel';
+                return $this->render('update', [
+                    'model' => $model,
+                    'roles'=>$roles,
+                    'usuariosClientes' => $usuariosClientes
+                ]);
             }
         }else{
             $model->scenario = 'updateModel';

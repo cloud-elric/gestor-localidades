@@ -16,10 +16,10 @@ role="navigation">
       <i class="icon wb-more-horizontal" aria-hidden="true"></i>
     </button>
     <a class="navbar-brand navbar-brand-center" href="<?=Url::base()?>">
-      <img class="navbar-brand-logo navbar-brand-logo-normal" src="<?=Url::base()?>/webAssets/images/logo-ryg.png"
-      title="Remark">
-      <img class="navbar-brand-logo navbar-brand-logo-special" src="<?=Url::base()?>/webAssets/images/logo-ryg.png"
-      title="Remark">
+      <img class="navbar-brand-logo navbar-brand-logo-normal" src="<?=Url::base()?>/webAssets/images/overhaul.png"
+      title="OverHaul">
+      <img class="navbar-brand-logo navbar-brand-logo-special" src="<?=Url::base()?>/webAssets/images/overhaul.png"
+      title="OverHaul">
       
     </a>
     
@@ -37,6 +37,10 @@ role="navigation">
               </i>
           </a>
         </li>
+        <a class="navbar-brand navbar-brand-center navbar-logo-center" href="<?=Url::base()?>">
+          <img class="navbar-brand-logo navbar-brand-logo-normal" src="<?=Url::base()?>/webAssets/images/overhaul.png"
+          title="Remark">
+        </a>
       </ul>
       <!-- End Navbar Toolbar -->
       <!-- Navbar Toolbar Right -->
@@ -45,9 +49,23 @@ role="navigation">
         <li class="nav-item dropdown">
           <a class="nav-link navbar-avatar" data-toggle="dropdown" href="#" aria-expanded="false"
           data-animation="scale-up" role="button">
-            <span class="user-name"><?=EntUsuarios::getUsuarioLogueado()->nombreCompleto?></span>
+            <?php
+            $usuario = EntUsuarios::getUsuarioLogueado();
+            $auth = $usuario->txtAuthItem;
+            ?>
+            <span class="user-name"><?=$auth->description?></span>
             <span class="avatar avatar-online">
-              <img src="<?=EntUsuarios::getUsuarioLogueado()->imageProfile?>" alt="...">
+              <?php
+              if($usuario->txt_auth_item == 'super-admin'){
+              ?>
+                <img src="<?=EntUsuarios::getUsuarioLogueado()->imageProfileAdmin?>" alt="...">
+              <?php
+              }else{
+              ?>
+                <img src="<?=EntUsuarios::getUsuarioLogueado()->imageProfile?>" alt="...">
+              <?php
+              }
+              ?>
               <i></i>
             </span>
           </a>
