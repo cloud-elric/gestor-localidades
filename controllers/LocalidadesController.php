@@ -227,6 +227,7 @@ class LocalidadesController extends Controller
             }
         }
         $flag = true;
+        $model->txt_tag_estatus_tracker = explode('|', $model->txt_tag_estatus_tracker);
 
         return $this->render('create', [
             'model' => $model,

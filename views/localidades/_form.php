@@ -84,7 +84,7 @@ $this->registerJsFile(
                             'options' => ['multiple' => true],
                             'value' => $model->txt_tag_estatus_tracker,
                             'pluginOptions' => [
-                                'tags' => true,
+                                'tags' => false,
                                 'tokenSeparators' => ['|'],
                                 'maximumInputLength' => 10
                             ],
@@ -330,7 +330,7 @@ $this->registerJsFile(
         <div class="row">
             <div class="col-sm-10 offset-sm-1 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
   
-                <?= Html::button('<i class="icon fa-save font-size-18" aria-hidden="true"></i> Guardar', ['id'=>'js-btn-guardar-loc', 'class' => 'btn btn-success btn-form-save ladda-button', "data-style"=>"zoom-in"]) ?>
+                <?= Html::submitButton('<i class="icon fa-save font-size-18" aria-hidden="true"></i> Guardar', ['id'=>'js-btn-guardar-loc', 'class' => 'btn btn-success btn-form-save ladda-button', "data-style"=>"zoom-in"]) ?>
                 
             </div>
             
