@@ -32,6 +32,7 @@ use app\models\EntLocalidadesArchivadasSearch;
 use app\config\ConstantesDropbox;
 use app\models\CatColonias;
 use app\models\EntEstatusArchivados;
+use app\models\CatEstatusTracker;
 
 
 /**
@@ -172,7 +173,7 @@ class LocalidadesController extends Controller
 
         $historial = null;
 
-        if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())) { //print_r($_POST);exit;
+        if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())) { //print_r($_POST['EntLocalidades']['txt_tag_estatus_tracker']);exit;
 
             /**
              * Guardar datos si vienen de forma manual
@@ -184,8 +185,13 @@ class LocalidadesController extends Controller
                 $model->texto_estado = $_POST['EntLocalidades']['textoEstado'];
                 $model->txt_municipio = $_POST['EntLocalidades']['textoMun'];
             }
-            //exit;
-            
+
+            $txtTracker = '';
+            foreach($_POST['EntLocalidades']['txt_tag_estatus_tracker'] as $texto){
+                $txtTracker .= $texto . '|';
+            }
+
+            $model->txt_tag_estatus_tracker = $txtTracker;
             $model->id_usuario = Yii::$app->user->identity->id_usuario;
             $model->txt_token = Utils::generateToken('tok');
             $model->fch_creacion = $hoy;
@@ -244,6 +250,7 @@ class LocalidadesController extends Controller
         $estatus = new EntEstatus();
         $historial = EntEstatus::find()->where(['id_localidad' => $id])->all();
         $nombreOriginal = $model->txt_nombre;
+        $model->txt_tag_estatus_tracker = explode('|', $model->txt_tag_estatus_tracker);
         
         if ($model->load(Yii::$app->request->post()) && $estatus->load(Yii::$app->request->post())) { //print_r($model->fch_asignacion);print_r($model->fch_vencimiento_contratro);exit;
 
@@ -260,6 +267,12 @@ class LocalidadesController extends Controller
                 $model->txt_colonia = null;
             }
 
+            $txtTracker = '';
+            foreach($_POST['EntLocalidades']['txt_tag_estatus_tracker'] as $texto){
+                $txtTracker .= $texto . '|';
+            }
+
+            $model->txt_tag_estatus_tracker = $txtTracker;
             $model->fch_vencimiento_contratro = Utils::changeFormatDateInput($model->fch_vencimiento_contratro);
             $model->fch_asignacion = Utils::changeFormatDateInput($model->fch_asignacion);print_r($model->fch_asignacion);//print_r($model->fch_vencimiento_contratro);exit;
 

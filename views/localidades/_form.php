@@ -9,7 +9,6 @@ use kartik\date\DatePicker;
 use yii\web\View;
 use app\models\CatPorcentajeRentaAbogados;
 use yii\helpers\Url;
-use kartik\select2\Select2;
 use yii\web\JsExpression;
 use kartik\depdrop\DepDrop;
 use app\models\CatColonias;
@@ -19,7 +18,7 @@ use app\assets\AppAsset;
 use app\models\ConstantesWeb;
 use app\models\WrkUsuarioUsuarios;
 use app\models\CatEstatusTracker;
-
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\EntLocalidades */
@@ -79,7 +78,17 @@ $this->registerJsFile(
                         <?= $form->field($model, 'txt_contacto')->textInput(['maxlength' => true]) ?>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">
-                        <?= $form->field($model, 'id_estatus_tracker')->dropDownList(ArrayHelper::map(CatEstatusTracker::find()->where(['b_habilitado'=>1])->orderBy('txt_estatus_tracker')->all(), 'id_estatus_tracker', 'txt_estatus_tracker'), ['prompt'=>'Seleccionar estatus']); ?>
+                        <?php // $form->field($model, 'id_estatus_tracker')->dropDownList(ArrayHelper::map(CatEstatusTracker::find()->where(['b_habilitado'=>1])->orderBy('txt_estatus_tracker')->all(), 'id_estatus_tracker', 'txt_estatus_tracker'), ['prompt'=>'Seleccionar estatus']); ?>
+                        <?= $form->field($model, 'txt_tag_estatus_tracker')->widget(Select2::classname(), [
+                            'data' => ArrayHelper::map(CatEstatusTracker::find()->where(['b_habilitado'=>1])->orderBy('txt_estatus_tracker')->all(), 'txt_estatus_tracker', 'txt_estatus_tracker'),
+                            'options' => ['multiple' => true],
+                            'value' => $model->txt_tag_estatus_tracker,
+                            'pluginOptions' => [
+                                'tags' => true,
+                                'tokenSeparators' => ['|'],
+                                'maximumInputLength' => 10
+                            ],
+                        ])->label('Seleccionar estatus'); ?>
                     </div>
                 </div>
                 <div class="row">

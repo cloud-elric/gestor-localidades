@@ -87,10 +87,10 @@ class EntLocalidades extends \yii\db\ActiveRecord
                 'trim'
             ],
             [[/*'id_estado',*/ 'id_usuario', 'cms', 'txt_token', 'txt_nombre', 'txt_arrendador', 'txt_beneficiario', /*'txt_cp', 'txt_calle', 'txt_colonia', 'txt_municipio',*/ 'num_renta_actual', 'fch_vencimiento_contratro', 'fch_asignacion', 'txt_frecuencia'], 'required'],
-            [['id_estado', 'id_usuario', 'id_moneda', 'id_estatus_tracker', 'b_problemas_acceso', 'b_archivada', 'b_status_localidad'], 'integer'],
+            [['id_estado', 'id_usuario', 'id_moneda', /*'id_estatus_tracker',*/ 'b_problemas_acceso', 'b_archivada', 'b_status_localidad'], 'integer'],
             [['txt_estatus', 'txt_antecedentes', 'txt_contacto', 'txt_frecuencia'], 'string'],
             [['num_renta_actual', 'num_incremento_autorizado', 'num_pretencion_renta', 'num_incremento_cliente', 'num_pretencion_renta_cliente'], 'number'],
-            [['fch_vencimiento_contratro', 'fch_creacion', 'fch_asignacion', 'tipoUbicacion'], 'safe'],
+            [['fch_vencimiento_contratro', 'fch_creacion', 'fch_asignacion', 'tipoUbicacion', 'txt_tag_estatus_tracker'], 'safe'],
             [['cms'], 'string', 'max' => 50], 
             [['txt_token'], 'string', 'max' => 70],
             [['txt_nombre', 'txt_arrendador', 'txt_beneficiario', 'txt_calle', 'txt_colonia', 'txt_municipio', 'txt_contacto', 'texto_colonia', 'texto_estado'], 'string', 'max' => 150],
@@ -211,8 +211,8 @@ class EntLocalidades extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEstatusTracker()
-    {
-        return $this->hasOne(CatEstatusTracker::className(), ['id_estatus_tracker' => 'id_estatus_tracker']);
-    }
+    // public function getEstatusTracker()
+    // {
+    //     return $this->hasOne(CatEstatusTracker::className(), ['id_estatus_tracker' => 'id_estatus_tracker']);
+    // }
 }
