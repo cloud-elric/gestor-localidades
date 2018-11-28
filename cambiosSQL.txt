@@ -27,3 +27,17 @@ ALTER TABLE `ent_localidades`
 ALTER TABLE `ent_localidades_archivadas`
 	ADD COLUMN `id_estatus_tracker` INT(10) UNSIGNED NULL DEFAULT NULL AFTER `id_moneda`,
 	ADD CONSTRAINT `FK_ent_localidades_archivadas_cat_estatus_tracker` FOREIGN KEY (`id_estatus_tracker`) REFERENCES `cat_estatus_tracker` (`id_estatus_tracker`);
+
+
+
+
+
+ALTER TABLE `ent_localidades`
+	CHANGE COLUMN `id_estatus_tracker` `txt_tag_estatus_tracker` TEXT NULL DEFAULT NULL AFTER `id_moneda`,
+	DROP INDEX `FK_ent_localidades_cat_estatus_tracker`,
+	DROP FOREIGN KEY `FK_ent_localidades_cat_estatus_tracker`;
+
+ALTER TABLE `ent_localidades_archivadas`
+	CHANGE COLUMN `id_estatus_tracker` `txt_tag_estatus_tracker` TEXT NULL DEFAULT NULL AFTER `id_moneda`,
+	DROP INDEX `FK_ent_localidades_archivadas_cat_estatus_tracker`,
+	DROP FOREIGN KEY `FK_ent_localidades_archivadas_cat_estatus_tracker`;

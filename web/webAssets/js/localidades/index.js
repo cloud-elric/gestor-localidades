@@ -462,10 +462,21 @@ $(document).on({'click': function(){
 }
 }, ".js_btn_eliminar_tarea");
 
-$(document).on({'click': function(){
-    var l = Ladda.create(document.getElementById("js-btn-guardar-loc"));
-    l.start();
+// $(document).on({'click': function(){
+//     var l = Ladda.create(document.getElementById("js-btn-guardar-loc"));
+//     l.start();
 
-    $('#form-crear-localidad').submit();
-}
-}, "#js-btn-guardar-loc");
+//     $('#form-crear-localidad').submit();
+// }
+// }, "#js-btn-guardar-loc");
+
+$(document).on({
+    'beforeSubmit': function(){
+
+        if($(this).find('.has-error').length == 0){
+            var l = Ladda.create(document.getElementById("js-btn-guardar-loc"));
+            l.start();
+            // $(this).submit();
+        }
+    }
+}, '#form-crear-localidad');
