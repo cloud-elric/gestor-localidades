@@ -18,6 +18,7 @@ use app\models\WrkUsuariosTareas;
 use yii\helpers\Url;
 use app\assets\AppAsset;
 use app\models\Calendario;
+use app\models\CatEstatusTracker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\EntLocalidades */
@@ -172,8 +173,12 @@ $user = Yii::$app->user->identity;
                                         <div class="col-sm-12 col-md-12">
                                             <span>Estatus: </span>
                                             <?php
-                                            if($model->estatusTracker){
-                                                echo "<p>".$model->estatusTracker->txt_estatus_tracker."</p>";
+                                            if($model->txt_tag_estatus_tracker){
+                                                $arrayTracker = explode('|', $model->txt_tag_estatus_tracker);
+                                                foreach($arrayTracker as $texto){
+                                                    echo "<p>".$texto."</p>";
+                                                    echo "<br/>";
+                                                }
                                             }else{
                                                 echo "<p>Si estatus</p>";
                                             }
