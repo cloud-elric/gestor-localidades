@@ -163,7 +163,7 @@ function generarSelected(){
             
             var elemento = $(this);
             var token = elemento.data("localidad");
-            //console.log($("#json-colaboradores-"+token).data("colaboradores"));
+            //console.lxog($("#json-colaboradores-"+token).data("colaboradores"));
             //console.log(elemento.data('json'));
             elemento.selective({
               closeOnSelect: true , 

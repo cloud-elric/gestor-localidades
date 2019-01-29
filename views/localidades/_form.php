@@ -303,7 +303,7 @@ $this->registerJsFile(
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">
                         <div class="form-group">
-                            <?= $form->field($model, 'txt_frecuencia')->dropDownList(['mensual'=>'Mensual', 'trimestral'=>'Trimestral', 'semestral'=>'Semestral', 'anual'=>'Anual'], ['prompt'=>'Seleccionar opción']) ?>
+                            <?= $form->field($model, 'txt_frecuencia')->dropDownList(['mensual'=>'Mensual', 'trimestral'=>'Trimestral', 'semestral'=>'Semestral', 'anual'=>'Anual', '5anios'=>'5 años'], ['prompt'=>'Seleccionar opción']) ?>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">
