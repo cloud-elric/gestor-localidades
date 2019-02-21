@@ -40,7 +40,7 @@ class UsuariosController extends Controller
                             'create', 'update', "view", "bloquear-usuario", "activar-usuario"
                         ],
                         'allow' => true,
-                        'roles' => [ConstantesWeb::SUPER_ADMIN, ConstantesWeb::ABOGADO, ConstantesWeb::ASISTENTE],
+                        'roles' => [ConstantesWeb::SUPER_ADMIN, ConstantesWeb::ABOGADO, ConstantesWeb::ASISTENTE, ConstantesWeb::CLIENTE],
                     ],
                     
                 ],
